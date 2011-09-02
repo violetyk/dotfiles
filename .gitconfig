@@ -3,3 +3,7 @@
 	email = yuhei.kagaya@gmail.com
 [color]
 	ui = auto
+[http]
+	sslVerify = false
+[alias]
+	st = status
