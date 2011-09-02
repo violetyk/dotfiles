@@ -7,3 +7,6 @@
 	sslVerify = false
 [alias]
 	st = status
+[core]
+	editor = vim -c \"set fenc=utf-8\"
+	excludesfile = /home/yuhei/.gitignore
