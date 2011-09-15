@@ -15,3 +15,4 @@ git submodule init
 git submodule update
 
 cd ~
+echo "done!"
