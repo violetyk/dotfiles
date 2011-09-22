@@ -25,7 +25,8 @@ Bundle 'ShowMarks'
 Bundle 'AutoClose'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-quickrun'
-Bundle 'ZenCoding.vim'
+Bundle 'mattn/zencoding-vim'
+Bundle 'mattn/webapi-vim'
 Bundle 'scratch-utility'
 Bundle 'rails.vim'
 Bundle 'violetyk/cake.vim'
@@ -37,6 +38,9 @@ Bundle 'ChocolatePapaya'
 
 " syntax
 Bundle 'jQuery'
+
+" 日本語ヘルプフリーズ問題対策。
+set notagbsearch
 
 "----------------------------------------------------
 " 基本的な設定
@@ -651,7 +655,7 @@ let Tlist_Use_Right_Window = 1
 let Tlist_WinWidth = 50
 
 let tlist_php_settings = 'php;c:class;d:constant;f:function'
-if exists('loaded_taglist')
+" if exists('loaded_taglist')
   nmap <silent> <F9> :TlistToggle<CR>
 
 " ~/.ctags に設定を書くことにした。
@@ -695,7 +699,7 @@ if exists('loaded_taglist')
     set tags=./tags,tags
   endif
 
-endif
+" endif
 
 
 "----------------------------------------------------
@@ -873,18 +877,5 @@ let g:cakephp_log = {
       \ 'access': '/home/www/logs/access/current'
       \ }
 
-" ============================================================
-" デバッグ用。
-command! -n=0 Test :call s:test()
-function! s:test()
-let hoge = 'php -r "'
-let hoge = hoge . 'echo 123;'  . '"'
-echo hoge
 
-" echo \"hogehoge\";'"
-let result = system( hoge )
-echo result
-endfunction
-
-
-let g:loaded_vmrc = 1
+let g:loaded_vimrc = 1
