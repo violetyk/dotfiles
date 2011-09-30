@@ -16,6 +16,7 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
 Bundle 'unite-colorscheme'
 Bundle 'unite-locate'
+Bundle 'h1mesuke/unite-outline'
 Bundle 'surround.vim'
 Bundle 'matchit.zip'
 Bundle 'The-NERD-tree'
@@ -813,6 +814,7 @@ nnoremap <silent> <Space>es  :<C-u>NeoComplCacheEditSnippets
 nnoremap <silent> <Leader>ub :<C-u>Unite buffer<CR>
 nnoremap <silent> <Leader>um :<C-u>Unite file_mru<CR>
 nnoremap <silent> <Leader>ul :<C-u>Unite locate<CR>
+nnoremap <silent> <Leader>uo :<C-u>Unite outline<CR>
 set runtimepath+=~/.vim/plugin/
 
 "----------------------------------------------------
@@ -840,21 +842,40 @@ let g:scratchBackupFile=$HOME . "/scratch.txt"
 "----------------------------------------------------
 " zencoding.vim
 "----------------------------------------------------
-" let g:user_zen_settings = {
-  " \  'indentation' : '  ',
-  " \  'perl' : {
-  " \    'aliases' : {
-  " \      'req' : 'require '
-  " \    },
-  " \    'snippets' : {
-  " \      'use' : "use strict\nuse warnings\n\n",
-  " \      'warn' : "warn \"|\";",
-  " \    }
-  " \  }
-  " \}
+" デフォルトは<C-Y>
 let g:user_zen_leader_key = '<C-Space>'
-let g:user_zen_expandabbr_key = '<C-Space>'
+
+" タグやスニペットの入力補完を使う
 let g:use_zen_complete_tag = 1
+
+" user_zen_leader_key -> カンマで展開ではなく、一発で展開する。
+" let g:user_zen_expandabbr_key = '<C-Z>'
+
+" filterについて -> http://code.google.com/p/zen-coding/wiki/Filters
+let g:user_zen_settings = {
+\ 'lang' : 'ja',
+\ 'indentation' : '\t',
+\ 'html' : {
+\   'indentation' : '  ',
+\   'filters' : 'c',
+\ },
+\ 'css' : {
+\   'filters' : 'fc',
+\ },
+\ 'php' : {
+\   'extends' : 'html',
+\   'filters' : 'html,c',
+\ },
+\ 'perl' : {
+\  'aliases' : {
+\    'req' : 'require '
+\  },
+\  'snippets' : {
+\    'use' : "use strict\nuse warnings\n\n",
+\    'warn' : "warn \"|\";",
+\  }
+\}
+\}
 
 
 "----------------------------------------------------
