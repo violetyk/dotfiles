@@ -25,6 +25,7 @@ Bundle 'ShowMarks'
 Bundle 'AutoClose'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-quickrun'
+Bundle 'thinca/vim-localrc'
 Bundle 'mattn/zencoding-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'scratch-utility'
@@ -389,9 +390,9 @@ set softtabstop=4
 set shiftwidth=4
 
 " タブはハードタブとして入力する
-" set noexpandtab
+set noexpandtab
 " タブは空白として入力する（実際にTABを入力したい場合は<C-V><TAB>）
-set expandtab
+" set expandtab
 
 
 "----------------------------------------------------
@@ -554,6 +555,7 @@ function! IsEndSemicolon()
 endfunction
 " inoremap <expr>;; IsEndSemicolon() ? "<C-O>$;<CR>" : "<C-O>$<CR>"
 inoremap <expr>;; IsEndSemicolon() ? "<C-O>$;" : "<C-O>$"
+nnoremap <expr>;; IsEndSemicolon() ? "$a;<Esc>" : "$"
 
 " vimスクリプト開発用に即バッファをsource。
 nnoremap <silent> <Leader>so :<C-u>source %<CR>
@@ -868,14 +870,7 @@ nnoremap <Space>ccm :Ccomponent
 nnoremap <Space>cs :Cshell
 nnoremap <Space>ct :Ctask
 
-" let g:cakephp_app = ""
-" let g:cakephp_auto_set_project = 1
-" let g:cakephp_use_theme = ""
-
-let g:cakephp_log = {
-      \ 'query' : '/var/log/mysqld/query.log',
-      \ 'access': '/home/www/logs/access/current'
-      \ }
-
-
-let g:loaded_vimrc = 1
+"----------------------------------------------------
+" localrc.vim
+"----------------------------------------------------
+call localrc#load('.init.vimrc', $HOME)
