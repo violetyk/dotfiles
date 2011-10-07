@@ -8,6 +8,7 @@ fi
 # User specific aliases and functions
 alias vi='vim'
 alias rm='rm -i'
+alias wget='wget --no-check-certificate'
 # svn に登録されていないファイルをまとめて svn add
 alias svnadd="svn st | grep '^\?' | sed -e 's/\?[ ]*/svn add /g' | sh" 
 # ignoreも含めてstatus確認。
