@@ -9,7 +9,6 @@
 # Controller
 # --------------------------------------------------
 snippet controller
-abbr 日本語イケルの
 	<?php
 	class ${1}Controller extends ${3:AppController} {
 		
@@ -265,7 +264,7 @@ snippet pefcreate_model
     <?php echo $form->create('${1:model_name}'); ?>${0}
 
 snippet pefcreate_detail
-    <?php echo $form->create('url' => array('controller' => '${1:controller_name}', 'action' => '${2:action_name}', 'admin' => false), 'id' => '${3:id_name}'); ?>${0}
+    <?php echo $form->create(array('url' => array('controller' => '${1:controller_name}', 'action' => '${2:action_name}', 'admin' => false), 'id' => '${3:id_name}'); ?>${0}
 
 snippet pefend
     <?php echo $form->end(); ?>${0}
