@@ -1,5 +1,6 @@
-" CakePHP
-au! BufNewFile,BufRead *.ctp setf php
+" CakePHP -> naberon/vim-cakehtmlへ移行した
+" au! BufNewFile,BufRead *.ctp setl ft=php syntax=php expandtab shiftwidth=2 softtabstop=2
+
 
 " Drupal
 au! BufNewFile,BufRead *.inc setf php

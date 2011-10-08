@@ -31,6 +31,7 @@ Bundle 'mattn/zencoding-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'scratch-utility'
 Bundle 'rails.vim'
+Bundle 'naberon/vim-cakehtml'
 Bundle 'violetyk/cake.vim'
 
 " colorscheme
@@ -857,14 +858,17 @@ let g:user_zen_settings = {
 \ 'indentation' : '\t',
 \ 'html' : {
 \   'indentation' : '  ',
-\   'filters' : 'c',
+\   'filters' : 'html,c',
 \ },
 \ 'css' : {
 \   'filters' : 'fc',
 \ },
 \ 'php' : {
+\   'filters' : 'html',
+\ },
+\ 'htmlcake' : {
+\   'indentation' : '  ',
 \   'extends' : 'html',
-\   'filters' : 'html,c',
 \ },
 \ 'perl' : {
 \  'aliases' : {
