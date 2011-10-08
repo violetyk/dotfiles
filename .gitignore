@@ -1,4 +1,4 @@
 *\.swp
 .init.vimrc
 .local.vimrc
-.vim/manual/php_manual_ja/
+.vim/manual/(?!empty)
