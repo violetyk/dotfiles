@@ -29,6 +29,7 @@ Bundle 'thinca/vim-quickrun'
 Bundle 'thinca/vim-localrc'
 Bundle 'mattn/zencoding-vim'
 Bundle 'mattn/webapi-vim'
+Bundle 'mattn/gist-vim'
 Bundle 'scratch-utility'
 Bundle 'rails.vim'
 Bundle 'naberon/vim-cakehtml'
@@ -899,3 +900,11 @@ nnoremap <Space>ct :Ctask
 " localrc.vim
 "----------------------------------------------------
 call localrc#load('.init.vimrc', $HOME)
+
+"----------------------------------------------------
+" gist.vim
+"----------------------------------------------------
+let g:gist_privates = 1
+let g:gist_detect_filetype = 1
+let g:gist_show_privates = 1
+let g:gist_put_url_to_clipboard_after_post = 1
