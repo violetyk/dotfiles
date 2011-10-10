@@ -9,22 +9,22 @@
 # Controller
 # --------------------------------------------------
 snippet controller
-	<?php
-	class ${1}Controller extends ${3:AppController} {
-		
-		var $name = '${2}';
-		var $uses = null;
-		// var $scaffold;
-		// var $view = 'Theme';
-		// var $theme = '';
-		// var $layout = 'default';
-		// var $components = array();
-		// var $helpers = array();
-		
-		function index() {
-		}
-		${0}
-	}
+abbr Controller
+    class ${1}Controller extends ${3:AppController} {
+
+        var $name = '${2}';
+        var $uses = null;
+        // var $scaffold;
+        // var $view = 'Theme';
+        // var $theme = '';
+        // var $layout = 'default';
+        // var $components = array();
+        // var $helpers = array();
+
+        function index() {
+        }
+        ${0}
+    }
 
 snippet cset
         $this->set('${1:name}', ${2:value});${0}
@@ -36,14 +36,16 @@ snippet credirect
 # Model
 # --------------------------------------------------
 snippet model
-	class ${1:singular_name} extends ${2:AppModel} {
-	
-		var $name = '${3:singular_name}';
-		var $validate = array(
-	
-		);
-		${0}
-	}
+abbr Model
+    class ${1:singular_name} extends ${2:AppModel} {
+
+        var $name = '${3:singular_name}';
+        var $displayField = '${4:column_name}';
+        var $validate = array(
+
+        );
+        ${0}
+    }
 
 snippet mhasone
     var $hasOne = array(
@@ -105,99 +107,137 @@ snippet mfind
     ${0}
 
 
-
-snippet mv
-	'${1:field_name}' => array(
-		'rule' => '${2:rule}',
-		'message' => '${3:error_message}',
-		// 'required' => true, /* 必須*/
-		// 'allowEmpty' => true, /* 空文字の許可*/
-		// 'last' => false, /* そのエラーが発生した時点で以降のバリデーションは打ち切り */
-		// 'on' => 'update', /* 'create'か'update'時にバリデーションを限定する */
-	),
-    ${0}
-
-snippet mvrnotempty
-    'rule' => 'notEmpty',${0}
-
-snippet mvrblank
-    'rule' => 'blank',${0}
-
-snippet mvrnumeric
-    'rule' => 'numeric',${0}
-
-snippet mvralphanumeric
-    'rule' => 'alphaNumeric',${0}
-
-snippet mvrboolean
-    'rule' => 'boolean',${0}
-
-snippet mvrdecimal
-    'rule' => array('decimal', ${1:number_of_decimal_places}),${0}
-
-snippet mvrminlength
-    'rule' => array('minLength', ${1:length}),${0}
-
-snippet mvrmaxlength
-    'rule' => array('maxLength', ${1:length}),${0}
-
-snippet mvrbetween
-    'rule' => array('between', ${1:min<=}, ${2:<=max}),${0}
-
-snippet mvrrange
-    'rule' => array('range', ${1:min<}, ${2:<max}),${0}
-
-snippet mvrinlist
-    'rule' => array('inList', array(${1:value}, ${2:value})),${0}
-
-snippet mvrcomparison
-    'rule' => array('comparison', '${1:>/</>=/<=/==/!=}', ${2:value}),${0}
-
-snippet mvrequalto
-    'rule' => array('equalTo', '${1:value}'),${0}
-
-snippet mvremail
-    'rule' => 'email',${0}
-
-snippet mvrextension
-    'rule' => array('extension', ${1:array('gif', 'jpeg', 'png', 'jpg')}),${0}
-
-snippet mvrip
-    'rule' => array('ip', '${1:ipv4/ipv6/both}'),${0}
-
-snippet mvrmoney
-    'rule' => array('money', '${1:left/right}'),${0}
-
-snippet mvrmultiplein
-    'rule' => array('multiple', array(${1:value_list})),${0}
-
-snippet mvrmultiplecount
-    'rule' => array('multiple', array('min' => ${1:min_selected}, 'max' => ${2:max_selected})),${0}
-
-snippet mvrurl
-    'rule' => 'url',${0}
-
-snippet mvrcustom
-    'rule' => array('custom', '${1:/regex/}'),${0}
-
-snippet mvrregex
-    'rule' => array('custom', '${1:/regex/}'),${0}
-
-snippet mvrcreditcard
-    'rule' => array('cc', '${1:fast/all/amex/diners/jcb/mc/visa}', ${2:true}),${0}
-
-snippet mvrcc
-    'rule' => array('cc', '${1:fast/all/amex/diners/jcb/mc/visa}', ${2:true}),${0}
-
-snippet mvrdate
-    'rule' => array('date', '${1:ymd}'),${0}
-
-snippet mvrtime
-    'rule' => 'time',${0}
-
 snippet msave
     $this->${1:model_name}->save( ${2:array_data}, ${3:true}, ${4:array_validate_fields})${0}
 
+
+# --------------------------------------------------
+# Model (Validation)
+# --------------------------------------------------
+
+snippet mv
+abbr バリデーション
+    '${1:field_name}' => array(
+        'rule' => '${2:rule}',
+        'message' => '${3:error_message}',
+        // 'required' => true, /* 必須*/
+        // 'allowEmpty' => true, /* 空文字の許可*/
+        // 'last' => false, /* そのエラーが発生した時点で以降のバリデーションは打ち切り */
+        // 'on' => 'update', /* 'create'か'update'時にバリデーションを限定する */
+    ),
+    ${0}
+
+snippet mvrnotempty
+abbr 値が空ではないか
+    'rule' => 'notEmpty',${0}
+
+snippet mvrblank
+abbr 値が空かどうか
+    'rule' => 'blank',${0}
+
+snippet mvrnumeric
+abbr 数値かどうか
+    'rule' => 'numeric',${0}
+
+snippet mvralphanumeric
+abbr 半角英数字かどうか
+    'rule' => 'alphaNumeric',${0}
+
+snippet mvrboolean
+abbr 0,1,true,falseかどうか
+    'rule' => 'boolean',${0}
+
+snippet mvrdecimal
+abbr 10進数かどうか
+    'rule' => array('decimal', ${1:number_of_decimal_places}),${0} /* 符号,実数,指数表現も含む */
+
+snippet mvrminlength
+abbr 指定文字数以上か
+    'rule' => array('minLength', ${1:length}),${0}
+
+snippet mvrmaxlength
+abbr 指定文字数以内か
+    'rule' => array('maxLength', ${1:length}),${0}
+
+snippet mvrbetween
+abbr 数値が指定範囲内か
+    'rule' => array('between', ${1:min<=}, ${2:<=max}),${0}
+
+snippet mvrrange
+abbr 数値が指定範囲内か
+    'rule' => array('range', ${1:min<}, ${2:<max}),${0}
+
+snippet mvrinlist
+abbr 値がリスト中に含まれるか
+    'rule' => array('inList', array(${1:value}, ${2:value})),${0}
+
+snippet mvrcomparison
+abbr 指定値との演算が真か
+    'rule' => array('comparison', '${1:>/</>=/<=/==/!=}', ${2:value}),${0}
+
+snippet mvrequalto
+abbr 指定値と同じか
+    'rule' => array('equalTo', '${1:value}'),${0}
+
+snippet mvremail
+abbr メールアドレスか
+    'rule' => 'email',${0}
+
+snippet mvremail_deep
+abbr メールアドレスか
+    'rule' => array('email', ${2:false}, '${3:regex}'),${0} /* 第二引数をtrueにするとDNS正引きしドメインが有効かチェックする */
+
+snippet mvrextension
+abbr 指定の拡張子かどうか
+    'rule' => array('extension', ${1:array('gif', 'jpeg', 'png', 'jpg')}),${0}
+
+snippet mvrip
+abbr 値がIPアドレスか
+    'rule' => array('ip', '${1:ipv4/ipv6/both}'),${0}
+
+snippet mvrmoney
+abbr 値が金額かどうか
+    'rule' => array('money', '${1:left/right}'),${0}
+
+snippet mvrmultiple
+abbr multiple形式のselectタグの戻り値
+    'rule' => array('multiple', array('in' => array(${1:value_list}), 'min' => ${2:min_selected}, 'max' => ${3:max_selected})),${0} /* リスト外の値があったらNG */
+
+snippet mvrurl
+abbr URL形式かどうか
+    'rule' => array('url', ${1:false}),${0} /* プロトコル名から始まっている事をチェックする場合true */
+
+snippet mvrcustom
+abbr preg形式の正規表現にあてはまるか
+    'rule' => array('custom', '${1:/regex/}'),${0}
+
+snippet mvrregex
+abbr preg形式の正規表現にあてはまるか
+    'rule' => array('custom', '${1:/regex/}'),${0}
+
+snippet mvrcreditcard
+abbr クレジットカード番号かどうか
+    'rule' => array('cc', '${1:fast/all/amex/diners/jcb/mc/visa}', ${2:true}),${0}
+
+snippet mvrcc
+abbr クレジットカード番号かどうか
+    'rule' => array('cc', '${1:fast/all/amex/diners/jcb/mc/visa}', ${2:true}),${0}
+
+snippet mvrdate
+abbr 値が日付かどうか
+    'rule' => array('date', '${1:ymd}'),${0}
+
+snippet mvrtime
+abbr 値が時間かどうか
+    'rule' => 'time',${0}
+
+snippet mvruuid
+abbr String::uuid()のユニークID形式かどうか
+    'rule' => 'uuid',${0}
+
+snippet mvrisunique
+abbr 値が他の行で出現せず、ユニークかどうか
+    'rule' => 'isUnique',${0}
 
 # --------------------------------------------------
 # View
@@ -228,12 +268,12 @@ snippet pehscript
     <?php echo $html->script('${1:js_name}', array('inline' => ${2:true})); ?>${0}
 
 snippet pehscriptcode
-	<?php echo $html->scriptStart(array('inline' => ${1:true}, 'safe' => ${2:true})); ?>${0}
-	$(function(){
-	${1}
-	});
-	<?php echo $html->scriptEnd(); ?>
-	${0}
+    <?php echo $html->scriptStart(array('inline' => ${1:true}, 'safe' => ${2:true})); ?>${0}
+    $(function(){
+    ${1}
+    });
+    <?php echo $html->scriptEnd(); ?>
+    ${0}
 
 snippet pehlink
     <?php e( $html->link('${1:title}', array('controller' => '${2:controller}', 'action' => '${3:action}', 'admin' => ${4:false} ), array('escape' => ${5:true})) ); ?>${0}
@@ -263,17 +303,18 @@ snippet pefcreate
 snippet pefcreate_model
     <?php echo $form->create('${1:model_name}'); ?>${0}
 
-snippet pefcreate_detail
+snippet pefcreate_url
+abbr $form->create() Router::url()形式
     <?php echo $form->create(array('url' => array('controller' => '${1:controller_name}', 'action' => '${2:action_name}', 'admin' => false), 'id' => '${3:id_name}'); ?>${0}
 
 snippet pefend
     <?php echo $form->end(); ?>${0}
 
 snippet pefitext
-    <?php echo $form->input('${1:field_name}', array('type' => 'text', 'maxLength' => ${2:max_length}, 'label' => false , 'error' => ${3:false}, 'class' => '${4:class_name}')); ?>${0}
+    <?php echo $form->input('${1:field_name}', array('type' => 'text', 'maxLength' => ${2:max_length}, 'label' => '${3:label_name/false}', 'error' => ${4:false}, 'class' => '${5:class_name}')); ?>${0}
 
 snippet pefipassword
-    <?php echo $form->input('${1:field_name}', array('type' => 'password', 'label' => false, 'error' => ${2:false}, 'class' => '${3:class_name}')); ?>${0}
+    <?php echo $form->input('${1:field_name}', array('type' => 'password', 'label' => '${2:label_name/false}', 'error' => ${3:false}, 'class' => '${4:class_name}')); ?>${0}
 
 snippet peficheckbox
     <?php echo $form->input('${1:field_name}', array('type' => 'checkbox', 'label' => false, 'error' => ${2:false}, 'class' => '${3:class_name}')); ?>${0}
