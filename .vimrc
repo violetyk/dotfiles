@@ -236,9 +236,13 @@ if has('win32') || has('win64')
 elseif has('mac')
   " Mac用
 
-elseif has('xfontset')
-  " UNIX用 (xfontsetを使用)
-  set guifontset=a14,r14,k14
+elseif has('gui')
+  " Linux用 (xfontsetを使用)
+  set guifont=Terminus-ja\ 11
+  " set guifont=Migu\ 1M\ 11
+
+  " GUIの設定。m:メニュー、r:右垂直バー、b:下のスクロールバー、l:左垂直バー
+  set guioptions=
 endif
 
 "----------------------------------------------------
@@ -514,8 +518,8 @@ nnoremap <C-y> 10<C-y>
 
 " ev / eg ですぐに.vimrcを開けるようにする。rv / rg で反映させる。
 if has('gui_running')
-  nnoremap <silent> <Space>ev :<C-u>edit $MYGVIMRC<CR>
-  nnoremap <silent> <Space>rv :<C-u>source $MYGVIMRC<CR>
+  nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
+  nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
 else
   nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
   nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
@@ -641,7 +645,8 @@ let g:NERDTreeHijackNetrw = 0
 if has('win32') || has('win64')
   let Tlist_Ctags_Cmd = "ctags"
 else
-  let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+  let Tlist_Ctags_Cmd = "ctags"
+  " let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
 endif
 
 let Tlist_Inc_Winwidth = 1
