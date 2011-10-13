@@ -38,7 +38,11 @@ Bundle 'violetyk/cake.vim'
 " colorscheme
 Bundle 'desert.vim'
 Bundle 'mrkn256.vim'
+Bundle 'molokai'
+Bundle 'Zenburn'
+Bundle 'Solarized'
 Bundle 'ChocolatePapaya'
+
 
 " syntax
 Bundle 'jQuery'
@@ -194,27 +198,20 @@ set updatecount=500
 
 
 "----------------------------------------------------
-" GUI・カラースキーマ
+" 環境別の設定・カラースキーマ
 "----------------------------------------------------
 
-" カラースキーマ .vim/colors/の中に入れる
-colorscheme desert
+if has('gui')
+  "--------------------------------------------------
+  " GUI
+  "--------------------------------------------------
 
-if has('win32') || has('win64')
-  " Windows用
-
-  " Font
-  " Windows の gvim でフォントを設定するには guifont オプションと guifontwide オプションを使う。
-  " 前者がいわゆる半角文字のフォント、後者が全角文字のフォント。
-  " どちらもカンマで区切って複数のフォントを指定できる (最初に利用可能なフォントが選ばれる)。例えば _gvimrc に以下のように書く:
-  " set guifont=Consolas:h10,Lucida_Console:h10:w5 guifontwide=MS_Gothic:h10
-  " h10"はフォントの高さを 10 ポイントにする指定。同様に"w5"は幅を 5 ポイントにする。
-  " 半角と全角でフォントを使い分ける必要がない場合は guifont だけ設定すればよい。
-
-  " set guifont=MS_Gothic:h9:cSHIFTJIS
-  " set guifont=MS_Mincho:h12:cSHIFTJIS
-  " set guifont=Osaka－等幅:h9:cSHIFTJIS
-  set guifont=TakaoGothic:h10:cSHIFTJIS
+  " カラースキーマ .vim/colors/の中に入れる
+  " syntax enable
+  " " set background=light
+  " set background=dark
+  " colorscheme solarized
+  colorscheme desert
 
   " マウスを使う。
   "set mouse=a
@@ -227,23 +224,140 @@ if has('win32') || has('win64')
   " set guioptions=m
   set guioptions=
 
-  " ヤンク内容をwindowsのクリップボードに格納する。
-  set clipboard=unnamed
 
-  " 起動したときに最大化
-  au GUIEnter * simalt ~x
+  if has('win32') || has('win64')
+    "--------------------------------------------------
+    " Windows用 gvim
+    "--------------------------------------------------
 
-elseif has('mac')
-  " Mac用
+    " Font
+    " Windows の gvim でフォントを設定するには guifont オプションと guifontwide オプションを使う。
+    " 前者がいわゆる半角文字のフォント、後者が全角文字のフォント。
+    " どちらもカンマで区切って複数のフォントを指定できる (最初に利用可能なフォントが選ばれる)。例えば _gvimrc に以下のように書く:
+    " set guifont=Consolas:h10,Lucida_Console:h10:w5 guifontwide=MS_Gothic:h10
+    " h10"はフォントの高さを 10 ポイントにする指定。同様に"w5"は幅を 5 ポイントにする。
+    " 半角と全角でフォントを使い分ける必要がない場合は guifont だけ設定すればよい。
 
-elseif has('gui')
-  " Linux用 (xfontsetを使用)
-  set guifont=Terminus-ja\ 11
-  " set guifont=Migu\ 1M\ 11
+    " set guifont=MS_Gothic:h9:cSHIFTJIS
+    " set guifont=MS_Mincho:h12:cSHIFTJIS
+    " set guifont=Osaka－等幅:h9:cSHIFTJIS
+    set guifont=TakaoGothic:h10:cSHIFTJIS
 
-  " GUIの設定。m:メニュー、r:右垂直バー、b:下のスクロールバー、l:左垂直バー
-  set guioptions=
+
+    " ヤンク内容をwindowsのクリップボードに格納する。
+    set clipboard=unnamed
+
+    " 起動したときに最大化
+    au GUIEnter * simalt ~x
+
+  elseif has('mac')
+    "--------------------------------------------------
+    " Mac用 gvim
+    "--------------------------------------------------
+
+  elseif has('gui_gtk2')
+    "--------------------------------------------------
+    " Linux gvim
+    "--------------------------------------------------
+
+    " Font
+    set guifont=Terminus-ja\ 11
+    " set guifont=Migu\ 1M\ 11
+
+    " http://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-japanese/ime-control#install
+    " GVimの時だけ「日本語入力固定モード」の vi協調モードを無効化
+    let IM_vi_CooperativeMode = has('gui_running') ? 0 : 1
+
+    " 「日本語入力固定モード」切替キー
+    inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
+
+    " PythonによるIBus制御を使用する
+    let IM_CtrlIBusPython = 2
+
+    " 自動生成するファイルの保存場所
+    let IM_CtrlIBusPythonFileDir = '~/.ibus'
+
+    if has('gui_running')
+      " iminsert=1を設定して IBusの vi協調モードを無効化する
+      set iminsert=1
+      " let IM_CtrlAsync = ''
+    endif
+  endif
+
+else
+  "--------------------------------------------------
+  " CUI
+  "--------------------------------------------------
+
+  " 補完の色を変更
+  hi Pmenu ctermfg=Black ctermbg=Grey
+  hi PmenuSel ctermbg=Blue
+  hi PmenuSbar ctermbg=Cyan
+
+  " 対応する括弧の色を控えめにしておく
+  hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
+
 endif
+
+
+
+"----------------------------------------------------
+" 表示色関係
+
+" 色のチェック方法
+" :so $VIMRUNTIME/syntax/colortest.vim
+"----------------------------------------------------
+
+" 全角スペースの表示
+"highlight ZenkakuSpace cterm=underline ctermfg=red guibg=red
+" エラーと同じハイライトを適用。
+highlight link ZenkakuSpace Error
+autocmd BufRead,BufNew * match ZenkakuSpace /　/
+
+" ステータスラインの色 ctermfgがバックの色で、ctermbgがフロントの文字色
+" highlight StatusLine term=NONE cterm=NONE ctermfg=black ctermbg=white
+" highlight StatusLine term=reverse cterm=reverse ctermfg=blue ctermbg=white
+
+" 入力モードの時にステータスラインの色を変える。
+let g:hi_insert = 'highlight StatusLine guifg=LightGrey guibg=darkblue gui=none ctermfg=white ctermbg=blue cterm=none'
+
+if has('syntax')
+augroup InsertHook
+  autocmd!
+  autocmd InsertEnter * call s:StatusLine('Enter')
+  autocmd InsertLeave * call s:StatusLine('Leave')
+augroup END
+endif
+
+let s:slhlcmd = ''
+function! s:StatusLine(mode)
+  if a:mode == 'Enter'
+	silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+	silent exec g:hi_insert
+  else
+	highlight clear StatusLine
+	silent exec s:slhlcmd
+  endif
+endfunction
+
+function! s:GetHighlight(hi)
+  redir => hl
+  exec 'highlight '.a:hi
+  redir END
+  let hl = substitute(hl, '[\r\n]', '', 'g')
+  let hl = substitute(hl, 'xxx', '', '')
+  return hl
+endfunction
+
+" カーソルラインのハイライト。reverseで反転表示。
+" highlight CursorLine term=reverse cterm=reverse
+
+" カーソル列のハイライト。reverseで反転表示。
+" highlight CursorColumn term=reverse cterm=reverse
+
+
+
+
 
 "----------------------------------------------------
 " 検索・補完
@@ -254,10 +368,10 @@ set history=100
 " 検索の時に大文字小文字を区別しない
 set ignorecase
 
-" 検索の時に大文字が含まれている場合は区別して検索する
+" 検索altercation / solarized の時に大文字が含まれている場合は区別して検索する
 set smartcase
 
-" 最後まで検索したら先頭に戻る
+" 最後altercation / solarized まで検索したら先頭に戻る
 set wrapscan
 
 " インクリメンタルサーチを使わない
@@ -317,7 +431,7 @@ set nowrap
 " カーソルラインを表示させる
 " set cursorline
 " カーソル列を表示させる
-"set cursorcolumn
+" set cursorcolumn
 
 " コマンド実行中は再描画しない
 set lazyredraw
@@ -342,44 +456,6 @@ set cmdheight=2
 " set statusline=%n\:%y%F\ \|%{(&fenc!=''?&fenc:&enc).'\|'.&ff.'\|'}%m%r%=<%l行/%L行(%p%%),%v列>
 set statusline=%n\:%y%F\ %m%r%=[%{(&fenc!=''?&fenc:&enc).']['.&ff.']'}[%l/%L(%p%%),%v]
 
-" 入力モードの時にステータスラインの色を変える。
-augroup InsertHook
-  autocmd!
-  autocmd InsertEnter * highlight StatusLine ctermfg=blue ctermbg=white
-  autocmd InsertLeave * highlight StatusLine ctermfg=lightgray ctermbg=black
-augroup END
-
-
-"----------------------------------------------------
-" 表示色関係
-"----------------------------------------------------
-" 色のチェック方法
-" :so $VIMRUNTIME/syntax/colortest.vim
-
-" 全角スペースの表示
-"highlight ZenkakuSpace cterm=underline ctermfg=red guibg=red
-" エラーと同じハイライトを適用。
-highlight link ZenkakuSpace Error
-autocmd BufRead,BufNew * match ZenkakuSpace /　/
-
-
-" ステータスラインの色 ctermfgがバックの色で、ctermbgがフロントの文字色
-"highlight StatusLine   term=NONE cterm=NONE ctermfg=black ctermbg=white
-"highlight StatusLine term=reverse cterm=reverse ctermfg=blue ctermbg=white
-
-" カーソルラインのハイライト。reverseで反転表示。
-"highlight CursorLine term=reverse cterm=reverse
-
-" カーソル列のハイライト。reverseで反転表示。
-"highlight CursorColumn term=reverse cterm=reverse
-
-" 補完の色を変更
-hi Pmenu ctermfg=Black ctermbg=Grey
-hi PmenuSel ctermbg=Blue
-hi PmenuSbar ctermbg=Cyan
-
-" 対応する括弧の色
-hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
 "----------------------------------------------------
 " インデント
@@ -451,10 +527,10 @@ augroup vimrc-auto-mkdir  " {{{
   autocmd!
   autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
   function! s:auto_mkdir(dir, force)  " {{{
-	if !isdirectory(a:dir) && (a:force ||
-	  \    input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
-	  call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
-	endif
+    if !isdirectory(a:dir) && (a:force ||
+          \    input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
+      call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+    endif
   endfunction  " }}}
 augroup END  " }}}
 
