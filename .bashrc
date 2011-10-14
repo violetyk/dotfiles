@@ -5,6 +5,8 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+export TERM=xterm-256color
+
 # User specific aliases and functions
 alias vi='vim'
 alias rm='rm -i'

@@ -35,6 +35,8 @@ Bundle 'rails.vim'
 Bundle 'naberon/vim-cakehtml'
 Bundle 'violetyk/cake.vim'
 
+Bundle 'thinca/vim-guicolorscheme'
+
 " colorscheme
 Bundle 'desert.vim'
 Bundle 'mrkn256.vim'
@@ -272,13 +274,14 @@ else
   "--------------------------------------------------
 
   " 補完の色を変更
-  hi Pmenu ctermfg=Black ctermbg=Grey
-  hi PmenuSel ctermbg=Blue
-  hi PmenuSbar ctermbg=Cyan
+  " hi Pmenu ctermfg=Black ctermbg=Grey
+  " hi PmenuSel ctermbg=Blue
+  " hi PmenuSbar ctermbg=Cyan
 
   " 対応する括弧の色を控えめにしておく
-  hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
+  " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
+  colorscheme mrkn256
 endif
 
 
@@ -349,7 +352,8 @@ if has('win32') || has('win64')
   " GVimの時だけ「日本語入力固定モード」の vi協調モードを無効化
   let IM_vi_CooperativeMode = has('gui_running') ? 0 : 1
 
-elseif has('unix')
+" elseif has('unix')
+elseif has('gui_gtk2')
 
   " http://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-japanese/ime-control#install
   " 「日本語入力固定モード」切替キー
@@ -359,7 +363,7 @@ elseif has('unix')
 
   if has('gui_running')
 
-    " うなくいかない。。。
+    " ↓うなくいかない。。。
 
     " GVimの時だけ「日本語入力固定モード」の vi協調モードを無効化
     " IM自体にvi協調モードがある場合は、0で「日本語入力固定モード」独自のvi協調モードをスキップさせる
