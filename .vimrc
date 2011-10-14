@@ -201,7 +201,7 @@ set updatecount=500
 " 環境別の設定・カラースキーマ
 "----------------------------------------------------
 
-if has('gui')
+if has('gui_running')
   "--------------------------------------------------
   " GUI
   "--------------------------------------------------
@@ -243,12 +243,12 @@ if has('gui')
     " set guifont=Osaka－等幅:h9:cSHIFTJIS
     set guifont=TakaoGothic:h10:cSHIFTJIS
 
-
     " ヤンク内容をwindowsのクリップボードに格納する。
     set clipboard=unnamed
 
     " 起動したときに最大化
     au GUIEnter * simalt ~x
+
 
   elseif has('mac')
     "--------------------------------------------------
@@ -264,24 +264,6 @@ if has('gui')
     set guifont=Terminus-ja\ 11
     " set guifont=Migu\ 1M\ 11
 
-    " http://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-japanese/ime-control#install
-    " GVimの時だけ「日本語入力固定モード」の vi協調モードを無効化
-    let IM_vi_CooperativeMode = has('gui_running') ? 0 : 1
-
-    " 「日本語入力固定モード」切替キー
-    inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
-
-    " PythonによるIBus制御を使用する
-    let IM_CtrlIBusPython = 2
-
-    " 自動生成するファイルの保存場所
-    let IM_CtrlIBusPythonFileDir = '~/.ibus'
-
-    if has('gui_running')
-      " iminsert=1を設定して IBusの vi協調モードを無効化する
-      set iminsert=1
-      " let IM_CtrlAsync = ''
-    endif
   endif
 
 else
@@ -332,11 +314,11 @@ endif
 let s:slhlcmd = ''
 function! s:StatusLine(mode)
   if a:mode == 'Enter'
-	silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-	silent exec g:hi_insert
+    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+    silent exec g:hi_insert
   else
-	highlight clear StatusLine
-	silent exec s:slhlcmd
+    highlight clear StatusLine
+    silent exec s:slhlcmd
   endif
 endfunction
 
@@ -356,7 +338,52 @@ endfunction
 " highlight CursorColumn term=reverse cterm=reverse
 
 
+"--------------------------------------------------
+" 日本語入力固定モード（im_control.vim）
+"--------------------------------------------------
+if has('win32') || has('win64')
 
+  " 「日本語入力固定モード」切替キー
+  inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
+
+  " GVimの時だけ「日本語入力固定モード」の vi協調モードを無効化
+  let IM_vi_CooperativeMode = has('gui_running') ? 0 : 1
+
+elseif has('unix')
+
+  " http://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-japanese/ime-control#install
+  " 「日本語入力固定モード」切替キー
+  inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
+  " 自動生成するファイルの保存場所
+  let IM_CtrlIBusPythonFileDir = '~/.ibus'
+
+  if has('gui_running')
+
+    " うなくいかない。。。
+
+    " GVimの時だけ「日本語入力固定モード」の vi協調モードを無効化
+    " IM自体にvi協調モードがある場合は、0で「日本語入力固定モード」独自のvi協調モードをスキップさせる
+    let IM_vi_CooperativeMode = 0
+
+    " let IM_CtrlMode = 1
+    " PythonによるIBus制御を使用する
+    let IM_CtrlIBusPython = 1
+    " let IM_JpFixModeAutoToggle = 1
+
+    " iminsert=1を設定して IBusの vi協調モードを無効化する
+    " set iminsert=1
+    " 制御スクリプトを同期処理で呼び出し
+    " let IM_CtrlAsync = ''
+    " 制御スクリプトを非同期で呼び出し(default)
+    " let IM_CtrlAsync = '&'
+  else
+    let IM_vi_CooperativeMode = 1
+    let IM_CtrlMode = 3
+    " PythonによるIBus制御を使用する
+    let IM_CtrlIBusPython = 1
+    " let IM_JpFixModeAutoToggle = 1
+  endif
+endif
 
 
 "----------------------------------------------------
