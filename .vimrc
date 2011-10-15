@@ -30,12 +30,11 @@ Bundle 'thinca/vim-localrc'
 Bundle 'mattn/zencoding-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
+Bundle 'fuenor/qfixhowm'
 Bundle 'scratch-utility'
 Bundle 'rails.vim'
 Bundle 'naberon/vim-cakehtml'
 Bundle 'violetyk/cake.vim'
-
-Bundle 'thinca/vim-guicolorscheme'
 
 " colorscheme
 Bundle 'desert.vim'
@@ -1020,3 +1019,35 @@ let g:gist_privates = 1
 let g:gist_detect_filetype = 1
 let g:gist_show_privates = 1
 let g:gist_put_url_to_clipboard_after_post = 1
+
+"----------------------------------------------------
+" QFixHowm
+"----------------------------------------------------
+let howm_dir = $HOME . '/howm'
+let howm_fileencoding = 'utf-8'
+let howm_fileformat = 'unix'
+let QfixHown_UserSwActionLock = ['[]', '[cakephp]', '[vim]', '[linux]']
+nnoremap <silent> g,. :<C-u>call HatenaSuperPreHighlight()<CR>
+"Hatena super pre highlight
+function! HatenaSuperPreHighlight()
+  let ft = expand('%:e')
+  if ft == 'howm'
+    let ft = 'howm_memo'
+  endif
+  if &filetype != ft
+    exec 'setlocal filetype='.ft
+    return
+  endif
+  let sl = search('^>|.\+|$', 'ncbW')
+  if sl == 0
+    let sl = search('^>|.\+|$', 'ncW')
+  endif
+  if sl != 0
+    let ft = getline(sl)
+    let ft = substitute(ft, '[>|]', '', 'g')
+    exec 'setlocal filetype='.ft
+    return
+  endif
+endfunction
+
+
