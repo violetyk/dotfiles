@@ -671,7 +671,13 @@ inoremap <expr>;; IsEndSemicolon() ? "<C-O>$;" : "<C-O>$"
 nnoremap <expr>;; IsEndSemicolon() ? "$a;<Esc>" : "$"
 
 " vimスクリプト開発用に即バッファをsource。
-nnoremap <silent> <Leader>so :<C-u>source %<CR>
+nnoremap <Leader>so :<C-u>source %<CR>
+
+
+" カレントバッファのファイル名をヤンク
+nnoremap <silent> <Leader>yf :<C-u>let @" = expand("%:t")<CR>:echo "yank: ". @"<CR>
+" カレントバッファのフルパスをヤンク
+nnoremap <silent> <Leader>yp :<C-u>let @" = expand("%:p")<CR>:echo "yank: ". @"<CR>
 
 "----------------------------------------------------
 " 戦闘力を計測
