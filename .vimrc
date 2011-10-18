@@ -34,6 +34,7 @@ Bundle 'fuenor/qfixhowm'
 Bundle 'scratch-utility'
 Bundle 'rails.vim'
 Bundle 'naberon/vim-cakehtml'
+Bundle 'tpope/vim-fugitive'
 Bundle 'violetyk/cake.vim'
 
 " colorscheme
@@ -484,7 +485,7 @@ set cmdheight=2
 
 " ステータスラインに表示する情報の指定
 " set statusline=%n\:%y%F\ \|%{(&fenc!=''?&fenc:&enc).'\|'.&ff.'\|'}%m%r%=<%l行/%L行(%p%%),%v列>
-set statusline=%n\:%y%F\ %m%r%=[%{(&fenc!=''?&fenc:&enc).']['.&ff.']'}[%l/%L(%p%%),%v]
+set statusline=%n\:%y%F\ %m%r%=%{fugitive#statusline()}[%{(&fenc!=''?&fenc:&enc).']['.&ff.']'}[%l/%L(%p%%),%v]
 
 
 "----------------------------------------------------
