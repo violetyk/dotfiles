@@ -275,15 +275,20 @@ snippet pehscriptcode
     <?php echo $html->scriptEnd(); ?>
     ${0}
 
-snippet pehlink
-abbr <a>リンク
+snippet pehlink_action
+abbr <a>アクション&ID指定
+    <?php e( $html->link('${1:title}', array('action' => '${2:action}', ${3:model['model']['id']}, 'admin' => ${4:false} ), array('escape' => ${5:true}, 'class' => '${6:class_name}')) ); ?>${0}
+
+snippet pehlink_controller_action
+abbr <a>コントローラ&アクション指定
     <?php e( $html->link('${1:title}', array('controller' => '${2:controller}', 'action' => '${3:action}', 'admin' => ${4:false} ), array('escape' => ${5:true}, 'class' => '${6:class_name}')) ); ?>${0}
 
 snippet pehlink_confirm
-abbr <a>リンク確認ダイアログ付き
+abbr <a>確認ダイアログ付き
     <?php e( $html->link('${1:title}', array('controller' => '${2:controller}', 'action' => '${3:action}', 'admin' => ${4:false} ), array('escape' => ${5:true}, 'class' => '${6:class_name}'), '${7:confirm_text}') ); ?>${0}
 
 snippet pehlink_url
+abbr <a>URL指定
     <?php echo( $html->link('${1:title}', '${2:url}', array('escape' => ${3:false})) ); ?>${0}
 
 snippet pehlink_img
