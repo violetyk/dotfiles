@@ -32,10 +32,11 @@ Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
 Bundle 'fuenor/qfixhowm'
 Bundle 'scratch-utility'
-" Bundle 'rails.vim'
-Bundle 'naberon/vim-cakehtml'
+" Bundle 'tpope/vim-rails.vim'
 Bundle 'tpope/vim-fugitive'
-Bundle 'violetyk/cake.vim'
+Bundle 'naberon/vim-cakehtml'
+Bundle 'dbext.vim'
+" Bundle 'violetyk/cake.vim'
 
 " colorscheme
 Bundle 'desert.vim'
@@ -1004,15 +1005,18 @@ let g:user_zen_settings = {
 "----------------------------------------------------
 " cake.vim
 "----------------------------------------------------
-nnoremap <Space>cc :Ccontroller
-nnoremap <Space>cm :Cmodel
-nnoremap <Space>cv :Cview
-nnoremap <Space>cl :Clog 
-nnoremap <Space>ccv :Ccontrollerview
-nnoremap <Space>ccf :Cconfig
-nnoremap <Space>ccm :Ccomponent
-nnoremap <Space>cs :Cshell
-nnoremap <Space>ct :Ctask
+nnoremap <Space>cc :<C-u>Ccontroller
+nnoremap <Space>cm :<C-u>Cmodel
+nnoremap <Space>cv :<C-u>Cview
+nnoremap <Space>cl :<C-u>Clog
+nnoremap <Space>ccv :<C-u>Ccontrollerview
+nnoremap <Space>ccm :<C-u>Ccomponent
+nnoremap <Space>ccf :<C-u>Cconfig
+nnoremap <Space>cb :<C-u>Cbehavior
+nnoremap <Space>ch :<C-u>Chelper
+nnoremap <Space>ct :<C-u>Ctest
+nnoremap <Space>cf :<C-u>Cfixture
+nnoremap <Space>cs :<C-u>Cshell
 
 "----------------------------------------------------
 " localrc.vim
