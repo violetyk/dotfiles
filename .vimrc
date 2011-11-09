@@ -23,7 +23,7 @@ Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'Marks-Browser'
 Bundle 'ShowMarks'
-Bundle 'AutoClose'
+Bundle 'Townk/vim-autoclose'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-quickrun'
 Bundle 'thinca/vim-localrc'
@@ -36,7 +36,7 @@ Bundle 'scratch-utility'
 Bundle 'tpope/vim-fugitive'
 Bundle 'naberon/vim-cakehtml'
 Bundle 'dbext.vim'
-" Bundle 'violetyk/cake.vim'
+Bundle 'violetyk/cake.vim'
 
 " colorscheme
 Bundle 'desert.vim'
@@ -673,7 +673,7 @@ inoremap <expr>;; IsEndSemicolon() ? "<C-O>$;" : "<C-O>$"
 nnoremap <expr>;; IsEndSemicolon() ? "$a;<Esc>" : "$"
 
 " vimスクリプト開発用に即バッファをsource。
-nnoremap <Leader>so :<C-u>source %<CR>
+" nnoremap <Leader>so :<C-u>source %<CR>
 
 
 " カレントバッファのファイル名をヤンク
@@ -936,6 +936,7 @@ nnoremap <silent> <Leader>ub :<C-u>Unite buffer<CR>
 nnoremap <silent> <Leader>um :<C-u>Unite file_mru<CR>
 nnoremap <silent> <Leader>ul :<C-u>Unite locate<CR>
 nnoremap <silent> <Leader>uo :<C-u>Unite outline<CR>
+nnoremap <silent> <Leader>uc :<C-u>Unite cake_
 set runtimepath+=~/.vim/plugin/
 
 "----------------------------------------------------
