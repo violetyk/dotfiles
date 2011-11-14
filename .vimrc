@@ -36,7 +36,8 @@ Bundle 'scratch-utility'
 Bundle 'tpope/vim-fugitive'
 Bundle 'naberon/vim-cakehtml'
 Bundle 'dbext.vim'
-Bundle 'violetyk/cake.vim'
+Bundle 'motemen/hatena-vim'
+" Bundle 'violetyk/cake.vim'
 
 " colorscheme
 Bundle 'desert.vim'
@@ -1063,3 +1064,7 @@ function! HatenaSuperPreHighlight()
 endfunction
 
 
+"----------------------------------------------------
+" hatena.vim
+"----------------------------------------------------
+let g:hatena_user = 'yuhei_kagaya'
