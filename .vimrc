@@ -37,7 +37,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'naberon/vim-cakehtml'
 Bundle 'dbext.vim'
 Bundle 'motemen/hatena-vim'
-" Bundle 'violetyk/cake.vim'
+Bundle 'violetyk/cake.vim'
 
 " colorscheme
 Bundle 'desert.vim'
