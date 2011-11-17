@@ -37,6 +37,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'naberon/vim-cakehtml'
 Bundle 'dbext.vim'
 Bundle 'motemen/hatena-vim'
+Bundle 'taku-o/vim-toggle'
 Bundle 'violetyk/cake.vim'
 
 " colorscheme
@@ -1068,3 +1069,17 @@ endfunction
 " hatena.vim
 "----------------------------------------------------
 let g:hatena_user = 'yuhei_kagaya'
+
+"----------------------------------------------------
+" toggle.vim
+"----------------------------------------------------
+let g:toggle_pairs = {
+      \ 'and' : 'or',
+      \ 'or' : 'and',
+      \ 'if' : 'elseif',
+      \ 'elseif' : 'else',
+      \ 'else' : 'if',
+      \ }
+
+
+

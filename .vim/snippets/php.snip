@@ -85,11 +85,33 @@ snippet mbelongsto
             'foreignKey' => '${3}',		// 自分のどのカラムが上記モデルの外部キーとなっているか
             'conditions' => array(),	// 該当レコードに追加する検索条件
             'fields' => array(),		// 該当フィールド名
-            'dependent' => false,		// 自分を削除した場合にアソシエーション側も削除する場合はtrue。
+            'dependent' => false,		// 自分を削除した場合にアソシエーション側も削除する場合はtrue
+            // 'counterCache' => true,  // trueまたはその格納フィールド名。デフォルトは上位テーブルの「自分のテーブル_count」
         ),
     );
     ${0}
 
+snippet mhabtm
+    var $hasAndBelongsToMany = array(
+        '${1:model_name}' => array(
+            'className' => '${2:model_name}',
+            'joinTable' => '${3:join_table}', // リンクテーブル。（例：contents_categories）
+            // 'with' => , //中間テーブルのモデル名。中間テーブルにも値を置き、モデルとして使用したい場合に指定する。
+            'foreignKey' => '${4:id_column_name}', //自分に対する外部キーを格納する中間テーブル内のフィールド名
+            'associationForeignKey' => '${5:id_column_name}', // 相手の外部キーを格納する中間テーブル内のフィールド名
+            'unique' => true, // 相手側に重複した値を許さない場合true
+            // 'conditions' => '', // 該当レコードに追加する検索条件array。findと同じ。
+            // 'fields' => '', // 該当フィールド名array。findと同じ。
+            // 'order' => '', // ORDER BY。findと同じ。
+            // 'limit' => 10, // 取得最大件数
+            // 'offset' => 5, //スキップするレコード数
+            // 'finderQuery' => '', find時に独自のSQLが必要な場合に指定
+            // 'deleteQuery' => '', delete時に独自のSQLが必要な場合に指定
+            // 'insertQuery' => '' save時に独自のSQLが必要な場合に指定
+        ),
+    );
+    ${0}
+    
 snippet mfind
     $this->${1:model_name}->find(
         '${2:all/first/count/list/threaded/neighbours}',
@@ -108,8 +130,10 @@ snippet mfind
 
 
 snippet msave
-    $this->${1:model_name}->save( ${2:array_data}, ${3:true}, ${4:array_validate_fields})${0}
+    $this->${1:model_name}->save(${2:array_data}, ${3:true}, ${4:array_validate_fields})${0}
 
+snippet mdelete
+    $this->${1:model_name}->delete(${2:$id}, ${3:false})${0} // アソシエーションも削除する場合は第二引数をtrue。
 
 # --------------------------------------------------
 # Model (Validation)
