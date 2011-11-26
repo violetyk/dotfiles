@@ -59,7 +59,7 @@ snippet mhasone
     );
     ${0}
 
-snippet mhasmeny
+snippet mhasmany
     var $hasMany = array(
         '${1:model_name}' => array(
             'className' => '${2:model_name}',
@@ -304,7 +304,7 @@ abbr <a>アクション&ID指定
     <?php e( $html->link('${1:title}', array('action' => '${2:action}', ${3:model['model']['id']}, 'admin' => ${4:false} ), array('escape' => ${5:true}, 'class' => '${6:class_name}')) ); ?>${0}
 
 snippet pehlink_controller_action
-abbr <a>コントローラ&アクション指定
+abbr <a>コントローラ&アクション、パラメータ指定
     <?php e( $html->link('${1:title}', array('controller' => '${2:controller}', 'action' => '${3:action}', 'admin' => ${4:false} ), array('escape' => ${5:true}, 'class' => '${6:class_name}')) ); ?>${0}
 
 snippet pehlink_confirm
@@ -352,6 +352,9 @@ snippet peficheckbox
 
 snippet pefiselect
     <?php echo $form->input('${1:field_name}', array('type' => 'select', 'options' => array(${2:value} => '${3:text}'), 'empty' => ${4:false}, 'label' => false, 'error' => ${5:false}, 'class' => '${6:class_name}')); ?>${0}
+
+snippet pefimultiple
+    <?php echo $form->input('${1:field_name}', array('multiple' => 'select/checkbox', 'options' => array(${2:value} => '${3:text}'), 'label' => false, 'error' => ${5:false}, 'class' => '${6:class_name}')); ?>${0}
 
 snippet pefiradio
     <?php echo $form->input('${1:field_name}', array('type' => 'radio', 'options' => array(${2:value} => '${3:text}'), 'label' => false, 'legend' => ${4:false}, 'error' => ${5:false}, 'class' => '${6:class_name}')); ?>${0}
@@ -539,6 +542,12 @@ snippet pehlink_url_ktai
 # --------------------------------------------------
 # php
 # --------------------------------------------------
+snippet eh
+    echo("hogehgoe");
+
+snippet ef
+    echo("fugafuga");
+
 snippet func
 	function ${1}(${2}) {
 		${0:# code...}
