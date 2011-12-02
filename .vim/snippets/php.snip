@@ -28,9 +28,19 @@ abbr Controller
 
 snippet cset
         $this->set('${1:name}', ${2:value});${0}
+
 snippet credirect
         $this->redirect(array('controller' => '${1:controller_name}', 'action' => '${2:action_name}'));${0}
 
+snippet cajax
+abbr Ajaxのアクション
+    function ${1:action}() {
+        Configure::write('debug', 0);
+        $this->layout = 'ajax';
+        if ($this->RequestHandler->isAjax()) {
+            ${0}
+        }
+    }
 
 # --------------------------------------------------
 # Model
@@ -63,7 +73,7 @@ snippet mhasmany
     var $hasMany = array(
         '${1:model_name}' => array(
             'className' => '${2:model_name}',
-            'foreignKey' => '${3}', // 自分（モデル）のどのカラムが上記モデルの外部キーとなっているか
+            'foreignKey' => '${3}', // 自分に対する外部キーを格納する、相手側モデルで使用されるテーブル内のフィールド名
             // 'conditions' => array(), // 該当レコードに追加する検索条件
             // 'fields' => array(), // 該当フィールド名
             // 'order' => array('' => 'desc/asc'), // 並び替え絵を行うフィールド
@@ -128,12 +138,30 @@ snippet mfind
     );
     ${0}
 
+snippet mfindby
+    $this->${1:model_name}->findBy${2:Id}(${3:$id});${0}
 
 snippet msave
     $this->${1:model_name}->save(${2:array_data}, ${3:true}, ${4:array_validate_fields})${0}
 
 snippet mdelete
     $this->${1:model_name}->delete(${2:$id}, ${3:false})${0} // アソシエーションも削除する場合は第二引数をtrue。
+
+snippet mbindmodel
+    $this->${1:model_name}->bindModel(array(
+        '${2:hasOne/hasMany/belongsTo/hasAndBelongsToMany}' => array(
+            '${3:bind_model_name}',
+        ),
+    ), true); // 一時的にアソシエーションを設定する場合はtrue（デフォルト。find()等を行うと解除される。）。
+    ${0}
+
+snippet munbindmodel
+    $this->${1:model_name}->unbindModel(array(
+        '${2:hasOne/hasMany/belongsTo/hasAndBelongsToMany}' => array(
+            '${3:unbind_model_name}',
+        ),
+    ), true); // 一時的にアソシエーションを解除する場合はtrue（デフォルト）。
+    ${0}
 
 # --------------------------------------------------
 # Model (Validation)
@@ -336,7 +364,7 @@ snippet pefcreate_model
 
 snippet pefcreate_url
 abbr $form->create() Router::url()形式
-    <?php echo $form->create(array('url' => array('controller' => '${1:controller_name}', 'action' => '${2:action_name}', 'admin' => false), 'id' => '${3:id_name}'); ?>${0}
+    <?php echo $form->create(array('url' => array('controller' => '${1:controller_name}', 'action' => '${2:action_name}', ${3:id_value}', admin' => false)); ?>${0}
 
 snippet pefend
     <?php echo $form->end(); ?>${0}
@@ -403,6 +431,9 @@ snippet configure_read
 # --------------------------------------------------
 snippet router_url
     Router::url(array('controller' => '${1:controller_name}', 'action' => '${2:action_name}', 'admin' => ${3:false}), false);${0} // ドメインを含むフルパスでURLを取得する場合は第二引数をtrueにする。
+
+snippet router_querystring
+    Router::queryString(array(${1:param_name} => ${2:param_value}), ${3:extra_array}, false);${0} // extraは追加の連想配列。第一引数と同じ。&をエスケープする場合は第三引数をtrue。
 
 # --------------------------------------------------
 # misc

@@ -13,9 +13,9 @@ call vundle#rc()
 " utility
 Bundle 'taglist.vim'
 Bundle 'Shougo/neocomplcache'
-" Bundle 'Shougo/unite.vim'
-" Bundle 'unite-colorscheme'
-" Bundle 'unite-locate'
+Bundle 'Shougo/unite.vim'
+Bundle 'unite-colorscheme'
+Bundle 'unite-locate'
 Bundle 'h1mesuke/unite-outline'
 Bundle 'surround.vim'
 Bundle 'matchit.zip'
