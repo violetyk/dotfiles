@@ -147,6 +147,14 @@ snippet msave
 snippet mdelete
     $this->${1:model_name}->delete(${2:$id}, ${3:false})${0} // アソシエーションも削除する場合は第二引数をtrue。
 
+snippet mdeleteall
+    $this->${1:model_name}->deleteAll(
+        array(
+            '${2:where_column}' => ${3:where_condition},
+        ),
+        false,  // アソシエーションも削除する場合はtrue。
+        false); // コールバック(beforeDelete(),afterDelete())を実行する場合はtrue。
+
 snippet mbindmodel
     $this->${1:model_name}->bindModel(array(
         '${2:hasOne/hasMany/belongsTo/hasAndBelongsToMany}' => array(
@@ -459,7 +467,8 @@ snippet error
 snippet log
     CakeLog::write(${1:LOG_INFO}, '${2:message}');${0}
 
-
+snippet classregistry
+    $obj = ClassRegistry::init('${1:model_name, component_name etc...}');${0}
 
 # --------------------------------------------------
 # Component
@@ -524,6 +533,30 @@ snippet component
 		}
     }
     ${0}
+
+snippet sesswrite
+abbr セッションへの書き込み
+    $this->Session->write(${1:name}, ${2:mixed_value});${0}
+
+snippet sessread
+abbr セッションからの値読み込み
+    $this->Session->read(${1:name});${0}
+
+snippet sessdelete
+abbr セッション値の削除
+    $this->Session->delete(${1:name});${0}
+
+snippet sesscheck
+abbr セッション値の存在確認
+    $this->Session->check(${1:name});${0}
+
+snippet sessid
+abbr セッションIDの取得
+    $this->Session->id();${0}
+
+snippet sessdestroy
+abbr セッションの破棄
+    $this->Session->destroy();${0}
 
 # --------------------------------------------------
 # JsHelper
