@@ -60,8 +60,8 @@ abbr Model
 snippet mhasone
     var $hasOne = array(
         '${1:model_name}' => array(
-            'className' => '${2:model_name}',
-            'foreignKey' => '${3}',
+            'className' => '${2:model_name}', //相手側のモデルクラス名
+            'foreignKey' => '${3}',     // 相手側で持っている自分に対するキーの名前。デフォルトは「自分_id」
             'conditions' => array(),    // 該当レコードに追加する検索条件
             'fields' => array(),        // 該当フィールド名
             'dependent' => false,       // 自分を削除した場合にアソシエーション側も削除する場合はtrue。
@@ -72,8 +72,8 @@ snippet mhasone
 snippet mhasmany
     var $hasMany = array(
         '${1:model_name}' => array(
-            'className' => '${2:model_name}',
-            'foreignKey' => '${3}', // 自分に対する外部キーを格納する、相手側モデルで使用されるテーブル内のフィールド名
+            'className' => '${2:model_name}', // 相手側のモデルクラス名。
+            'foreignKey' => '${3}', // 相手側で持っている自分に対するキーの名前。デフォルトは「自分_id」
             // 'conditions' => array(), // 該当レコードに追加する検索条件
             // 'fields' => array(), // 該当フィールド名
             // 'order' => array('' => 'desc/asc'), // 並び替え絵を行うフィールド
@@ -91,8 +91,8 @@ snippet mhasmany
 snippet mbelongsto
     var $belongsTo = array(
         '${1:model_name}' => array(
-            'className' => '${2:model_name}',
-            'foreignKey' => '${3}',		// 自分のどのカラムが上記モデルの外部キーとなっているか
+            'className' => '${2:model_name}', //相手側のモデルクラス名。
+            'foreignKey' => '${3}',		// 相手側で持っている自分に対するキーの名前。デフォルトは「自分_id」
             'conditions' => array(),	// 該当レコードに追加する検索条件
             'fields' => array(),		// 該当フィールド名
             'dependent' => false,		// 自分を削除した場合にアソシエーション側も削除する場合はtrue
@@ -104,7 +104,7 @@ snippet mbelongsto
 snippet mhabtm
     var $hasAndBelongsToMany = array(
         '${1:model_name}' => array(
-            'className' => '${2:model_name}',
+            'className' => '${2:model_name}', // 相手側のモデルクラス名。
             'joinTable' => '${3:join_table}', // リンクテーブル。（例：contents_categories）
             // 'with' => , //中間テーブルのモデル名。中間テーブルにも値を置き、モデルとして使用したい場合に指定する。
             'foreignKey' => '${4:id_column_name}', //自分に対する外部キーを格納する中間テーブル内のフィールド名
@@ -170,6 +170,13 @@ snippet munbindmodel
         ),
     ), true); // 一時的にアソシエーションを解除する場合はtrue（デフォルト）。
     ${0}
+
+snippet mattach
+    $this->${1:model_name}->Behaviors->attach('${2:behavior_name}');${0}
+
+snippet mdetach
+    $this->${1:model_name}->Behaviors->detach('${2:behavior_name}');${0}
+
 
 # --------------------------------------------------
 # Model (Validation)
