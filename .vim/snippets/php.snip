@@ -79,7 +79,7 @@ snippet mhasmany
             // 'order' => array('' => 'desc/asc'), // 並び替え絵を行うフィールド
             // 'limit' => 10, // 取得したいレコード最大数
             // 'offset' => 5, // スキップするレコード数
-            // 'dependent' => true, // 自分を削除した場合にアソシエーション側も削除する場合true
+            // 'dependent' => true, // 自分を削除した場合にアソシエーション側も削除する場合true(要deleteメソッドの第二引数true)
             // 'exclusive' => false, // deleteAllによって一括で削除を行いたい場合はtrue
             // 'finderQuery' => '', // find時に独自のSQLが必要な場合に指定する
         ),
@@ -92,10 +92,9 @@ snippet mbelongsto
     var $belongsTo = array(
         '${1:model_name}' => array(
             'className' => '${2:model_name}', //相手側のモデルクラス名。
-            'foreignKey' => '${3}',		// 相手側で持っている自分に対するキーの名前。デフォルトは「自分_id」
+            'foreignKey' => '${3}',		// 自分側で持つ相手側のキーの名前。デフォルトは「相手_id」
             'conditions' => array(),	// 該当レコードに追加する検索条件
             'fields' => array(),		// 該当フィールド名
-            'dependent' => false,		// 自分を削除した場合にアソシエーション側も削除する場合はtrue
             // 'counterCache' => true,  // trueまたはその格納フィールド名。デフォルトは上位テーブルの「自分のテーブル_count」
         ),
     );
@@ -141,6 +140,16 @@ snippet mfind
 snippet mfindby
     $this->${1:model_name}->findBy${2:Id}(${3:$id});${0}
 
+snippet mcreate
+    $this->${1:model_name}->create();${0}
+
+snippet mset
+    $this->${1:model_name}->set(${2:keyvalue_data});${0}
+
+snippet misunique
+abbr 指定カラム全てでuniqueかチェックの場合は第二引数をtrue（デフォルト）。
+    $this->${1:model_name}->isUnique(${2:array_fields}, false)${0}
+
 snippet msave
     $this->${1:model_name}->save(${2:array_data}, ${3:true}, ${4:array_validate_fields})${0}
 
@@ -177,6 +186,11 @@ snippet mattach
 snippet mdetach
     $this->${1:model_name}->Behaviors->detach('${2:behavior_name}');${0}
 
+snippet mgetnumrows
+    $this->${1:model_name}->getNumRows()${0}
+
+snippet mgetaffectedrows
+    $this->${1:model_name}->getAffectedRows()${0}
 
 # --------------------------------------------------
 # Model (Validation)
