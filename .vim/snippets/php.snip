@@ -28,9 +28,19 @@ abbr Controller
 
 snippet cset
         $this->set('${1:name}', ${2:value});${0}
+
 snippet credirect
         $this->redirect(array('controller' => '${1:controller_name}', 'action' => '${2:action_name}'));${0}
 
+snippet cajax
+abbr Ajaxのアクション
+    function ${1:action}() {
+        Configure::write('debug', 0);
+        $this->layout = 'ajax';
+        if ($this->RequestHandler->isAjax()) {
+            ${0}
+        }
+    }
 
 # --------------------------------------------------
 # Model
@@ -50,8 +60,8 @@ abbr Model
 snippet mhasone
     var $hasOne = array(
         '${1:model_name}' => array(
-            'className' => '${2:model_name}',
-            'foreignKey' => '${3}',
+            'className' => '${2:model_name}', //相手側のモデルクラス名
+            'foreignKey' => '${3}',     // 相手側で持っている自分に対するキーの名前。デフォルトは「自分_id」
             'conditions' => array(),    // 該当レコードに追加する検索条件
             'fields' => array(),        // 該当フィールド名
             'dependent' => false,       // 自分を削除した場合にアソシエーション側も削除する場合はtrue。
@@ -62,14 +72,14 @@ snippet mhasone
 snippet mhasmany
     var $hasMany = array(
         '${1:model_name}' => array(
-            'className' => '${2:model_name}',
-            'foreignKey' => '${3}', // 自分（モデル）のどのカラムが上記モデルの外部キーとなっているか
+            'className' => '${2:model_name}', // 相手側のモデルクラス名。
+            'foreignKey' => '${3}', // 相手側で持っている自分に対するキーの名前。デフォルトは「自分_id」
             // 'conditions' => array(), // 該当レコードに追加する検索条件
             // 'fields' => array(), // 該当フィールド名
             // 'order' => array('' => 'desc/asc'), // 並び替え絵を行うフィールド
             // 'limit' => 10, // 取得したいレコード最大数
             // 'offset' => 5, // スキップするレコード数
-            // 'dependent' => true, // 自分を削除した場合にアソシエーション側も削除する場合true
+            // 'dependent' => true, // 自分を削除した場合にアソシエーション側も削除する場合true(要deleteメソッドの第二引数true)
             // 'exclusive' => false, // deleteAllによって一括で削除を行いたい場合はtrue
             // 'finderQuery' => '', // find時に独自のSQLが必要な場合に指定する
         ),
@@ -81,11 +91,10 @@ snippet mhasmany
 snippet mbelongsto
     var $belongsTo = array(
         '${1:model_name}' => array(
-            'className' => '${2:model_name}',
-            'foreignKey' => '${3}',		// 自分のどのカラムが上記モデルの外部キーとなっているか
+            'className' => '${2:model_name}', //相手側のモデルクラス名。
+            'foreignKey' => '${3}',		// 自分側で持つ相手側のキーの名前。デフォルトは「相手_id」
             'conditions' => array(),	// 該当レコードに追加する検索条件
             'fields' => array(),		// 該当フィールド名
-            'dependent' => false,		// 自分を削除した場合にアソシエーション側も削除する場合はtrue
             // 'counterCache' => true,  // trueまたはその格納フィールド名。デフォルトは上位テーブルの「自分のテーブル_count」
         ),
     );
@@ -94,7 +103,7 @@ snippet mbelongsto
 snippet mhabtm
     var $hasAndBelongsToMany = array(
         '${1:model_name}' => array(
-            'className' => '${2:model_name}',
+            'className' => '${2:model_name}', // 相手側のモデルクラス名。
             'joinTable' => '${3:join_table}', // リンクテーブル。（例：contents_categories）
             // 'with' => , //中間テーブルのモデル名。中間テーブルにも値を置き、モデルとして使用したい場合に指定する。
             'foreignKey' => '${4:id_column_name}', //自分に対する外部キーを格納する中間テーブル内のフィールド名
@@ -128,12 +137,60 @@ snippet mfind
     );
     ${0}
 
+snippet mfindby
+    $this->${1:model_name}->findBy${2:Id}(${3:$id});${0}
+
+snippet mcreate
+    $this->${1:model_name}->create();${0}
+
+snippet mset
+    $this->${1:model_name}->set(${2:keyvalue_data});${0}
+
+snippet misunique
+abbr 指定カラム全てでuniqueかチェックの場合は第二引数をtrue（デフォルト）。
+    $this->${1:model_name}->isUnique(${2:array_fields}, false)${0}
 
 snippet msave
     $this->${1:model_name}->save(${2:array_data}, ${3:true}, ${4:array_validate_fields})${0}
 
 snippet mdelete
     $this->${1:model_name}->delete(${2:$id}, ${3:false})${0} // アソシエーションも削除する場合は第二引数をtrue。
+
+snippet mdeleteall
+    $this->${1:model_name}->deleteAll(
+        array(
+            '${2:where_column}' => ${3:where_condition},
+        ),
+        false,  // アソシエーションも削除する場合はtrue。
+        false); // コールバック(beforeDelete(),afterDelete())を実行する場合はtrue。
+
+snippet mbindmodel
+    $this->${1:model_name}->bindModel(array(
+        '${2:hasOne/hasMany/belongsTo/hasAndBelongsToMany}' => array(
+            '${3:bind_model_name}',
+        ),
+    ), true); // 一時的にアソシエーションを設定する場合はtrue（デフォルト。find()等を行うと解除される。）。
+    ${0}
+
+snippet munbindmodel
+    $this->${1:model_name}->unbindModel(array(
+        '${2:hasOne/hasMany/belongsTo/hasAndBelongsToMany}' => array(
+            '${3:unbind_model_name}',
+        ),
+    ), true); // 一時的にアソシエーションを解除する場合はtrue（デフォルト）。
+    ${0}
+
+snippet mattach
+    $this->${1:model_name}->Behaviors->attach('${2:behavior_name}');${0}
+
+snippet mdetach
+    $this->${1:model_name}->Behaviors->detach('${2:behavior_name}');${0}
+
+snippet mgetnumrows
+    $this->${1:model_name}->getNumRows()${0}
+
+snippet mgetaffectedrows
+    $this->${1:model_name}->getAffectedRows()${0}
 
 # --------------------------------------------------
 # Model (Validation)
@@ -336,7 +393,7 @@ snippet pefcreate_model
 
 snippet pefcreate_url
 abbr $form->create() Router::url()形式
-    <?php echo $form->create(array('url' => array('controller' => '${1:controller_name}', 'action' => '${2:action_name}', 'admin' => false), 'id' => '${3:id_name}'); ?>${0}
+    <?php echo $form->create(array('url' => array('controller' => '${1:controller_name}', 'action' => '${2:action_name}', ${3:id_value}', admin' => false)); ?>${0}
 
 snippet pefend
     <?php echo $form->end(); ?>${0}
@@ -404,6 +461,9 @@ snippet configure_read
 snippet router_url
     Router::url(array('controller' => '${1:controller_name}', 'action' => '${2:action_name}', 'admin' => ${3:false}), false);${0} // ドメインを含むフルパスでURLを取得する場合は第二引数をtrueにする。
 
+snippet router_querystring
+    Router::queryString(array(${1:param_name} => ${2:param_value}), ${3:extra_array}, false);${0} // extraは追加の連想配列。第一引数と同じ。&をエスケープする場合は第三引数をtrue。
+
 # --------------------------------------------------
 # misc
 # --------------------------------------------------
@@ -428,7 +488,8 @@ snippet error
 snippet log
     CakeLog::write(${1:LOG_INFO}, '${2:message}');${0}
 
-
+snippet classregistry
+    $obj = ClassRegistry::init('${1:model_name, component_name etc...}');${0}
 
 # --------------------------------------------------
 # Component
@@ -493,6 +554,30 @@ snippet component
 		}
     }
     ${0}
+
+snippet sesswrite
+abbr セッションへの書き込み
+    $this->Session->write(${1:name}, ${2:mixed_value});${0}
+
+snippet sessread
+abbr セッションからの値読み込み
+    $this->Session->read(${1:name});${0}
+
+snippet sessdelete
+abbr セッション値の削除
+    $this->Session->delete(${1:name});${0}
+
+snippet sesscheck
+abbr セッション値の存在確認
+    $this->Session->check(${1:name});${0}
+
+snippet sessid
+abbr セッションIDの取得
+    $this->Session->id();${0}
+
+snippet sessdestroy
+abbr セッションの破棄
+    $this->Session->destroy();${0}
 
 # --------------------------------------------------
 # JsHelper
