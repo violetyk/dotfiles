@@ -747,7 +747,7 @@ let NERDTreeShowHidden = 0
 " カーソル行を強調するか
 let NERDTreeHighlightCursorline = 1
 " NERDTreeウィンドウのサイズ
-let NERDTreeWinSize = 50
+let NERDTreeWinSize = 40
 " NERDTreeウィンドウを横に表示するか上に表示するか
 let NERDTreeWinPos = "left"
 " <F8>で開く/閉じる
