@@ -29,7 +29,7 @@ Bundle 'thinca/vim-localrc'
 Bundle 'mattn/zencoding-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
-Bundle 'fuenor/qfixhowm'
+" Bundle 'fuenor/qfixhowm'
 Bundle 'scratch-utility'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-rails'
@@ -37,9 +37,10 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'naberon/vim-cakehtml'
 Bundle 'dbext.vim'
 Bundle 'motemen/hatena-vim'
-Bundle 'taku-o/vim-toggle'
+" Bundle 'taku-o/vim-toggle'
 " Bundle 'majutsushi/tagbar'
-" Bundle 'violetyk/cake.vim'
+Bundle 'PDV--phpDocumentor-for-Vim'
+Bundle 'violetyk/cake.vim'
 
 " colorscheme
 Bundle 'desert.vim'
@@ -97,76 +98,76 @@ set splitright
 " 文字コードの設定
 
 " Vim内部で使われる文字エンコーディング
-" set encoding=utf-8
+set encoding=utf-8
 
 " ターミナルで使われるエンコーディング
-" set termencoding=utf-8
+set termencoding=utf-8
 
 " カレントバッファのファイルの文字エンコーディング
-" set fileencoding=utf-8
+set fileencoding=utf-8
 
 " 読めなかったときに試される順番。
 "set fileencodings=ucs-bom,euc-jp,cp932,sjis,utf-8
 
 " 文字コードの自動認識 http://www.kawaz.jp/pukiwiki/?vim
-if &encoding !=# 'utf-8'
- set encoding=japan
- set fileencoding=japan
-endif
-if has('iconv')
- let s:enc_euc = 'euc-jp'
- let s:enc_jis = 'iso-2022-jp'
- " iconvがeucJP-msに対応しているかをチェック
- if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
-   let s:enc_euc = 'eucjp-ms'
-   let s:enc_jis = 'iso-2022-jp-3'
- " iconvがJISX0213に対応しているかをチェック
- elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==#
- "\xad\xc5\xad\xcb"
-   let s:enc_euc = 'euc-jisx0213'
-   let s:enc_jis = 'iso-2022-jp-3'
- endif
- " fileencodingsを構築
- if &encoding ==# 'utf-8'
-   let s:fileencodings_default = &fileencodings
-   let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-   let &fileencodings = &fileencodings .','. s:fileencodings_default
-   unlet s:fileencodings_default
- else
-   let &fileencodings = &fileencodings .','. s:enc_jis
-   set fileencodings+=utf-8,ucs-2le,ucs-2
-   if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
-     set fileencodings+=cp932
-     set fileencodings-=euc-jp
-     set fileencodings-=euc-jisx0213
-     set fileencodings-=eucjp-ms
-     let &encoding = s:enc_euc
-     let &fileencoding = s:enc_euc
-   else
-     let &fileencodings = &fileencodings .','. s:enc_euc
-   endif
- endif
- " 定数を処分
- unlet s:enc_euc
- unlet s:enc_jis
-endif
-" 日本語を含まない場合は fileencoding に encoding を使うようにする
-if has('autocmd')
- function! AU_ReCheck_FENC()
-   if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
-     let &fileencoding=&encoding
-   endif
- endfunction
- autocmd BufReadPost * call AU_ReCheck_FENC()
-endif
+" if &encoding !=# 'utf-8'
+ " set encoding=japan
+ " set fileencoding=japan
+" endif
+" if has('iconv')
+ " let s:enc_euc = 'euc-jp'
+ " let s:enc_jis = 'iso-2022-jp'
+ " " iconvがeucJP-msに対応しているかをチェック
+ " if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
+   " let s:enc_euc = 'eucjp-ms'
+   " let s:enc_jis = 'iso-2022-jp-3'
+ " " iconvがJISX0213に対応しているかをチェック
+ " elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==#
+ " "\xad\xc5\xad\xcb"
+   " let s:enc_euc = 'euc-jisx0213'
+   " let s:enc_jis = 'iso-2022-jp-3'
+ " endif
+ " " fileencodingsを構築
+ " if &encoding ==# 'utf-8'
+   " let s:fileencodings_default = &fileencodings
+   " let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
+   " let &fileencodings = &fileencodings .','. s:fileencodings_default
+   " unlet s:fileencodings_default
+ " else
+   " let &fileencodings = &fileencodings .','. s:enc_jis
+   " set fileencodings+=utf-8,ucs-2le,ucs-2
+   " if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
+     " set fileencodings+=cp932
+     " set fileencodings-=euc-jp
+     " set fileencodings-=euc-jisx0213
+     " set fileencodings-=eucjp-ms
+     " let &encoding = s:enc_euc
+     " let &fileencoding = s:enc_euc
+   " else
+     " let &fileencodings = &fileencodings .','. s:enc_euc
+   " endif
+ " endif
+ " " 定数を処分
+ " unlet s:enc_euc
+ " unlet s:enc_jis
+" endif
+" " 日本語を含まない場合は fileencoding に encoding を使うようにする
+" if has('autocmd')
+ " function! AU_ReCheck_FENC()
+   " if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
+     " let &fileencoding=&encoding
+   " endif
+ " endfunction
+ " autocmd BufReadPost * call AU_ReCheck_FENC()
+" endif
 
-" 改行コードの自動認識
-set fileformats=unix,dos,mac
+" " 改行コードの自動認識
+" set fileformats=unix,dos,mac
 
-" □とか○の文字があってもカーソル位置がずれないようにする？
-if exists('&ambiwidth')
-  set ambiwidth=double
-endif
+" " □とか○の文字があってもカーソル位置がずれないようにする？
+" if exists('&ambiwidth')
+  " set ambiwidth=double
+" endif
 
 
 "----------------------------------------------------
@@ -499,16 +500,16 @@ set statusline=%n\:%y%F\ %m%r%=%{fugitive#statusline()}[%{(&fenc!=''?&fenc:&enc)
 "set noautoindent
 
 " タブが対応する空白の数
-set tabstop=4
+" set tabstop=4
 
 " タブやバックスペースの使用等の編集操作をするときに、タブが対応する空白の数
-set softtabstop=4
+" set softtabstop=4
 
 " インデントの各段階に使われる空白の数
-set shiftwidth=4
+" set shiftwidth=4
 
 " タブはハードタブとして入力する
-set noexpandtab
+" set noexpandtab
 " タブは空白として入力する（実際にTABを入力したい場合は<C-V><TAB>）
 " set expandtab
 
@@ -1082,3 +1083,10 @@ let g:toggle_pairs = {
       \ 'else' : 'if',
       \ }
 
+
+"----------------------------------------------------
+" PDV--phpDocumentor-for-Vim
+"----------------------------------------------------
+inoremap <Leader>d <ESC>:call PhpDocSingle()<CR>i
+nnoremap <Leader>d :call PhpDocSingle()<CR>
+vnoremap <Leader>d :call PhpDocRange()<CR>

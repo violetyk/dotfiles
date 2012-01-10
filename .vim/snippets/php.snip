@@ -324,8 +324,12 @@ abbr 値が他の行で出現せず、ユニークかどうか
 # View
 # --------------------------------------------------
 snippet pelement
+abbr エレメント
     <?php e($this->element('${1:element_name}')); ?>${0}
 
+snippet pelement_param
+abbr エレメントの値渡し
+    <?php e($this->element('${1:element_name}', array('${2:key} => ${3:value})); ?>${0}
 
 # --------------------------------------------------
 # Html helper
