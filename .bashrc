@@ -17,3 +17,7 @@ alias svnadd="svn st | grep '^\?' | sed -e 's/\?[ ]*/svn add /g' | sh"
 alias svnst="svn st --no-ignore"
 # バージョン管理下の属性を一覧表示
 alias svnpl="svn proplist -Rv"
+
+
+# export PS1="[\u@\h \W]\$(__git_ps1) \$ "
+export PS1='[\u@\h \W$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")]\$ '
