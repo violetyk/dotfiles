@@ -12,6 +12,7 @@ call vundle#rc()
 
 " utility
 Bundle 'taglist.vim'
+" Bundle 'Source-Explorer-srcexpl.vim'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
 Bundle 'unite-colorscheme'
@@ -38,7 +39,6 @@ Bundle 'naberon/vim-cakehtml'
 Bundle 'dbext.vim'
 Bundle 'motemen/hatena-vim'
 " Bundle 'taku-o/vim-toggle'
-" Bundle 'majutsushi/tagbar'
 Bundle 'PDV--phpDocumentor-for-Vim'
 Bundle 'violetyk/cake.vim'
 
@@ -745,8 +745,8 @@ let NERDSpaceDelims = 1
 let NERDChristmasTree = 1
 " 起動時に隠しファイルを表示するか（あとで切り替えられる）
 let NERDTreeShowHidden = 0
-" カーソル行を強調するか
-let NERDTreeHighlightCursorline = 1
+" カーソル行を強調する場合1
+let NERDTreeHighlightCursorline = 0
 " NERDTreeウィンドウのサイズ
 let NERDTreeWinSize = 40
 " NERDTreeウィンドウを横に表示するか上に表示するか
@@ -754,8 +754,10 @@ let NERDTreeWinPos = "left"
 " <F8>で開く/閉じる
 nmap <silent> <F8> :NERDTreeToggle<CR>
 
-let g:NERDTreeHijackNetrw = 0
+let NERDTreeHijackNetrw = 0
 
+" Auto centre
+let NERDTreeAutoCenter = 0
 
 "----------------------------------------------------
 " taglist
@@ -770,8 +772,10 @@ endif
 let Tlist_Inc_Winwidth = 1
 "taglistのウィンドーが最後のウィンドーならばVimを閉じる
 let Tlist_Exit_OnlyWindow = 1
+" Do not close tags for other files
 let Tlist_File_Fold_Auto_Close = 1
 let Tlist_Process_File_Always = 1
+" Do not show folding tree
 let Tlist_Enable_Fold_Column = 0
 " 現在編集中のソースのタグしか表示しない
 let Tlist_Show_One_File = 1
@@ -780,7 +784,15 @@ let Tlist_Use_Horiz_Window = 0
 let Tlist_WinHeight = 10
 " 左右分割の時に右側にだす
 let Tlist_Use_Right_Window = 1
-let Tlist_WinWidth = 50
+let Tlist_WinWidth = 40
+
+" Sort by the order
+let Tlist_Sort_Type = "order"
+" Do not display the help info
+let Tlist_Compact_Format = 1
+
+
+
 
 let tlist_php_settings = 'php;c:class;d:constant;f:function'
 " if exists('loaded_taglist')
@@ -1083,10 +1095,48 @@ let g:toggle_pairs = {
       \ 'else' : 'if',
       \ }
 
-
 "----------------------------------------------------
 " PDV--phpDocumentor-for-Vim
 "----------------------------------------------------
 inoremap <Leader>d <ESC>:call PhpDocSingle()<CR>i
 nnoremap <Leader>d :call PhpDocSingle()<CR>
 vnoremap <Leader>d :call PhpDocRange()<CR>
+
+
+
+"----------------------------------------------------
+" srcexpl.vim
+"----------------------------------------------------
+" リフレッシュタイム(ms)
+let g:SrcExpl_RefreshTime = 1000
+
+let g:SrcExpl_winHeight = 8
+
+let g:SrcExpl_searchLocalDef = 1
+
+" srcexpl起動次に自動でtagsを作るかどうか
+" let g:SrcExpl_UpdateTags = 1
+let g:SrcExpl_isUpdateTags = 0
+
+" マッピング
+
+" 戻る機能のMAP(#ノーマルモードで動作する)
+" let g:SrcExpl_GoBackMapKey = "<C-b>"
+let g:SrcExpl_gobackKey = "<C-b>"
+let g:SrcExpl_jumpKey = "<ENTER>"
+
+" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to
+" //  create/update a tags file
+let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
+
+" // Set "<F12>" key for updating the tags file artificially
+let g:SrcExpl_updateTagsKey = "<F12>""
+
+" Source Explorerの機能ON/OFF(#普通にvimrcで書く方法と同じ)
+nnoremap <F10> :SrcExplToggle<CR>
+
+let g:SrcExpl_pluginList = [
+        \ "__Tag_List__",
+        \ "_NERD_tree_",
+        \ "Source_Explorer"
+    \ ]

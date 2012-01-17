@@ -2,3 +2,5 @@
 .init.vimrc
 .local.vimrc
 .vim/manual/php_manual*
+tags
+setting.local.php

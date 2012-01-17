@@ -120,7 +120,7 @@ snippet mhabtm
         ),
     );
     ${0}
-    
+
 snippet mfind
     $this->${1:model_name}->find(
         '${2:all/first/count/list/threaded/neighbours}',
@@ -137,6 +137,9 @@ snippet mfind
     );
     ${0}
 
+snippet mread
+    $this->${1:model_name}->read(${2:array_fields}, ${3:primary_id});${0}
+
 snippet mfindby
     $this->${1:model_name}->findBy${2:Id}(${3:$id});${0}
 
@@ -152,6 +155,10 @@ abbr 指定カラム全てでuniqueかチェックの場合は第二引数をtru
 
 snippet msave
     $this->${1:model_name}->save(${2:array_data}, ${3:true}, ${4:array_validate_fields})${0}
+
+snippet msave_field
+abbr 特定カラムの更新(バリデーションする場合true)
+    $this->${1:model_name}->saveField('${2:field_name}', ${3:value}, ${4:false});${0}
 
 snippet mdelete
     $this->${1:model_name}->delete(${2:$id}, ${3:false})${0} // アソシエーションも削除する場合は第二引数をtrue。
@@ -459,6 +466,9 @@ snippet configure_load
 snippet configure_read
     Configure::read('${1:one.two.three.four}');${0}
 
+snippet configure_write
+    Configure::write('${1:name}', '${2:mixed}');${0}
+
 # --------------------------------------------------
 # Router
 # --------------------------------------------------
@@ -473,6 +483,9 @@ snippet router_querystring
 # --------------------------------------------------
 snippet e
     e(${1});${0}
+
+snippet h
+    h(${1});${0}
 
 snippet pr
     pr(${1});${0}

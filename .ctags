@@ -1,5 +1,5 @@
 --langmap=PHP:+.inc
---php-kinds=cidfj
+--php-kinds=cdfv
 --totals=yes
 --tag-relative=yes
 --langdef=js

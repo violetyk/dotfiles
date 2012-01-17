@@ -8,6 +8,7 @@
 [alias]
 	st = status
 	br = "branch -a"
+	co = "checkout"
 [core]
 	editor = vim -c \"set fenc=utf-8\"
 	excludesfile = ~/.gitignore
