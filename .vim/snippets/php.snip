@@ -42,6 +42,19 @@ abbr Ajaxのアクション
         }
     }
 
+snippet cpaginate
+abbr ページング
+    $this->paginate['${1:model_name}'] = array(
+      'conditions' => array(
+        '${2:where_column}' => ${3:where_condition},
+      ),
+      'fields' => array(),
+      'limit' => 15,
+      'order' => array('Model.col' => 'desc/asc'),
+      'recursive' => -1,
+    );
+    $this->set("${4:param_name}", $this->paginate("${5:model_name}"));${0}
+
 # --------------------------------------------------
 # Model
 # --------------------------------------------------
@@ -95,7 +108,7 @@ snippet mbelongsto
             'foreignKey' => '${3}',		// 自分側で持つ相手側のキーの名前。デフォルトは「相手_id」
             'conditions' => array(),	// 該当レコードに追加する検索条件
             'fields' => array(),		// 該当フィールド名
-            // 'counterCache' => true,  // trueまたはその格納フィールド名。デフォルトは上位テーブルの「自分のテーブル_count」
+            // 'counterCache' => true,  // trueまたはその格納フィールド名。デフォルトは上位テーブルの「自分のテーブル(単数形)_count」
         ),
     );
     ${0}
@@ -132,6 +145,8 @@ snippet mfind
             // 'fields' => array('sum(member_rule_count) as "RadarChart.rule_count"'),
             // 'limit' => 10,
             // 'order' => array('Model.col' => 'desc/asc'),
+            // 'order' => 'rand()',
+            // 'group' => array('Model.col'),
             // 'recursive' => -1,
         )
     );
@@ -159,6 +174,9 @@ snippet msave
 snippet msave_field
 abbr 特定カラムの更新(バリデーションする場合true)
     $this->${1:model_name}->saveField('${2:field_name}', ${3:value}, ${4:false});${0}
+
+snippet mlastinsertid
+    $this->${1:model_name}->getLastInsertID();${0}
 
 snippet mdelete
     $this->${1:model_name}->delete(${2:$id}, ${3:false})${0} // アソシエーションも削除する場合は第二引数をtrue。
@@ -198,6 +216,24 @@ snippet mgetnumrows
 
 snippet mgetaffectedrows
     $this->${1:model_name}->getAffectedRows()${0}
+
+
+# --------------------------------------------------
+# Model (Tree Behavior)
+# --------------------------------------------------
+
+snippet mtreechildren
+abbr 子ノードの入手
+    $children = $this->${1:model_name}->children(
+      ${2:$id},
+      ${3:false}, // 直下の子ノードのみ取得する場合true
+      ${4:array or null}, // fields
+      array('${5:model_name}.lft' => 'asc'), //order(default:null)
+      ${6:int or null}, // limit
+      ${7:1}, // page番号
+      ${8:1} // recursive
+    );
+
 
 # --------------------------------------------------
 # Model (Validation)

@@ -1103,6 +1103,10 @@ nnoremap <Leader>d :call PhpDocSingle()<CR>
 vnoremap <Leader>d :call PhpDocRange()<CR>
 
 
+"----------------------------------------------------
+" surround.vim
+"----------------------------------------------------
+let g:surround_{char2nr("p")} = "<?php \r ?>"
 
 "----------------------------------------------------
 " srcexpl.vim
