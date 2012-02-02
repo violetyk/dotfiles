@@ -964,6 +964,10 @@ else
   let g:ref_phpmanual_path = $HOME . '/.vim/manual/php_manual_ja/'
 endif
 
+" PHP マニュアルを音速で引く
+nnoremap <Leader>refp :<C-u>Ref phpmanual 
+" nnoremap <Leader>refp :<C-u>Ref phpmanual types.comparisons<CR>
+
 "----------------------------------------------------
 " scratch.vim
 "----------------------------------------------------

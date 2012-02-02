@@ -1,6 +1,8 @@
 [user]
-	name = Yuhei Kagaya
-	email = yuhei.kagaya@gmail.com
+	name = kagaya
+	#email = yuhei.kagaya@gmail.com
+	email = yuhei.kagaya@rocketstart.co.jp
+
 [color]
 	ui = auto
 [http]
@@ -10,5 +12,6 @@
 	br = "branch -a"
 	co = "checkout"
 [core]
-	editor = vim -c \"set fenc=utf-8\"
+	#editor = vim -c \"set fenc=utf-8\"
+	editor = /usr/local/vim-7.3/bin/vim -c \"set fenc=utf-8\"
 	excludesfile = ~/.gitignore

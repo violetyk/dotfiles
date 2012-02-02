@@ -1,0 +1,1 @@
+/home/kagaya/dotfiles/.vim

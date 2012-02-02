@@ -234,6 +234,10 @@ abbr 子ノードの入手
       ${8:1} // recursive
     );
 
+snippet mtreeparent
+abbr 親ノードの入手
+    $parent = $this->${1:model_name}->getparentnode(${2:$id}, ${3:array_fields}, ${4:recursive});${0}
+
 
 # --------------------------------------------------
 # Model (Validation)
