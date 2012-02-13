@@ -42,6 +42,7 @@ Bundle 'motemen/hatena-vim'
 Bundle 'PDV--phpDocumentor-for-Vim'
 Bundle 'kana/vim-textobj-user'
 Bundle 'akiyan/vim-textobj-php'
+Bundle 'vim-scripts/Align'
 Bundle 'violetyk/cake.vim'
 
 " colorscheme

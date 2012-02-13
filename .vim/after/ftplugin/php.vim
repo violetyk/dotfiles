@@ -4,8 +4,14 @@ let php_sql_query = 1
 " 文字列中のHTMLをハイライトする
 let php_htmlInStrings = 1
 
+" ] や ) の対応エラーをハイライトする
+let php_parent_error_close = 1
+
+" 対応する閉じ括弧がない開き括弧( や [が存在する場合、php終了タグをスキップさせる
+let php_parent_error_open = 1
+
 " ショートタグ (<?を無効にする→ハイライト除外にする)
-let php_noShortTags = 1
+" let php_noShortTags = 0
 
 " クラスと関数の折りたたみ(folding)を有効にする
 " let php_folding = 1
