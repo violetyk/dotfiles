@@ -385,6 +385,18 @@ snippet pelement
 abbr エレメント
     <? e($this->element('${1:element_name}')); ?>${0}
 
+snippet pelement_cache
+abbr エレメント＆キャッシュ1日
+    <? e($this->element('${1:element_name}', array('cache' => true))); ?>${0}
+
+snippet pelement_cachekey
+abbr エレメント＆キー付キャッシュ
+    <? e($this->element('${1:element_name}', array('cache' => array('key' => '${2:key}', 'time'=> '+1 day')))); ?>${0}
+
+snippet pelement_chackekey_param
+abbr エレメント＆キャッシュ＆値
+    <? e($this->element('${1:element_name}', array('cache' => array('key' => '${2:key}', 'time'=> '+1 day'), 'var' => ${3:param}))); ?>${0}
+
 snippet pelement_param
 abbr エレメントの値渡し
     <? e($this->element('${1:element_name}', array('${2:key} => ${3:value})); ?>${0}
