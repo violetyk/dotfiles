@@ -14,6 +14,7 @@ call vundle#rc()
 Bundle 'taglist.vim'
 " Bundle 'Source-Explorer-srcexpl.vim'
 Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neocomplcache-snippets-complete'
 Bundle 'Shougo/unite.vim'
 Bundle 'unite-colorscheme'
 Bundle 'unite-locate'
@@ -928,7 +929,7 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType php,htmlcake set omnifunc=phpcomplete#CompletePHP
 
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
@@ -936,6 +937,7 @@ if !exists('g:neocomplcache_omni_patterns')
 endif
 "let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 
 " :NeoComplCacheEditSnippets [filetype]
@@ -965,7 +967,9 @@ else
 endif
 
 " PHP マニュアルを音速で引く
-nnoremap <Leader>refp :<C-u>Ref phpmanual 
+" nnoremap <Leader>refp :<C-u>Ref phpmanual 
+nnoremap <Leader>refp :<C-u>Unite ref/phpmanual<CR>
+
 " nnoremap <Leader>refp :<C-u>Ref phpmanual types.comparisons<CR>
 
 "----------------------------------------------------
