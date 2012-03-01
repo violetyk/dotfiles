@@ -7,6 +7,10 @@ fi
 
 export TERM=xterm-256color
 ### Alias
+alias l.='ls -d .*'
+alias ll='ls -l'
+alias lll='ls -al'
+alias rm='rm -i'
 alias vi='vim'
 alias rm='rm -i'
 alias wget='wget --no-check-certificate'
