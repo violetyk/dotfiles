@@ -44,6 +44,7 @@ Bundle 'PDV--phpDocumentor-for-Vim'
 Bundle 'kana/vim-textobj-user'
 Bundle 'akiyan/vim-textobj-php'
 Bundle 'vim-scripts/Align'
+Bundle 'Lokaltog/vim-powerline'
 Bundle 'violetyk/cake.vim'
 
 " colorscheme
@@ -940,7 +941,7 @@ if !exists('g:neocomplcache_omni_patterns')
 endif
 "let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+" let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 
 " :NeoComplCacheEditSnippets [filetype]
