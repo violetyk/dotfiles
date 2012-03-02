@@ -1156,3 +1156,18 @@ let g:SrcExpl_pluginList = [
         \ "_NERD_tree_",
         \ "Source_Explorer"
     \ ]
+
+
+
+"----------------------------------------------------
+" powerline.vim
+"----------------------------------------------------
+if has('gui_running') 
+  let g:Powerline_symbols = 'fancy'
+endif
+" CUI環境下でいろ変更が遅れることがある対応
+if has('unix') && !has('gui_running')
+  inoremap <silent> <Esc> <Esc>
+  inoremap <silent> <C-[> <Esc>
+endif
+
