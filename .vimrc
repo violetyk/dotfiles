@@ -58,6 +58,7 @@ Bundle 'ChocolatePapaya'
 
 " syntax
 Bundle 'jQuery'
+Bundle 'JavaScript-syntax'
 
 " 日本語ヘルプフリーズ問題対策。
 set notagbsearch
