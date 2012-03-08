@@ -5,6 +5,11 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+
+### bashのモード
+# set -o vi
+# set -o emacs
+
 export TERM=xterm-256color
 ### Alias
 alias l.='ls -d .*'

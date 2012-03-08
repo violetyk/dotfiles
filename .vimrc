@@ -55,9 +55,12 @@ Bundle 'Zenburn'
 Bundle 'Solarized'
 Bundle 'ChocolatePapaya'
 
-
 " syntax
 Bundle 'jQuery'
+
+" indent
+Bundle 'pangloss/vim-javascript'
+
 
 " 日本語ヘルプフリーズ問題対策。
 set notagbsearch
