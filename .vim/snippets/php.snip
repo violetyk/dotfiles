@@ -29,16 +29,23 @@ abbr Controller
 snippet cset
         $this->set('${1:name}', ${2:value});${0}
 
+snippet csetcompact
+        $this->set(compact('${1:name}', '${2:name}'));${0}
+
 snippet credirect
         $this->redirect(array('controller' => '${1:controller_name}', 'action' => '${2:action_name}'));${0}
 
 snippet cajax
 abbr Ajaxのアクション
     function ${1:action}() {
-        Configure::write('debug', 0);
+        if (Configure::read('debug') >= 2) {
+          Configure::write('debug', 1);
+        }
         $this->layout = 'ajax';
         if ($this->RequestHandler->isAjax()) {
-            ${0}
+          $this->RequestHandler->setContent('json');
+          $this->RequestHandler->respondAs('application/json; charset=UTF-8');
+          ${0}
         }
     }
 
@@ -158,6 +165,9 @@ snippet mread
 snippet mfindby
     $this->${1:model_name}->findBy${2:Id}(${3:$id});${0}
 
+snippet mfield
+    $this->${1:model_name}->field(${2:field_name}, ${3:array_condition}, ${4:array('Model.col' => 'desc/asc')});${0}
+
 snippet mcreate
     $this->${1:model_name}->create();${0}
 
@@ -228,6 +238,9 @@ snippet mgetnumrows
 snippet mgetaffectedrows
     $this->${1:model_name}->getAffectedRows()${0}
 
+snippet minvalidate
+abbr 指定フィールドをエラーにする
+    $this->${1:model_name}->invalidate(${2:field_name}, '${3:error_message}')${0}
 
 # --------------------------------------------------
 # Model (Tree Behavior)
@@ -383,127 +396,127 @@ abbr 値が他の行で出現せず、ユニークかどうか
 # --------------------------------------------------
 snippet pelement
 abbr エレメント
-    <? e($this->element('${1:element_name}')); ?>${0}
+    <?= $this->element('${1:element_name}') ?>${0}
 
 snippet pelement_cache
 abbr エレメント＆キャッシュ1日
-    <? e($this->element('${1:element_name}', array('cache' => true))); ?>${0}
+    <?= $this->element('${1:element_name}', array('cache' => true)) ?>${0}
 
 snippet pelement_cachekey
 abbr エレメント＆キー付キャッシュ
-    <? e($this->element('${1:element_name}', array('cache' => array('key' => '${2:key}', 'time'=> '+1 day')))); ?>${0}
+    <?= $this->element('${1:element_name}', array('cache' => array('key' => '${2:key}', 'time'=> '+1 day'))) ?>${0}
 
 snippet pelement_chackekey_param
 abbr エレメント＆キャッシュ＆値
-    <? e($this->element('${1:element_name}', array('cache' => array('key' => '${2:key}', 'time'=> '+1 day'), 'var' => ${3:param}))); ?>${0}
+    <?= $this->element('${1:element_name}', array('cache' => array('key' => '${2:key}', 'time'=> '+1 day'), 'var' => ${3:param})) ?>${0}
 
 snippet pelement_param
 abbr エレメントの値渡し
-    <? e($this->element('${1:element_name}', array('${2:key} => ${3:value})); ?>${0}
+    <?= $this->element('${1:element_name}', array('${2:key} => ${3:value})); ?>${0}
 
 # --------------------------------------------------
 # Html helper
 # --------------------------------------------------
 snippet pehdoctype
-    <? echo $html->doctype('${1:html4-strict/html4-trans/html4-frame/xhtml-strict/xhtml-trans/xhtml-frame/xhtml11}'); ?>${0}
+    <?= $html->doctype('${1:html4-strict/html4-trans/html4-frame/xhtml-strict/xhtml-trans/xhtml-frame/xhtml11}') ?>${0}
 
 snippet pehmeta
-    <? echo $html->meta('${1:keywords/description}', '{$2:content}'); ?>${0}
+    <?= $html->meta('${1:keywords/description}', '{$2:content}') ?>${0}
 
 snippet pehfavicon
-    <? echo $html->meta('icon', '/favicon.ico'); ?>${0}
+    <?= $html->meta('icon', '/favicon.ico') ?>${0}
 
 snippet pehcharset
-    <? echo $html->charset('${1:UTF-8}'); ?>${0}
+    <?= $html->charset('${1:UTF-8}') ?>${0}
 
 snippet pehcss
-    <? echo $html->css('${1:css_name}'); ?>${0}
+    <?= $html->css('${1:css_name}') ?>${0}
 
 snippet pehscript
-    <? echo $html->script('${1:js_name}', array('inline' => ${2:true})); ?>${0}
+    <?= $html->script('${1:js_name}', array('inline' => ${2:true})) ?>${0}
 
 snippet pehscriptcode
-    <? echo $html->scriptStart(array('inline' => ${1:true}, 'safe' => ${2:true})); ?>${0}
+    <?= $html->scriptStart(array('inline' => ${1:true}, 'safe' => ${2:true})) ?>${0}
     $(function(){
     ${1}
     });
-    <? echo $html->scriptEnd(); ?>
+    <?= $html->scriptEnd() ?>
     ${0}
 
 snippet pehlink_action
 abbr <a>アクション&ID指定
-    <? e( $html->link('${1:title}', array('action' => '${2:action}', ${3:model['model']['id']}, 'admin' => ${4:false} ), array('escape' => ${5:true}, 'class' => '${6:class_name}')) ); ?>${0}
+    <?= $html->link('${1:title}', array('action' => '${2:action}', ${3:model['model']['id']}, 'admin' => ${4:false} ), array('escape' => ${5:true}, 'class' => '${6:class_name}')) ?>${0}
 
 snippet pehlink_controller_action
 abbr <a>コントローラ&アクション、パラメータ指定
-    <? e( $html->link('${1:title}', array('controller' => '${2:controller}', 'action' => '${3:action}', 'admin' => ${4:false} ), array('escape' => ${5:true}, 'class' => '${6:class_name}')) ); ?>${0}
+    <?= $html->link('${1:title}', array('controller' => '${2:controller}', 'action' => '${3:action}', 'admin' => ${4:false} ), array('escape' => ${5:true}, 'class' => '${6:class_name}')) ?>${0}
 
 snippet pehlink_confirm
 abbr <a>確認ダイアログ付き
-    <? e( $html->link('${1:title}', array('controller' => '${2:controller}', 'action' => '${3:action}', 'admin' => ${4:false} ), array('escape' => ${5:true}, 'class' => '${6:class_name}'), '${7:confirm_text}') ); ?>${0}
+    <?= $html->link('${1:title}', array('controller' => '${2:controller}', 'action' => '${3:action}', 'admin' => ${4:false} ), array('escape' => ${5:true}, 'class' => '${6:class_name}'), '${7:confirm_text}') ?>${0}
 
 snippet pehlink_url
 abbr <a>URL指定
-    <? echo( $html->link('${1:title}', '${2:url}', array('escape' => ${3:false})) ); ?>${0}
+    <?= $html->link('${1:title}', '${2:url}', array('escape' => ${3:false})) ?>${0}
 
 snippet pehlink_img
-    <? e( $html->link($html->image('${1:path from /img}', array('alt' => '${2}')), array('controller' => '${3:controller}', 'action' => '${4:action}', 'admin' => ${5:false} ), array('escape' => ${6:false})) ); ?>${0}
+    <?= $html->link($html->image('${1:path from /img}', array('alt' => '${2}')), array('controller' => '${3:controller}', 'action' => '${4:action}', 'admin' => ${5:false} ), array('escape' => ${6:false})) ?>${0}
 
 snippet pehimg
-    <? echo $html->image('${1:path from /img}', array('alt' => '${2}' ,'url' => '${3}')); ?>${0}
+    <?= $html->image('${1:path from /img}', array('alt' => '${2}' ,'url' => '${3}')) ?>${0}
 
 snippet pehtag
-    <? echo $html->tag('${1:tag_name}', ${2:inner_html}, array('escape' => ${3:false}, ${4:attribute})); ?>${0}
+    <?= $html->tag('${1:tag_name}', ${2:inner_html}, array('escape' => ${3:false}, ${4:attribute})) ?>${0}
 
 
 # --------------------------------------------------
 # Form helper
 # --------------------------------------------------
 snippet pefcreate
-    <? echo $form->create(); ?>${0}
+    <?= $form->create() ?>${0}
 
 snippet pefcreate_model
-    <? echo $form->create('${1:model_name}'); ?>${0}
+    <?= $form->create('${1:model_name}') ?>${0}
 
 snippet pefcreate_url
 abbr $form->create() Router::url()形式
-    <? echo $form->create(array('url' => array('controller' => '${1:controller_name}', 'action' => '${2:action_name}', ${3:id_value}', admin' => false)); ?>${0}
+    <?= $form->create(array('url' => array('controller' => '${1:controller_name}', 'action' => '${2:action_name}', ${3:id_value}', admin' => false)) ?>${0}
 
 snippet pefend
-    <? echo $form->end(); ?>${0}
+    <?= $form->end() ?>${0}
 
 snippet pefitext
-    <? echo $form->input('${1:field_name}', array('type' => 'text', 'maxLength' => ${2:max_length}, 'label' => '${3:label_name/false}', 'error' => ${4:false}, 'class' => '${5:class_name}')); ?>${0}
+    <?= $form->input('${1:field_name}', array('type' => 'text', 'maxLength' => ${2:max_length}, 'label' => '${3:label_name/false}', 'error' => ${4:false}, 'class' => '${5:class_name}')) ?>${0}
 
 snippet pefipassword
-    <? echo $form->input('${1:field_name}', array('type' => 'password', 'label' => '${2:label_name/false}', 'error' => ${3:false}, 'class' => '${4:class_name}')); ?>${0}
+    <?= $form->input('${1:field_name}', array('type' => 'password', 'label' => '${2:label_name/false}', 'error' => ${3:false}, 'class' => '${4:class_name}')) ?>${0}
 
 snippet peficheckbox
-    <? echo $form->input('${1:field_name}', array('type' => 'checkbox', 'label' => false, 'error' => ${2:false}, 'class' => '${3:class_name}')); ?>${0}
+    <?= $form->input('${1:field_name}', array('type' => 'checkbox', 'label' => false, 'error' => ${2:false}, 'class' => '${3:class_name}')) ?>${0}
 
 snippet pefiselect
-    <? echo $form->input('${1:field_name}', array('type' => 'select', 'options' => array(${2:value} => '${3:text}'), 'empty' => ${4:false}, 'label' => false, 'error' => ${5:false}, 'class' => '${6:class_name}')); ?>${0}
+    <?= $form->input('${1:field_name}', array('type' => 'select', 'options' => array(${2:value} => '${3:text}'), 'empty' => ${4:false}, 'label' => false, 'error' => ${5:false}, 'class' => '${6:class_name}')) ?>${0}
 
 snippet pefimultiple
-    <? echo $form->input('${1:field_name}', array('multiple' => 'select/checkbox', 'options' => array(${2:value} => '${3:text}'), 'label' => false, 'error' => ${5:false}, 'class' => '${6:class_name}')); ?>${0}
+    <?= $form->input('${1:field_name}', array('multiple' => 'select/checkbox', 'options' => array(${2:value} => '${3:text}'), 'label' => false, 'error' => ${5:false}, 'class' => '${6:class_name}')) ?>${0}
 
 snippet pefiradio
-    <? echo $form->input('${1:field_name}', array('type' => 'radio', 'options' => array(${2:value} => '${3:text}'), 'label' => false, 'legend' => ${4:false}, 'error' => ${5:false}, 'class' => '${6:class_name}')); ?>${0}
+    <?= $form->input('${1:field_name}', array('type' => 'radio', 'options' => array(${2:value} => '${3:text}'), 'label' => false, 'legend' => ${4:false}, 'error' => ${5:false}, 'class' => '${6:class_name}')) ?>${0}
 
 snippet pefitextarea
-    <? echo $form->input('${1:field_name}', array('type' => 'textarea', 'rows' => ${2:rows}, 'cols' => ${3:cols}, 'maxLength' => ${4:max_length}, 'label' => false, 'error' => ${5:false}, 'class' => '${6:class_name}')); ?>${0}
+    <?= $form->input('${1:field_name}', array('type' => 'textarea', 'rows' => ${2:rows}, 'cols' => ${3:cols}, 'maxLength' => ${4:max_length}, 'label' => false, 'error' => ${5:false}, 'class' => '${6:class_name}')) ?>${0}
 
 snippet pefihidden
-    <? echo $form->input('${1:field_name}', array('type' => 'hidden', 'label' => false , 'error' => ${2:false})); ?>${0}
+    <?= $form->input('${1:field_name}', array('type' => 'hidden', 'label' => false , 'error' => ${2:false})); ?>${0}
 
 snippet pefsubmit
-    <? echo $form->submit('${1:caption}', array('class' => '${2}')); ?>${0}
+    <?= $form->submit('${1:caption}', array('class' => '${2}')) ?>${0}
 
 snippet pefbutton
-    <? echo $form->button('${1:title}', array('type' => '${2:button/reset/submit}', 'id' => '${3}', 'class' => '${4}', 'escape' => ${5:false})); ?>${0}
+    <?= $form->button('${1:title}', array('type' => '${2:button/reset/submit}', 'id' => '${3}', 'class' => '${4}', 'escape' => ${5:false})) ?>${0}
 
 snippet peferror
-    <? echo $form->error('${1:field_name}', ${2:null}, array( 'wrap' => '${3:}', 'escape' => ${4:false})); ?>${0}
+    <?= $form->error('${1:field_name}', ${2:null}, array( 'wrap' => '${3:}', 'escape' => ${4:false})) ?>${0}
 
 # --------------------------------------------------
 # App
@@ -557,10 +570,10 @@ snippet ife
     ife(${1:condition}, ${2:ifNotEmpty}, ${3:ifEmpty});${0}
 
 snippet pe
-    <? e(${1}); ?>${0}
+    <?= ${1} ?>${0}
 
 snippet peh
-    <? e(h(${1})); ?>${0}
+    <?= h(${1}) ?>${0}
 
 snippet error
     $this->cakeError('${1:error/error404/error500}', array('${2:param_name}' => '${3:param_value}'));${0}
@@ -708,7 +721,7 @@ snippet pehlink_url_ktai
 # php
 # --------------------------------------------------
 snippet eh
-    echo("hogehgoe");
+    echo("hogehoge");
 
 snippet ef
     echo("fugafuga");
@@ -750,7 +763,7 @@ snippet this
 	$this->${0}
 
 snippet pethis
-	<? echo $this->${0} ?>
+	<?= $this->${0} ?>
 
 snippet docc
 	/**
