@@ -16,13 +16,9 @@ Bundle 'taglist.vim'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neocomplcache-snippets-complete'
 Bundle 'Shougo/unite.vim'
-Bundle 'unite-colorscheme'
-Bundle 'unite-locate'
-Bundle 'h1mesuke/unite-outline'
 Bundle 'matchit.zip'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
-Bundle 'Marks-Browser'
 Bundle 'ShowMarks'
 Bundle 'Townk/vim-autoclose'
 Bundle 'thinca/vim-ref'
@@ -47,12 +43,18 @@ Bundle 'vim-scripts/Align'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'violetyk/cake.vim'
 
+" unite source
+Bundle 'unite-colorscheme'
+Bundle 'unite-locate'
+Bundle 'h1mesuke/unite-outline'
+Bundle 'tacroe/unite-mark'
+
 " colorscheme
 Bundle 'desert.vim'
 Bundle 'mrkn256.vim'
 Bundle 'molokai'
 Bundle 'Zenburn'
-Bundle 'Solarized'
+Bundle 'altercation/vim-colors-solarized'
 Bundle 'ChocolatePapaya'
 
 " syntax
@@ -223,8 +225,7 @@ if has('gui_running')
   "--------------------------------------------------
 
   " カラースキーマ .vim/colors/の中に入れる
-  " syntax enable
-  " " set background=light
+  " set background=light
   " set background=dark
   " colorscheme solarized
   colorscheme desert
@@ -731,13 +732,6 @@ let showmarks_ignore_type = "hqm"
 "let showmarks_hlline_lower = 1
 "let showmarks_hlline_upper = 1
 
-"----------------------------------------------------
-" marksbrowser.vim
-" ブラウザを開いてエンターでその場所へジャンプ。dでマークを削除。
-"----------------------------------------------------
-nmap <silent> <leader>mk :MarksBrowser<CR>
-" 0:エンター押して選択してもブラウザのバッファを閉じない設定
-let marksCloseWhenSelected = 0
 
 "----------------------------------------------------
 " NERD commenter
