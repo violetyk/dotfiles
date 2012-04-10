@@ -510,18 +510,18 @@ set statusline=%n\:%y%F\ %m%r%=%{fugitive#statusline()}[%{(&fenc!=''?&fenc:&enc)
 "set noautoindent
 
 " タブが対応する空白の数
-" set tabstop=4
+set tabstop=2
 
 " タブやバックスペースの使用等の編集操作をするときに、タブが対応する空白の数
-" set softtabstop=4
+set softtabstop=2
 
 " インデントの各段階に使われる空白の数
-" set shiftwidth=4
+set shiftwidth=2
 
 " タブはハードタブとして入力する
 " set noexpandtab
 " タブは空白として入力する（実際にTABを入力したい場合は<C-V><TAB>）
-" set expandtab
+set expandtab
 
 
 "----------------------------------------------------
