@@ -10,6 +10,9 @@ filetype off
 set rtp+=~/.vim/vundle.git
 call vundle#rc()
 
+" help
+Bundle 'vim-jp/vimdoc-ja'
+
 " utility
 Bundle 'taglist.vim'
 " Bundle 'Source-Explorer-srcexpl.vim'
