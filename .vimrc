@@ -1169,3 +1169,4 @@ if has('unix') && !has('gui_running')
   inoremap <silent> <C-[> <Esc>
 endif
 
+set showfulltag
