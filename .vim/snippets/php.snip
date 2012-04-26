@@ -62,6 +62,18 @@ abbr ページング
     );
     $this->set("${4:param_name}", $this->paginate("${5:model_name}"));${0}
 
+snippet cflash
+abbr フラッシュメッセージを出す便利メソッド
+  $this->flash('${1:message}', $this->referer());${0}
+
+snippet cflash_session
+abbr セッションにメッセージを入れる
+  $this->Session->setFlash('');
+
+snippet cvalidate_errors
+abbr バリデーションエラーを取得
+  $this->validateErrors($this->${1:Model})${0};
+
 # --------------------------------------------------
 # Model
 # --------------------------------------------------

@@ -30,7 +30,6 @@ Bundle 'thinca/vim-localrc'
 Bundle 'mattn/zencoding-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
-" Bundle 'fuenor/qfixhowm'
 Bundle 'scratch-utility'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-rails'
@@ -38,12 +37,14 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'naberon/vim-cakehtml'
 Bundle 'dbext.vim'
 Bundle 'motemen/hatena-vim'
-" Bundle 'taku-o/vim-toggle'
 Bundle 'PDV--phpDocumentor-for-Vim'
 Bundle 'kana/vim-textobj-user'
 Bundle 'akiyan/vim-textobj-php'
 Bundle 'vim-scripts/Align'
 Bundle 'Lokaltog/vim-powerline'
+" Bundle 'glidenote/memolist.vim'
+
+
 Bundle 'violetyk/cake.vim'
 
 " unite source
@@ -58,7 +59,6 @@ Bundle 'mrkn256.vim'
 Bundle 'molokai'
 Bundle 'Zenburn'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'ChocolatePapaya'
 
 " syntax
 Bundle 'jQuery'
@@ -1035,14 +1035,14 @@ let g:user_zen_settings = {
 "----------------------------------------------------
 " cake.vim
 "----------------------------------------------------
-nnoremap <Space>cc :<C-u>Ccontroller
-nnoremap <Space>cm :<C-u>Cmodel
-nnoremap <Space>cv :<C-u>Cview
+nnoremap <Space>cc :<C-u>Ccontrollervsp
+nnoremap <Space>cm :<C-u>Cmodelvsp
+nnoremap <Space>cv :<C-u>Cviewvsp
 nnoremap <Space>cl :<C-u>Clog
 nnoremap <Space>ccv :<C-u>Ccontrollerview
-nnoremap <Space>ccm :<C-u>Ccomponent
-nnoremap <Space>ccf :<C-u>Cconfig
-nnoremap <Space>cb :<C-u>Cbehavior
+nnoremap <Space>ccm :<C-u>Ccomponentvsp
+nnoremap <Space>ccf :<C-u>Cconfigvsp
+nnoremap <Space>cb :<C-u>Cbehaviorvsp
 nnoremap <Space>ch :<C-u>Chelper
 nnoremap <Space>ct :<C-u>Ctest
 nnoremap <Space>cf :<C-u>Cfixture
@@ -1061,52 +1061,12 @@ let g:gist_detect_filetype = 1
 let g:gist_show_privates = 1
 let g:gist_put_url_to_clipboard_after_post = 1
 
-"----------------------------------------------------
-" QFixHowm
-"----------------------------------------------------
-let howm_dir = $HOME . '/howm'
-let howm_fileencoding = 'utf-8'
-let howm_fileformat = 'unix'
-let QfixHown_UserSwActionLock = ['[]', '[cakephp]', '[vim]', '[linux]']
-nnoremap <silent> g,. :<C-u>call HatenaSuperPreHighlight()<CR>
-"Hatena super pre highlight
-function! HatenaSuperPreHighlight()
-  let ft = expand('%:e')
-  if ft == 'howm'
-    let ft = 'howm_memo'
-  endif
-  if &filetype != ft
-    exec 'setlocal filetype='.ft
-    return
-  endif
-  let sl = search('^>|.\+|$', 'ncbW')
-  if sl == 0
-    let sl = search('^>|.\+|$', 'ncW')
-  endif
-  if sl != 0
-    let ft = getline(sl)
-    let ft = substitute(ft, '[>|]', '', 'g')
-    exec 'setlocal filetype='.ft
-    return
-  endif
-endfunction
-
 
 "----------------------------------------------------
 " hatena.vim
 "----------------------------------------------------
 let g:hatena_user = 'yuhei_kagaya'
 
-"----------------------------------------------------
-" toggle.vim
-"----------------------------------------------------
-let g:toggle_pairs = {
-      \ 'and' : 'or',
-      \ 'or' : 'and',
-      \ 'if' : 'elseif',
-      \ 'elseif' : 'else',
-      \ 'else' : 'if',
-      \ }
 
 "----------------------------------------------------
 " PDV--phpDocumentor-for-Vim
