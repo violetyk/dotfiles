@@ -1,17 +1,19 @@
 [user]
-	name = kagaya
-	#email = yuhei.kagaya@gmail.com
-	email = yuhei.kagaya@nanapi.co.jp
+  name = kagaya
+  #email = yuhei.kagaya@gmail.com
+  email = yuhei.kagaya@nanapi.co.jp
 
 [color]
-	ui = auto
+  ui = auto
 [http]
-	sslVerify = false
+  sslVerify = false
 [alias]
-	st = status
-	br = "branch -a"
-	co = "checkout"
+  st = status
+  br = "branch -a"
+  co = "checkout"
+  unstage = "reset HEAD --"
+
 [core]
-	#editor = vim -c \"set fenc=utf-8\"
-	editor = /usr/local/vim-7.3/bin/vim -c \"set fenc=utf-8\"
-	excludesfile = ~/.gitignore
+  #editor = vim -c \"set fenc=utf-8\"
+  editor = /usr/local/vim-7.3/bin/vim -c \"set fenc=utf-8\"
+  excludesfile = ~/.gitignore
