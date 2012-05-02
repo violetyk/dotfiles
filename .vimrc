@@ -14,7 +14,8 @@ call vundle#rc()
 Bundle 'vim-jp/vimdoc-ja'
 
 " utility
-Bundle 'taglist.vim'
+" Bundle 'taglist.vim' " tab切り替え時にエラーが出るので下記fix版を使う。
+Bundle 'rgo/taglist.vim'
 " Bundle 'Source-Explorer-srcexpl.vim'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neocomplcache-snippets-complete'
@@ -44,6 +45,7 @@ Bundle 'kana/vim-textobj-user'
 Bundle 'akiyan/vim-textobj-php'
 Bundle 'vim-scripts/Align'
 Bundle 'Lokaltog/vim-powerline'
+" Bundle 'joonty/vim-phpqa.git'
 " Bundle 'glidenote/memolist.vim'
 
 
@@ -57,6 +59,7 @@ Bundle 'tacroe/unite-mark'
 
 " colorscheme
 Bundle 'desert.vim'
+Bundle 'desert256.vim'
 Bundle 'mrkn256.vim'
 Bundle 'molokai'
 Bundle 'Zenburn'
@@ -301,6 +304,7 @@ else
   " 対応する括弧の色を控えめにしておく
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
+  " colorscheme desert256
   colorscheme mrkn256
 endif
 
@@ -799,12 +803,10 @@ let Tlist_Sort_Type = "order"
 " Do not display the help info
 let Tlist_Compact_Format = 1
 
-
-
-
 let tlist_php_settings = 'php;c:class;d:constant;f:function'
-" if exists('loaded_taglist')
-  nmap <silent> <F9> :TlistToggle<CR>
+
+
+nmap <silent> <F9> :TlistToggle<CR>
 
 " ~/.ctags に設定を書くことにした。
 " --langmapは次のように調べられる。
@@ -820,34 +822,33 @@ let tlist_php_settings = 'php;c:class;d:constant;f:function'
 " v  variables
 " j  javascript functions
 
-  nmap <silent> <F12>
-        \ :!ctags -f %:p:h/tags -R ./<CR>
-  " vim --versionで+path_extraが入っていれば
-  if has('path_extra')
-    " 現ディレクトリ含む親ディレクトリをさかのぼってtagsファイルを指定
-    " set tags+=tags;
+nmap <silent> <F12>
+      \ :!ctags -f %:p:h/tags -R ./<CR>
+" vim --versionで+path_extraが入っていれば
+if has('path_extra')
+  " 現ディレクトリ含む親ディレクトリをさかのぼってtagsファイルを指定
+  " set tags+=tags;
 
-    " 上だとルートまでさかのぼっちゃうので;以降に特定のディレクトリを指定して、さかのぼり上限を設定。
-    " プロジェクトごとに設定できればいいかもな。。。
-    " set
-    " tags+=tags;/project/a
+  " 上だとルートまでさかのぼっちゃうので;以降に特定のディレクトリを指定して、さかのぼり上限を設定。
+  " プロジェクトごとに設定できればいいかもな。。。
+  " set
+  " tags+=tags;/project/a
 
-    " 現在のディレクトリからした全てのtagsを読み込む。
-    set tags+=./**/tags;
+  " 現在のディレクトリからした全てのtagsを読み込む。
+  set tags+=./**/tags;
 
-    " **は30階層が上限なので、上記だと処理が重くなる可能性がある。階層の深さの上限を指定するやりかた。
-    " set
-    " tags+=./**3/tags;
+  " **は30階層が上限なので、上記だと処理が重くなる可能性がある。階層の深さの上限を指定するやりかた。
+  " set
+  " tags+=./**3/tags;
 
-    " 現在のディレクトリから上はルート、下は全部さかのぼってtagsファイルを読み込む。
-    " set
-    " tags=**;
+  " 現在のディレクトリから上はルート、下は全部さかのぼってtagsファイルを読み込む。
+  " set
+  " tags=**;
 
-  else
-    set tags=./tags,tags
-  endif
+else
+  set tags=./tags,tags
+endif
 
-" endif
 
 
 "----------------------------------------------------
@@ -1037,14 +1038,14 @@ let g:user_zen_settings = {
 "----------------------------------------------------
 " cake.vim
 "----------------------------------------------------
-nnoremap <Space>cc :<C-u>Ccontrollervsp
-nnoremap <Space>cm :<C-u>Cmodelvsp
-nnoremap <Space>cv :<C-u>Cviewvsp
+nnoremap <Space>cc :<C-u>Ccontroller
+nnoremap <Space>cm :<C-u>Cmodel
+nnoremap <Space>cv :<C-u>Cview
 nnoremap <Space>cl :<C-u>Clog
 nnoremap <Space>ccv :<C-u>Ccontrollerview
-nnoremap <Space>ccm :<C-u>Ccomponentvsp
-nnoremap <Space>ccf :<C-u>Cconfigvsp
-nnoremap <Space>cb :<C-u>Cbehaviorvsp
+nnoremap <Space>ccm :<C-u>Ccomponent
+nnoremap <Space>ccf :<C-u>Cconfig
+nnoremap <Space>cb :<C-u>Cbehavior
 nnoremap <Space>ch :<C-u>Chelper
 nnoremap <Space>ct :<C-u>Ctest
 nnoremap <Space>cf :<C-u>Cfixture
