@@ -193,6 +193,10 @@ abbr 指定カラム全てでuniqueかチェックの場合は第二引数をtru
 snippet msave
     $this->${1:model_name}->save(${2:array_data}, ${3:true}, ${4:array_validate_fields})${0}
 
+snippet msaveall
+abbr 複数レコードやアソシエーションを一括登録
+    $this->${1:model_name}->saveAll(${2:array_data}, array('atomic' => ${3:true}, 'validate' => ${4:true or 'only'}))${0}
+
 snippet msave_field
 abbr 特定カラムの更新(バリデーションする場合true)
     $this->${1:model_name}->saveField('${2:field_name}', ${3:value}, ${4:false});${0}
@@ -484,6 +488,8 @@ snippet pehimg
 snippet pehtag
     <?= $html->tag('${1:tag_name}', ${2:inner_html}, array('escape' => ${3:false}, ${4:attribute})) ?>${0}
 
+snippet pehurl
+    <?= $html->url(array('controller' => '${1:controller}', 'action' => '${2:action}'), ${3:true})) ?>${0}
 
 # --------------------------------------------------
 # Form helper
@@ -533,6 +539,12 @@ snippet pefbutton
 
 snippet peferror
     <?= $form->error('${1:field_name}', ${2:null}, array( 'wrap' => '${3:}', 'escape' => ${4:false})) ?>${0}
+
+snippet pifisformerror
+abbr ifフォームのエラーがあるか？
+    <? if ($form->isFieldError('${1:field_name}'): ?>
+    ${0}
+    <? endif ?>
 
 # --------------------------------------------------
 # App
