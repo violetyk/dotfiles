@@ -3,78 +3,8 @@
 " viとの互換性をとらない(vimの独自拡張機能を使う為)
 set nocompatible
 
-"----------------------------------------------------
-" Vundle関連
-"----------------------------------------------------
-filetype off
-set rtp+=~/.vim/vundle.git
-call vundle#rc()
-
-" help
-Bundle 'vim-jp/vimdoc-ja'
-
-" utility
-" Bundle 'taglist.vim' " tab切り替え時にエラーが出るので下記fix版を使う。
-Bundle 'rgo/taglist.vim'
-" Bundle 'Source-Explorer-srcexpl.vim'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neocomplcache-snippets-complete'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimproc'
-Bundle 'Shougo/vimshell'
-Bundle 'matchit.zip'
-Bundle 'The-NERD-tree'
-Bundle 'The-NERD-Commenter'
-Bundle 'ShowMarks'
-Bundle 'Townk/vim-autoclose'
-Bundle 'thinca/vim-ref'
-Bundle 'thinca/vim-quickrun'
-Bundle 'thinca/vim-localrc'
-Bundle 'mattn/zencoding-vim'
-Bundle 'mattn/webapi-vim'
-Bundle 'mattn/gist-vim'
-Bundle 'scratch-utility'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-fugitive'
-Bundle 'naberon/vim-cakehtml'
-Bundle 'dbext.vim'
-Bundle 'motemen/hatena-vim'
-Bundle 'PDV--phpDocumentor-for-Vim'
-Bundle 'kana/vim-textobj-user'
-Bundle 'akiyan/vim-textobj-php'
-Bundle 'vim-scripts/Align'
-Bundle 'Lokaltog/vim-powerline'
-" Bundle 'joonty/vim-phpqa.git'
-" Bundle 'glidenote/memolist.vim'
-
-
-Bundle 'violetyk/cake.vim'
-
-" unite source
-Bundle 'unite-colorscheme'
-Bundle 'unite-locate'
-Bundle 'h1mesuke/unite-outline'
-Bundle 'tacroe/unite-mark'
-
-" colorscheme
-Bundle 'desert.vim'
-Bundle 'desert256.vim'
-Bundle 'mrkn256.vim'
-Bundle 'molokai'
-Bundle 'Zenburn'
-Bundle 'altercation/vim-colors-solarized'
-
-" syntax
-Bundle 'jQuery'
-Bundle 'JavaScript-syntax'
-
-" indent
-Bundle 'pangloss/vim-javascript'
-
-
-" 日本語ヘルプフリーズ問題対策。
-set notagbsearch
+" vundle
+source $HOME/dotfiles/bundles.vim
 
 "----------------------------------------------------
 " 基本的な設定
@@ -92,6 +22,9 @@ set backspace=indent,eol,start
 
 "<Leader>の設定
 let mapleader = ","
+
+" 日本語ヘルプフリーズ問題対策。
+set notagbsearch
 
 " ヘルプファイルの検索順
 set helplang=ja,en
@@ -111,6 +44,7 @@ set splitbelow
 " vsplitしたときに右に出す。
 set splitright
 
+
 "----------------------------------------------------
 " エンコーディング
 "----------------------------------------------------
@@ -126,81 +60,33 @@ set termencoding=utf-8
 set fileencoding=utf-8
 
 " 読めなかったときに試される順番。
-"set fileencodings=ucs-bom,euc-jp,cp932,sjis,utf-8
+set fileencodings=ucs-bom,euc-jp,cp932,sjis,utf-8
 
-" 文字コードの自動認識 http://www.kawaz.jp/pukiwiki/?vim
-" if &encoding !=# 'utf-8'
- " set encoding=japan
- " set fileencoding=japan
-" endif
-" if has('iconv')
- " let s:enc_euc = 'euc-jp'
- " let s:enc_jis = 'iso-2022-jp'
- " " iconvがeucJP-msに対応しているかをチェック
- " if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
-   " let s:enc_euc = 'eucjp-ms'
-   " let s:enc_jis = 'iso-2022-jp-3'
- " " iconvがJISX0213に対応しているかをチェック
- " elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==#
- " "\xad\xc5\xad\xcb"
-   " let s:enc_euc = 'euc-jisx0213'
-   " let s:enc_jis = 'iso-2022-jp-3'
- " endif
- " " fileencodingsを構築
- " if &encoding ==# 'utf-8'
-   " let s:fileencodings_default = &fileencodings
-   " let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-   " let &fileencodings = &fileencodings .','. s:fileencodings_default
-   " unlet s:fileencodings_default
- " else
-   " let &fileencodings = &fileencodings .','. s:enc_jis
-   " set fileencodings+=utf-8,ucs-2le,ucs-2
-   " if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
-     " set fileencodings+=cp932
-     " set fileencodings-=euc-jp
-     " set fileencodings-=euc-jisx0213
-     " set fileencodings-=eucjp-ms
-     " let &encoding = s:enc_euc
-     " let &fileencoding = s:enc_euc
-   " else
-     " let &fileencodings = &fileencodings .','. s:enc_euc
-   " endif
- " endif
- " " 定数を処分
- " unlet s:enc_euc
- " unlet s:enc_jis
-" endif
-" " 日本語を含まない場合は fileencoding に encoding を使うようにする
-" if has('autocmd')
- " function! AU_ReCheck_FENC()
-   " if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
-     " let &fileencoding=&encoding
-   " endif
- " endfunction
- " autocmd BufReadPost * call AU_ReCheck_FENC()
-" endif
+" 改行コードの自動認識
+set fileformats=unix,dos,mac
 
-" " 改行コードの自動認識
-" set fileformats=unix,dos,mac
-
-" " □とか○の文字があってもカーソル位置がずれないようにする？
-" if exists('&ambiwidth')
-  " set ambiwidth=double
-" endif
+" □とか○の文字があってもカーソル位置がずれないようにする？
+if exists('&ambiwidth')
+  set ambiwidth=double
+endif
 
 
 "----------------------------------------------------
-" バックアップ
+" バックアップ・スワップ
 "----------------------------------------------------
 " バックアップをとらない
 "set nobackup
+
 " ファイルの上書きの前にバックアップを作る
 " (backup がオフの場合、バックアップは上書きに成功した後削除される)
 set writebackup
-" バックアップをとる場合
+
+" バックアップをとる
 set backup
+
 " バックアップを作成しないファイルパターン
 " set backupskip = escape(expand('$HOME'), '\') . '/tmp/*'
+
 " バックアップ名の最後に文字列を追加
 au BufWritePre * let &bex = '-' . strftime("%Y%m%d_%H%M")
 
@@ -213,6 +99,7 @@ endif
 
 " スワップファイルを作らない
 "set noswapfile
+
 " スワップファイルを作るディレクトリ
 if has('win32') || has('win64')
   set directory=$VIM/swap
@@ -274,11 +161,11 @@ if has('gui_running')
     " 起動したときに最大化
     au GUIEnter * simalt ~x
 
-
   elseif has('mac')
     "--------------------------------------------------
     " Mac用 gvim
     "--------------------------------------------------
+    set guifont=Ricty\ 11
 
   elseif has('gui_gtk2')
     "--------------------------------------------------
@@ -304,8 +191,8 @@ else
   " 対応する括弧の色を控えめにしておく
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
-  " colorscheme desert256
   colorscheme mrkn256
+
 endif
 
 
@@ -319,6 +206,7 @@ endif
 
 " 全角スペースの表示
 "highlight ZenkakuSpace cterm=underline ctermfg=red guibg=red
+
 " エラーと同じハイライトを適用。
 highlight link ZenkakuSpace Error
 autocmd BufRead,BufNew * match ZenkakuSpace /　/
@@ -363,55 +251,6 @@ endfunction
 
 " カーソル列のハイライト。reverseで反転表示。
 " highlight CursorColumn term=reverse cterm=reverse
-
-
-"--------------------------------------------------
-" 日本語入力固定モード（im_control.vim）
-"--------------------------------------------------
-if has('win32') || has('win64')
-
-  " 「日本語入力固定モード」切替キー
-  inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
-
-  " GVimの時だけ「日本語入力固定モード」の vi協調モードを無効化
-  let IM_vi_CooperativeMode = has('gui_running') ? 0 : 1
-
-" elseif has('unix')
-elseif has('gui_gtk2')
-
-  " http://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-japanese/ime-control#install
-  " 「日本語入力固定モード」切替キー
-  inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
-  " 自動生成するファイルの保存場所
-  let IM_CtrlIBusPythonFileDir = '~/.ibus'
-
-  if has('gui_running')
-
-    " ↓うなくいかない。。。
-
-    " GVimの時だけ「日本語入力固定モード」の vi協調モードを無効化
-    " IM自体にvi協調モードがある場合は、0で「日本語入力固定モード」独自のvi協調モードをスキップさせる
-    let IM_vi_CooperativeMode = 0
-
-    " let IM_CtrlMode = 1
-    " PythonによるIBus制御を使用する
-    let IM_CtrlIBusPython = 1
-    " let IM_JpFixModeAutoToggle = 1
-
-    " iminsert=1を設定して IBusの vi協調モードを無効化する
-    " set iminsert=1
-    " 制御スクリプトを同期処理で呼び出し
-    " let IM_CtrlAsync = ''
-    " 制御スクリプトを非同期で呼び出し(default)
-    " let IM_CtrlAsync = '&'
-  else
-    let IM_vi_CooperativeMode = 1
-    let IM_CtrlMode = 3
-    " PythonによるIBus制御を使用する
-    let IM_CtrlIBusPython = 1
-    " let IM_JpFixModeAutoToggle = 1
-  endif
-endif
 
 
 "----------------------------------------------------
@@ -601,22 +440,6 @@ augroup END
 "----------------------------------------------------
 " keybindの設定
 "
-"   map = 挿入モードとコマンドラインモード以外のモード
-"   map! = 挿入モードとコマンドラインモード
-"   vmap = VISUAL モード
-"   nmap = ノーマルモード
-"   imap = 挿入モード
-"   cmap = コマンドライン
-"   noremap = ノーマルモード/ビジュアルモード/オペレーティングモード
-"   nnoremap = ノーマルモードのみ。
-"
-"   「nnoremap {lhs} {rhs}」はnormalモードのkey mappingを定義するコマンド．
-"   {lhs}のキーシーケンスを{rhs}にマッピングする．
-"   {rhs}中のキーがさらにマッピングされていても再帰的な展開はしない．
-"   nnoremapの{rhs}に<Nop>を指定すると，{lhs}を入力しても何も起こらなくなる(No Operation)．
-"   nnoremapで「<silent>」を指定すると，マッピングされたキーが実行されたときに
-"   コマンドラインへの出力を行わなくなる(ちらつき対策)．
-"
 "   調べる方法。
 "   :map
 "
@@ -627,7 +450,19 @@ augroup END
 "
 "   ショートカットキーの定義元ファイル情報も表示。
 "   :verbose nmap
-"----------------------------------------------------
+"
+" |------------------|----------|----------|-----------|----------|
+" | mode             | normal   | insert   | command   | visual   |
+" |------------------|----------|----------|-----------|----------|
+" | map / noremap    | yes      | no       | no        | yes      |
+" | nmap / nnoremap  | yes      | no       | no        | no       |
+" | imap / inoremap  | no       | yes      | no        | no       |
+" | cmap / cnoremap  | no       | no       | yes       | no       |
+" | vmap / vnoremap  | no       | no       | no        | yes      |
+" | map! / noremap!  | no       | yes      | yes       | no       |
+" |------------------|----------|----------|-----------|----------|
+
+
 
 " <C-Space>を押すと<Nul>が送られるようなので。
 map <Nul> <C-Space>
@@ -774,11 +609,12 @@ let NERDTreeAutoCenter = 0
 "----------------------------------------------------
 " taglist
 "----------------------------------------------------
+set showfulltag
+
 if has('win32') || has('win64')
   let Tlist_Ctags_Cmd = "ctags"
 else
   let Tlist_Ctags_Cmd = "ctags"
-  " let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
 endif
 
 let Tlist_Inc_Winwidth = 1
@@ -850,7 +686,6 @@ else
 endif
 
 
-
 "----------------------------------------------------
 " neocomplcache.vim
 "----------------------------------------------------
@@ -876,21 +711,21 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 " Define dictionary.
 if has('win32') || has('win64')
-    let g:neocomplcache_dictionary_filetype_lists = {
-                \ 'default' : '',
-                \ 'vimshell' : $ME.'/.vimshell_hist',
-                \ 'scheme' : $HOME.'/.gosh_completions',
-                \ 'php' : $VIM.'/vimfiles/dict/php.dict',
-                \ }
+  let g:neocomplcache_dictionary_filetype_lists = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions',
+        \ 'php' : $VIM.'/vimfiles/dict/php.dict',
+        \ }
 else
-    let g:neocomplcache_dictionary_filetype_lists = {
-                \ 'default' : '',
-                \ 'vimshell' : $HOME.'/.vimshell_hist',
-                \ 'scheme' : $HOME.'/.gosh_completions',
-                \ 'php' : $HOME.'/.vim/dict/php.dict',
-                \ }
-    " ユーザー定義スニペット保存ディレクトリ
-    let g:neocomplcache_snippets_dir = $HOME.'/.vim/snippets'
+  let g:neocomplcache_dictionary_filetype_lists = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions',
+        \ 'php' : $HOME.'/.vim/dict/php.dict',
+        \ }
+  " ユーザー定義スニペット保存ディレクトリ
+  let g:neocomplcache_snippets_dir = $HOME.'/.vim/snippets'
 endif
 
 " Define keyword.
@@ -909,9 +744,6 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 " 補完候補が出ていたら確定、なければ改行
 inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "<CR>"
 
-" SuperTab like snippets behavior.
-"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
-""\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
@@ -975,10 +807,7 @@ else
 endif
 
 " PHP マニュアルを音速で引く
-" nnoremap <Leader>refp :<C-u>Ref phpmanual 
 nnoremap <Leader>refp :<C-u>Unite ref/phpmanual<CR>
-
-" nnoremap <Leader>refp :<C-u>Ref phpmanual types.comparisons<CR>
 
 "----------------------------------------------------
 " scratch.vim
@@ -1122,7 +951,6 @@ let g:SrcExpl_pluginList = [
     \ ]
 
 
-
 "----------------------------------------------------
 " powerline.vim
 "----------------------------------------------------
@@ -1134,5 +962,3 @@ if has('unix') && !has('gui_running')
   inoremap <silent> <Esc> <Esc>
   inoremap <silent> <C-[> <Esc>
 endif
-
-set showfulltag
