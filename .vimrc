@@ -809,6 +809,11 @@ endif
 " PHP マニュアルを音速で引く
 nnoremap <Leader>refp :<C-u>Unite ref/phpmanual<CR>
 
+" ftと辞書のマッピング
+let g:ref_detect_filetype = {
+      \ 'htmlcake' : 'phpmanual'
+      \ }
+
 "----------------------------------------------------
 " scratch.vim
 "----------------------------------------------------
