@@ -12,6 +12,8 @@
   br = "branch -a"
   co = "checkout"
   unstage = "reset HEAD --"
+  addu = "add --update"
+  adda = "add --all"
 
 [core]
   #editor = vim -c \"set fenc=utf-8\"
