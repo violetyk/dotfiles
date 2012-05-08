@@ -66,9 +66,10 @@ set fileencodings=ucs-bom,euc-jp,cp932,sjis,utf-8
 set fileformats=unix,dos,mac
 
 " □とか○の文字があってもカーソル位置がずれないようにする？
-if exists('&ambiwidth')
-  set ambiwidth=double
-endif
+" powerline を使った時にステータスラインが更新されない場合があるのsingleで。
+" if exists('&ambiwidth')
+  " set ambiwidth=double
+" endif
 
 
 "----------------------------------------------------
