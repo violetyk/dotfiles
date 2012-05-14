@@ -540,6 +540,10 @@ nnoremap <silent> <Leader>yf :<C-u>let @" = expand("%:t")<CR>:echo "yank: ". @"<
 " カレントバッファのフルパスをヤンク
 nnoremap <silent> <Leader>yp :<C-u>let @" = expand("%:p")<CR>:echo "yank: ". @"<CR>
 
+" ビジュアルモードで選択した範囲を検索
+vnoremap z/ <ESC>/\%V
+vnoremap z? <ESC>?\%V
+
 "----------------------------------------------------
 " 戦闘力を計測
 "----------------------------------------------------
