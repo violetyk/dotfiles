@@ -60,7 +60,7 @@ set termencoding=utf-8
 set fileencoding=utf-8
 
 " 読めなかったときに試される順番。
-set fileencodings=ucs-bom,euc-jp,cp932,sjis,utf-8
+set fileencodings=utf-8,ucs-bom,euc-jp,cp932,sjis
 
 " 改行コードの自動認識
 set fileformats=unix,dos,mac

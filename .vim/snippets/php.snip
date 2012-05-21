@@ -161,7 +161,7 @@ snippet mfind
                 '${3:where_column}' => ${4:where_condition},
             ),
             // 'fields' => array('',''),
-            // 'fields' => array('sum(member_rule_count) as "RadarChart.rule_count"'),
+            // 'fields' => array('count(id) as "Model__count"'),
             // 'limit' => 10,
             // 'order' => array('Model.col' => 'desc/asc'),
             // 'order' => 'rand()',
@@ -748,6 +748,9 @@ snippet pehlink_url_ktai
 # --------------------------------------------------
 # php
 # --------------------------------------------------
+snippet error_log
+  error_log(print_r(${1:$value}, true), 3, '/tmp/php_error.log');${0}
+
 snippet eh
     echo("hogehoge");
 
