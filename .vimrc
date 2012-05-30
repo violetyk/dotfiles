@@ -889,6 +889,7 @@ nnoremap <Space>ch :<C-u>Chelper
 nnoremap <Space>ct :<C-u>Ctest
 nnoremap <Space>cf :<C-u>Cfixture
 nnoremap <Space>cs :<C-u>Cshell
+nnoremap <Space>cd :<C-u>Cdesc
 
 "----------------------------------------------------
 " localrc.vim
