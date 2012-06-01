@@ -523,7 +523,7 @@ snippet pefimultiple
     <?= $form->input('${1:field_name}', array('multiple' => 'select/checkbox', 'options' => array(${2:value} => '${3:text}'), 'label' => false, 'error' => ${5:false}, 'class' => '${6:class_name}')) ?>${0}
 
 snippet pefiradio
-    <?= $form->input('${1:field_name}', array('type' => 'radio', 'options' => array(${2:value} => '${3:text}'), 'label' => false, 'legend' => ${4:false}, 'error' => ${5:false}, 'class' => '${6:class_name}')) ?>${0}
+    <?= $form->input('${1:field_name}', array('type' => 'radio', 'options' => array(${2:value} => '${3:text}'), 'label' => false, 'legend' => ${4:false}, 'error' => ${5:false}, 'class' => '${6:class_name}', 'separator' => '${7:tag}')) ?>${0}
 
 snippet pefitextarea
     <?= $form->input('${1:field_name}', array('type' => 'textarea', 'rows' => ${2:rows}, 'cols' => ${3:cols}, 'maxLength' => ${4:max_length}, 'label' => false, 'error' => ${5:false}, 'class' => '${6:class_name}')) ?>${0}
