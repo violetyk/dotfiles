@@ -37,6 +37,7 @@ Bundle 'kana/vim-textobj-user'
 Bundle 'akiyan/vim-textobj-php'
 Bundle 'vim-scripts/Align'
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'SQLUtilities'
 " Bundle 'joonty/vim-phpqa.git'
 " Bundle 'glidenote/memolist.vim'
 
