@@ -709,6 +709,9 @@ let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 
+let g:neocomplcache_auto_completion_start_lengh = 3
+let g:neocomplcache_max_list = 30
+
 " Define dictionary.
 if has('win32') || has('win64')
   let g:neocomplcache_dictionary_filetype_lists = {
@@ -765,7 +768,6 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
 autocmd FileType php,htmlcake set omnifunc=phpcomplete#CompletePHP
 
 " Enable heavy omni completion.
