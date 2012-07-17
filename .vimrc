@@ -99,7 +99,7 @@ else
 endif
 
 " スワップファイルを作らない
-"set noswapfile
+" set noswapfile
 
 " スワップファイルを作るディレクトリ
 if has('win32') || has('win64')
@@ -699,11 +699,6 @@ let g:acp_enableAtStartup = 0
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
 let g:neocomplcache_enable_smart_case = 1
 " Use camel case completion.
 let g:neocomplcache_enable_camel_case_completion = 1
@@ -733,6 +728,7 @@ else
   let g:neocomplcache_snippets_dir = $HOME.'/.vim/snippets'
 endif
 
+
 " Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
   let g:neocomplcache_keyword_patterns = {}
@@ -746,8 +742,6 @@ smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 " 共通の部分まで補完
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
-" 補完候補が出ていたら確定、なければ改行
-inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "<CR>"
 
 
 " Recommended key-mappings.
@@ -763,10 +757,8 @@ inoremap <expr><C-y>  neocomplcache#close_popup()
 " 補完をキャンセルしてポップアップを閉じる
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-" AutoComplPop like behavior.
 " 補完候補の一番先頭を選択しとく
 let g:neocomplcache_enable_auto_select = 1
-
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -780,9 +772,12 @@ autocmd FileType php,htmlcake set omnifunc=phpcomplete#CompletePHP
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
+
+" 言語別neocompl自動発火パターン
 "let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-" let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+
 
 
 " :NeoComplCacheEditSnippets [filetype]
