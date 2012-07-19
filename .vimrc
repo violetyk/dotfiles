@@ -492,10 +492,10 @@ else
   nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
 endif
 
-" Ctrl+Nで次のバッファを表示(YankRingとバッティングする)
+" Ctrl+Nで次のバッファを表示
 map <silent> <C-N> :bnext<CR>
-" Ctrl+Pで前のバッファを表示(YankRingとバッティングする)
-map <silent> <C-P> :bprevious<CR>
+" Ctrl+Pで前のバッファを表示
+" map <silent> <C-P> :bprevious<CR>
 
 " ハイライトを消す。
 noremap <Esc><Esc> :<C-u>set nohlsearch<Return>
@@ -969,3 +969,23 @@ if has('unix') && !has('gui_running')
   inoremap <silent> <Esc> <Esc>
   inoremap <silent> <C-[> <Esc>
 endif
+
+
+"----------------------------------------------------
+" memolist.vim
+"----------------------------------------------------
+" let g:memolist_memo_suffix = "markdown"
+let g:memolist_memo_suffix = "txt"
+let g:memolist_memo_date = "%Y-%m-%d %H:%M"
+" let g:memolist_memo_date = "epoch"
+" let g:memolist_memo_date = "%D %T"
+" let g:memolist_prompt_tags = 1
+" let g:memolist_prompt_categories = 1
+let g:memolist_qfixgrep = 1
+" let g:memolist_vimfiler = 1
+" let g:memolist_template_dir_path = "path/to/dir"
+
+nmap ,mf :exe "CtrlP" g:memolist_path<CR><F5>
+nmap ,mc :MemoNew<CR>
+nmap ,mg :MemoGrep<CR>
+nmap ,ml :MemoList<CR>

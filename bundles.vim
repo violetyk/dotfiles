@@ -39,7 +39,8 @@ Bundle 'vim-scripts/Align'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'SQLUtilities'
 " Bundle 'joonty/vim-phpqa.git'
-" Bundle 'glidenote/memolist.vim'
+Bundle 'kien/ctrlp.vim'
+Bundle 'glidenote/memolist.vim'
 
 " framework
 Bundle 'tpope/vim-rails'
