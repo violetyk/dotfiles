@@ -979,9 +979,9 @@ let g:memolist_memo_suffix = "txt"
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"
 " let g:memolist_memo_date = "epoch"
 " let g:memolist_memo_date = "%D %T"
-" let g:memolist_prompt_tags = 1
+let g:memolist_prompt_tags = 1
 " let g:memolist_prompt_categories = 1
-let g:memolist_qfixgrep = 1
+" let g:memolist_qfixgrep = 1
 " let g:memolist_vimfiler = 1
 " let g:memolist_template_dir_path = "path/to/dir"
 
@@ -989,3 +989,10 @@ nmap ,mf :exe "CtrlP" g:memolist_path<CR><F5>
 nmap ,mc :MemoNew<CR>
 nmap ,mg :MemoGrep<CR>
 nmap ,ml :MemoList<CR>
+
+
+"----------------------------------------------------
+" Modeliner
+"----------------------------------------------------
+let g:Modeliner_format='ft= et ff= fenc= sts= sw= ts='
+

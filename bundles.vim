@@ -41,6 +41,7 @@ Bundle 'SQLUtilities'
 " Bundle 'joonty/vim-phpqa.git'
 Bundle 'kien/ctrlp.vim'
 Bundle 'glidenote/memolist.vim'
+Bundle 'vim-scripts/Modeliner'
 
 " framework
 Bundle 'tpope/vim-rails'
