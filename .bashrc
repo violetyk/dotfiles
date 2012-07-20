@@ -10,9 +10,23 @@ LANG=ja_JP.UTF-8
 
 ### PATH
 PATH=$PATH:$HOME/bin
-PATH=$PATH:/usr/local/vim-7.3/bin
-PATH=$PATH:/usr/local/tmux/bin
-PATH=$PATH:/usr/local/ctags/bin
+
+
+# OS別環境設定
+if [ `uname` = "Linux" ]; then
+  # for Linux
+  PATH=$PATH:/usr/local/tmux/bin
+  PATH=$PATH:/usr/local/ctags/bin
+  
+  alias vim='/usr/local/vim-7.3/bin/vim'
+  alias vimdiff='/usr/local/vim-7.3/bin/vimdiff'
+
+elif [ `uname` = "Darwin" ]; then
+  # for Mac
+  PATH=$PATH:/usr/local/tmux/bin
+  PATH=$PATH:/usr/local/ctags/bin
+
+fi
 
 export PATH
 
@@ -27,10 +41,7 @@ alias l.='ls -d .*'
 alias ll='ls -l'
 alias lll='ls -al'
 alias rm='rm -i'
-# alias vi='vim'
-alias vi='/usr/local/vim-7.3/bin/vim'
-alias vim='/usr/local/vim-7.3/bin/vim'
-alias vimdiff='/usr/local/vim-7.3/bin/vimdiff'
+alias vi='vim'
 alias rm='rm -i'
 alias wget='wget --no-check-certificate'
 # -S オプションで折り返さなくする
