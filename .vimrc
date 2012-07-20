@@ -483,6 +483,10 @@ map <PageDown> 3<C-w>-
 nnoremap <C-e> 10<C-e>
 nnoremap <C-y> 10<C-y>
 
+" 分割ウィンドウに移動して大きくする
+noremap <C-j> <C-w>j<C-w>_
+noremap <C-k> <C-w>k<C-w>_
+
 " ev / eg ですぐに.vimrcを開けるようにする。rv / rg で反映させる。
 if has('gui_running')
   nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
