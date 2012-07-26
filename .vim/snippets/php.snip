@@ -154,22 +154,20 @@ snippet mhabtm
     ${0}
 
 snippet mfind
-    $this->${1:model_name}->find(
-        '${2:all/first/count/list/threaded/neighbours}',
-        array(
-            'conditions' => array(
-                '${3:where_column}' => ${4:where_condition},
-            ),
-            // 'fields' => array('',''),
-            // 'fields' => array('count(id) as "Model__count"'),
-            // 'limit' => 10,
-            // 'order' => array('Model.col' => 'desc/asc'),
-            // 'order' => 'rand()',
-            // 'group' => array('Model.col'),
-            // 'recursive' => -1,
-        )
-    );
-    ${0}
+  $this->${1:model_name}->find('${2:all/first/count/list/threaded/neighbours}', array(
+    'contain' => false,
+    'conditions' => array(
+        '${3:where_column}' => ${4:where_condition},
+    ),
+    // 'fields' => array('',''),
+    // 'fields' => array('count(id) as "Model__count"'),
+    // 'limit' => 10,
+    // 'order' => array('Model.col' => 'desc/asc'),
+    // 'order' => 'rand()',
+    // 'group' => array('Model.col'),
+    // 'recursive' => -1,
+  ));
+  ${0}
 
 snippet mread
     $this->${1:model_name}->read(${2:array_fields}, ${3:primary_id});${0}
@@ -749,7 +747,7 @@ snippet pehlink_url_ktai
 # php
 # --------------------------------------------------
 snippet error_log
-  error_log(print_r(${1:$value}, true), 3, '/tmp/php_error.log');${0}
+  error_log(print_r(${1:$value}, true), 3, '/var/tmp/php_error.log');${0}
 
 snippet eh
     echo("hogehoge");
@@ -758,256 +756,256 @@ snippet ef
     echo("fugafuga");
 
 snippet func
-	function ${1}(${2}) {
-		${0:# code...}
-	}
+  function ${1}(${2}) {
+  ${0:# code...}
+ }
 
 snippet vd
-    var_dump( ${1} );${0}
+    var_dump(${1});${0}
 
 snippet php
-    <?php
+  <?php
     ${1}
 
 
 snippet pfore
-	<? foreach ($${1:variable} as $${2:key}${3: =>}): ?>
-	${0}
-	<? endforeach ?>
+  <? foreach ($${1:variable} as $${2:key}${3: =>}): ?>
+ ${0}
+ <? endforeach ?>
 
 snippet pife
-	<? if (${1:condition}): ?>
-	${2}
-	<? else: ?>
-	${0}
-	<? endif ?>
+  <? if (${1:condition}): ?>
+ ${2}
+ <? else: ?>
+ ${0}
+ <? endif ?>
 
 snippet pif
-	<? if (${1:condition}): ?>
-	${0}
-	<? endif ?>
+  <? if (${1:condition}): ?>
+ ${0}
+ <? endif ?>
 
 snippet pelse
-	<? else: ?>
+  <? else: ?>
 
 snippet this
-	$this->${0}
+  $this->${0}
 
 snippet pethis
-	<?= $this->${0} ?>
+  <?= $this->${0} ?>
 
 snippet docc
-	/**
-	 * ${3:undocumented class variable}
-	 *
-	 * @var ${4:string}
-	 **/
-	${1:var} \$${2};${0}
+  /**
+  * ${3:undocumented class variable}
+  *
+  * @var ${4:string}
+  **/
+ ${1:var} \$${2};${0}
 
 snippet docd
-	/**
-	 * ${3:undocumented constant}
-	 **/
-	define(${1} ${2});${0}
+  /**
+  * ${3:undocumented constant}
+  **/
+ define(${1} ${2});${0}
 
 snippet docs
-	/**
-	 * ${4:undocumented function}
-	 *
-	 * @return ${5:void}
-	 * @author ${6}
-	 **/
-	${1}function ${2}(${3});${0}
+  /**
+  * ${4:undocumented function}
+  *
+  * @return ${5:void}
+  * @author ${6}
+  **/
+ ${1}function ${2}(${3});${0}
 
 snippet docf
-	/**
-	 * ${4:comment}
-	 *
-	 * @param ${5:int/string/bool/array/object/mixed} ${6:param_name} ${7:comment}
-	 * @return ${8:type} ${9:comment}
-	 */
-	${1}function ${2}(${3})
-	{
-		${0}
-	}
+  /**
+  * ${4:comment}
+  *
+  * @param ${5:int/string/bool/array/object/mixed} ${6:param_name} ${7:comment}
+  * @return ${8:type} ${9:comment}
+  */
+ ${1}function ${2}(${3})
+ {
+  ${0}
+ }
 
 
 snippet doch
-	/**
-	 * ${1}
-	 *
-	 * @author ${2}
-	 * @version ${3}
-	 * @copyright ${4}
-	 * @package ${5:default}
-	 **/
-	
-	/**
-	 * Define DocBlock
-	 **/
+  /**
+  * ${1}
+  *
+  * @author ${2}
+  * @version ${3}
+  * @copyright ${4}
+  * @package ${5:default}
+  **/
+
+/**
+  * Define DocBlock
+  **/
 
 snippet doci
-	/**
-	 * ${2:undocumented class}
-	 *
-	 * @package ${3:default}
-	 * @author ${4}
-	 **/
-	interface ${1}
-	{
-		${0}
-	} // END interface ${1}
+  /**
+  * ${2:undocumented class}
+  *
+  * @package ${3:default}
+  * @author ${4}
+  **/
+ interface ${1}
+ {
+  ${0}
+ } // END interface ${1}
 
 snippet c
-	/**
-	 * $0
-	 */
+  /**
+  * $0
+  */
 
 snippet class
-	/**
-	 * ${1}
-	 */
-	class ${2:ClassName}${3:extends}} {
-		$5
-		function ${4:__construct}(${5:argument}) {
-			${0:# code...}
-		}
-	}
+  /**
+  * ${1}
+  */
+ class ${2:ClassName}${3:extends}} {
+  $5
+  function ${4:__construct}(${5:argument}) {
+   ${0:# code...}
+  }
+ }
 
 snippet def
-	${1}defined('${2}')${0}
+  ${1}defined('${2}')${0}
 
 
 snippet do
-	do {
-		${0:# code...}
-	} while (${1});
+  do {
+  ${0:# code...}
+ } while (${1});
 
 snippet if? 
-	$${1:retVal} = (${2:condition}) ? ${3:a} : ${4:b} ;
+  $${1:retVal} = (${2:condition}) ? ${3:a} : ${4:b} ;
 
 snippet ifelse
-	if (${1:condition}) {
-		${2:# code...}
-	} else {
-		${3:# code...}
-	}
-	${0}
+  if (${1:condition}) {
+  ${2:# code...}
+ } else {
+  ${3:# code...}
+ }
+ ${0}
 
 snippet if
-	if (${1:condition}) {
-		${0:# code...}
-	}
+  if (${1:condition}) {
+  ${0:# code...}
+ }
 
 snippet echo
-	echo "${1:string}"${0};
+  echo "${1:string}"${0};
 
 snippet else
-	else {
-		${0:# code...}
-	}
+  else {
+  ${0:# code...}
+ }
 
 snippet elseif
-	elseif (${1:condition}) {
-		${0:# code...}
-	}
+  elseif (${1:condition}) {
+  ${0:# code...}
+ }
 
 snippet for
-	for ($${1:i}=${2:0}; $${1:i} < ${3}; $${1:i}++) { 
-		${0:# code...}
-	}
+  for ($${1:i}=${2:0}; $${1:i} < ${3}; $${1:i}++) { 
+  ${0:# code...}
+ }
 
 snippet fore
-	foreach ($${1:variable} as $${2:key}${3: =>} ${4:value}) {
-		${0:# code...}
-	}
+  foreach ($${1:variable} as $${2:key}${3: =>} ${4:value}) {
+  ${0:# code...}
+ }
 
 
 snippet con
-	function __construct(${1})
-	{
-		${0}
-	}
+  function __construct(${1})
+ {
+  ${0}
+ }
 
 snippet here
-	<<<${1:HTML}
-	${2:content here}
-	$1;
+  <<<${1:HTML}
+ ${2:content here}
+ $1;
 
 snippet inc
-	include '${1:file}';${0}
+ include '${1:file}';${0}
 
 snippet inco
-	include_once '${1:file}';${0}
+ include_once '${1:file}';${0}
 
 snippet array
-	$${1:arrayName} = array('${2}' => ${3} ${0});
+  $${1:arrayName} = array('${2}' => ${3} ${0});
 
 snippet req
-	require '${1:file}';${0}
+  require '${1:file}';${0}
 
 snippet reqo
-	require_once '${1:file}';${0}
+  require_once '${1:file}';${0}
 
 snippet ret
-	return${1};${0}
+  return${1};${0}
 
 snippet retf
-	return false;
+  return false;
 
 snippet rett
-	return true;
+  return true;
 
 snippet case
-	case '${1:variable}':
-		${0:# code...}
-		break;
+  case '${1:variable}':
+  ${0:# code...}
+  break;
 
 snippet switch
 abbr sw
-	switch (${1:variable}) {
-	case '${2:value}':
-		${3:# code...}
-		break;
-	${0}
-	default:
-		${4:# code...}
-		break;
-	}
+  switch (${1:variable}) {
+ case '${2:value}':
+  ${3:# code...}
+  break;
+ ${0}
+ default:
+  ${4:# code...}
+  break;
+ }
 
 snippet throw
-	throw new ${1}Exception(${2:"${3:Error Processing Request}"}${4:});
-	${0}
+  throw new ${1}Exception(${2:"${3:Error Processing Request}"}${4:});
+ ${0}
 
 snippet while
 abbr wh
-	while (${1}) {
-		${0:# code...}
-	}
+  while (${1}) {
+  ${0:# code...}
+ }
 
 snippet gloabals
-	\$GLOBALS['${1:variable}']${2: = }${3:something}${4:;}${0}
+  \$GLOBALS['${1:variable}']${2: = }${3:something}${4:;}${0}
 
 snippet cookie
-	\$_COOKIE['${1:variable}']
+  \$_COOKIE['${1:variable}']
 
 snippet env
-	\$_ENV['${1:variable}']
+  \$_ENV['${1:variable}']
 
 snippet files
-	\$_FILES['${1:variable}']
+  \$_FILES['${1:variable}']
 
 snippet get
-	\$_GET['${1:variable}']
+  \$_GET['${1:variable}']
 
 snippet post
-	\$_POST['${1:variable}']
+  \$_POST['${1:variable}']
 
 snippet request
-	\$_REQUEST['${1:variable}']
+  \$_REQUEST['${1:variable}']
 
 snippet server
-	\$_SERVER['${1:variable}']
+  \$_SERVER['${1:variable}']
 
 snippet session
-	\$_SESSION['${1:variable}']
+  \$_SESSION['${1:variable}']

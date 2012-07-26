@@ -63,8 +63,11 @@ Bundle 'Zenburn'
 Bundle 'altercation/vim-colors-solarized'
 
 " syntax
+Bundle 'php.vim--Garvin'
 Bundle 'jQuery'
 Bundle 'JavaScript-syntax'
+Bundle 'othree/html5.vim'
+Bundle 'hail2u/vim-css3-syntax'
 
 " indent
 Bundle 'pangloss/vim-javascript'

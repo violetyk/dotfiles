@@ -473,34 +473,44 @@ map! <Nul> <C-Space>
 nnoremap <C-h> :<C-u>help<Space>
 nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 
+
+" ---------- 
+" バッファ系
+" ---------- 
+nnoremap bb :b#<CR>
+nnoremap bp :bprevious<CR>
+nnoremap bn :bnext<CR>
+nnoremap bd :bdelete<CR>
+
 " 分割幅を広く
 map <PageUp> 3<C-w>+
 " 分割幅を狭く
 map <PageDown> 3<C-w>-
 
-
-" 移動量アップ
-nnoremap <C-e> 10<C-e>
-nnoremap <C-y> 10<C-y>
-
 " 分割ウィンドウに移動して大きくする
 noremap <C-j> <C-w>j<C-w>_
 noremap <C-k> <C-w>k<C-w>_
 
-" ev / eg ですぐに.vimrcを開けるようにする。rv / rg で反映させる。
-if has('gui_running')
-  nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
-  nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
-else
-  nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
-  nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
-endif
-
 " Ctrl+Nで次のバッファを表示
-map <silent> <C-N> :bnext<CR>
+" map <silent> <C-N> :bnext<CR>
 " Ctrl+Pで前のバッファを表示
 " map <silent> <C-P> :bprevious<CR>
 
+
+
+" ---------- 
+" 移動系
+" ---------- 
+" 移動量アップ
+nnoremap <C-e> 10<C-e>
+nnoremap <C-y> 10<C-y>
+
+
+
+
+" ---------- 
+" 検索系
+" ---------- 
 " ハイライトを消す。
 noremap <Esc><Esc> :<C-u>set nohlsearch<Return>
 
@@ -510,6 +520,17 @@ nnoremap ? :<C-u>set hlsearch<Return>?
 nnoremap * :<C-u>set hlsearch<Return>*
 nnoremap # :<C-u>set hlsearch<Return>#
 
+" ビジュアルモードで選択した範囲を検索
+vnoremap z/ <ESC>/\%V
+vnoremap z? <ESC>?\%V
+
+" 検索時に/をエスケープ
+cnoremap <expr>/ getcmdtype() == '/' ? '\/' : '/'
+
+
+" ---------- 
+" 編集系
+" ---------- 
 " 貼り付けの後「=」でフォーマッティングは面倒なので、いつでもカレント行のインデントにあわせた貼り付けをする。
 nnoremap p ]p
 nnoremap P ]P
@@ -538,15 +559,28 @@ nnoremap <expr>;; IsEndSemicolon() ? "$a;<Esc>" : "$"
 " vimスクリプト開発用に即バッファをsource。
 " nnoremap <Leader>so :<C-u>source %<CR>
 
+" ev / eg ですぐに.vimrcを開けるようにする。rv / rg で反映させる。
+if has('gui_running')
+  nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
+  nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
+else
+  nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
+  nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
+endif
 
 " カレントバッファのファイル名をヤンク
 nnoremap <silent> <Leader>yf :<C-u>let @" = expand("%:t")<CR>:echo "yank: ". @"<CR>
 " カレントバッファのフルパスをヤンク
 nnoremap <silent> <Leader>yp :<C-u>let @" = expand("%:p")<CR>:echo "yank: ". @"<CR>
 
-" ビジュアルモードで選択した範囲を検索
-vnoremap z/ <ESC>/\%V
-vnoremap z? <ESC>?\%V
+" 最後に編集したテキストを選択。
+nnoremap gc `[v`]
+vnoremap gc :<C-u>normal gc<CR>
+onoremap gc :<C-u>normal gc<CR>
+
+inoremap jj <Esc>
+
+
 
 "----------------------------------------------------
 " 戦闘力を計測
@@ -757,11 +791,12 @@ inoremap <expr><CR>  neocomplcache#smart_close_popup() ."\<CR>"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<Esc>"
 " 補完を選択してポップアップを閉じる。
 inoremap <expr><C-y>  neocomplcache#close_popup()
 " 補完をキャンセルしてポップアップを閉じる
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
 
 " 補完候補の一番先頭を選択しとく
 let g:neocomplcache_enable_auto_select = 1
@@ -812,12 +847,10 @@ else
 endif
 
 " PHP マニュアルを音速で引く
-nnoremap <Leader>refp :<C-u>Unite ref/phpmanual<CR>
+nnoremap <Leader>ref :<C-u>Unite ref/phpmanual<CR>
 
 " ftと辞書のマッピング
-let g:ref_detect_filetype = {
-      \ 'htmlcake' : 'phpmanual'
-      \ }
+let g:ref_detect_filetype = { 'htmlcake' : 'phpmanual' }
 
 "----------------------------------------------------
 " scratch.vim
@@ -845,33 +878,7 @@ let g:use_zen_complete_tag = 1
 " let g:user_zen_expandabbr_key = '<C-Z>'
 
 " filterについて -> http://code.google.com/p/zen-coding/wiki/Filters
-let g:user_zen_settings = {
-\ 'lang' : 'ja',
-\ 'indentation' : '\t',
-\ 'html' : {
-\   'indentation' : '  ',
-\   'filters' : 'html,c',
-\ },
-\ 'css' : {
-\   'filters' : 'fc',
-\ },
-\ 'php' : {
-\   'filters' : 'html',
-\ },
-\ 'htmlcake' : {
-\   'indentation' : '  ',
-\   'extends' : 'html',
-\ },
-\ 'perl' : {
-\  'aliases' : {
-\    'req' : 'require '
-\  },
-\  'snippets' : {
-\    'use' : "use strict\nuse warnings\n\n",
-\    'warn' : "warn \"|\";",
-\  }
-\}
-\}
+let g:user_zen_settings = { 'lang' : 'ja', 'indentation' : '\t', 'html' : {   'indentation' : '  ',   'filters' : 'html,c', }, 'css' : {   'filters' : 'fc', }, 'php' : {   'filters' : 'html', }, 'htmlcake' : {   'indentation' : '  ',   'extends' : 'html', }, 'perl' : {  'aliases' : {    'req' : 'require '  },  'snippets' : {    'use' : "use strict\nuse warnings\n\n",    'warn' : "warn \"|\";",  }}}
 
 
 "----------------------------------------------------
@@ -955,11 +962,7 @@ let g:SrcExpl_updateTagsKey = "<F12>""
 " Source Explorerの機能ON/OFF(#普通にvimrcで書く方法と同じ)
 nnoremap <F10> :SrcExplToggle<CR>
 
-let g:SrcExpl_pluginList = [
-        \ "__Tag_List__",
-        \ "_NERD_tree_",
-        \ "Source_Explorer"
-    \ ]
+let g:SrcExpl_pluginList = [ "__Tag_List__", "_NERD_tree_", "Source_Explorer" ]
 
 
 "----------------------------------------------------
@@ -999,4 +1002,3 @@ nmap ,ml :MemoList<CR>
 " Modeliner
 "----------------------------------------------------
 let g:Modeliner_format='ft= et ff= fenc= sts= sw= ts='
-
