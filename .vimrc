@@ -1037,3 +1037,15 @@ nmap ,ml :MemoList<CR>
 " Modeliner
 "----------------------------------------------------
 let g:Modeliner_format='ft= et ff= fenc= sts= sw= ts='
+
+
+"----------------------------------------------------
+" ctrlp.vim
+"----------------------------------------------------
+let g:ctrlp_by_filename         = 1 " フルパスではなくファイル名のみで絞込み
+let g:ctrlp_jump_to_buffer      = 2 " タブで開かれていた場合はそのタブに切り替える
+let g:ctrlp_clear_cache_on_exit = 0 " 終了時キャッシュをクリアしない
+let g:ctrlp_mruf_max            = 500 " MRUの最大記録数
+" let g:ctrlp_highlight_match     = [1, 'IncSearch'] " 絞り込みで一致した部分のハイライト
+let g:ctrlp_open_new_file       = 1 " 新規ファイル作成時にタブで開く
+let g:ctrlp_open_multi          = '10t' " 複数ファイルを開く時にタブで最大10まで開く
