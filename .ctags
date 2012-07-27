@@ -1,7 +1,6 @@
 --langmap=PHP:+.inc
+--tag-relative=no
 --php-kinds=cdfv
---totals=yes
---tag-relative=yes
 --langdef=js
 --langmap=js:.js
 --regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/

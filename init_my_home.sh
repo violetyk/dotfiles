@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd ~
-mkdir swap backup tmp memo
+mkdir swap backup tmp memo tags
 ln -sf ~/dotfiles/.bashrc .bashrc
 ln -sf ~/dotfiles/.vimrc .vimrc
 ln -sf ~/dotfiles/.vim .vim

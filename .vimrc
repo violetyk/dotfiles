@@ -276,8 +276,13 @@ set incsearch
 " コマンドライン補完を拡張モードにする
 set wildmenu
 
+" 複数のマッチがあるときは、全てのマッチを羅列する。
+set wildmode=full
+
 " コマンドラインの補完キー
 set wildchar=<Tab>
+
+
 
 "----------------------------------------------------
 " 画面表示
@@ -477,10 +482,10 @@ nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 " ---------- 
 " バッファ系
 " ---------- 
-nnoremap bb :b#<CR>
-nnoremap bp :bprevious<CR>
-nnoremap bn :bnext<CR>
-nnoremap bd :bdelete<CR>
+nnoremap <silent>bb :b#<CR>
+nnoremap <silent>bp :bprevious<CR>
+nnoremap <silent>bn :bnext<CR>
+nnoremap <silent>bd :bdelete<CR>
 
 " 分割幅を広く
 map <PageUp> 3<C-w>+
@@ -531,6 +536,9 @@ cnoremap <expr>/ getcmdtype() == '/' ? '\/' : '/'
 " ---------- 
 " 編集系
 " ---------- 
+" インサートモードを抜ける
+inoremap jj <Esc>
+
 " 貼り付けの後「=」でフォーマッティングは面倒なので、いつでもカレント行のインデントにあわせた貼り付けをする。
 nnoremap p ]p
 nnoremap P ]P
@@ -577,8 +585,6 @@ nnoremap <silent> <Leader>yp :<C-u>let @" = expand("%:p")<CR>:echo "yank: ". @"<
 nnoremap gc `[v`]
 vnoremap gc :<C-u>normal gc<CR>
 onoremap gc :<C-u>normal gc<CR>
-
-inoremap jj <Esc>
 
 
 
@@ -701,31 +707,29 @@ nmap <silent> <F9> :TlistToggle<CR>
 " v  variables
 " j  javascript functions
 
-nmap <silent> <F12>
-      \ :!ctags -f %:p:h/tags -R ./<CR>
-" vim --versionで+path_extraが入っていれば
+nmap <silent> <F12> :!ctags -R -f %:p:h/tags ./<CR>
 if has('path_extra')
-  " 現ディレクトリ含む親ディレクトリをさかのぼってtagsファイルを指定
-  " set tags+=tags;
 
-  " 上だとルートまでさかのぼっちゃうので;以降に特定のディレクトリを指定して、さかのぼり上限を設定。
-  " プロジェクトごとに設定できればいいかもな。。。
-  set tags+=tags;$HOME
+" 現ディレクトリ含む親ディレクトリをさかのぼってtagsファイルを指定
+" set tags=tags;
 
-  " 現在のディレクトリからした全てのtagsを読み込む。
-  " set tags+=./**/tags;
+" 上だとルートまでさかのぼっちゃうので;以降に特定のディレクトリを指定して、さかのぼり上限を設定。
+" set tags+=tags;$HOME
+set tags=tags;$HOME,$HOME/tags/*.tags
 
-  " **は30階層が上限なので、上記だと処理が重くなる可能性がある。階層の深さの上限を指定するやりかた。
-  " set
-  " tags+=./**3/tags;
+" 現在のディレクトリからした全てのtagsを読み込む。
+" set tags=./**/tags;
 
-  " 現在のディレクトリから上はルート、下は全部さかのぼってtagsファイルを読み込む。
-  " set
-  " tags=**;
+" **は30階層が上限なので、上記だと処理が重くなる可能性がある。階層の深さの上限を指定するやりかた。
+" set " tags=./**3/tags;
 
+" 現在のディレクトリから上はルート、下は全部さかのぼってtagsファイルを読み込む。
+" set " tags=**;
 else
   set tags=./tags,tags
 endif
+
+
 
 
 "----------------------------------------------------
@@ -791,7 +795,7 @@ inoremap <expr><CR>  neocomplcache#smart_close_popup() ."\<CR>"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<Esc>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 " 補完を選択してポップアップを閉じる。
 inoremap <expr><C-y>  neocomplcache#close_popup()
 " 補完をキャンセルしてポップアップを閉じる
@@ -850,8 +854,9 @@ endif
 nnoremap <Leader>ref :<C-u>Unite ref/phpmanual<CR>
 
 " ftと辞書のマッピング
-let g:ref_detect_filetype = { 'htmlcake' : 'phpmanual' }
-
+let g:ref_detect_filetype = {
+      \ 'htmlcake' : 'phpmanual'
+      \ }
 "----------------------------------------------------
 " scratch.vim
 "----------------------------------------------------
@@ -878,7 +883,33 @@ let g:use_zen_complete_tag = 1
 " let g:user_zen_expandabbr_key = '<C-Z>'
 
 " filterについて -> http://code.google.com/p/zen-coding/wiki/Filters
-let g:user_zen_settings = { 'lang' : 'ja', 'indentation' : '\t', 'html' : {   'indentation' : '  ',   'filters' : 'html,c', }, 'css' : {   'filters' : 'fc', }, 'php' : {   'filters' : 'html', }, 'htmlcake' : {   'indentation' : '  ',   'extends' : 'html', }, 'perl' : {  'aliases' : {    'req' : 'require '  },  'snippets' : {    'use' : "use strict\nuse warnings\n\n",    'warn' : "warn \"|\";",  }}}
+let g:user_zen_settings = {
+      \ 'lang' : 'ja',
+      \ 'indentation' : '\t',
+      \ 'html' : {
+      \   'indentation' : '  ',
+      \   'filters' : 'html,c',
+      \ },
+      \ 'css' : {
+      \   'filters' : 'fc',
+      \ },
+      \ 'php' : {
+      \   'filters' : 'html',
+      \ },
+      \ 'htmlcake' : {
+      \   'indentation' : '  ',
+      \   'extends' : 'html',
+      \ },
+      \ 'perl' : {
+      \   'aliases' : { 
+      \     'req' : 'require '
+      \   },
+      \   'snippets' : {
+      \     'use' : "use strict\nuse warnings\n\n",
+      \     'warn' : "warn \"|\";",
+      \   }
+      \ }
+      \}
 
 
 "----------------------------------------------------
@@ -962,7 +993,11 @@ let g:SrcExpl_updateTagsKey = "<F12>""
 " Source Explorerの機能ON/OFF(#普通にvimrcで書く方法と同じ)
 nnoremap <F10> :SrcExplToggle<CR>
 
-let g:SrcExpl_pluginList = [ "__Tag_List__", "_NERD_tree_", "Source_Explorer" ]
+let g:SrcExpl_pluginList = [ 
+      \ "__Tag_List__",
+      \ "_NERD_tree_",
+      \ "Source_Explorer"
+      \ ]
 
 
 "----------------------------------------------------
