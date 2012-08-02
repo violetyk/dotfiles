@@ -757,7 +757,7 @@ snippet ef
 
 snippet func
   function ${1}(${2}) {
-  ${0:# code...}
+  ${0}
  }
 
 snippet vd
@@ -868,7 +868,7 @@ snippet class
 	class ${2:ClassName}${3:extends}} {
 		$5
 		function ${4:__construct}(${5:argument}) {
-			${0:# code...}
+			${0}
 		}
 	}
 
@@ -878,7 +878,7 @@ snippet def
 
 snippet do
 	do {
-		${0:# code...}
+		${0}
 	} while (${1});
 
 snippet if? 
@@ -894,7 +894,7 @@ snippet ifelse
 
 snippet if
 	if (${1:condition}) {
-		${0:# code...}
+		${0}
 	}
 
 snippet echo
@@ -902,22 +902,22 @@ snippet echo
 
 snippet else
 	else {
-		${0:# code...}
+		${0}
 	}
 
 snippet elseif
 	elseif (${1:condition}) {
-		${0:# code...}
+		${0}
 	}
 
 snippet for
 	for ($${1:i}=${2:0}; $${1:i} < ${3}; $${1:i}++) { 
-		${0:# code...}
+		${0}
 	}
 
 snippet fore
 	foreach ($${1:variable} as $${2:key}${3: =>} ${4:value}) {
-		${0:# code...}
+		${0}
 	}
 
 
@@ -958,7 +958,7 @@ snippet rett
 
 snippet case
 	case '${1:variable}':
-		${0:# code...}
+		${0}
 		break;
 
 snippet switch
@@ -980,7 +980,7 @@ snippet throw
 snippet while
 abbr wh
 	while (${1}) {
-		${0:# code...}
+		${0}
 	}
 
 snippet gloabals

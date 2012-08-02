@@ -501,6 +501,12 @@ noremap <C-k> <C-w>k<C-w>_
 " Ctrl+Pで前のバッファを表示
 " map <silent> <C-P> :bprevious<CR>
 
+" ---------- 
+" タブ系
+" ---------- 
+" タブ移動
+nnoremap gl gt
+nnoremap gh gT
 
 
 " ---------- 
@@ -536,8 +542,12 @@ cnoremap <expr>/ getcmdtype() == '/' ? '\/' : '/'
 " ---------- 
 " 編集系
 " ---------- 
-" インサートモードを抜ける
-inoremap jj <Esc>
+
+" 括弧まで、を少し便利にする。
+onoremap ) t)
+onoremap ( t(
+vnoremap ) t)
+vnoremap ( t(
 
 " 貼り付けの後「=」でフォーマッティングは面倒なので、いつでもカレント行のインデントにあわせた貼り付けをする。
 nnoremap p ]p
@@ -801,15 +811,13 @@ inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
 
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
 inoremap <expr><CR>  neocomplcache#smart_close_popup() ."\<CR>"
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-" 補完を選択してポップアップを閉じる。
+" 補完を確定してポップアップを閉じる。
 inoremap <expr><C-y>  neocomplcache#close_popup()
 " 補完をキャンセルしてポップアップを閉じる
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
@@ -823,7 +831,7 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" autocmd FileType php,htmlcake setlocal omnifunc=phpcomplete#CompletePHP
+autocmd FileType php,htmlcake setlocal omnifunc=phpcomplete#CompletePHP
 
 " オムニ補完のパターン
 if !exists('g:neocomplcache_omni_patterns')
@@ -847,11 +855,37 @@ nnoremap <silent> <Space>es  :<C-u>NeoComplCacheEditSnippets
 "----------------------------------------------------
 " unite.vim
 "----------------------------------------------------
-nnoremap <silent> <Leader>ub :<C-u>Unite buffer<CR>
-nnoremap <silent> <Leader>um :<C-u>Unite file_mru<CR>
-nnoremap <silent> <Leader>ul :<C-u>Unite locate<CR>
-nnoremap <silent> <Leader>uo :<C-u>Unite outline<CR>
-nnoremap <silent> <Leader>uc :<C-u>Unite cake_
+nnoremap [unite] :<C-u>Unite<Space>
+nmap f [unite]
+
+nnoremap <C-f> :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+inoremap <C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+
+nnoremap [unite]a   :<C-u>UniteWithBufferDir -buffer-name=files mark buffer file_mru bookmark file<CR>
+nnoremap [unite]b   :<C-u>Unite bookmark<CR>
+nnoremap [unite]c   :<C-u>Unite cake_controller cake_model cake_config cake_component cake_behavior cake_helper cake_shell -start-insert<CR>
+nnoremap [unite]f   :<C-u>UniteWithBufferDir -buffer-name=files file -start-insert<CR>
+nnoremap [unite]g   :<C-u>Unite grep<CR>
+nnoremap [unite]h   :<C-u>Unite history/command<CR>
+nnoremap [unite]j   :<C-u>Unite mark buffer file_mru -start-insert<CR>
+nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
+nnoremap [unite]m   :<C-u>Unite mapping -start-insert<CR>
+nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical outline<CR>
+nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
+nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
+nnoremap [unite].   :<C-u>UniteResume<CR>
+nnoremap [unite]s   :<C-u>Unite history/search<CR>
+nnoremap [unite]v   :<C-u>Unite output:version -start-insert<CR>
+nnoremap [unite]y   :<C-u>Unite history/yank<CR>
+nnoremap [unite]A   :<C-u>Unite output:autocmd<CR>
+nnoremap [unite]C   :<C-u>Unite change<CR>
+nnoremap [unite]J   :<C-u>Unite jump<CR>
+nnoremap [unite]L   :<C-u>Unite launcher<CR>
+nnoremap [unite]M   :<C-u>Unite output:messages<CR>
+nnoremap [unite]R   :<C-u>Unite -buffer-name=register register<CR>
+nnoremap [unite]S   :<C-u>Unite output:scriptnames<CR>
+
+
 set runtimepath+=~/.vim/plugin/
 
 "----------------------------------------------------
@@ -863,8 +897,6 @@ else
   let g:ref_phpmanual_path = $HOME . '/.vim/manual/php_manual_ja/'
 endif
 
-" PHP マニュアルを音速で引く
-nnoremap <Leader>ref :<C-u>Unite ref/phpmanual<CR>
 
 " ftと辞書のマッピング
 let g:ref_detect_filetype = {
