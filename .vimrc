@@ -777,7 +777,20 @@ endif
 if !exists('g:neocomplcache_keyword_patterns')
   let g:neocomplcache_keyword_patterns = {}
 endif
+" 日本語を補完候補として取得しない
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+" タグ補完のパターンを上書き設定。
+if !exists('g:neocomplcache_member_prefix_patterns')
+    let g:neocomplcache_member_prefix_patterns = {}
+endif
+let g:neocomplcache_member_prefix_patterns['php'] = '->\|::'
+
+" 補完の区切り文字パターンを上書き設定。
+if !exists('g:neocomplcache_delimiter_patterns')
+  let g:neocomplcache_delimiter_patterns = {}
+endif
+let g:neocomplcache_delimiter_patterns['php'] = ['-\>', '::', '\']
 
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neocomplcache_snippets_expand)
@@ -810,9 +823,9 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php,htmlcake set omnifunc=phpcomplete#CompletePHP
+" autocmd FileType php,htmlcake setlocal omnifunc=phpcomplete#CompletePHP
 
-" Enable heavy omni completion.
+" オムニ補完のパターン
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
