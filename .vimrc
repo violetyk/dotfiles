@@ -536,8 +536,6 @@ cnoremap <expr>/ getcmdtype() == '/' ? '\/' : '/'
 " ---------- 
 " 編集系
 " ---------- 
-" インサートモードを抜ける
-inoremap jj <Esc>
 
 " 貼り付けの後「=」でフォーマッティングは面倒なので、いつでもカレント行のインデントにあわせた貼り付けをする。
 nnoremap p ]p
@@ -788,15 +786,13 @@ inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
 
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
 inoremap <expr><CR>  neocomplcache#smart_close_popup() ."\<CR>"
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-" 補完を選択してポップアップを閉じる。
+" 補完を確定してポップアップを閉じる。
 inoremap <expr><C-y>  neocomplcache#close_popup()
 " 補完をキャンセルしてポップアップを閉じる
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
@@ -810,7 +806,8 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php,htmlcake set omnifunc=phpcomplete#CompletePHP
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+autocmd FileType htmlcake setlocal omnifunc=htmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
