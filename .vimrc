@@ -1,4 +1,4 @@
-" vim:set ts=4 sts=2 sw=2 tw=0 ft=vim:
+" vim:set ts=4 sts=2 sw=2 tw=0 ft=vim fdm=marker:
 
 " viとの互換性をとらない(vimの独自拡張機能を使う為)
 set nocompatible
@@ -76,14 +76,15 @@ set fileformats=unix,dos,mac
 " バックアップ・スワップ
 "----------------------------------------------------
 " バックアップをとらない
-"set nobackup
+set nobackup
+
+" バックアップをとる
+" set backup
 
 " ファイルの上書きの前にバックアップを作る
 " (backup がオフの場合、バックアップは上書きに成功した後削除される)
-set writebackup
+" set writebackup
 
-" バックアップをとる
-set backup
 
 " バックアップを作成しないファイルパターン
 " set backupskip = escape(expand('$HOME'), '\') . '/tmp/*'
@@ -1072,11 +1073,42 @@ let g:memolist_prompt_tags = 1
 " let g:memolist_vimfiler = 1
 " let g:memolist_template_dir_path = "path/to/dir"
 
-nmap ,mf :exe "CtrlP" g:memolist_path<CR><F5>
-nmap ,mc :MemoNew<CR>
-nmap ,mg :MemoGrep<CR>
-nmap ,ml :MemoList<CR>
+" Function: s:MemoRemove() メモをゴミ箱に入れる。 {{{
+function! s:MemoRemove()
+  let src        = g:memolist_path . '/' . expand("%:t")
+  let trash_path = g:memolist_path . '/../trash'
+  let dest       = trash_path . '/' . expand("%:t") . '.del.' . strftime("%Y%m%d_%H%M")
 
+  let name = expand("%:t:r")
+
+  if !filereadable(src)
+    return 0
+  endif
+
+  let choice = confirm('Remove ' . name . " ?", "&Yes\n&No", 0)
+  if choice == 0
+    " Was interrupted. Using Esc or Ctrl-C.
+    return 0
+  elseif choice == 1
+    let result1 = system("mkdir -p " . trash_path)
+    let result2 = system("mv " . src . " " . dest)
+    if strlen(result1) != 0 && strlen(result2) != 0
+      echohl WarningMsg | redraw | echo 'Error!' | echohl None
+      return 0
+    else
+      execute "normal bd"
+      return 1
+    endif
+  endif
+
+  return 0
+endfunction "}}}
+
+nnoremap <Leader>mf :exe "CtrlP" g:memolist_path<CR><F5>
+nnoremap <Leader>mc :MemoNew<CR>
+nnoremap <Leader>mg :MemoGrep<CR>
+nnoremap <Leader>ml :MemoList<CR>
+nnoremap <silent> <Leader>md :call <SID>MemoRemove()<CR>
 
 "----------------------------------------------------
 " Modeliner
@@ -1097,3 +1129,4 @@ let g:ctrlp_open_multi          = '10t' " 複数ファイルを開く時にタ�
 
 let g:ctrlp_max_height = 30
 " let g:ctrlp_max_height = &lines
+
