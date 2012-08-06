@@ -17,6 +17,7 @@ if [ `uname` = "Linux" ]; then
   # for Linux
   PATH=$PATH:/usr/local/tmux/bin
   PATH=$PATH:/usr/local/ctags/bin
+  PATH=$PATH:/usr/local/tig-1.0/bin
   
   alias vim='/usr/local/vim-7.3/bin/vim'
   alias vimdiff='/usr/local/vim-7.3/bin/vimdiff'
@@ -25,6 +26,7 @@ elif [ `uname` = "Darwin" ]; then
   # for Mac
   PATH=$PATH:/usr/local/tmux/bin
   PATH=$PATH:/usr/local/ctags/bin
+  PATH=$PATH:/usr/local/tig-1.0/bin
 
 fi
 
