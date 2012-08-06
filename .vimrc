@@ -746,25 +746,39 @@ endif
 "----------------------------------------------------
 " neocomplcache.vim
 "----------------------------------------------------
+
+
+" ==============================
+" パラメータ設定
+" ==============================
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
+" 入力に大文字が入力されていたら、大文字小文字の区別をする
 let g:neocomplcache_enable_smart_case = 1
-" Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
-" Set minimum syntax keyword length.
+" 大文字小文字区切りの曖昧検索をするかどうか。DT = D*T* -> DateTime
+let g:neocomplcache_enable_camel_case_completion = 0
+" アンスコ区切りであいまい検索を行うかどうか。m*_s -> mb_substr
+let g:neocomplcache_enable_underbar_completion = 0
+" バッファや辞書ファイル中で、補完対象となるキーワードの最小文字数
+let g:neocomplcache_min_keyword_length = 3
+" シンタックスファイル内で補完対象となるキーワードの最小文字数。
 let g:neocomplcache_min_syntax_length = 3
+" neocomplcacheを自動的にロックするバッファ名のパターンを指定。
+" ku.vimやfuzzyfinderなど、neocomplcacheと相性が悪いプラグインを使用する場合に設定。
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-
-let g:neocomplcache_auto_completion_start_lengh = 3
+" 自動補完を開始する文字数。
+let g:neocomplcache_auto_completion_start_lengh = 2
+" ポップアップメニューで表示される候補数。デフォルトは100。
 let g:neocomplcache_max_list = 30
+" 補完候補の一番先頭を選択しとく
+let g:neocomplcache_enable_auto_select = 1
 
-" Define dictionary.
+
+" ==============================
+" neocomplcache ディレクトリ設定
+" ==============================
 if has('win32') || has('win64')
   let g:neocomplcache_dictionary_filetype_lists = {
         \ 'default' : '',
@@ -772,24 +786,31 @@ if has('win32') || has('win64')
         \ 'scheme' : $HOME.'/.gosh_completions',
         \ 'php' : $VIM.'/vimfiles/dict/php.dict',
         \ }
-else
+elseif has('unix')
+  " ディクショナリ
   let g:neocomplcache_dictionary_filetype_lists = {
         \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions',
         \ 'php' : $HOME.'/.vim/dict/php.dict',
         \ }
+
   " ユーザー定義スニペット保存ディレクトリ
   let g:neocomplcache_snippets_dir = $HOME.'/.vim/snippets'
+
+  " キャッシュディレクトリ
+  let g:neocomplcache_temporary_dir = '/dev/shm/' . $USER . '/.neocon'
+
 endif
 
 
-" Define keyword.
+" ==============================
+" キーワード補完の設定
+" ==============================
 if !exists('g:neocomplcache_keyword_patterns')
   let g:neocomplcache_keyword_patterns = {}
 endif
 " 日本語を補完候補として取得しない
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
 
 " タグ補完のパターンを上書き設定。
 if !exists('g:neocomplcache_member_prefix_patterns')
@@ -802,6 +823,22 @@ if !exists('g:neocomplcache_delimiter_patterns')
   let g:neocomplcache_delimiter_patterns = {}
 endif
 let g:neocomplcache_delimiter_patterns['php'] = ['-\>', '::', '\']
+
+
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php,htmlcake setlocal omnifunc=phpcomplete#CompletePHP
+
+" オムニ補完のパターン
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+
 
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neocomplcache_snippets_expand)
@@ -824,20 +861,6 @@ inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 
-" 補完候補の一番先頭を選択しとく
-let g:neocomplcache_enable_auto_select = 1
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php,htmlcake setlocal omnifunc=phpcomplete#CompletePHP
-
-" オムニ補完のパターン
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
 
 " 言語別neocompl自動発火パターン
 "let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
@@ -859,8 +882,8 @@ nnoremap <silent> <Space>es  :<C-u>NeoComplCacheEditSnippets
 nnoremap [unite] :<C-u>Unite<Space>
 nmap f [unite]
 
-nnoremap <C-f> :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-inoremap <C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+" nnoremap <C-f> :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+" inoremap <C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 
 nnoremap [unite]a   :<C-u>UniteWithBufferDir -buffer-name=files mark buffer file_mru bookmark file<CR>
 nnoremap [unite]b   :<C-u>Unite bookmark<CR>
