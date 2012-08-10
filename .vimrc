@@ -544,11 +544,15 @@ cnoremap <expr>/ getcmdtype() == '/' ? '\/' : '/'
 " 編集系
 " ---------- 
 
-" 括弧まで、を少し便利にする。
+" ～まで、を少し便利にする。
 onoremap ) t)
 onoremap ( t(
+onoremap ; t;
+onoremap , t,
 vnoremap ) t)
 vnoremap ( t(
+vnoremap ; t;
+vnoremap , t,
 
 " 貼り付けの後「=」でフォーマッティングは面倒なので、いつでもカレント行のインデントにあわせた貼り付けをする。
 nnoremap p ]p
@@ -816,30 +820,39 @@ let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 if !exists('g:neocomplcache_member_prefix_patterns')
     let g:neocomplcache_member_prefix_patterns = {}
 endif
-let g:neocomplcache_member_prefix_patterns['php'] = '->\|::'
+" let g:neocomplcache_member_prefix_patterns.php = '->\|::'
+" let g:neocomplcache_member_prefix_patterns.htmlcake = '->\|::'
 
 " 補完の区切り文字パターンを上書き設定。
 if !exists('g:neocomplcache_delimiter_patterns')
   let g:neocomplcache_delimiter_patterns = {}
 endif
-let g:neocomplcache_delimiter_patterns['php'] = ['-\>', '::', '\']
+let g:neocomplcache_delimiter_patterns.php = ['-\>', '::', '\']
 
 
 
-" Enable omni completion.
+" ==============================
+" オムニ補完の設定
+" ==============================
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType html,markdown,htmlcake setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php,htmlcake setlocal omnifunc=phpcomplete#CompletePHP
+" autocmd FileType php,htmlcake setlocal omnifunc=phpcomplete#CompletePHP
 
 " オムニ補完のパターン
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
+" 言語別neocompl自動発火パターン
+" let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+" let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 
+" ==============================
+" neocomplcache keybind
+" ==============================
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neocomplcache_snippets_expand)
 smap <C-k>     <Plug>(neocomplcache_snippets_expand)
@@ -859,14 +872,6 @@ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 " 補完をキャンセルしてポップアップを閉じる
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-
-
-" 言語別neocompl自動発火パターン
-"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-
 
 
 " :NeoComplCacheEditSnippets [filetype]
@@ -894,7 +899,8 @@ nnoremap [unite]h   :<C-u>Unite history/command<CR>
 nnoremap [unite]j   :<C-u>Unite mark buffer file_mru -start-insert<CR>
 nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
 nnoremap [unite]m   :<C-u>Unite mapping -start-insert<CR>
-nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical outline<CR>
+nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -vertical -no-quit outline<CR>
+" nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
 nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
 nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
 nnoremap [unite].   :<C-u>UniteResume<CR>
@@ -909,8 +915,6 @@ nnoremap [unite]M   :<C-u>Unite output:messages<CR>
 nnoremap [unite]R   :<C-u>Unite -buffer-name=register register<CR>
 nnoremap [unite]S   :<C-u>Unite output:scriptnames<CR>
 
-
-set runtimepath+=~/.vim/plugin/
 
 "----------------------------------------------------
 " ref.vim
@@ -985,7 +989,7 @@ let g:user_zen_settings = {
 " cake.vim
 "----------------------------------------------------
 nnoremap <Space>cc :<C-u>Ccontroller
-nnoremap <Space>cm :<C-u>Cmodel
+nnoremap <Space>cm :<C-u>Cmodelvsp
 nnoremap <Space>cv :<C-u>Cview
 nnoremap <Space>cl :<C-u>Clog
 nnoremap <Space>ccv :<C-u>Ccontrollerview
@@ -1152,4 +1156,3 @@ let g:ctrlp_open_multi          = '10t' " 複数ファイルを開く時にタ�
 
 let g:ctrlp_max_height = 30
 " let g:ctrlp_max_height = &lines
-
