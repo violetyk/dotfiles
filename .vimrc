@@ -805,6 +805,16 @@ elseif has('unix')
 
 endif
 
+" ==============================
+" プラグインや補完関数の無効化
+" ==============================
+if !exists('g:neocomplcache_keyword_patterns')
+  let g:neocomplcache_plugin_disable = {}
+endif
+" let g:neocomplcache_plugin_disable.tags_complete = 1;
+" let g:neocomplcache_plugin_disable.syntax_complete = 1;
+" let g:neocomplcache_plugin_disable.omni_complete = 1;
+
 
 " ==============================
 " キーワード補完の設定
@@ -988,19 +998,20 @@ let g:user_zen_settings = {
 "----------------------------------------------------
 " cake.vim
 "----------------------------------------------------
-nnoremap <Space>cc :<C-u>Ccontroller
-nnoremap <Space>cm :<C-u>Cmodelvsp
-nnoremap <Space>cv :<C-u>Cview
-nnoremap <Space>cl :<C-u>Clog
-nnoremap <Space>ccv :<C-u>Ccontrollerview
-nnoremap <Space>ccm :<C-u>Ccomponent
-nnoremap <Space>ccf :<C-u>Cconfig
-nnoremap <Space>cb :<C-u>Cbehavior
-nnoremap <Space>ch :<C-u>Chelper
-nnoremap <Space>ct :<C-u>Ctest
-nnoremap <Space>cf :<C-u>Cfixture
-nnoremap <Space>cs :<C-u>Cshell
-nnoremap <Space>cd :<C-u>Cdesc
+nnoremap <Space>cc :<C-u>Ccontroller 
+nnoremap <Space>ccv :<C-u>Ccontrollervsp 
+nnoremap <Space>cm :<C-u>Cmodelvsp 
+nnoremap <Space>cv :<C-u>Cview 
+nnoremap <Space>cl :<C-u>Clog 
+" nnoremap <Space>ccv :<C-u>Ccontrollerview
+nnoremap <Space>ccm :<C-u>Ccomponent 
+nnoremap <Space>ccf :<C-u>Cconfig 
+nnoremap <Space>cb :<C-u>Cbehavior 
+nnoremap <Space>ch :<C-u>Chelper 
+nnoremap <Space>ct :<C-u>Ctest 
+nnoremap <Space>cf :<C-u>Cfixture 
+nnoremap <Space>cs :<C-u>Cshell 
+nnoremap <Space>cd :<C-u>Cdesc 
 
 "----------------------------------------------------
 " localrc.vim

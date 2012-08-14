@@ -54,6 +54,7 @@ Bundle 'unite-colorscheme'
 Bundle 'unite-locate'
 Bundle 'h1mesuke/unite-outline'
 Bundle 'tacroe/unite-mark'
+Bundle 'zhaocai/unite-scriptnames'
 
 " colorscheme
 Bundle 'desert.vim'
@@ -65,6 +66,7 @@ Bundle 'altercation/vim-colors-solarized'
 
 " syntax
 " Bundle 'php.vim--Garvin'
+Bundle 'StanAngeloff/php.vim'
 Bundle 'jQuery'
 Bundle 'JavaScript-syntax'
 Bundle 'othree/html5.vim'
