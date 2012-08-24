@@ -70,8 +70,14 @@ snippet cflash_session
 abbr セッションにメッセージを入れる
   $this->Session->setFlash('');
 
+snippet cvalidate_error_count
+abbr バリデーションエラー数を取得
+  $this->${1:Model}->set($this->data));
+  $this->validate($this->${1:Model})${0};
+
 snippet cvalidate_errors
-abbr バリデーションエラーを取得
+abbr バリデーションエラーの連想配列を取得
+  $this->${1:Model}->set($this->data));
   $this->validateErrors($this->${1:Model})${0};
 
 # --------------------------------------------------

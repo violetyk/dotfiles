@@ -43,8 +43,8 @@ alias l.='ls -d .*'
 alias ll='ls -l'
 alias lll='ls -al'
 alias rm='rm -i'
+alias cp='cp -i'
 alias vi='vim'
-alias rm='rm -i'
 alias wget='wget --no-check-certificate'
 # -S オプションで折り返さなくする
 # エディタはvim
