@@ -6,9 +6,8 @@ set nocompatible
 " vundle
 source $HOME/dotfiles/bundles.vim
 
-"----------------------------------------------------
-" 基本的な設定
-"----------------------------------------------------
+" 基本的な設定: {{{
+
 " ファイル形式別のプラグインとインデントを有効にする
 filetype indent plugin on
 
@@ -44,11 +43,9 @@ set splitbelow
 " vsplitしたときに右に出す。
 set splitright
 
+" }}}
 
-"----------------------------------------------------
-" エンコーディング
-"----------------------------------------------------
-" 文字コードの設定
+" 文字コードの設定 {{{
 
 " Vim内部で使われる文字エンコーディング
 set encoding=utf-8
@@ -71,10 +68,10 @@ set fileformats=unix,dos,mac
   " set ambiwidth=double
 " endif
 
+" }}}
 
-"----------------------------------------------------
-" バックアップ・スワップ
-"----------------------------------------------------
+" バックアップ・スワップの設定 {{{
+
 " バックアップをとらない
 set nobackup
 
@@ -111,15 +108,11 @@ endif
 " スワップファイルの更新間隔文字数
 set updatecount=500
 
+" }}}
 
-"----------------------------------------------------
-" 環境別の設定・カラースキーマ
-"----------------------------------------------------
-
+" 環境別の設定・カラースキーマ {{{
 if has('gui_running')
-  "--------------------------------------------------
-  " GUI
-  "--------------------------------------------------
+  " GUI共通 {{{
 
   " カラースキーマ .vim/colors/の中に入れる
   " set background=light
@@ -138,11 +131,9 @@ if has('gui_running')
   " set guioptions=m
   set guioptions=
 
-
+  " }}}
+  " Windows gvim {{{
   if has('win32') || has('win64')
-    "--------------------------------------------------
-    " Windows用 gvim
-    "--------------------------------------------------
 
     " Font
     " Windows の gvim でフォントを設定するには guifont オプションと guifontwide オプションを使う。
@@ -163,27 +154,23 @@ if has('gui_running')
     " 起動したときに最大化
     au GUIEnter * simalt ~x
 
+  " }}}
+  " MacOSX gvim {{{
   elseif has('mac')
-    "--------------------------------------------------
-    " Mac用 gvim
-    "--------------------------------------------------
     set guifont=Ricty\ 11
 
+  " }}}
+  " Linux gvim {{{
   elseif has('gui_gtk2')
-    "--------------------------------------------------
-    " Linux gvim
-    "--------------------------------------------------
 
     " Font
     set guifont=Terminus-ja\ 11
     " set guifont=Migu\ 1M\ 11
 
   endif
-
+  " }}}
 else
-  "--------------------------------------------------
-  " CUI
-  "--------------------------------------------------
+  " CUI vim {{{
 
   " 補完の色を変更
   " hi Pmenu ctermfg=Black ctermbg=Grey
@@ -195,16 +182,14 @@ else
 
   colorscheme mrkn256
 
+  " }}}
 endif
+" }}}
 
-
-
-"----------------------------------------------------
-" 表示色関係
+" 表示色の設定 {{{
 
 " 色のチェック方法
 " :so $VIMRUNTIME/syntax/colortest.vim
-"----------------------------------------------------
 
 " 全角スペースの表示
 "highlight ZenkakuSpace cterm=underline ctermfg=red guibg=red
@@ -254,10 +239,10 @@ endfunction
 " カーソル列のハイライト。reverseで反転表示。
 " highlight CursorColumn term=reverse cterm=reverse
 
+" }}}
 
-"----------------------------------------------------
-" 検索・補完
-"----------------------------------------------------
+" 検索・補完の設定 {{{
+
 " コマンド、検索パターンを100個まで履歴に残す
 set history=100
 
@@ -283,11 +268,10 @@ set wildmode=full
 " コマンドラインの補完キー
 set wildchar=<Tab>
 
+" }}}
 
+" 画面表示の設定 {{{
 
-"----------------------------------------------------
-" 画面表示
-"----------------------------------------------------
 " タイトルをウインドウ枠に表示する
 set title
 
@@ -340,10 +324,10 @@ set lazyredraw
 " 高速ターミナル接続を行う
 set ttyfast
 
+" }}}
 
-"----------------------------------------------------
-" ステータスライン
-"----------------------------------------------------
+" ステータスラインの設定 {{{
+
 " 入力中のコマンドをステータスに表示する
 set showcmd
 
@@ -357,10 +341,10 @@ set cmdheight=2
 " set statusline=%n\:%y%F\ \|%{(&fenc!=''?&fenc:&enc).'\|'.&ff.'\|'}%m%r%=<%l行/%L行(%p%%),%v列>
 set statusline=%n\:%y%F\ %m%r%=%{fugitive#statusline()}[%{(&fenc!=''?&fenc:&enc).']['.&ff.']'}[%l/%L(%p%%),%v]
 
+" }}}
 
-"----------------------------------------------------
-" インデント
-"----------------------------------------------------
+" 共通のインデントの設定(ファイルタイプ別はafter/ftplugin/xxx.vimにて設定) {{{
+
 " オートインデントを無効にする
 "set noautoindent
 
@@ -378,10 +362,10 @@ set shiftwidth=2
 " タブは空白として入力する（実際にTABを入力したい場合は<C-V><TAB>）
 set expandtab
 
+" }}}
 
-"----------------------------------------------------
-" オートコマンド関連
-"----------------------------------------------------
+" オートコマンド {{{ 
+
 " カーソル位置を記憶する
 autocmd BufReadPost *
    \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -424,17 +408,16 @@ endif
 " autocmd BufAdd *.{php,ctp} execute "lcd " . expand("<afile>:p:h")
 
 " vimで新しいファイルを作るとき、ディレクトリがなければ確認して作る。
-augroup vimrc-auto-mkdir  " {{{
+augroup vimrc-auto-mkdir
   autocmd!
   autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
-  function! s:auto_mkdir(dir, force)  " {{{
+  function! s:auto_mkdir(dir, force)
     if !isdirectory(a:dir) && (a:force ||
           \    input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
       call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
     endif
-  endfunction  " }}}
-augroup END  " }}}
-
+  endfunction
+augroup END
 
 " ウィンドウを移動する度に外部で変更のあったファイルを自動的に読み直す
 " 関連：autoread
@@ -443,10 +426,25 @@ augroup vimrc-checktime
   autocmd WinEnter * checktime
 augroup END
 
+" }}}
 
-"----------------------------------------------------
-" keybindの設定
-"
+" コマンド {{{
+
+" 戦闘力を計測
+function! Scouter(file, ...)
+  let pat = '^\s*$\|^\s*"'
+  let lines = readfile(a:file)
+  if !a:0 || !a:1
+    let lines = split(substitute(join(lines, "\n"), '\n\s*\\', '', 'g'), "\n")
+  endif
+  return len(filter(lines,'v:val !~ pat'))
+endfunction
+command! -bar -bang -nargs=? -complete=file Scouter
+      \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
+" }}}
+
+" keybindの設定 {{{
+
 "   調べる方法。
 "   :map
 "
@@ -470,19 +468,7 @@ augroup END
 " |------------------|----------|----------|-----------|----------|
 
 
-
-" <C-Space>を押すと<Nul>が送られるようなので。
-map <Nul> <C-Space>
-map! <Nul> <C-Space>
-
-" ヘルプを引きやすくする
-nnoremap <C-h> :<C-u>help<Space>
-nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
-
-
-" ---------- 
-" バッファ系
-" ---------- 
+" バッファ・タブ操作 {{{
 nnoremap <silent>bb :b#<CR>
 nnoremap <silent>bp :bprevious<CR>
 nnoremap <silent>bn :bnext<CR>
@@ -502,27 +488,18 @@ noremap <C-k> <C-w>k<C-w>_
 " Ctrl+Pで前のバッファを表示
 " map <silent> <C-P> :bprevious<CR>
 
-" ---------- 
-" タブ系
-" ---------- 
 " タブ移動
 nnoremap gl gt
 nnoremap gh gT
+" }}}
 
-
-" ---------- 
-" 移動系
-" ---------- 
-" 移動量アップ
+" 移動量の調節 {{{
 nnoremap <C-e> 10<C-e>
 nnoremap <C-y> 10<C-y>
+" }}}
 
+" 検索操作 {{{
 
-
-
-" ---------- 
-" 検索系
-" ---------- 
 " ハイライトを消す。
 noremap <Esc><Esc> :<C-u>set nohlsearch<Return>
 
@@ -539,10 +516,9 @@ vnoremap z? <ESC>?\%V
 " 検索時に/をエスケープ
 cnoremap <expr>/ getcmdtype() == '/' ? '\/' : '/'
 
+" }}}
 
-" ---------- 
-" 編集系
-" ---------- 
+" 編集操作 {{{
 
 " ～まで、を少し便利にする。
 onoremap ) t)
@@ -601,40 +577,35 @@ nnoremap gc `[v`]
 vnoremap gc :<C-u>normal gc<CR>
 onoremap gc :<C-u>normal gc<CR>
 
+" }}}
 
+" その他 {{{
 
-"----------------------------------------------------
-" 戦闘力を計測
-"----------------------------------------------------
-function! Scouter(file, ...)
-  let pat = '^\s*$\|^\s*"'
-  let lines = readfile(a:file)
-  if !a:0 || !a:1
-    let lines = split(substitute(join(lines, "\n"), '\n\s*\\', '', 'g'), "\n")
-  endif
-  return len(filter(lines,'v:val !~ pat'))
-endfunction
-command! -bar -bang -nargs=? -complete=file Scouter
-      \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
+" <C-Space>を押すと<Nul>が送られるようなので。
+map <Nul> <C-Space>
+map! <Nul> <C-Space>
 
+" ヘルプを引きやすくする
+nnoremap <C-h> :<C-u>help<Space>
+nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 
+" }}}
 
-"----------------------------------------------------
-" プラグインの設定
-"----------------------------------------------------
+"}}}
 
+" プラグインの設定 {{{
 
-"----------------------------------------------------
-" NERD commenter
-"----------------------------------------------------
+" NERD commenter {{{
+
 "未対応ファイルタイプのエラーメッセージを表示しない
 let NERDShutUp=1
 " /**/をスペース空けて/* */
 let NERDSpaceDelims = 1
 
-"----------------------------------------------------
-" NERDTree
-"----------------------------------------------------
+" }}}
+
+" NERDTree {{{
+
 " カラー表示するか
 let NERDChristmasTree = 1
 " 起動時に隠しファイルを表示するか（あとで切り替えられる）
@@ -653,9 +624,9 @@ let NERDTreeHijackNetrw = 0
 " Auto centre
 let NERDTreeAutoCenter = 0
 
-"----------------------------------------------------
-" taglist
-"----------------------------------------------------
+" }}}
+
+" taglist.vim / ctags {{{
 set showfulltag
 
 if has('win32') || has('win64')
@@ -727,17 +698,11 @@ else
   set tags=./tags,tags
 endif
 
+" }}}
 
+" neocomplcache.vim {{{
 
-
-"----------------------------------------------------
-" neocomplcache.vim
-"----------------------------------------------------
-
-
-" ==============================
-" パラメータ設定
-" ==============================
+" パラメータ設定 {{{
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplcache.
@@ -761,11 +726,8 @@ let g:neocomplcache_auto_completion_start_lengh = 2
 let g:neocomplcache_max_list = 30
 " 補完候補の一番先頭を選択しとく
 let g:neocomplcache_enable_auto_select = 1
-
-
-" ==============================
-" neocomplcache ディレクトリ設定
-" ==============================
+" }}}
+" ディレクトリ設定 {{{
 if has('win32') || has('win64')
   let g:neocomplcache_dictionary_filetype_lists = {
         \ 'default' : '',
@@ -787,46 +749,36 @@ elseif has('unix')
   let g:neocomplcache_temporary_dir = '/dev/shm/' . $USER . '/.neocon'
 
 endif
-
-" ==============================
-" プラグインや補完関数の無効化
-" ==============================
+" }}}
+" プラグインや補完関数の無効化 {{{
 if !exists('g:neocomplcache_keyword_patterns')
   let g:neocomplcache_plugin_disable = {}
 endif
 " let g:neocomplcache_plugin_disable.tags_complete = 1;
 " let g:neocomplcache_plugin_disable.syntax_complete = 1;
 " let g:neocomplcache_plugin_disable.omni_complete = 1;
-
-
-" ==============================
-" キーワード補完の設定
-" ==============================
+" }}}
+" キーワード補完の設定 {{{
 if !exists('g:neocomplcache_keyword_patterns')
   let g:neocomplcache_keyword_patterns = {}
 endif
 " 日本語を補完候補として取得しない
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-
-" タグ補完のパターンを上書き設定。
+" }}}
+" タグ補完のパターンの設定 {{{
 if !exists('g:neocomplcache_member_prefix_patterns')
     let g:neocomplcache_member_prefix_patterns = {}
 endif
 " let g:neocomplcache_member_prefix_patterns.php = '->\|::'
 " let g:neocomplcache_member_prefix_patterns.htmlcake = '->\|::'
-
-" 補完の区切り文字パターンを上書き設定。
+" }}}
+" 補完の区切り文字パターンの設定 {{{
 if !exists('g:neocomplcache_delimiter_patterns')
   let g:neocomplcache_delimiter_patterns = {}
 endif
 let g:neocomplcache_delimiter_patterns.php = ['-\>', '::', '\']
-
-
-
-" ==============================
-" オムニ補完の設定
-" ==============================
+" }}}
+" オムニ補完の設定 {{{
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown,htmlcake setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -841,11 +793,8 @@ endif
 " 言語別neocompl自動発火パターン
 " let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 " let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-
-
-" ==============================
-" neocomplcache keybind
-" ==============================
+" }}}
+" キーバインド {{{
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neocomplcache_snippets_expand)
 smap <C-k>     <Plug>(neocomplcache_snippets_expand)
@@ -853,7 +802,6 @@ smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 " 共通の部分まで補完
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
 
 inoremap <expr><CR>  neocomplcache#smart_close_popup() ."\<CR>"
 " <TAB>: completion.
@@ -866,17 +814,18 @@ inoremap <expr><C-y>  neocomplcache#close_popup()
 " 補完をキャンセルしてポップアップを閉じる
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-
 " :NeoComplCacheEditSnippets [filetype]
 " ユーザ定義用のスニペットファイルの編集ができる。
 " ftを指定しなければ現在のftのスニペットファイルを開く。
 " ちなみに、プラグインに組み込まれてるスニペットファイルは下記にある。
 " ~/.vim/autoload/neocomplcache/sources/snippets_complete/
 nnoremap <silent> <Space>es  :<C-u>NeoComplCacheEditSnippets 
+" }}}
 
-"----------------------------------------------------
-" unite.vim
-"----------------------------------------------------
+" }}}
+
+" unite.vim {{{
+
 nnoremap [unite] :<C-u>Unite<Space>
 nmap f [unite]
 
@@ -908,10 +857,9 @@ nnoremap [unite]M   :<C-u>Unite output:messages<CR>
 nnoremap [unite]R   :<C-u>Unite -buffer-name=register register<CR>
 nnoremap [unite]S   :<C-u>Unite output:scriptnames<CR>
 
+" }}}
 
-"----------------------------------------------------
-" ref.vim
-"----------------------------------------------------
+" ref.vim {{{
 if has('win32') || has('win64')
   let g:ref_phpmanual_path = $VIM . '/vimfiles/manual/php_manual_ja/'
 else
@@ -923,9 +871,11 @@ endif
 let g:ref_detect_filetype = {
       \ 'htmlcake' : 'phpmanual'
       \ }
-"----------------------------------------------------
-" scratch.vim
-"----------------------------------------------------
+
+" }}}
+
+" scratch.vim {{{
+
 nmap <silent> <F5> <Plug>ShowScratchBuffer
 imap <silent> <F5> <Plug>InsShowScratchBuffer
 
@@ -935,10 +885,10 @@ let no_plugin_maps = 1
 " vim終了時にスクラッチの内容を保存しておく。
 let g:scratchBackupFile=$HOME . "/scratch.txt"
 
+" }}}
 
-"----------------------------------------------------
-" zencoding.vim
-"----------------------------------------------------
+" zencoding.vim {{{
+
 " デフォルトは<C-Y>
 let g:user_zen_leader_key = '<C-Space>'
 
@@ -977,10 +927,10 @@ let g:user_zen_settings = {
       \ }
       \}
 
+" }}}
 
-"----------------------------------------------------
-" cake.vim
-"----------------------------------------------------
+" cake.vim {{{
+
 nnoremap <Space>cc :<C-u>Ccontroller 
 nnoremap <Space>ccv :<C-u>Ccontrollervsp 
 nnoremap <Space>cm :<C-u>Cmodelvsp 
@@ -996,42 +946,41 @@ nnoremap <Space>cf :<C-u>Cfixture
 nnoremap <Space>cs :<C-u>Cshell 
 nnoremap <Space>cd :<C-u>Cdesc 
 
-"----------------------------------------------------
-" localrc.vim
-"----------------------------------------------------
+" }}}
+
+" localrc.vim {{{
+
 call localrc#load('.init.vimrc', $HOME)
 
-"----------------------------------------------------
-" gist.vim
-"----------------------------------------------------
+" }}}
+
+" gist.vim {{{
+
 let g:gist_privates = 1
 let g:gist_detect_filetype = 1
 let g:gist_show_privates = 1
 let g:gist_put_url_to_clipboard_after_post = 1
 
+" }}}
 
-"----------------------------------------------------
-" hatena.vim
-"----------------------------------------------------
+" hatena.vim {{{
 let g:hatena_user = 'yuhei_kagaya'
+" }}}
 
+" PDV--phpDocumentor-for-Vim {{{
 
-"----------------------------------------------------
-" PDV--phpDocumentor-for-Vim
-"----------------------------------------------------
 inoremap <Leader>d <ESC>:call PhpDocSingle()<CR>i
 nnoremap <Leader>d :call PhpDocSingle()<CR>
 vnoremap <Leader>d :call PhpDocRange()<CR>
 
+" }}}
 
-"----------------------------------------------------
-" surround.vim
-"----------------------------------------------------
+" surround.vim {{{
 let g:surround_{char2nr("p")} = "<?php \r ?>"
+" }}}
 
-"----------------------------------------------------
-" srcexpl.vim
-"----------------------------------------------------
+" srcexpl.vim {{{
+
 " リフレッシュタイム(ms)
 let g:SrcExpl_RefreshTime = 1000
 
@@ -1066,10 +1015,10 @@ let g:SrcExpl_pluginList = [
       \ "Source_Explorer"
       \ ]
 
+" }}}
 
-"----------------------------------------------------
-" powerline.vim
-"----------------------------------------------------
+" powerline.vim {{{ 
+
 if has('gui_running') 
   let g:Powerline_symbols = 'fancy'
 endif
@@ -1079,9 +1028,10 @@ if has('unix') && !has('gui_running')
   inoremap <silent> <C-[> <Esc>
 endif
 
-"----------------------------------------------------
-" memolist.vim
-"----------------------------------------------------
+" }}}
+
+" memolist.vim {{{
+
 " let g:memolist_memo_suffix = "markdown"
 let g:memolist_memo_suffix = "txt"
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"
@@ -1129,16 +1079,16 @@ nnoremap <Leader>mc :MemoNew<CR>
 nnoremap <Leader>mg :MemoGrep<CR>
 nnoremap <Leader>ml :MemoList<CR>
 nnoremap <silent> <Leader>md :call <SID>MemoRemove()<CR>
+" }}}
 
-"----------------------------------------------------
-" Modeliner
-"----------------------------------------------------
+" Modeliner {{{
+
 let g:Modeliner_format='ft= et ff= fenc= sts= sw= ts='
 
+" }}}
 
-"----------------------------------------------------
-" ctrlp.vim
-"----------------------------------------------------
+" ctrlp.vim {{{
+
 let g:ctrlp_by_filename         = 1 " フルパスではなくファイル名のみで絞込み
 let g:ctrlp_jump_to_buffer      = 2 " タブで開かれていた場合はそのタブに切り替える
 let g:ctrlp_clear_cache_on_exit = 0 " 終了時キャッシュをクリアしない
@@ -1150,9 +1100,23 @@ let g:ctrlp_open_multi          = '10t' " 複数ファイルを開く時にタ�
 let g:ctrlp_max_height = 30
 " let g:ctrlp_max_height = &lines
 
+" }}}
 
+" checksyntax_vim {{{
 
-"----------------------------------------------------
-" checksyntax_vim
-"----------------------------------------------------
 autocmd BufWritePost *.php :CheckSyntax
+nnoremap <F6> :<C-u>CheckSyntax<CR>
+
+" }}}
+
+" Fugitive {{{
+nnoremap <Space>gd :<C-u>Gdiff<Enter>
+nnoremap <Space>gs :<C-u>Gstatus<Enter>
+nnoremap <Space>gl :<C-u>Glog<Enter>
+nnoremap <Space>ga :<C-u>Gwrite<Enter>
+nnoremap <Space>gc :<C-u>Gcommit<Enter>
+nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
+nnoremap <Space>gb :<C-u>Gblame<Enter>
+" }}}
+
+" }}}
