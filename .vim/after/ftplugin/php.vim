@@ -17,15 +17,13 @@ let php_parent_error_open = 1
 " let php_folding = 1
 let php_folding = 0
 
-" :make で文法チェックする
-if has('win32') || has('win64')
-    
-else
-    " set makeprg=/usr/local/php/bin/php\ -l\ %
-    set makeprg=php\ -l\ %
-endif
-
-set errorformat=%m\ in\ %f\ on\ line\ %l
+" :make で文法チェックする-> quickfixsigns_vimを使うようにした
+" if has('win32') || has('win64')
+" else
+    " " set makeprg=/usr/local/php/bin/php\ -l\ %
+    " set makeprg=php\ -l\ %
+" endif
+" set errorformat=%m\ in\ %f\ on\ line\ %l
 
 if has('win32') || has('win64')
     let g:ref_phpmanual_path = $VIM . '/vimfiles/manual/php_manual_ja/'

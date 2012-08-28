@@ -623,23 +623,6 @@ command! -bar -bang -nargs=? -complete=file Scouter
 " プラグインの設定
 "----------------------------------------------------
 
-"----------------------------------------------------
-" showmarks.vim
-"  <Leader>mt ON/OFFトグル。
-"  <Leader>mm 次の使えるマークを使ってマーク。
-"  <Leader>mh カレント行ののマークを削除。
-"  <Leader>ma カレントバッファのマークを全部削除。
-"----------------------------------------------------
-" Enable ShowMarks
-let showmarks_enable = 1
-" Show which marks
-let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-"help、quickfixと編集不可のバッファについて、マークを表示しない。-
-let showmarks_ignore_type = "hqm"
-" Hilight lower & upper marks
-"let showmarks_hlline_lower = 1
-"let showmarks_hlline_upper = 1
-
 
 "----------------------------------------------------
 " NERD commenter
@@ -1166,3 +1149,10 @@ let g:ctrlp_open_multi          = '10t' " 複数ファイルを開く時にタ�
 
 let g:ctrlp_max_height = 30
 " let g:ctrlp_max_height = &lines
+
+
+
+"----------------------------------------------------
+" checksyntax_vim
+"----------------------------------------------------
+autocmd BufWritePost *.php :CheckSyntax
