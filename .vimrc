@@ -376,7 +376,7 @@ autocmd BufReadPost *
 autocmd FileType js setlocal ft=javascript
 
 " :vimgrep や :makeしたときに自動的にQuickFixを開く
-au QuickfixCmdPost make,grep,grepadd,vimgrep copen
+autocmd QuickfixCmdPost make,grep,grepadd,vimgrep copen
 
 
 " 場所ごとに設定を用意する。
@@ -385,27 +385,21 @@ au QuickfixCmdPost make,grep,grepadd,vimgrep copen
 "   設定ファイルには例えば下記のようなことを書いておく。
 "   カレントディレクトリを設定ファイルがある階層に移動
 "   lcd <sfile>:h
-"
-augroup vimrc-local
-    autocmd!
-    autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
-augroup END
-
 function! s:vimrc_local(loc)
     let files = findfile('.vimrc_local', escape(a:loc, ' ') . ';', -1)
     for i in reverse(filter(files, 'filereadable(v:val)'))
         source `=i`
     endfor
 endfunction
+augroup vimrc-local
+    autocmd!
+    autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+augroup END
 
 " vimrcの一番最後でloaded_vimrcを1にしてる。
 if exists('g:loaded_vimrc') && g:loaded_vimrc == 0
     call s:vimrc_local(getcwd())
 endif
-
-
-" php,ctpをバッファに追加したときにlcdする。
-" autocmd BufAdd *.{php,ctp} execute "lcd " . expand("<afile>:p:h")
 
 " vimで新しいファイルを作るとき、ディレクトリがなければ確認して作る。
 augroup vimrc-auto-mkdir
@@ -426,6 +420,10 @@ augroup vimrc-checktime
   autocmd WinEnter * checktime
 augroup END
 
+
+" php,ctpをバッファに追加したときにlcdする。
+" autocmd BufAdd *.{php,ctp} execute "lcd " . expand("<afile>:p:h")
+
 " }}}
 
 " コマンド {{{
@@ -441,10 +439,29 @@ function! Scouter(file, ...)
 endfunction
 command! -bar -bang -nargs=? -complete=file Scouter
       \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
+
+
+" cdpathからcdする
+command! -complete=customlist,CompleteCD -nargs=? CD cd <args>
+function! CompleteCD(arglead, cmdline, cursorpos)
+  let pattern = join(split(a:cmdline, '\s', !0)[1:], '') . '*/'
+  return split(globpath(&cdpath, pattern), "\n")
+endfunction
+" コマンドラインの時だけcdをCDとして略語展開
+cnoreabbrev <expr> cd
+      \ (getcmdtype() == ':' && getcmdline() ==# 'cd') ? 'CD' : 'cd'
+
+
 " }}}
 
 " keybindの設定 {{{
 
+"   ユーザ設定
+"   map
+"
+"   デフォルト設定
+"   map!
+"
 "   調べる方法。
 "   :map
 "
@@ -582,7 +599,6 @@ onoremap gc :<C-u>normal gc<CR>
 " その他 {{{
 
 " <C-Space>を押すと<Nul>が送られるようなので。
-map <Nul> <C-Space>
 map! <Nul> <C-Space>
 
 " ヘルプを引きやすくする
@@ -1120,3 +1136,6 @@ nnoremap <Space>gb :<C-u>Gblame<Enter>
 " }}}
 
 " }}}
+
+
+let g:loaded_vimrc = 1
