@@ -559,18 +559,21 @@ nnoremap <Space>m :<C-u>marks<Space>
 nnoremap <Space>r :<C-u>registers<Space>
 
 
-" 行末にセミコロンを追加する。
-function! IsEndSemicolon()
+function! IsEndOfLine(char)
   let c = getline(".")[col("$")-2]
-  if c != ';'
+  if c != a:char
     return 1
   else
     return 0
   endif
 endfunction
-" inoremap <expr>;; IsEndSemicolon() ? "<C-O>$;<CR>" : "<C-O>$<CR>"
-inoremap <expr>;; IsEndSemicolon() ? "<C-O>$;" : "<C-O>$"
-nnoremap <expr>;; IsEndSemicolon() ? "$a;<Esc>" : "$"
+" 行末に;を追加する。
+" inoremap <expr>;; IsEndOfLine() ? "<C-O>$;<CR>" : "<C-O>$<CR>"
+inoremap <expr>;; IsEndOfLine(";") ? "<C-O>$;" : "<C-O>$"
+nnoremap <expr>;; IsEndOfLine(";") ? "$a;<Esc>" : "$"
+" 行末に,を追加する。
+inoremap <expr>,, IsEndOfLine(",") ? "<C-O>$," : "<C-O>$"
+nnoremap <expr>,, IsEndOfLine(",") ? "$a,<Esc>" : "$"
 
 " vimスクリプト開発用に即バッファをsource。
 " nnoremap <Leader>so :<C-u>source %<CR>
@@ -1133,6 +1136,33 @@ nnoremap <Space>ga :<C-u>Gwrite<Enter>
 nnoremap <Space>gc :<C-u>Gcommit<Enter>
 nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
 nnoremap <Space>gb :<C-u>Gblame<Enter>
+" }}}
+
+" dbext.vim {{{
+
+" let g:dbext_default_profile_xxxx      = 'type=MYSQL:user=mysql:passwd=mysql:dbname=hoge:host=localhost:port=3306:buffer_lines=50'
+
+" let g:dbext_default_window_use_horiz = 0  " Use vertical split
+let g:dbext_default_window_use_horiz = 1  " Use horizontal split
+let g:dbext_default_window_use_bottom = 1  " Bottom
+" let g:dbext_default_window_use_bottom = 0  " Top
+" let g:dbext_default_window_use_right = 1   " Right
+" let g:dbext_default_window_use_right = 1   " Left
+let g:dbext_default_window_width = 100
+
+" 接続切り替えコマンド
+command! -n=1  -complete=customlist,s:GetDBProfileList DB :call s:ConnectDB(<f-args>)
+function! s:GetDBProfileList(ArgLead, CmdLine, CursorPos) "{{{
+  return filter(sort(keys(g:my_db_profiles)), 'v:val =~ "^'. fnameescape(a:ArgLead) . '"')
+endfunction "}}}
+function! s:ConnectDB(profile)
+  call dbext#DB_setMultipleOptions(g:my_db_profiles[a:profile])
+  silent exec ":DBCompleteTables"
+  silent exec ":DBCompleteProcedures"
+  silent exec ":DBCompleteViews"
+  echo "connect to " . a:profile
+endfunction
+
 " }}}
 
 " }}}

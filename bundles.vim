@@ -33,7 +33,7 @@ Bundle 'dbext.vim'
 Bundle 'motemen/hatena-vim'
 Bundle 'PDV--phpDocumentor-for-Vim'
 " Bundle 'kana/vim-smartchr'
-Bundle 'kana/vim-smartinput'
+" Bundle 'kana/vim-smartinput'
 Bundle 'kana/vim-textobj-user'
 Bundle 'akiyan/vim-textobj-php'
 Bundle 'vim-scripts/Align'
@@ -58,6 +58,7 @@ Bundle 'unite-locate'
 Bundle 'h1mesuke/unite-outline'
 Bundle 'tacroe/unite-mark'
 Bundle 'zhaocai/unite-scriptnames'
+" Bundle 'osyo-manga/unite-moo'
 " }}}
 
 " colorscheme {{{
