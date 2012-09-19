@@ -20,3 +20,9 @@
   #editor = vim -c \"set fenc=utf-8\"
   editor = /usr/local/vim-7.3/bin/vim -c \"set fenc=utf-8\"
   excludesfile = ~/.gitignore
+
+[diff]
+  tool = /usr/local/vim-7.3/bin/vimdiff
+
+[merge]
+  tool = /usr/local/vim-7.3/bin/vimdiff
