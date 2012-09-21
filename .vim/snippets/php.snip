@@ -5,6 +5,9 @@
 # h : Htmlヘルパー
 # f : Formヘルパー
 
+# validateと被るので削除。
+delete date
+
 # --------------------------------------------------
 # Controller
 # --------------------------------------------------
@@ -165,7 +168,9 @@ snippet mfind
     'conditions' => array(
         '${3:where_column}' => ${4:where_condition},
     ),
-    // 'fields' => array('',''),
+    // 'fields' => array(
+    //   '',
+    // ),
     // 'fields' => array('count(id) as "Model__count"'),
     // 'limit' => 10,
     // 'order' => array('Model.col' => 'desc/asc'),
