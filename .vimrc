@@ -965,6 +965,22 @@ nnoremap <Space>cf :<C-u>Cfixture
 nnoremap <Space>cs :<C-u>Cshell 
 nnoremap <Space>cd :<C-u>Cdesc 
 
+" プロジェクト切り替えコマンド
+" let g:my_cakephp_projects = {
+"   \ 'project' : '/path/to/app',
+"   \ }
+command! -n=1  -complete=customlist,s:GetCakePHPProjectList Cake :call s:SetCakePHPProject(<f-args>)
+function! s:GetCakePHPProjectList(ArgLead, CmdLine, CursorPos) "{{{
+  return filter(sort(keys(g:my_cakephp_projects)), 'v:val =~ "^'. fnameescape(a:ArgLead) . '"')
+endfunction "}}}
+function! s:SetCakePHPProject(app)
+  if exists("g:my_cakephp_projects") && isdirectory(g:my_cakephp_projects[a:app])
+    silent exec ":Cakephp " . g:my_cakephp_projects[a:app]
+    echo "CakePHP Project : ". a:app
+  endif
+endfunction
+
+
 " }}}
 
 " localrc.vim {{{
@@ -1151,6 +1167,9 @@ let g:dbext_default_window_use_bottom = 1  " Bottom
 let g:dbext_default_window_width = 100
 
 " 接続切り替えコマンド
+" let g:my_db_profiles = {
+"   \ 'table': 'type=MYSQL:user=mysqluser:passwd=mysqlpasswd:dbname=dbname:host=localhost:port=3306',
+"   \ }
 command! -n=1  -complete=customlist,s:GetDBProfileList DB :call s:ConnectDB(<f-args>)
 function! s:GetDBProfileList(ArgLead, CmdLine, CursorPos) "{{{
   return filter(sort(keys(g:my_db_profiles)), 'v:val =~ "^'. fnameescape(a:ArgLead) . '"')
@@ -1160,7 +1179,7 @@ function! s:ConnectDB(profile)
   silent exec ":DBCompleteTables"
   silent exec ":DBCompleteProcedures"
   silent exec ":DBCompleteViews"
-  echo "connect to " . a:profile
+  echo "Connect Database : " . a:profile
 endfunction
 
 " }}}
