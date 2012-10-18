@@ -855,7 +855,7 @@ nnoremap [unite]b   :<C-u>Unite bookmark<CR>
 nnoremap [unite]c   :<C-u>Unite cake_controller cake_model cake_config cake_component cake_behavior cake_helper cake_shell -start-insert<CR>
 nnoremap [unite]d   :<C-u>UniteWithBufferDir -buffer-name=files file -start-insert<CR>
 nnoremap [unite]f   :<C-u>UniteWithBufferDir -buffer-name=files mark buffer file_mru bookmark file<CR>
-nnoremap [unite]g   :<C-u>Unite grep<CR>
+nnoremap [unite]g   :<C-u>Unite -no-quit grep<CR>
 nnoremap [unite]h   :<C-u>Unite history/command<CR>
 nnoremap [unite]j   :<C-u>Unite mark buffer file_mru -start-insert<CR>
 nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
@@ -973,19 +973,15 @@ command! -n=1  -complete=customlist,s:GetCakePHPProjectList Cake :call s:SetCake
 function! s:GetCakePHPProjectList(ArgLead, CmdLine, CursorPos) "{{{
   return filter(sort(keys(g:my_cakephp_projects)), 'v:val =~ "^'. fnameescape(a:ArgLead) . '"')
 endfunction "}}}
-function! s:SetCakePHPProject(app)
+
+" プロジェクト切り替え
+function! s:SetCakePHPProject(app) " {{{
   if exists("g:my_cakephp_projects") && isdirectory(g:my_cakephp_projects[a:app])
     silent exec ":Cakephp " . g:my_cakephp_projects[a:app]
     echo "CakePHP Project : ". a:app
   endif
-endfunction
+endfunction " }}}
 
-
-" }}}
-
-" localrc.vim {{{
-
-call localrc#load('.init.vimrc', $HOME)
 
 " }}}
 
@@ -1198,6 +1194,12 @@ hi EasyMotionShade  ctermbg=none ctermfg=blue
 
 " }}}
 
+
+" localrc.vim {{{
+
+call localrc#load('.init.vimrc', $HOME)
+
+" }}}
 
 
 let g:loaded_vimrc = 1

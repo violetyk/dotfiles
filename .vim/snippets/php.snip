@@ -619,7 +619,26 @@ snippet log
     CakeLog::write(${1:LOG_INFO}, '${2:message}');${0}
 
 snippet classregistry
-    $obj = ClassRegistry::init('${1:model_name, component_name etc...}');${0}
+    ClassRegistry::init('${1:model_name, component_name etc...}');${0}
+
+snippet classregistryfind
+    ClassRegistry::init('${1:model_name}')->find('${2:all/first/count/list/threaded/neighbours}', array(
+      'contain' => false,
+      'conditions' => array(
+          '${3:where_column}' => ${4:where_condition},
+      ),
+      // 'fields' => array(
+      //   '',
+      // ),
+      // 'fields' => array('count(id) as "Model__count"'),
+      // 'limit' => 10,
+      // 'order' => array('Model.col' => 'desc/asc'),
+      // 'order' => 'rand()',
+      // 'group' => array('Model.col'),
+      // 'recursive' => -1,
+    ));
+    ${0}
+
 
 # --------------------------------------------------
 # Component
@@ -925,7 +944,7 @@ snippet elseif
 	}
 
 snippet for
-	for ($${1:i}=${2:0}; $${1:i} < ${3}; $${1:i}++) { 
+	for ($${1:i} = ${2:0}; $${3:i} < ${4}; $${5:i}++) { 
 		${0}
 	}
 
@@ -978,13 +997,13 @@ snippet case
 snippet switch
 abbr sw
 	switch (${1:variable}) {
-	case '${2:value}':
-		${3:# code...}
-		break;
-	${0}
-	default:
-		${4:# code...}
-		break;
+		case '${2:value}':
+			${3:# code...}
+			break;
+		${0}
+		default:
+			${4:# code...}
+			break;
 	}
 
 snippet throw
