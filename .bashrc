@@ -62,3 +62,6 @@ alias svnpl="svn proplist -Rv"
 # gitのブランチの情報を婦論プロトに表示させておく
 # export PS1="[\u@\h \W]\$(__git_ps1) \$ "
 export PS1='[\u@\h \W$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")]\$ '
+
+### SSH
+alias ssh="ssh -2 -o ServerAliveInterval=60"
