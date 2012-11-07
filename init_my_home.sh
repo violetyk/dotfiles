@@ -19,4 +19,5 @@ wget http://www.php.net/get/php_manual_ja.tar.gz/from/jp.php.net/mirror -O php_m
 tar xf php_manual_ja.tar.gz
 mv php-chunked-xhtml php_manual_ja
 
-vim -u ~/dotfiles/bundles.vim +BundleInstall +q
+# vim -u ~/dotfiles/bundles.vim +BundleInstall +q
+vim  +NeoBundleInstall +q

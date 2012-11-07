@@ -3,8 +3,100 @@
 " viとの互換性をとらない(vimの独自拡張機能を使う為)
 set nocompatible
 
-" vundle
-source $HOME/dotfiles/bundles.vim
+" Plugins {{{
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#rc(expand('~/.vim/bundle/'))
+" help {{{
+NeoBundle 'vim-jp/vimdoc-ja'
+" }}}
+
+" utility {{{
+" NeoBundle 'taglist.vim' " tab切り替え時にエラーが出るので下記fix版を使う。
+NeoBundle 'rgo/taglist.vim'
+NeoBundleLazy 'Source-Explorer-srcexpl.vim'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \   'sygwin' : 'make -f make_cygwin.mak',
+      \   'mac' : 'make -f make_mac.mak',
+      \   'unix' : 'make -f make_unix.mak',
+      \ },
+      \}
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'matchit.zip'
+NeoBundle 'The-NERD-tree'
+NeoBundle 'The-NERD-Commenter'
+NeoBundleLazy 'Townk/vim-autoclose'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-localrc'
+NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'mattn/gist-vim'
+NeoBundle 'scratch-utility'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'dbext.vim'
+NeoBundle 'motemen/hatena-vim'
+NeoBundle 'PDV--phpDocumentor-for-Vim'
+NeoBundleLazy 'kana/vim-smartchr'
+NeoBundleLazy 'kana/vim-smartinput'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'akiyan/vim-textobj-php'
+NeoBundle 'vim-scripts/Align'
+NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'SQLUtilities'
+NeoBundle 'tomtom/checksyntax_vim'
+NeoBundle 'tomtom/quickfixsigns_vim'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'glidenote/memolist.vim'
+NeoBundle 'vim-scripts/Modeliner'
+
+" }}}
+
+" framework {{{
+NeoBundleLazy 'tpope/vim-rails'
+" NeoBundle 'violetyk/cake.vim'
+NeoBundle 'naberon/vim-cakehtml'
+" }}}
+
+" unite source {{{
+NeoBundle 'unite-colorscheme'
+NeoBundle 'unite-locate'
+NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'tacroe/unite-mark'
+NeoBundle 'zhaocai/unite-scriptnames'
+" }}}
+
+" colorscheme {{{
+NeoBundle 'mrkn256.vim'
+NeoBundleLazy 'desert.vim'
+NeoBundleLazy 'desert256.vim'
+NeoBundleLazy 'molokai'
+NeoBundleLazy 'Zenburn'
+NeoBundleLazy 'altercation/vim-colors-solarized'
+" }}}
+
+" syntax {{{
+" NeoBundle 'php.vim--Garvin'
+NeoBundle 'StanAngeloff/php.vim'
+NeoBundle 'jQuery'
+NeoBundle 'JavaScript-syntax'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'hail2u/vim-css3-syntax'
+" }}}
+
+" indent {{{
+NeoBundle 'pangloss/vim-javascript'
+" }}}
+
+filetype plugin indent on
+" }}}
 
 " 基本的な設定: {{{
 
@@ -860,6 +952,7 @@ nnoremap [unite]h   :<C-u>Unite history/command<CR>
 nnoremap [unite]j   :<C-u>Unite mark buffer file_mru -start-insert<CR>
 nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
 nnoremap [unite]m   :<C-u>Unite mapping -start-insert<CR>
+nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
 nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -vertical -no-quit outline<CR>
 " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
 nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
@@ -969,7 +1062,7 @@ nnoremap <Space>cd :<C-u>Cdesc
 " let g:my_cakephp_projects = {
 "   \ 'project' : '/path/to/app',
 "   \ }
-command! -n=1  -complete=customlist,s:GetCakePHPProjectList Cake :call s:SetCakePHPProject(<f-args>)
+command! -n=1  -complete=customlist,s:GetCakePHPProjectList C :call s:SetCakePHPProject(<f-args>)
 function! s:GetCakePHPProjectList(ArgLead, CmdLine, CursorPos) "{{{
   return filter(sort(keys(g:my_cakephp_projects)), 'v:val =~ "^'. fnameescape(a:ArgLead) . '"')
 endfunction "}}}
@@ -978,7 +1071,7 @@ endfunction "}}}
 function! s:SetCakePHPProject(app) " {{{
   if exists("g:my_cakephp_projects") && isdirectory(g:my_cakephp_projects[a:app])
     silent exec ":Cakephp " . g:my_cakephp_projects[a:app]
-    echo "CakePHP Project : ". a:app
+    echo "CakePHP project changed: ". a:app
   endif
 endfunction " }}}
 
@@ -1194,11 +1287,10 @@ hi EasyMotionShade  ctermbg=none ctermfg=blue
 
 " }}}
 
-
 " localrc.vim {{{
-
-call localrc#load('.init.vimrc', $HOME)
-
+if exists('g:loaded_localrc')
+  call localrc#load('.init.vimrc', $HOME)
+endif
 " }}}
 
 

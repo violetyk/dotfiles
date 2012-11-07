@@ -45,11 +45,12 @@ Bundle 'tomtom/quickfixsigns_vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'glidenote/memolist.vim'
 Bundle 'vim-scripts/Modeliner'
+
 " }}}
 
 " framework {{{
 Bundle 'tpope/vim-rails'
-Bundle 'violetyk/cake.vim'
+" Bundle 'violetyk/cake.vim'
 Bundle 'naberon/vim-cakehtml'
 " }}}
 
