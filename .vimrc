@@ -17,8 +17,10 @@ NeoBundle 'vim-jp/vimdoc-ja'
 " NeoBundle 'taglist.vim' " tab切り替え時にエラーが出るので下記fix版を使う。
 NeoBundle 'rgo/taglist.vim'
 NeoBundleLazy 'Source-Explorer-srcexpl.vim'
+NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
       \   'sygwin' : 'make -f make_cygwin.mak',
@@ -26,7 +28,6 @@ NeoBundle 'Shougo/vimproc', {
       \   'unix' : 'make -f make_unix.mak',
       \ },
       \}
-NeoBundle 'Shougo/unite.vim'
 NeoBundle 'matchit.zip'
 NeoBundle 'The-NERD-tree'
 NeoBundle 'The-NERD-Commenter'
