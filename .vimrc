@@ -4,6 +4,7 @@
 set nocompatible
 
 " Plugins {{{
+filetype off
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
@@ -35,7 +36,7 @@ NeoBundleLazy 'Townk/vim-autoclose'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
-NeoBundle 'mattn/zencoding-vim'
+" NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'mattn/gist-vim'
 NeoBundle 'scratch-utility'
@@ -1289,10 +1290,9 @@ hi EasyMotionShade  ctermbg=none ctermfg=blue
 " }}}
 
 " localrc.vim {{{
-if exists('g:loaded_localrc')
+" if exists('g:loaded_localrc')
   call localrc#load('.init.vimrc', $HOME)
-endif
+" endif
 " }}}
-
 
 let g:loaded_vimrc = 1
