@@ -36,7 +36,7 @@ NeoBundleLazy 'Townk/vim-autoclose'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
-" NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'mattn/gist-vim'
 NeoBundle 'scratch-utility'
@@ -212,7 +212,7 @@ if has('gui_running')
   " set background=light
   " set background=dark
   " colorscheme solarized
-  colorscheme desert
+  silent! colorscheme desert
 
   " マウスを使う。
   "set mouse=a
@@ -274,7 +274,7 @@ else
   " 対応する括弧の色を控えめにしておく
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
-  colorscheme mrkn256
+  silent! colorscheme mrkn256
 
   " }}}
 endif
@@ -897,7 +897,7 @@ autocmd FileType html,markdown,htmlcake setlocal omnifunc=htmlcomplete#CompleteT
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" autocmd FileType php,htmlcake setlocal omnifunc=phpcomplete#CompletePHP
+autocmd FileType php,htmlcake setlocal omnifunc=phpcomplete#CompletePHP
 
 " オムニ補完のパターン
 if !exists('g:neocomplcache_omni_patterns')
@@ -905,7 +905,7 @@ if !exists('g:neocomplcache_omni_patterns')
 endif
 " 言語別neocompl自動発火パターン
 " let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-" let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 " }}}
 " キーバインド {{{
 " Plugin key-mappings.
@@ -1290,9 +1290,9 @@ hi EasyMotionShade  ctermbg=none ctermfg=blue
 " }}}
 
 " localrc.vim {{{
-" if exists('g:loaded_localrc')
-  call localrc#load('.init.vimrc', $HOME)
-" endif
+
+silent! call localrc#load('.init.vimrc', $HOME)
+
 " }}}
 
 let g:loaded_vimrc = 1
