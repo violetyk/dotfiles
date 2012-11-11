@@ -10,14 +10,13 @@ ln -sf ~/dotfiles/.tmux.conf .tmux.conf
 ln -sf ~/dotfiles/.gitignore .gitignore
 ln -sf ~/dotfiles/.gitconfig .gitconfig
 
-cd ~/dotfiles/
-git submodule init
-git submodule update
-
 cd ~/.vim/manual
-wget http://www.php.net/get/php_manual_ja.tar.gz/from/jp.php.net/mirror -O php_manual_ja.tar.gz
+wget http://jp1.php.net/get/php_manual_ja.tar.gz/from/this/mirror -O php_manual_ja.tar.gz
 tar xf php_manual_ja.tar.gz
 mv php-chunked-xhtml php_manual_ja
+
+cd ~/dotfiles/
+git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 
 # vim -u ~/dotfiles/bundles.vim +BundleInstall +q
 vim  +NeoBundleInstall +q
