@@ -67,9 +67,22 @@ export PS1='[\u@\h \W$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")]\$ '
 ### SSH
 alias ssh="ssh -2 -o ServerAliveInterval=60"
 
+
 ### function
 # mkdir + cd
-function mkdircd() {
+mkdircd(){
   mkdir -p $1 && cd $1
 }
 
+# Get list from file. The line of # is comment the top.
+list(){
+  LIST=''
+  for ITEM in `cat $1 | grep -v "^#"`
+  do
+    if [ -e $ITEM ] ; then
+      LIST="$LIST $ITEM"
+    fi
+  done
+
+  echo $LIST
+}
