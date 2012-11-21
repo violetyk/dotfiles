@@ -46,6 +46,7 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias vi='vim'
 alias wget='wget --no-check-certificate'
+
 # -S オプションで折り返さなくする
 # エディタはvim
 alias mysql="EDITOR=\"/usr/local/vim-7.3/bin/vim -c ':set ft=sql'\" mysql --auto-rehash --pager='less -S'"
@@ -65,3 +66,10 @@ export PS1='[\u@\h \W$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")]\$ '
 
 ### SSH
 alias ssh="ssh -2 -o ServerAliveInterval=60"
+
+### function
+# mkdir + cd
+function mkdircd() {
+  mkdir -p $1 && cd $1
+}
+
