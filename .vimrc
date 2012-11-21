@@ -36,7 +36,7 @@ NeoBundleLazy 'Townk/vim-autoclose'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
-" NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'mattn/gist-vim'
 NeoBundle 'scratch-utility'
@@ -55,7 +55,7 @@ NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'SQLUtilities'
 NeoBundle 'tomtom/checksyntax_vim'
 NeoBundle 'tomtom/quickfixsigns_vim'
-NeoBundle 'kien/ctrlp.vim'
+" NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'vim-scripts/Modeliner'
 
@@ -953,7 +953,7 @@ nnoremap [unite]g   :<C-u>Unite -no-quit grep<CR>
 nnoremap [unite]h   :<C-u>Unite history/command<CR>
 nnoremap [unite]j   :<C-u>Unite mark buffer file_mru -start-insert<CR>
 nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
-nnoremap [unite]m   :<C-u>Unite mapping -start-insert<CR>
+nnoremap [unite]m   :<C-u>Unite -start-insert -vertical file:<C-r>=g:memolist_path."/"<CR><CR>
 nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
 nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -vertical -no-quit outline<CR>
 " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
@@ -967,10 +967,10 @@ nnoremap [unite]A   :<C-u>Unite output:autocmd<CR>
 nnoremap [unite]C   :<C-u>Unite change<CR>
 nnoremap [unite]J   :<C-u>Unite jump<CR>
 nnoremap [unite]L   :<C-u>Unite launcher<CR>
-nnoremap [unite]M   :<C-u>Unite output:messages<CR>
+" nnoremap [unite]M   :<C-u>Unite output:messages<CR>
+nnoremap [unite]M   :<C-u>Unite mapping -start-insert<CR>
 nnoremap [unite]R   :<C-u>Unite -buffer-name=register register<CR>
 nnoremap [unite]S   :<C-u>Unite output:scriptnames<CR>
-
 " }}}
 
 " ref.vim {{{
@@ -1200,7 +1200,7 @@ function! s:MemoRemove()
   return 0
 endfunction "}}}
 
-nnoremap <Leader>mf :exe "CtrlP" g:memolist_path<CR><F5>
+" nnoremap <Leader>mf :exe "CtrlP" g:memolist_path<CR><F5>
 nnoremap <Leader>mc :MemoNew<CR>
 nnoremap <Leader>mg :MemoGrep<CR>
 nnoremap <Leader>ml :MemoList<CR>

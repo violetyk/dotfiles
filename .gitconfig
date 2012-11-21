@@ -9,6 +9,7 @@
   sslVerify = false
 [alias]
   st = status
+  ss = "status -s"
   br = "branch -a"
   co = "checkout"
   unstage = "reset HEAD --"
