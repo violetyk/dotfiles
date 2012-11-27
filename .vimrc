@@ -53,7 +53,7 @@ NeoBundle 'vim-scripts/Align'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'SQLUtilities'
-NeoBundle 'tomtom/checksyntax_vim'
+" NeoBundle 'tomtom/checksyntax_vim'
 NeoBundle 'tomtom/quickfixsigns_vim'
 " NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'glidenote/memolist.vim'
@@ -897,7 +897,7 @@ autocmd FileType html,markdown,htmlcake setlocal omnifunc=htmlcomplete#CompleteT
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php,htmlcake setlocal omnifunc=phpcomplete#CompletePHP
+" autocmd FileType php,htmlcake setlocal omnifunc=phpcomplete#CompletePHP
 
 " オムニ補完のパターン
 if !exists('g:neocomplcache_omni_patterns')
@@ -905,7 +905,7 @@ if !exists('g:neocomplcache_omni_patterns')
 endif
 " 言語別neocompl自動発火パターン
 " let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+" let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 " }}}
 " キーバインド {{{
 " Plugin key-mappings.
@@ -1230,7 +1230,7 @@ let g:ctrlp_max_height = 30
 
 " checksyntax_vim {{{
 
-autocmd BufWritePost *.php :CheckSyntax
+" autocmd BufWritePost *.php :CheckSyntax
 nnoremap <F6> :<C-u>CheckSyntax<CR>
 
 " }}}
