@@ -53,7 +53,7 @@ NeoBundle 'vim-scripts/Align'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'SQLUtilities'
-" NeoBundle 'tomtom/checksyntax_vim'
+NeoBundle 'tomtom/checksyntax_vim'
 NeoBundle 'tomtom/quickfixsigns_vim'
 " NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'glidenote/memolist.vim'
@@ -602,6 +602,9 @@ noremap <C-k> <C-w>k<C-w>_
 " タブ移動
 nnoremap gl gt
 nnoremap gh gT
+
+" 縦分割版gf
+nnoremap gs :vertical wincmd f<CR>
 " }}}
 
 " 移動量の調節 {{{
