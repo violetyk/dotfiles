@@ -967,8 +967,8 @@ nnoremap [unite]A   :<C-u>Unite output:autocmd<CR>
 nnoremap [unite]C   :<C-u>Unite change<CR>
 nnoremap [unite]J   :<C-u>Unite jump<CR>
 nnoremap [unite]L   :<C-u>Unite launcher<CR>
-" nnoremap [unite]M   :<C-u>Unite output:messages<CR>
-nnoremap [unite]M   :<C-u>Unite mapping -start-insert<CR>
+nnoremap [unite]M   :<C-u>Unite output:messages<CR>
+" nnoremap [unite]M   :<C-u>Unite mapping -start-insert<CR>
 nnoremap [unite]R   :<C-u>Unite -buffer-name=register register<CR>
 nnoremap [unite]S   :<C-u>Unite output:scriptnames<CR>
 " }}}
@@ -1062,16 +1062,21 @@ nnoremap <Space>cd :<C-u>Cdesc
 
 " プロジェクト切り替えコマンド
 " let g:my_cakephp_projects = {
-"   \ 'project' : '/path/to/app',
-"   \ }
+  " \ 'project' : '/path/to/app',
+  " \ }
 command! -n=1  -complete=customlist,s:GetCakePHPProjectList C :call s:SetCakePHPProject(<f-args>)
 function! s:GetCakePHPProjectList(ArgLead, CmdLine, CursorPos) "{{{
-  return filter(sort(keys(g:my_cakephp_projects)), 'v:val =~ "^'. fnameescape(a:ArgLead) . '"')
+  if exists("g:my_cakephp_projects") && len(g:my_cakephp_projects)
+    return filter(sort(keys(g:my_cakephp_projects)), 'v:val =~ "^'. fnameescape(a:ArgLead) . '"')
+  else
+    return []
+  endif
+
 endfunction "}}}
 
 " プロジェクト切り替え
 function! s:SetCakePHPProject(app) " {{{
-  if exists("g:my_cakephp_projects") && isdirectory(g:my_cakephp_projects[a:app])
+  if isdirectory(g:my_cakephp_projects[a:app])
     silent exec ":Cakephp " . g:my_cakephp_projects[a:app]
     echo "CakePHP project changed: ". a:app
   endif
