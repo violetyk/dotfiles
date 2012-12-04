@@ -46,6 +46,7 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias vi='vim'
 alias wget='wget --no-check-certificate'
+alias grep='grep --color'
 
 # -S オプションで折り返さなくする
 # エディタはvim
