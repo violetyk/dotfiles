@@ -957,7 +957,7 @@ nnoremap [unite]h   :<C-u>Unite history/command<CR>
 nnoremap [unite]j   :<C-u>Unite mark buffer file_mru -start-insert<CR>
 nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
 nnoremap [unite]m   :<C-u>Unite -start-insert -vertical file:<C-r>=g:memolist_path."/"<CR><CR>
-nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
+" nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
 nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -vertical -no-quit outline<CR>
 " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
 nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
@@ -1050,7 +1050,7 @@ let g:user_zen_settings = {
 
 nnoremap <Space>cc :<C-u>Ccontroller 
 nnoremap <Space>ccv :<C-u>Ccontrollervsp 
-nnoremap <Space>cm :<C-u>Cmodelvsp 
+nnoremap <Space>cm :<C-u>Cmodel 
 nnoremap <Space>cv :<C-u>Cview 
 nnoremap <Space>cl :<C-u>Clog 
 " nnoremap <Space>ccv :<C-u>Ccontrollerview
