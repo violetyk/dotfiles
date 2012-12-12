@@ -77,6 +77,7 @@ NeoBundle 'zhaocai/unite-scriptnames'
 
 " colorscheme {{{
 NeoBundle 'mrkn256.vim'
+NeoBundle 'nanotech/jellybeans.vim'
 NeoBundleLazy 'desert.vim'
 NeoBundleLazy 'desert256.vim'
 NeoBundleLazy 'molokai'
@@ -274,7 +275,8 @@ else
   " 対応する括弧の色を控えめにしておく
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
-  silent! colorscheme mrkn256
+  " silent! colorscheme mrkn256
+  silent! colorscheme jellybeans
 
   " }}}
 endif

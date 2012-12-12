@@ -552,6 +552,9 @@ snippet pefsubmit
 snippet pefbutton
     <?= $form->button('${1:title}', array('type' => '${2:button/reset/submit}', 'id' => '${3}', 'class' => '${4}', 'escape' => ${5:false})) ?>${0}
 
+snippet pefcheckbox
+    <?= $form->checkbox('${1:field_name}', array('class' => ${2:class_name})) ?>${0}
+
 snippet peferror
     <?= $form->error('${1:field_name}', ${2:null}, array( 'wrap' => '${3:}', 'escape' => ${4:false})) ?>${0}
 
