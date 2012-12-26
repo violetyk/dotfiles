@@ -16,6 +16,7 @@ let php_parent_error_open = 1
 " クラスと関数の折りたたみ(folding)を有効にする
 " let php_folding = 1
 let php_folding = 0
+" set fdm=syntax
 
 " :make で文法チェックする-> quickfixsigns_vimを使うようにした
 " if has('win32') || has('win64')

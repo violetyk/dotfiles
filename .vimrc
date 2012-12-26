@@ -80,7 +80,7 @@ NeoBundle 'mrkn256.vim'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundleLazy 'desert.vim'
 NeoBundleLazy 'desert256.vim'
-NeoBundleLazy 'molokai'
+NeoBundleLazy 'tomasr/molokai'
 NeoBundleLazy 'Zenburn'
 NeoBundleLazy 'altercation/vim-colors-solarized'
 " }}}
@@ -275,8 +275,8 @@ else
   " 対応する括弧の色を控えめにしておく
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
-  " silent! colorscheme mrkn256
-  silent! colorscheme jellybeans
+  silent! colorscheme mrkn256
+  " silent! colorscheme jellybeans
 
   " }}}
 endif
@@ -826,7 +826,7 @@ let g:acp_enableAtStartup = 0
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
 " 入力に大文字が入力されていたら、大文字小文字の区別をする
-let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_smart_case = 0
 " 大文字小文字区切りの曖昧検索をするかどうか。DT = D*T* -> DateTime
 let g:neocomplcache_enable_camel_case_completion = 0
 " アンスコ区切りであいまい検索を行うかどうか。m*_s -> mb_substr
