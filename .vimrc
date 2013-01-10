@@ -17,7 +17,6 @@ NeoBundle 'vim-jp/vimdoc-ja'
 " utility {{{
 " NeoBundle 'taglist.vim' " tab切り替え時にエラーが出るので下記fix版を使う。
 NeoBundle 'rgo/taglist.vim'
-NeoBundleLazy 'Source-Explorer-srcexpl.vim'
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
@@ -55,15 +54,14 @@ NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'SQLUtilities'
 NeoBundle 'tomtom/checksyntax_vim'
 NeoBundle 'tomtom/quickfixsigns_vim'
-" NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'vim-scripts/Modeliner'
-
 " }}}
 
 " framework {{{
 NeoBundleLazy 'tpope/vim-rails'
 " NeoBundle 'violetyk/cake.vim'
+" NeoBundle 'git@github.com:nanapi/nanapi.vim.git'
 NeoBundle 'naberon/vim-cakehtml'
 " }}}
 
@@ -77,7 +75,7 @@ NeoBundle 'zhaocai/unite-scriptnames'
 
 " colorscheme {{{
 NeoBundle 'mrkn256.vim'
-NeoBundle 'nanotech/jellybeans.vim'
+NeoBundleLazy 'nanotech/jellybeans.vim'
 NeoBundleLazy 'desert.vim'
 NeoBundleLazy 'desert256.vim'
 NeoBundleLazy 'tomasr/molokai'
@@ -731,11 +729,10 @@ let NERDTreeShowHidden = 0
 " カーソル行を強調する場合1
 let NERDTreeHighlightCursorline = 0
 " NERDTreeウィンドウのサイズ
-let NERDTreeWinSize = 40
+let NERDTreeWinSize = 30
 " NERDTreeウィンドウを横に表示するか上に表示するか
 let NERDTreeWinPos = "left"
-" <F8>で開く/閉じる
-nmap <silent> <F8> :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>e :NERDTreeToggle<CR>
 
 let NERDTreeHijackNetrw = 0
 
@@ -754,7 +751,7 @@ else
 endif
 
 let Tlist_Inc_Winwidth = 1
-"taglistのウィンドーが最後のウィンドーならばVimを閉じる
+"taglistのウィンドウが最後のウィンドーならばVimを閉じる
 let Tlist_Exit_OnlyWindow = 1
 " Do not close tags for other files
 let Tlist_File_Fold_Auto_Close = 1
@@ -778,7 +775,7 @@ let Tlist_Compact_Format = 1
 let tlist_php_settings = 'php;c:class;d:constant;f:function'
 
 
-nmap <silent> <F9> :TlistToggle<CR>
+nnoremap <silent> <Leader>t :TlistOpen<CR>
 
 " ~/.ctags に設定を書くことにした。
 " --langmapは次のように調べられる。
@@ -1115,43 +1112,6 @@ vnoremap <Leader>d :call PhpDocRange()<CR>
 let g:surround_{char2nr("p")} = "<?php \r ?>"
 " }}}
 
-" srcexpl.vim {{{
-
-" リフレッシュタイム(ms)
-let g:SrcExpl_RefreshTime = 1000
-
-let g:SrcExpl_winHeight = 8
-
-let g:SrcExpl_searchLocalDef = 1
-
-" srcexpl起動次に自動でtagsを作るかどうか
-" let g:SrcExpl_UpdateTags = 1
-let g:SrcExpl_isUpdateTags = 0
-
-" マッピング
-
-" 戻る機能のMAP(#ノーマルモードで動作する)
-" let g:SrcExpl_GoBackMapKey = "<C-b>"
-let g:SrcExpl_gobackKey = "<C-b>"
-let g:SrcExpl_jumpKey = "<ENTER>"
-
-" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to
-" //  create/update a tags file
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
-
-" // Set "<F12>" key for updating the tags file artificially
-let g:SrcExpl_updateTagsKey = "<F12>""
-
-" Source Explorerの機能ON/OFF(#普通にvimrcで書く方法と同じ)
-nnoremap <F10> :SrcExplToggle<CR>
-
-let g:SrcExpl_pluginList = [ 
-      \ "__Tag_List__",
-      \ "_NERD_tree_",
-      \ "Source_Explorer"
-      \ ]
-
-" }}}
 
 " powerline.vim {{{ 
 
@@ -1220,21 +1180,6 @@ nnoremap <silent> <Leader>md :call <SID>MemoRemove()<CR>
 " Modeliner {{{
 
 let g:Modeliner_format='ft= et ff= fenc= sts= sw= ts='
-
-" }}}
-
-" ctrlp.vim {{{
-
-let g:ctrlp_by_filename         = 1 " フルパスではなくファイル名のみで絞込み
-let g:ctrlp_jump_to_buffer      = 2 " タブで開かれていた場合はそのタブに切り替える
-let g:ctrlp_clear_cache_on_exit = 0 " 終了時キャッシュをクリアしない
-let g:ctrlp_mruf_max            = 500 " MRUの最大記録数
-" let g:ctrlp_highlight_match     = [1, 'IncSearch'] " 絞り込みで一致した部分のハイライト
-let g:ctrlp_open_new_file       = 1 " 新規ファイル作成時にタブで開く
-let g:ctrlp_open_multi          = '10t' " 複数ファイルを開く時にタブで最大10まで開く
-
-let g:ctrlp_max_height = 30
-" let g:ctrlp_max_height = &lines
 
 " }}}
 
