@@ -1183,13 +1183,6 @@ let g:Modeliner_format='ft= et ff= fenc= sts= sw= ts='
 
 " }}}
 
-" checksyntax_vim {{{
-
-" autocmd BufWritePost *.php :CheckSyntax
-nnoremap <F6> :<C-u>CheckSyntax<CR>
-
-" }}}
-
 " Fugitive {{{
 nnoremap <Space>gd :<C-u>Gdiff<Enter>
 nnoremap <Space>gs :<C-u>Gstatus<Enter>
