@@ -591,8 +591,11 @@ map <PageUp> 3<C-w>+
 map <PageDown> 3<C-w>-
 
 " 分割ウィンドウに移動して大きくする
-noremap <C-j> <C-w>j<C-w>_
-noremap <C-k> <C-w>k<C-w>_
+" noremap <C-j> <C-w>j<C-w>_
+" noremap <C-k> <C-w>k<C-w>_
+
+noremap <C-j> :<C-u>cnext<CR>
+noremap <C-k> :<C-u>cprevious<CR>
 
 " Ctrl+Nで次のバッファを表示
 " map <silent> <C-N> :bnext<CR>
