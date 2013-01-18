@@ -957,7 +957,8 @@ nnoremap [unite]f   :<C-u>UniteWithBufferDir -buffer-name=files mark buffer file
 nnoremap [unite]g   :<C-u>Unite -no-quit grep<CR>
 nnoremap [unite]h   :<C-u>Unite history/command<CR>
 nnoremap [unite]j   :<C-u>Unite mark buffer file_mru -start-insert<CR>
-nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
+" nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
+nnoremap [unite]l   :<C-u>Unite line -start-insert<CR>
 nnoremap [unite]m   :<C-u>Unite -start-insert -vertical file:<C-r>=g:memolist_path."/"<CR><CR>
 " nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
 nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -vertical -no-quit outline<CR>

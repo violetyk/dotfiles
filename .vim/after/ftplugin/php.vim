@@ -25,7 +25,7 @@ let php_folding = 0
     " set makeprg=php\ -l\ %
 " endif
 " set errorformat=%m\ in\ %f\ on\ line\ %l
-autocmd BufWritePost *.php :CheckSyntax
+" autocmd BufWritePost *.php :CheckSyntax
 
 if has('win32') || has('win64')
     let g:ref_phpmanual_path = $VIM . '/vimfiles/manual/php_manual_ja/'
