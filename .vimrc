@@ -50,6 +50,7 @@ NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'akiyan/vim-textobj-php'
 NeoBundle 'vim-scripts/Align'
 NeoBundle 'Lokaltog/vim-powerline'
+" NeoBundle 'Lokaltog/powerline'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'SQLUtilities'
 NeoBundle 'tomtom/checksyntax_vim'
@@ -775,7 +776,7 @@ let Tlist_Sort_Type = "order"
 " Do not display the help info
 let Tlist_Compact_Format = 1
 
-let tlist_php_settings = 'php;c:class;d:constant;f:function'
+let g:Tlist_php_settings = 'php;c:class;f:function'
 
 
 nnoremap <silent> <Leader>t :TlistOpen<CR>
@@ -961,7 +962,7 @@ nnoremap [unite]j   :<C-u>Unite mark buffer file_mru -start-insert<CR>
 nnoremap [unite]l   :<C-u>Unite line -start-insert<CR>
 nnoremap [unite]m   :<C-u>Unite -start-insert -vertical file:<C-r>=g:memolist_path."/"<CR><CR>
 " nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
-nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -vertical -no-quit outline<CR>
+nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=40 -no-quit<CR>
 " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
 nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
 nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
