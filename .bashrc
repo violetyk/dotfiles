@@ -50,7 +50,8 @@ alias grep='grep --color'
 
 # -S オプションで折り返さなくする
 # エディタはvim
-alias mysql="EDITOR=\"/usr/local/vim-7.3/bin/vim -c ':set ft=sql'\" mysql --auto-rehash --pager='less -S'"
+alias mysql="EDITOR=\"/usr/local/vim-7.3/bin/vim -c ':set ft=sql'\" mysql --auto-rehash"
+# alias mysql="EDITOR=\"/usr/local/vim-7.3/bin/vim -c ':set ft=sql'\" mysql --auto-rehash --pager='less -S'"
 
 ### SVN
 # svn に登録されていないファイルをまとめて svn add
