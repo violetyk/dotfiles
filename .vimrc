@@ -38,6 +38,7 @@ NeoBundle 'thinca/vim-localrc'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'mattn/gist-vim'
+NeoBundleLazy 'mattn/qiita-vim'
 NeoBundle 'scratch-utility'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-fugitive'
@@ -91,6 +92,7 @@ NeoBundle 'jQuery'
 NeoBundle 'JavaScript-syntax'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
+NeoBundle 'tpope/vim-markdown'
 " }}}
 
 " indent {{{
@@ -960,7 +962,7 @@ nnoremap [unite]h   :<C-u>Unite history/command<CR>
 nnoremap [unite]j   :<C-u>Unite mark buffer file_mru -start-insert<CR>
 " nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
 nnoremap [unite]l   :<C-u>Unite line -start-insert<CR>
-nnoremap [unite]m   :<C-u>Unite -start-insert -vertical file:<C-r>=g:memolist_path."/"<CR><CR>
+nnoremap [unite]m   :<C-u>Unite -start-insert -vertical -no-quit file:<C-r>=g:memolist_path."/"<CR><CR>
 " nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
 nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=40 -no-quit<CR>
 " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
@@ -1133,8 +1135,8 @@ endif
 
 " memolist.vim {{{
 
-" let g:memolist_memo_suffix = "markdown"
-let g:memolist_memo_suffix = "txt"
+let g:memolist_memo_suffix = "markdown"
+" let g:memolist_memo_suffix = "txt"
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"
 " let g:memolist_memo_date = "epoch"
 " let g:memolist_memo_date = "%D %T"
