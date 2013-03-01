@@ -738,7 +738,9 @@ let NERDTreeHighlightCursorline = 0
 let NERDTreeWinSize = 30
 " NERDTreeウィンドウを横に表示するか上に表示するか
 let NERDTreeWinPos = "left"
-nnoremap <silent> <Leader>e :NERDTreeToggle<CR>
+
+nnoremap <silent> <Leader>e :<C-u>NERDTreeToggle<CR>
+nnoremap <silent> <Leader>f :<C-u>NERDTreeFind<CR>:setlocal cursorline<CR>
 
 let NERDTreeHijackNetrw = 0
 
