@@ -58,6 +58,7 @@ NeoBundle 'tomtom/checksyntax_vim'
 NeoBundle 'tomtom/quickfixsigns_vim'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'vim-scripts/Modeliner'
+NeoBundle 'joonty/vdebug'
 " }}}
 
 " framework {{{
@@ -1146,12 +1147,12 @@ let g:memolist_prompt_tags = 1
 " let g:memolist_prompt_categories = 1
 " let g:memolist_qfixgrep = 1
 " let g:memolist_vimfiler = 1
-" let g:memolist_template_dir_path = "path/to/dir"
+let g:memolist_template_dir_path = '~/dotfiles/memotemplates'
 
 " Function: s:MemoRemove() メモをゴミ箱に入れる。 {{{
 function! s:MemoRemove()
   let src        = g:memolist_path . '/' . expand("%:t")
-  let trash_path = g:memolist_path . '/../trash'
+  let trash_path = g:memolist_path . '/../.trash'
   let dest       = trash_path . '/' . expand("%:t") . '.del.' . strftime("%Y%m%d_%H%M")
 
   let name = expand("%:t:r")
