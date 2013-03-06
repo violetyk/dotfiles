@@ -45,13 +45,15 @@ abbr Ajaxのアクション
           Configure::write('debug', 1);
         }
         $this->autoRender = false;
+        $response = array();
         if ($this->RequestHandler->isAjax()) {
           $this->RequestHandler->setContent('json');
           $this->RequestHandler->respondAs('application/json; charset=UTF-8');
-          ${0}
+          // $response = ${0}
         }
-        $this->layout = 'ajax';
-        $this->render('ajax');
+        // $this->layout = 'ajax';
+        // $this->render('ajax');
+        echo json_encode($response);
     }
 
 snippet cpaginate

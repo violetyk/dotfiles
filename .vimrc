@@ -55,7 +55,8 @@ NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'SQLUtilities'
 NeoBundle 'tomtom/checksyntax_vim'
-NeoBundle 'tomtom/quickfixsigns_vim'
+" NeoBundle 'tomtom/quickfixsigns_vim'
+NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'vim-scripts/Modeliner'
 NeoBundle 'joonty/vdebug'
@@ -1002,8 +1003,8 @@ let g:ref_detect_filetype = {
 
 " scratch.vim {{{
 
-nmap <silent> <F5> <Plug>ShowScratchBuffer
-imap <silent> <F5> <Plug>InsShowScratchBuffer
+nmap <silent> <Leader>b <Plug>ShowScratchBuffer
+imap <silent> <Leader>b <Plug>InsShowScratchBuffer
 
 " スクラッチバッファを開くマッピングを定義しない
 let no_plugin_maps = 1
@@ -1252,5 +1253,6 @@ hi EasyMotionShade  ctermbg=none ctermfg=blue
 silent! call localrc#load('.init.vimrc', $HOME)
 
 " }}}
+
 
 let g:loaded_vimrc = 1
