@@ -55,8 +55,8 @@ NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'SQLUtilities'
 NeoBundle 'tomtom/checksyntax_vim'
-" NeoBundle 'tomtom/quickfixsigns_vim'
-NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'tomtom/quickfixsigns_vim'
+" NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'vim-scripts/Modeliner'
 NeoBundle 'joonty/vdebug'
@@ -280,6 +280,11 @@ else
 
   silent! colorscheme mrkn256
   " silent! colorscheme jellybeans
+
+  " set background=light
+  " set background=dark
+  let g:solarized_termtrans = 1
+  " silent! colorscheme solarized
 
   " }}}
 endif
