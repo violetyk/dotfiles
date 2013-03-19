@@ -269,6 +269,10 @@ snippet mgetnumrows
 snippet mgetaffectedrows
     $this->${1:model_name}->getAffectedRows()${0}
 
+snippet mvalidate
+  $this->${1:model_name}->set($data);
+  $this->${1:model_name}->invalidFields(array('fieldList' => array(${2:validate_fields}))); // validateにひっかかったばあいエラーの連想配列が帰る
+
 snippet minvalidate
 abbr 指定フィールドをエラーにする
     $this->${1:model_name}->invalidate(${2:field_name}, '${3:error_message}')${0}
@@ -309,14 +313,14 @@ abbr 親ノードの入手
 snippet mv
 abbr バリデーション
     '${1:field_name}' => array(
-        'rule' => '${2:rule}',
-        'message' => '${3:error_message}',
-        // 'required' => true, /* 必須*/
-        // 'allowEmpty' => true, /* 空文字の許可*/
-        // 'last' => false, /* そのエラーが発生した時点で以降のバリデーションは打ち切り */
-        // 'on' => 'update', /* 'create'か'update'時にバリデーションを限定する */
-    ),
-    ${0}
+    	'rule' => '${2:rule}',
+    	'message' => '${3:error_message}',
+    	// 'required' => true, /* 必須*/
+    	// 'allowEmpty' => true, /* 空文字の許可*/
+    	// 'last' => false, /* そのエラーが発生した時点で以降のバリデーションは打ち切り */
+    	// 'on' => 'update', /* 'create'か'update'時にバリデーションを限定する */
+  	),
+  	${0}
 
 snippet mvrnotempty
 abbr 値が空ではないか
@@ -552,6 +556,9 @@ snippet pefihidden
 
 snippet pefsubmit
     <?= $form->submit('${1:caption}', array('class' => '${2}')) ?>${0}
+
+snippet pefsubmit_confirm
+    <?= $form->submit('${1:caption}', array('class' => '${2}', 'onclick' => 'return confirm("{3:message}"))) ?>${0}
 
 snippet pefbutton
     <?= $form->button('${1:title}', array('type' => '${2:button/reset/submit}', 'id' => '${3}', 'class' => '${4}', 'escape' => ${5:false})) ?>${0}

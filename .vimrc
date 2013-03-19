@@ -60,6 +60,7 @@ NeoBundle 'tomtom/quickfixsigns_vim'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'vim-scripts/Modeliner'
 NeoBundle 'joonty/vdebug'
+NeoBundle 'rking/ag.vim'
 " }}}
 
 " framework {{{
@@ -973,7 +974,7 @@ nnoremap [unite]j   :<C-u>Unite mark buffer file_mru -start-insert<CR>
 nnoremap [unite]l   :<C-u>Unite line -start-insert<CR>
 nnoremap [unite]m   :<C-u>Unite -start-insert -vertical -no-quit file:<C-r>=g:memolist_path."/"<CR><CR>
 " nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
-nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=40 -no-quit<CR>
+nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=45 -no-quit<CR>
 " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
 nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
 nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
