@@ -13,7 +13,6 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 " help {{{
 NeoBundle 'vim-jp/vimdoc-ja'
 " }}}
-
 " utility {{{
 " NeoBundle 'taglist.vim' " tab切り替え時にエラーが出るので下記fix版を使う。
 NeoBundle 'rgo/taglist.vim'
@@ -29,8 +28,8 @@ NeoBundle 'Shougo/vimproc', {
       \ },
       \}
 NeoBundle 'matchit.zip'
-NeoBundle 'The-NERD-tree'
-NeoBundle 'The-NERD-Commenter'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'scrooloose/nerdcommenter'
 NeoBundleLazy 'Townk/vim-autoclose'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
@@ -43,7 +42,7 @@ NeoBundle 'scratch-utility'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'dbext.vim'
-NeoBundle 'motemen/hatena-vim'
+NeoBundleLazy 'motemen/hatena-vim'
 NeoBundle 'PDV--phpDocumentor-for-Vim'
 NeoBundleLazy 'kana/vim-smartchr'
 NeoBundleLazy 'kana/vim-smartinput'
@@ -58,18 +57,18 @@ NeoBundle 'tomtom/checksyntax_vim'
 NeoBundle 'tomtom/quickfixsigns_vim'
 " NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'glidenote/memolist.vim'
+NeoBundle 'glidenote/nogistub.vim'
 NeoBundle 'vim-scripts/Modeliner'
 NeoBundle 'joonty/vdebug'
 NeoBundle 'rking/ag.vim'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 " }}}
-
 " framework {{{
 NeoBundleLazy 'tpope/vim-rails'
 " NeoBundle 'violetyk/cake.vim'
 " NeoBundle 'git@github.com:nanapi/nanapi.vim.git'
 NeoBundle 'naberon/vim-cakehtml'
 " }}}
-
 " unite source {{{
 NeoBundle 'unite-colorscheme'
 NeoBundle 'unite-locate'
@@ -77,9 +76,11 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'zhaocai/unite-scriptnames'
 " }}}
-
 " colorscheme {{{
 NeoBundle 'mrkn256.vim'
+NeoBundle 'chriskempson/tomorrow-theme', {
+      \ 'rtp': "~/.vim/bundle/tomorrow-theme/vim/",
+      \ }
 NeoBundleLazy 'nanotech/jellybeans.vim'
 NeoBundleLazy 'desert.vim'
 NeoBundleLazy 'desert256.vim'
@@ -87,7 +88,6 @@ NeoBundleLazy 'tomasr/molokai'
 NeoBundleLazy 'Zenburn'
 NeoBundleLazy 'altercation/vim-colors-solarized'
 " }}}
-
 " syntax {{{
 " NeoBundle 'php.vim--Garvin'
 NeoBundle 'StanAngeloff/php.vim'
@@ -97,7 +97,6 @@ NeoBundle 'othree/html5.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'tpope/vim-markdown'
 " }}}
-
 " indent {{{
 NeoBundle 'pangloss/vim-javascript'
 " }}}
@@ -142,6 +141,8 @@ set splitbelow
 " vsplitしたときに右に出す。
 set splitright
 
+" 補完時、現在選択中の候補の付加情報を表示しない。
+set completeopt-=preview
 " }}}
 
 " 文字コードの設定 {{{
@@ -161,11 +162,10 @@ set fileencodings=utf-8,ucs-bom,euc-jp,cp932,sjis
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
 
-" □とか○の文字があってもカーソル位置がずれないようにする？
+" □とか○の文字があってもカーソル位置がずれないようにす
 " powerline を使った時にステータスラインが更新されない場合があるのsingleで。
-" if exists('&ambiwidth')
-  " set ambiwidth=double
-" endif
+" set ambiwidth=double
+set ambiwidth=single
 
 " }}}
 
@@ -213,11 +213,9 @@ set updatecount=500
 if has('gui_running')
   " GUI共通 {{{
 
-  " カラースキーマ .vim/colors/の中に入れる
-  " set background=light
-  " set background=dark
-  " colorscheme solarized
-  silent! colorscheme desert
+  " カラースキーマ
+  set background=light
+  silent! colorscheme solarized
 
   " マウスを使う。
   "set mouse=a
@@ -233,7 +231,6 @@ if has('gui_running')
   " }}}
   " Windows gvim {{{
   if has('win32') || has('win64')
-
     " Font
     " Windows の gvim でフォントを設定するには guifont オプションと guifontwide オプションを使う。
     " 前者がいわゆる半角文字のフォント、後者が全角文字のフォント。
@@ -256,6 +253,7 @@ if has('gui_running')
   " }}}
   " MacOSX gvim {{{
   elseif has('mac')
+
     set guifont=Ricty\ 11
 
   " }}}
@@ -279,13 +277,13 @@ else
   " 対応する括弧の色を控えめにしておく
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
-  silent! colorscheme mrkn256
+  " silent! colorscheme mrkn256
+  silent! colorscheme Tomorrow-Night-Bright
   " silent! colorscheme jellybeans
 
-  " set background=light
   " set background=dark
-  let g:solarized_termtrans = 1
   " silent! colorscheme solarized
+  " let g:solarized_termtrans = 1
 
   " }}}
 endif
@@ -443,8 +441,7 @@ set laststatus=2
 set cmdheight=2
 
 " ステータスラインに表示する情報の指定
-" set statusline=%n\:%y%F\ \|%{(&fenc!=''?&fenc:&enc).'\|'.&ff.'\|'}%m%r%=<%l行/%L行(%p%%),%v列>
-set statusline=%n\:%y%F\ %m%r%=%{fugitive#statusline()}[%{(&fenc!=''?&fenc:&enc).']['.&ff.']'}[%l/%L(%p%%),%v]
+" set statusline=%n\:%y%F\ %m%r%=%{fugitive#statusline()}[%{(&fenc!=''?&fenc:&enc).']['.&ff.']'}[%l/%L(%p%%),%v]
 
 " }}}
 
@@ -544,7 +541,6 @@ function! Scouter(file, ...)
 endfunction
 command! -bar -bang -nargs=? -complete=file Scouter
       \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
-
 
 " cdpathからcdする
 command! -complete=customlist,CompleteCD -nargs=? CD cd <args>
@@ -748,11 +744,10 @@ let NERDTreeWinSize = 30
 let NERDTreeWinPos = "left"
 
 nnoremap <silent> <Leader>e :<C-u>NERDTreeToggle<CR>
-nnoremap <silent> <Leader>f :<C-u>NERDTreeFind<CR>:setlocal cursorline<CR>
+nnoremap <silent> <Leader>f :<C-u>NERDTreeFind<CR>
+autocmd BufEnter * if bufname('%') =~ 'NERD_tree_\d\+'|setlocal cursorline|endif
 
 let NERDTreeHijackNetrw = 0
-
-" Auto centre
 let NERDTreeAutoCenter = 0
 
 " }}}
@@ -1130,7 +1125,6 @@ vnoremap <Leader>d :call PhpDocRange()<CR>
 let g:surround_{char2nr("p")} = "<?php \r ?>"
 " }}}
 
-
 " powerline.vim {{{ 
 
 if has('gui_running') 
@@ -1252,14 +1246,17 @@ hi EasyMotionTarget ctermbg=none ctermfg=red
 hi EasyMotionShade  ctermbg=none ctermfg=blue
 " }}}
 
-
-" }}}
-
 " localrc.vim {{{
-
 silent! call localrc#load('.init.vimrc', $HOME)
-
 " }}}
 
+" vim-indent-guides {{{
+let g:indent_guides_enable_on_vim_startup = 0
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+let g:indent_guides_start_level = 3
+let g:indent_guides_guide_size = 1
+" }}}
+
+" }}}
 
 let g:loaded_vimrc = 1
