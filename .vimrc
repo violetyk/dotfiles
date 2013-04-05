@@ -78,7 +78,7 @@ NeoBundle 'zhaocai/unite-scriptnames'
 " }}}
 " colorscheme {{{
 NeoBundle 'mrkn256.vim'
-NeoBundle 'chriskempson/tomorrow-theme', {
+NeoBundleLazy 'chriskempson/tomorrow-theme', {
       \ 'rtp': "~/.vim/bundle/tomorrow-theme/vim/",
       \ }
 NeoBundleLazy 'nanotech/jellybeans.vim'
@@ -277,8 +277,8 @@ else
   " 対応する括弧の色を控えめにしておく
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
-  " silent! colorscheme mrkn256
-  silent! colorscheme Tomorrow-Night-Bright
+  silent! colorscheme mrkn256
+  " silent! colorscheme Tomorrow-Night-Bright
   " silent! colorscheme jellybeans
 
   " set background=dark
