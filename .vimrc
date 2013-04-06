@@ -64,7 +64,7 @@ NeoBundle 'rking/ag.vim'
 " }}}
 
 " framework {{{
-NeoBundleLazy 'tpope/vim-rails'
+NeoBundle 'tpope/vim-rails'
 " NeoBundle 'violetyk/cake.vim'
 " NeoBundle 'git@github.com:nanapi/nanapi.vim.git'
 NeoBundle 'naberon/vim-cakehtml'
