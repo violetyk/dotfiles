@@ -13,7 +13,6 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 " help {{{
 NeoBundle 'vim-jp/vimdoc-ja'
 " }}}
-
 " utility {{{
 " NeoBundle 'taglist.vim' " tab切り替え時にエラーが出るので下記fix版を使う。
 NeoBundle 'rgo/taglist.vim'
@@ -29,8 +28,8 @@ NeoBundle 'Shougo/vimproc', {
       \ },
       \}
 NeoBundle 'matchit.zip'
-NeoBundle 'The-NERD-tree'
-NeoBundle 'The-NERD-Commenter'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'scrooloose/nerdcommenter'
 NeoBundleLazy 'Townk/vim-autoclose'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
@@ -43,7 +42,7 @@ NeoBundle 'scratch-utility'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'dbext.vim'
-NeoBundle 'motemen/hatena-vim'
+NeoBundleLazy 'motemen/hatena-vim'
 NeoBundle 'PDV--phpDocumentor-for-Vim'
 NeoBundleLazy 'kana/vim-smartchr'
 NeoBundleLazy 'kana/vim-smartinput'
@@ -58,18 +57,18 @@ NeoBundle 'tomtom/checksyntax_vim'
 NeoBundle 'tomtom/quickfixsigns_vim'
 " NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'glidenote/memolist.vim'
+NeoBundle 'glidenote/nogistub.vim'
 NeoBundle 'vim-scripts/Modeliner'
 NeoBundle 'joonty/vdebug'
 NeoBundle 'rking/ag.vim'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 " }}}
-
 " framework {{{
 NeoBundle 'tpope/vim-rails'
 " NeoBundle 'violetyk/cake.vim'
 " NeoBundle 'git@github.com:nanapi/nanapi.vim.git'
 NeoBundle 'naberon/vim-cakehtml'
 " }}}
-
 " unite source {{{
 NeoBundle 'unite-colorscheme'
 NeoBundle 'unite-locate'
@@ -77,9 +76,11 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'zhaocai/unite-scriptnames'
 " }}}
-
 " colorscheme {{{
 NeoBundle 'mrkn256.vim'
+NeoBundleLazy 'chriskempson/tomorrow-theme', {
+      \ 'rtp': "~/.vim/bundle/tomorrow-theme/vim/",
+      \ }
 NeoBundleLazy 'nanotech/jellybeans.vim'
 NeoBundleLazy 'desert.vim'
 NeoBundleLazy 'desert256.vim'
@@ -87,7 +88,6 @@ NeoBundleLazy 'tomasr/molokai'
 NeoBundleLazy 'Zenburn'
 NeoBundleLazy 'altercation/vim-colors-solarized'
 " }}}
-
 " syntax {{{
 " NeoBundle 'php.vim--Garvin'
 NeoBundle 'StanAngeloff/php.vim'
@@ -97,7 +97,6 @@ NeoBundle 'othree/html5.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'tpope/vim-markdown'
 " }}}
-
 " indent {{{
 NeoBundle 'pangloss/vim-javascript'
 " }}}
@@ -142,6 +141,8 @@ set splitbelow
 " vsplitしたときに右に出す。
 set splitright
 
+" 補完時、現在選択中の候補の付加情報を表示しない。
+set completeopt-=preview
 " }}}
 
 " 文字コードの設定 {{{
@@ -161,11 +162,10 @@ set fileencodings=utf-8,ucs-bom,euc-jp,cp932,sjis
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
 
-" □とか○の文字があってもカーソル位置がずれないようにする？
+" □とか○の文字があってもカーソル位置がずれないようにす
 " powerline を使った時にステータスラインが更新されない場合があるのsingleで。
-" if exists('&ambiwidth')
-  " set ambiwidth=double
-" endif
+" set ambiwidth=double
+set ambiwidth=single
 
 " }}}
 
@@ -213,11 +213,9 @@ set updatecount=500
 if has('gui_running')
   " GUI共通 {{{
 
-  " カラースキーマ .vim/colors/の中に入れる
-  " set background=light
-  " set background=dark
-  " colorscheme solarized
-  silent! colorscheme desert
+  " カラースキーマ
+  set background=light
+  silent! colorscheme solarized
 
   " マウスを使う。
   "set mouse=a
@@ -233,7 +231,6 @@ if has('gui_running')
   " }}}
   " Windows gvim {{{
   if has('win32') || has('win64')
-
     " Font
     " Windows の gvim でフォントを設定するには guifont オプションと guifontwide オプションを使う。
     " 前者がいわゆる半角文字のフォント、後者が全角文字のフォント。
@@ -256,6 +253,7 @@ if has('gui_running')
   " }}}
   " MacOSX gvim {{{
   elseif has('mac')
+
     set guifont=Ricty\ 11
 
   " }}}
@@ -280,12 +278,12 @@ else
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
   silent! colorscheme mrkn256
+  " silent! colorscheme Tomorrow-Night-Bright
   " silent! colorscheme jellybeans
 
-  " set background=light
   " set background=dark
-  let g:solarized_termtrans = 1
   " silent! colorscheme solarized
+  " let g:solarized_termtrans = 1
 
   " }}}
 endif
@@ -443,8 +441,7 @@ set laststatus=2
 set cmdheight=2
 
 " ステータスラインに表示する情報の指定
-" set statusline=%n\:%y%F\ \|%{(&fenc!=''?&fenc:&enc).'\|'.&ff.'\|'}%m%r%=<%l行/%L行(%p%%),%v列>
-set statusline=%n\:%y%F\ %m%r%=%{fugitive#statusline()}[%{(&fenc!=''?&fenc:&enc).']['.&ff.']'}[%l/%L(%p%%),%v]
+" set statusline=%n\:%y%F\ %m%r%=%{fugitive#statusline()}[%{(&fenc!=''?&fenc:&enc).']['.&ff.']'}[%l/%L(%p%%),%v]
 
 " }}}
 
@@ -544,7 +541,6 @@ function! Scouter(file, ...)
 endfunction
 command! -bar -bang -nargs=? -complete=file Scouter
       \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
-
 
 " cdpathからcdする
 command! -complete=customlist,CompleteCD -nargs=? CD cd <args>
@@ -748,11 +744,10 @@ let NERDTreeWinSize = 30
 let NERDTreeWinPos = "left"
 
 nnoremap <silent> <Leader>e :<C-u>NERDTreeToggle<CR>
-nnoremap <silent> <Leader>f :<C-u>NERDTreeFind<CR>:setlocal cursorline<CR>
+nnoremap <silent> <Leader>f :<C-u>NERDTreeFind<CR>
+autocmd BufEnter * if bufname('%') =~ 'NERD_tree_\d\+'|setlocal cursorline|endif
 
 let NERDTreeHijackNetrw = 0
-
-" Auto centre
 let NERDTreeAutoCenter = 0
 
 " }}}
@@ -966,12 +961,13 @@ nmap f [unite]
 nnoremap [unite]b   :<C-u>Unite bookmark<CR>
 nnoremap [unite]c   :<C-u>Unite cake_controller cake_model cake_config cake_component cake_behavior cake_helper cake_shell -start-insert<CR>
 nnoremap [unite]d   :<C-u>UniteWithBufferDir -buffer-name=files file -start-insert<CR>
-nnoremap [unite]f   :<C-u>UniteWithBufferDir -buffer-name=files mark buffer file_mru bookmark file<CR>
+nnoremap [unite]f   :<C-u>UniteWithInputDirectory file_rec/async -start-insert<CR>
 nnoremap [unite]g   :<C-u>Unite -no-quit grep<CR>
-nnoremap [unite]h   :<C-u>Unite history/command<CR>
-nnoremap [unite]j   :<C-u>Unite mark buffer file_mru -start-insert<CR>
+" nnoremap [unite]h   :<C-u>Unite history/command<CR>
+nnoremap [unite]j   :<C-u>Unite buffer file_mru bookmark -start-insert<CR>
 " nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
 nnoremap [unite]l   :<C-u>Unite line -start-insert<CR>
+nnoremap [unite]L   :<C-u>UniteWithCursorWord line -start-insert -auto-preview<CR>
 nnoremap [unite]m   :<C-u>Unite -start-insert -vertical -no-quit file:<C-r>=g:memolist_path."/"<CR><CR>
 " nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
 nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=45 -no-quit<CR>
@@ -979,13 +975,13 @@ nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth
 nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
 nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
 nnoremap [unite].   :<C-u>UniteResume<CR>
-nnoremap [unite]s   :<C-u>Unite history/search<CR>
+" nnoremap [unite]s   :<C-u>Unite history/search<CR>
 nnoremap [unite]v   :<C-u>Unite output:version -start-insert<CR>
 nnoremap [unite]y   :<C-u>Unite history/yank<CR>
 nnoremap [unite]A   :<C-u>Unite output:autocmd<CR>
 nnoremap [unite]C   :<C-u>Unite change<CR>
 nnoremap [unite]J   :<C-u>Unite jump<CR>
-nnoremap [unite]L   :<C-u>Unite launcher<CR>
+" nnoremap [unite]L   :<C-u>Unite launcher<CR>
 nnoremap [unite]M   :<C-u>Unite output:messages<CR>
 " nnoremap [unite]M   :<C-u>Unite mapping -start-insert<CR>
 nnoremap [unite]R   :<C-u>Unite -buffer-name=register register<CR>
@@ -1065,11 +1061,11 @@ let g:user_zen_settings = {
 " cake.vim {{{
 
 nnoremap <Space>cc :<C-u>Ccontroller 
-nnoremap <Space>ccv :<C-u>Ccontrollervsp 
+" nnoremap <Space>ccv :<C-u>Ccontrollervsp 
 nnoremap <Space>cm :<C-u>Cmodel 
 nnoremap <Space>cv :<C-u>Cview 
 nnoremap <Space>cl :<C-u>Clog 
-" nnoremap <Space>ccv :<C-u>Ccontrollerview
+nnoremap <Space>ccv :<C-u>Ccontrollerview
 nnoremap <Space>ccm :<C-u>Ccomponent 
 nnoremap <Space>ccf :<C-u>Cconfig 
 nnoremap <Space>cb :<C-u>Cbehavior 
@@ -1128,7 +1124,6 @@ vnoremap <Leader>d :call PhpDocRange()<CR>
 " surround.vim {{{
 let g:surround_{char2nr("p")} = "<?php \r ?>"
 " }}}
-
 
 " powerline.vim {{{ 
 
@@ -1251,14 +1246,17 @@ hi EasyMotionTarget ctermbg=none ctermfg=red
 hi EasyMotionShade  ctermbg=none ctermfg=blue
 " }}}
 
-
-" }}}
-
 " localrc.vim {{{
-
 silent! call localrc#load('.init.vimrc', $HOME)
-
 " }}}
 
+" vim-indent-guides {{{
+let g:indent_guides_enable_on_vim_startup = 0
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+let g:indent_guides_start_level = 3
+let g:indent_guides_guide_size = 1
+" }}}
+
+" }}}
 
 let g:loaded_vimrc = 1

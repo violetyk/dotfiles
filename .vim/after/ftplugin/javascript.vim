@@ -1,1 +1,1 @@
-autocmd BufWritePost *.js :CheckSyntax
+" autocmd BufWritePost *.js :CheckSyntax

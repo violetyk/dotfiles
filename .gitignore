@@ -1,6 +1,7 @@
 *\.swp
 .init.vimrc
 .local.vimrc
+.vim/bundle/*
 .vim/manual/php_manual*
 tags
 setting.local.php
