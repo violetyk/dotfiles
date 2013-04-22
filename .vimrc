@@ -955,6 +955,7 @@ nnoremap <silent> <Space>es  :<C-u>NeoComplCacheEditSnippets
 nnoremap [unite] :<C-u>Unite<Space>
 nmap f [unite]
 
+
 " nnoremap <C-f> :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " inoremap <C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 
@@ -962,7 +963,18 @@ nnoremap [unite]b   :<C-u>Unite bookmark<CR>
 nnoremap [unite]c   :<C-u>Unite cake_controller cake_model cake_config cake_component cake_behavior cake_helper cake_shell -start-insert<CR>
 nnoremap [unite]d   :<C-u>UniteWithBufferDir -buffer-name=files file -start-insert<CR>
 nnoremap [unite]f   :<C-u>UniteWithInputDirectory file_rec/async -start-insert<CR>
-nnoremap [unite]g   :<C-u>Unite -no-quit grep<CR>
+
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nocolor --nogroup'
+  let g:unite_source_grep_recursive_opt = ''
+" let g:unite_source_grep_max_candidates = 200
+  nnoremap [unite]g   :<C-u>Unite -no-quit grep<CR>
+  nnoremap [unite]G   :<C-u>Unite -no-quit grep<CR><CR><C-r><C-w><CR>
+else
+  nnoremap [unite]g   :<C-u>Unite -no-quit grep<CR>
+endif
+
 " nnoremap [unite]h   :<C-u>Unite history/command<CR>
 nnoremap [unite]j   :<C-u>Unite buffer file_mru bookmark -start-insert<CR>
 " nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
