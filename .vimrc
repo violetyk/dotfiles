@@ -38,7 +38,7 @@ NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'mattn/gist-vim'
 NeoBundleLazy 'mattn/qiita-vim'
-NeoBundle 'scratch-utility'
+NeoBundle 'violetyk/scratch-utility'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'dbext.vim'
@@ -1256,6 +1256,15 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 let g:indent_guides_start_level = 3
 let g:indent_guides_guide_size = 1
 " }}}
+
+" violetyk/scratch-utility {{{
+let g:scratchSplitOption =
+      \ {
+      \   'vertical'           : 1,
+      \   'take_over_filetype' : 1
+      \ }
+" }}}
+
 
 " }}}
 
