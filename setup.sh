@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd ~
-mkdir swap backup tmp memo tags .trash
+mkdir swap backup tmp memo tags .trash .tmux
 ln -sf ~/dotfiles/.bashrc .bashrc
 ln -sf ~/dotfiles/.vimrc .vimrc
 ln -sf ~/dotfiles/.vim .vim

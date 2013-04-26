@@ -62,7 +62,7 @@ alias svnst="svn st --no-ignore"
 alias svnpl="svn proplist -Rv"
 
 ### Git
-# gitのブランチの情報を婦論プロトに表示させておく
+# gitのブランチの情報をプロンプトに表示させておく
 # export PS1="[\u@\h \W]\$(__git_ps1) \$ "
 export PS1='[\u@\h \W$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")]\$ '
 
