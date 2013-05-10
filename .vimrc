@@ -11,14 +11,13 @@ endif
 
 call neobundle#rc(expand('~/.vim/bundle/'))
 
+" パスを通さないけどNeoBundleで管理する
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " help {{{
 NeoBundle 'vim-jp/vimdoc-ja'
 " }}}
-" utility {{{
-" NeoBundle 'taglist.vim' " tab切り替え時にエラーが出るので下記fix版を使う。
-NeoBundle 'rgo/taglist.vim'
+" base {{{
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
@@ -30,6 +29,12 @@ NeoBundle 'Shougo/vimproc', {
       \   'unix' : 'make -f make_unix.mak',
       \ },
       \}
+" }}}
+" utility {{{
+" NeoBundle 'taglist.vim' " tab切り替え時にエラーが出るので下記fix版を使う。
+NeoBundle 'rgo/taglist.vim'
+NeoBundle 'majutsushi/tagbar'
+
 NeoBundle 'matchit.zip'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
