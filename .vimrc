@@ -876,8 +876,6 @@ elseif has('unix')
         \ 'php' : $HOME.'/.vim/dict/php.dict',
         \ }
 
-  " ユーザー定義スニペット保存ディレクトリ
-  let g:neocomplcache_snippets_dir = $HOME.'/.vim/snippets'
 
   " キャッシュディレクトリ
   let g:neocomplcache_temporary_dir = '/dev/shm/' . $USER . '/.neocon'
@@ -929,9 +927,6 @@ endif
 " let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 " }}}
 " キーバインド {{{
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 " undo
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 " 共通の部分まで補完
@@ -947,14 +942,27 @@ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 " 補完をキャンセルしてポップアップを閉じる
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-" :NeoComplCacheEditSnippets [filetype]
-" ユーザ定義用のスニペットファイルの編集ができる。
-" ftを指定しなければ現在のftのスニペットファイルを開く。
-" ちなみに、プラグインに組み込まれてるスニペットファイルは下記にある。
-" ~/.vim/autoload/neocomplcache/sources/snippets_complete/
-nnoremap <silent> <Space>es  :<C-u>NeoComplCacheEditSnippets 
 " }}}
+
+" }}}
+
+" neosnippet.vim {{{
+let g:neosnippet#snippets_directory = $HOME.'/.vim/snippets'
+
+nnoremap <silent> <Space>es  :<C-u>NeoSnippetEdit 
+nnoremap <silent> <Space>rs  :<C-u>NeoSnippetSource 
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
+
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
 " }}}
 
