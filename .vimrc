@@ -38,7 +38,7 @@ NeoBundle 'majutsushi/tagbar'
 NeoBundle 'matchit.zip'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
-NeoBundleLazy 'Townk/vim-autoclose'
+NeoBundle 'Townk/vim-autoclose'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
@@ -960,9 +960,9 @@ xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
 
 
 " For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
+" if has('conceal')
+  " set conceallevel=2 concealcursor=i
+" endif
 
 " }}}
 

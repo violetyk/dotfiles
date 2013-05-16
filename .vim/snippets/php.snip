@@ -66,6 +66,11 @@ abbr ページング
       'limit' => 15,
       'order' => array('Model.col' => 'desc/asc'),
       'recursive' => -1,
+      // 'options' => array(
+      //   'controller' => $this->controller,
+      //   'action' => $this->action,
+      //   'id' => $id,
+      // ),
     );
     $this->set("${4:param_name}", $this->paginate("${5:model_name}"));${0}
 
@@ -178,6 +183,7 @@ snippet mfind
     //   '',
     // ),
     // 'fields' => array('count(id) as "Model__count"'),
+    // 'value' => $id, // neighborsの基準点
     // 'limit' => 10,
     // 'order' => array('Model.col' => 'desc/asc'),
     // 'order' => 'rand()',
@@ -786,6 +792,45 @@ snippet jsdomready
 # --------------------------------------------------
 # Simple Test
 # --------------------------------------------------
+snippet aseq
+abbr 2つの変数の値が同じ時に成功
+  $this->assertEqual(${1:$expected}, ${2:$actual}${3:, 'message'});
+
+snippet asneq
+abbr 2つの変数の値が違う時に成功
+  $this->assertNotEqual(${1:$expected}, ${2:$actual}${3:, 'message'});
+
+snippet ast
+abbr 引数がtrueだと成功
+  $this->assertTrue(${1:$actual}${2:, 'message'});
+
+snippet asf
+abbr 引数がfalseだと成功
+  $this->assertFalse(${1:$actual}${2:, 'message'});
+
+snippet asn
+abbr 引数がnullだと成功
+  $this->assertNull(${1:$actual}${2:, 'message'});
+
+snippet asnn
+abbr 引数がnullでなければ成功
+  $this->assertNotNull(${1:$actual}${2:, 'message'});
+
+snippet asp
+abbr 特定の文字列パターンにマッチすれば成功
+  $this->assertPatttern('/${1:'pattern}/', ${2:string}${3:, 'message'});
+
+snippet asnp
+abbr 特定の文字列パターンにマッチしなければ成功
+  $this->assertNoPatttern('/${1:'pattern}/', ${2:string}${3:, 'message'});
+
+snippet asim
+abbr 第二引数が第一引数プラマイ第三引数の範囲のとき成功
+  $this->assertWithinMargin(${1:$first}, ${2:$second}, ${3:margin}${4:, 'message'});
+
+snippet asom
+abbr 第二引数が第一引数プラマイ第三引数の範囲でないとき成功
+  $this->assertOutsideMargin(${1:$first}, ${2:$second}, ${3:margin}${4:, 'message'});
 
 # --------------------------------------------------
 # Ktai Library
