@@ -5,8 +5,6 @@
 # h : Htmlヘルパー
 # f : Formヘルパー
 
-# validateと被るので削除。
-delete date
 
 # --------------------------------------------------
 # Controller
@@ -174,6 +172,7 @@ snippet mhabtm
     ${0}
 
 snippet mfind
+options word
   $this->${1:model_name}->find('${2:all/first/count/list/threaded/neighbors}', array(
     'contain' => false,
     'conditions' => array(
@@ -193,9 +192,11 @@ snippet mfind
   ${0}
 
 snippet mread
+options word
     $this->${1:model_name}->read(${2:array_fields}, ${3:primary_id});${0}
 
 snippet mfindby
+options word
     $this->${1:model_name}->findBy${2:Id}(${3:$id});${0}
 
 snippet mfield
@@ -212,6 +213,7 @@ abbr 指定カラム全てでuniqueかチェックの場合は第二引数をtru
     $this->${1:model_name}->isUnique(${2:array_fields}, false)${0}
 
 snippet msave
+options word
     $this->${1:model_name}->save(${2:array_data}, ${3:true}, ${4:array_validate_fields})${0}
 
 snippet msaveall
@@ -444,22 +446,27 @@ abbr 値が他の行で出現せず、ユニークかどうか
 # View
 # --------------------------------------------------
 snippet pelement
+options word
 abbr エレメント
     <?= $this->element('${1:element_name}') ?>${0}
 
 snippet pelement_cache
+options word
 abbr エレメント＆キャッシュ1日
     <?= $this->element('${1:element_name}', array('cache' => true)) ?>${0}
 
 snippet pelement_cachekey
+options word
 abbr エレメント＆キー付キャッシュ
     <?= $this->element('${1:element_name}', array('cache' => array('key' => '${2:key}', 'time'=> '+1 day'))) ?>${0}
 
 snippet pelement_chackekey_param
+options word
 abbr エレメント＆キャッシュ＆値
     <?= $this->element('${1:element_name}', array('cache' => array('key' => '${2:key}', 'time'=> '+1 day'), 'var' => ${3:param})) ?>${0}
 
 snippet pelement_param
+options word
 abbr エレメントの値渡し
     <?= $this->element('${1:element_name}', array('${2:key} => ${3:value})); ?>${0}
 
@@ -467,24 +474,31 @@ abbr エレメントの値渡し
 # Html helper
 # --------------------------------------------------
 snippet pehdoctype
+options word
     <?= $html->doctype('${1:html4-strict/html4-trans/html4-frame/xhtml-strict/xhtml-trans/xhtml-frame/xhtml11}') ?>${0}
 
 snippet pehmeta
+options word
     <?= $html->meta('${1:keywords/description}', '{$2:content}') ?>${0}
 
 snippet pehfavicon
+options word
     <?= $html->meta('icon', '/favicon.ico') ?>${0}
 
 snippet pehcharset
+options word
     <?= $html->charset('${1:UTF-8}') ?>${0}
 
 snippet pehcss
+options word
     <?= $html->css('${1:css_name}') ?>${0}
 
 snippet pehscript
+options word
     <?= $html->script('${1:js_name}', array('inline' => ${2:true})) ?>${0}
 
 snippet pehscriptcode
+options word
     <?= $html->scriptStart(array('inline' => ${1:true}, 'safe' => ${2:true})) ?>${0}
     $(function(){
     ${1}
@@ -493,89 +507,115 @@ snippet pehscriptcode
     ${0}
 
 snippet pehlink_action
+options word
 abbr <a>アクション&ID指定
     <?= $html->link('${1:title}', array('action' => '${2:action}', ${3:model['model']['id']}, 'admin' => ${4:false} ), array('escape' => ${5:true}, 'class' => '${6:class_name}')) ?>${0}
 
 snippet pehlink_controller_action
+options word
 abbr <a>コントローラ&アクション、パラメータ指定
     <?= $html->link('${1:title}', array('controller' => '${2:controller}', 'action' => '${3:action}', 'admin' => ${4:false} ), array('escape' => ${5:true}, 'class' => '${6:class_name}')) ?>${0}
 
 snippet pehlink_confirm
+options word
 abbr <a>確認ダイアログ付き
     <?= $html->link('${1:title}', array('controller' => '${2:controller}', 'action' => '${3:action}', 'admin' => ${4:false} ), array('escape' => ${5:true}, 'class' => '${6:class_name}'), '${7:confirm_text}') ?>${0}
 
 snippet pehlink_url
+options word
 abbr <a>URL指定
     <?= $html->link('${1:title}', '${2:url}', array('escape' => ${3:false})) ?>${0}
 
 snippet pehlink_img
+options word
     <?= $html->link($html->image('${1:path from /img}', array('alt' => '${2}')), array('controller' => '${3:controller}', 'action' => '${4:action}', 'admin' => ${5:false} ), array('escape' => ${6:false})) ?>${0}
 
 snippet pehimg
+options word
     <?= $html->image('${1:path from /img}', array('alt' => '${2}' ,'url' => '${3}')) ?>${0}
 
 snippet pehtag
+options word
     <?= $html->tag('${1:tag_name}', ${2:inner_html}, array('escape' => ${3:false}, ${4:attribute})) ?>${0}
 
 snippet pehurl
+options word
     <?= $html->url(array('controller' => '${1:controller}', 'action' => '${2:action}'), ${3:true})) ?>${0}
 
 # --------------------------------------------------
 # Form helper
 # --------------------------------------------------
 snippet pefcreate
+options word
     <?= $form->create() ?>${0}
 
 snippet pefcreate_model
+options word
     <?= $form->create('${1:model_name}') ?>${0}
 
 snippet pefcreate_url
+options word
 abbr $form->create() Router::url()形式
     <?= $form->create(array('url' => array('controller' => '${1:controller_name}', 'action' => '${2:action_name}', ${3:id_value}', admin' => false)) ?>${0}
 
 snippet pefend
+options word
     <?= $form->end() ?>${0}
 
 snippet pefitext
+options word
     <?= $form->input('${1:field_name}', array('type' => 'text', 'maxLength' => ${2:max_length}, 'label' => '${3:label_name/false}', 'error' => ${4:false}, 'class' => '${5:class_name}')) ?>${0}
 
 snippet pefipassword
+options word
     <?= $form->input('${1:field_name}', array('type' => 'password', 'label' => '${2:label_name/false}', 'error' => ${3:false}, 'class' => '${4:class_name}')) ?>${0}
 
 snippet peficheckbox
+options word
     <?= $form->input('${1:field_name}', array('type' => 'checkbox', 'label' => false, 'error' => ${2:false}, 'class' => '${3:class_name}')) ?>${0}
 
 snippet pefiselect
+options word
     <?= $form->input('${1:field_name}', array('type' => 'select', 'options' => array(${2:value} => '${3:text}'), 'empty' => ${4:false}, 'label' => false, 'error' => ${5:false}, 'class' => '${6:class_name}')) ?>${0}
 
 snippet pefimultiple
+options word
     <?= $form->input('${1:field_name}', array('multiple' => 'select/checkbox', 'options' => array(${2:value} => '${3:text}'), 'label' => false, 'error' => ${5:false}, 'class' => '${6:class_name}')) ?>${0}
 
 snippet pefiradio
+options word
     <?= $form->input('${1:field_name}', array('type' => 'radio', 'options' => array(${2:value} => '${3:text}'), 'label' => false, 'legend' => ${4:false}, 'error' => ${5:false}, 'class' => '${6:class_name}', 'separator' => '${7:tag}')) ?>${0}
 
 snippet pefitextarea
+options word
     <?= $form->input('${1:field_name}', array('type' => 'textarea', 'rows' => ${2:rows}, 'cols' => ${3:cols}, 'maxLength' => ${4:max_length}, 'label' => false, 'error' => ${5:false}, 'class' => '${6:class_name}')) ?>${0}
 
 snippet pefihidden
+options word
     <?= $form->input('${1:field_name}', array('type' => 'hidden', 'label' => false , 'error' => ${2:false})); ?>${0}
 
 snippet pefsubmit
+options word
     <?= $form->submit('${1:caption}', array('class' => '${2}')) ?>${0}
 
 snippet pefsubmit_confirm
+options word
     <?= $form->submit('${1:caption}', array('class' => '${2}', 'onclick' => 'return confirm("{3:message}"))) ?>${0}
 
 snippet pefbutton
+options word
     <?= $form->button('${1:title}', array('type' => '${2:button/reset/submit}', 'id' => '${3}', 'class' => '${4}', 'escape' => ${5:false})) ?>${0}
 
 snippet pefcheckbox
+options word
     <?= $form->checkbox('${1:field_name}', array('class' => ${2:class_name})) ?>${0}
 
 snippet peferror
+options word
     <?= $form->error('${1:field_name}', ${2:null}, array( 'wrap' => '${3:}', 'escape' => ${4:false})) ?>${0}
 
 snippet pifisformerror
+options word
 abbr ifフォームのエラーがあるか？
     <? if ($form->isFieldError('${1:field_name}'): ?>
     ${0}
@@ -591,63 +631,79 @@ snippet import
 # Set
 # --------------------------------------------------
 snippet set_extract
+options word
     Set::extract('${1:path}', ${2:array_data});${0}
 
 snippet set_combine
+options word
     Set::combine(${1:array_data}, '${2:key_path}', '${3:value_path}','${4:group_path}');${0}
 
 # --------------------------------------------------
 # Configure
 # --------------------------------------------------
 snippet configure_load
+options word
     Configure::load('${1:file_name}');${0}
 
 snippet configure_read
+options word
     Configure::read('${1:one.two.three.four}');${0}
 
 snippet configure_write
+options word
     Configure::write('${1:name}', '${2:mixed}');${0}
 
 # --------------------------------------------------
 # Router
 # --------------------------------------------------
 snippet router_url
+options word
     Router::url(array('controller' => '${1:controller_name}', 'action' => '${2:action_name}', 'admin' => ${3:false}), false);${0} // ドメインを含むフルパスでURLを取得する場合は第二引数をtrueにする。
 
 snippet router_querystring
+options word
     Router::queryString(array(${1:param_name} => ${2:param_value}), ${3:extra_array}, false);${0} // extraは追加の連想配列。第一引数と同じ。&をエスケープする場合は第三引数をtrue。
 
 # --------------------------------------------------
 # misc
 # --------------------------------------------------
-# snippet e
-#     e(${1});${0}
+snippet e
+options word
+    e(${1});${0}
 
-#snippet h
-#    h(${1});${0}
+snippet h
+options word
+    h(${1});${0}
 
 snippet pr
+options word
     pr(${1});${0}
 
 snippet ife
+options word
     ife(${1:condition}, ${2:ifNotEmpty}, ${3:ifEmpty});${0}
 
 snippet pe
+options word
     <?= ${1} ?>${0}
 
 snippet peh
+options word
     <?= h(${1}) ?>${0}
 
 snippet error
+options word
     $this->cakeError('${1:error/error404/error500}', array('${2:param_name}' => '${3:param_value}'));${0}
 
 snippet log
     CakeLog::write(${1:LOG_INFO}, '${2:message}');${0}
 
 snippet classregistry
+options word
     ClassRegistry::init('${1:model_name, component_name etc...}');${0}
 
 snippet classregistryfind
+options word
     ClassRegistry::init('${1:model_name}')->find('${2:all/first/count/list/threaded/neighbours}', array(
       'contain' => false,
       'conditions' => array(
@@ -845,28 +901,35 @@ snippet pehlink_url_ktai
 # php
 # --------------------------------------------------
 snippet error_log
+options word
   error_log(print_r(${1:$value}, true), 3, '/var/tmp/php_error.log');${0}
 
 snippet eh
+options word
     echo("hogehoge");
 
 snippet ef
+options word
     echo("fugafuga");
 
 snippet func
+options word
   function ${1}(${2}) {
   ${0}
  }
 
 snippet vd
+options word
     var_dump(${1});${0}
 
 snippet php
+options word
   <?php
     ${1}
 
 
 snippet pfore
+options word
 	<? foreach ($${1:variable} as $${2:key}${3: =>}): ?>
 	${0}
 	<? endforeach ?>
@@ -879,14 +942,17 @@ snippet pife
 	<? endif ?>
 
 snippet pif
+options word
 	<? if (${1:condition}): ?>
 	${0}
 	<? endif ?>
 
 snippet pelse
+options word
 	<? else: ?>
 
 snippet this
+options word
 	$this->${0}
 
 snippet thisa
@@ -978,14 +1044,18 @@ snippet def
 
 
 snippet do
+options word
 	do {
 		${0}
 	} while (${1});
 
 snippet if? 
+abbr 三項演算子
+options word
 	$${1:retVal} = (${2:condition}) ? ${3:a} : ${4:b} ;
 
 snippet ifelse
+options word
 	if (${1:condition}) {
 		${2:# code...}
 	} else {
@@ -994,6 +1064,7 @@ snippet ifelse
 	${0}
 
 snippet if
+options word
 	if (${1:condition}) {
 		${0}
 	}
@@ -1007,16 +1078,19 @@ snippet else
 	}
 
 snippet elseif
+options word
 	elseif (${1:condition}) {
 		${0}
 	}
 
 snippet for
+options word
 	for ($${1:i} = ${2:0}; $${3:i} < ${4}; $${5:i}++) { 
 		${0}
 	}
 
 snippet fore
+options word
 	foreach ($${1:variable} as $${2:key}${3: =>} ${4:value}) {
 		${0}
 	}
@@ -1064,6 +1138,7 @@ snippet case
 
 snippet switch
 abbr sw
+alias switch
 	switch (${1:variable}) {
 		case '${2:value}':
 			${3:# code...}
@@ -1080,33 +1155,43 @@ snippet throw
 
 snippet while
 abbr wh
+alias while
 	while (${1}) {
 		${0}
 	}
 
 snippet gloabals
+options word
 	\$GLOBALS['${1:variable}']${2: = }${3:something}${4:;}${0}
 
 snippet cookie
+options word
 	\$_COOKIE['${1:variable}']
 
 snippet env
+options word
 	\$_ENV['${1:variable}']
 
 snippet files
+options word
 	\$_FILES['${1:variable}']
 
 snippet get
+options word
 	\$_GET['${1:variable}']
 
 snippet post
+options word
 	\$_POST['${1:variable}']
 
 snippet request
+options word
 	\$_REQUEST['${1:variable}']
 
 snippet server
+options word
 	\$_SERVER['${1:variable}']
 
 snippet session
+options word
 	\$_SESSION['${1:variable}']

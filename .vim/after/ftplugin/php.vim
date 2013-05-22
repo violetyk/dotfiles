@@ -32,3 +32,5 @@ if has('win32') || has('win64')
 else
     let g:ref_phpmanual_path = $HOME . '/.vim/manual/php_manual_ja/'
 endif
+
+setlocal iskeyword-=$

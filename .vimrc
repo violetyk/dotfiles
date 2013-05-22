@@ -12,7 +12,7 @@ endif
 call neobundle#rc(expand('~/.vim/bundle/'))
 
 " パスを通さないけどNeoBundleで管理する
-NeoBundleFetch 'Shougo/neobundle.vim'
+" NeoBundleFetch 'Shougo/neobundle.vim'
 
 " help {{{
 NeoBundle 'vim-jp/vimdoc-ja'
@@ -949,15 +949,14 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 " neosnippet.vim {{{
 let g:neosnippet#snippets_directory = $HOME.'/.vim/snippets'
 
-nnoremap <silent> <Space>es  :<C-u>NeoSnippetEdit 
+nnoremap <silent> <Space>es  :<C-u>NeoSnippetEdit -split -vertical 
 nnoremap <silent> <Space>rs  :<C-u>NeoSnippetSource 
 
 " Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
-
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+xmap <C-l> <Plug>(neosnippet_start_unite_snippet_target)
 
 " For snippet_complete marker.
 " if has('conceal')
