@@ -8,3 +8,4 @@ setting.local.php
 kagaya*.php
 .cake
 .netrwhist
+.vim/bundle/neobundle.vim
