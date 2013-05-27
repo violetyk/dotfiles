@@ -56,6 +56,7 @@ NeoBundleLazy 'kana/vim-smartchr'
 NeoBundleLazy 'kana/vim-smartinput'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'akiyan/vim-textobj-php'
+NeoBundle 'akiyan/vim-textobj-xml-attribute'
 NeoBundle 'vim-scripts/Align'
 NeoBundle 'Lokaltog/vim-powerline'
 " NeoBundle 'Lokaltog/powerline'
@@ -68,7 +69,7 @@ NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'glidenote/nogistub.vim'
 NeoBundle 'vim-scripts/Modeliner'
 NeoBundle 'joonty/vdebug'
-NeoBundle 'rking/ag.vim'
+" NeoBundle 'rking/ag.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 " }}}
 " framework {{{
@@ -151,6 +152,8 @@ set splitright
 
 " 補完時、現在選択中の候補の付加情報を表示しない。
 set completeopt-=preview
+
+set regexpengine=1
 " }}}
 
 " 文字コードの設定 {{{
@@ -595,9 +598,12 @@ cnoreabbrev <expr> cd
 
 
 " バッファ・タブ操作 {{{
-nnoremap <silent>bb :b#<CR>
+nnoremap <silent>bf :bf<CR>
 nnoremap <silent>bp :bprevious<CR>
 nnoremap <silent>bn :bnext<CR>
+nnoremap <silent>bl :bl<CR>
+nnoremap <silent>bb :b#<CR>
+nnoremap <silent>bm :bm<CR>
 nnoremap <silent>bd :bdelete<CR>
 
 " 分割幅を広く
@@ -1106,6 +1112,7 @@ nnoremap <Space>cd :<C-u>Cdesc
 " let g:my_cakephp_projects = {
   " \ 'project' : '/path/to/app',
   " \ }
+let g:my_cakephp_projects = get(g:, 'my_cakephp_projects', {})
 command! -n=1  -complete=customlist,s:GetCakePHPProjectList C :call s:SetCakePHPProject(<f-args>)
 function! s:GetCakePHPProjectList(ArgLead, CmdLine, CursorPos) "{{{
   if exists("g:my_cakephp_projects") && len(g:my_cakephp_projects)
@@ -1113,7 +1120,6 @@ function! s:GetCakePHPProjectList(ArgLead, CmdLine, CursorPos) "{{{
   else
     return []
   endif
-
 endfunction "}}}
 
 " プロジェクト切り替え
@@ -1123,7 +1129,6 @@ function! s:SetCakePHPProject(app) " {{{
     echo "CakePHP project changed: ". a:app
   endif
 endfunction " }}}
-
 
 " }}}
 

@@ -852,9 +852,15 @@ snippet aseq
 abbr 2つの変数の値が同じ時に成功
   $this->assertEqual(${1:$expected}, ${2:$actual}${3:, 'message'});
 
+snippet aseqs
+  $this->assertEqualStrict(${1:$expected}, ${2:$actual}${3:, 'message'});
+
 snippet asneq
 abbr 2つの変数の値が違う時に成功
   $this->assertNotEqual(${1:$expected}, ${2:$actual}${3:, 'message'});
+
+snippet asneqs
+  $this->assertNotEqualStrict(${1:$expected}, ${2:$actual}${3:, 'message'});
 
 snippet ast
 abbr 引数がtrueだと成功
@@ -950,6 +956,10 @@ options word
 snippet pelse
 options word
 	<? else: ?>
+
+snippet pendif
+options word
+  <? endif ?>
 
 snippet this
 options word
