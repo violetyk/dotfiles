@@ -173,7 +173,7 @@ snippet mhabtm
 
 snippet mfind
 options word
-  $this->${1:model_name}->find('${2:all/first/count/list/threaded/neighbors}', array(
+  $this->${1:model_name}->find('${2:all/first/count/list/threaded}', array(
     'contain' => false,
     'conditions' => array(
         '${3:where_column}' => ${4:where_condition},
@@ -182,7 +182,6 @@ options word
     //   '',
     // ),
     // 'fields' => array('count(id) as "Model__count"'),
-    // 'value' => $id, // neighborsの基準点
     // 'limit' => 10,
     // 'order' => array('Model.col' => 'desc/asc'),
     // 'order' => 'rand()',
@@ -191,6 +190,9 @@ options word
   ));
   ${0}
 
+snippet mfindneighbors
+options word
+  $this->${1:model_name}->find('neighbors', array('field' => 'id', 'value' => ${2:$id})) ${0}
 snippet mread
 options word
     $this->${1:model_name}->read(${2:array_fields}, ${3:primary_id});${0}

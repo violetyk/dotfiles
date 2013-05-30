@@ -71,6 +71,8 @@ NeoBundle 'vim-scripts/Modeliner'
 NeoBundle 'joonty/vdebug'
 " NeoBundle 'rking/ag.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'yanktmp.vim'
+
 " }}}
 " framework {{{
 NeoBundle 'tpope/vim-rails'
@@ -1302,6 +1304,13 @@ let g:scratchSplitOption =
 
 
   " call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
+" }}}
+
+" yanktmp.vim {{{
+map <silent> ty :call YanktmpYank()<CR>
+map <silent> tp :call YanktmpPaste_p()<CR>
+map <silent> tP :call YanktmpPaste_P()<CR>
+let g:yanktmp_file = '/tmp/vimyanktmp'
 " }}}
 
 " }}}
