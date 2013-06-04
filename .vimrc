@@ -932,7 +932,7 @@ if !exists('g:neocomplcache_omni_patterns')
 endif
 " 言語別neocompl自動発火パターン
 " let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-" let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 " }}}
 " キーバインド {{{
 " undo
@@ -950,6 +950,7 @@ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 " 補完をキャンセルしてポップアップを閉じる
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
 " }}}
 
 " }}}
@@ -1316,3 +1317,4 @@ let g:yanktmp_file = '/tmp/vimyanktmp'
 " }}}
 
 let g:loaded_vimrc = 1
+
