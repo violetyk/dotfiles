@@ -629,6 +629,10 @@ noremap <C-k> :<C-u>cprevious<CR>
 nnoremap gl gt
 nnoremap gh gT
 
+" 行の先頭、末尾移動
+noremap <Space>h ^
+noremap <Space>l $
+
 " 縦分割版gf
 nnoremap gs :vertical wincmd f<CR>
 " }}}
@@ -659,6 +663,7 @@ cnoremap <expr>/ getcmdtype() == '/' ? '\/' : '/'
 " }}}
 
 " 編集操作 {{{
+
 
 " ～まで、を少し便利にする。
 onoremap ) t)

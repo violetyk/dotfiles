@@ -943,6 +943,7 @@ options word
 	<? endforeach ?>
 
 snippet pife
+options word
 	<? if (${1:condition}): ?>
 	${2}
 	<? else: ?>
@@ -968,9 +969,11 @@ options word
 	$this->${0}
 
 snippet thisa
+options word
   $this->alias . ${0}
 
 snippet pethis
+options word
 	<?= $this->${0} ?>
 
 snippet docc
