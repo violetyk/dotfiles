@@ -10,6 +10,7 @@ LANG=ja_JP.UTF-8
 
 ### PATH
 PATH=$PATH:$HOME/bin
+CONFIGS=()
 
 
 # OS別環境設定
@@ -28,9 +29,19 @@ elif [ `uname` = "Darwin" ]; then
   PATH=$PATH:/usr/local/ctags/bin
   PATH=$PATH:/usr/local/tig-1.0/bin
 
+
+  CONFIGS=(${CONFIGS[@]} '/usr/local/git/contrib/completion/git-prompt.sh')
+  CONFIGS=(${CONFIGS[@]} '/usr/local/git/contrib/completion/git-completion.bash')
 fi
 
 export PATH
+for CONFIG in ${CONFIGS[@]}; do
+  if [ -e ${CONFIG} ]; then
+    . ${CONFIG}
+  fi
+done
+
+
 
 ### bashのモード
 # set -o vi
