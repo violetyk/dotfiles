@@ -78,9 +78,14 @@ alias svnpl="svn proplist -Rv"
 # export PS1="[\u@\h \W]\$(__git_ps1) \$ "
 export PS1='[\u@\h \W$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")]\$ '
 
-### SSH
-alias ssh='ssh -F <(cat ~/.ssh/config ~/dotfiles/.sshconfig)'
-
+# SSH
+_ssh() {
+  tmp=$(mktemp XXXXXX)
+  cat ~/dotfiles/.sshconfig ~/.ssh/config > "$tmp" 2>/dev/null
+  /usr/bin/ssh -F "$tmp" "$@"
+  rm -f "$tmp"
+}
+alias ssh='_ssh'
 
 ### function
 # mkdir + cd
