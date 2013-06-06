@@ -68,7 +68,7 @@ alias svnpl="svn proplist -Rv"
 export PS1='[\u@\h \W$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")]\$ '
 
 ### SSH
-alias ssh="ssh -2 -o ServerAliveInterval=60"
+alias ssh='ssh -F <(cat ~/.ssh/config ~/dotfiles/.sshconfig)'
 
 
 ### function
