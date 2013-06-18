@@ -197,6 +197,11 @@ snippet mread
 options word
     $this->${1:model_name}->read(${2:array_fields}, ${3:primary_id});${0}
 
+snippet maffectedrows
+abbr 更新されたレコード数を取得
+options word
+    $this->${1:model_name}->getAffectedRows();${0}
+
 snippet mfindby
 options word
     $this->${1:model_name}->findBy${2:Id}(${3:$id});${0}
@@ -217,6 +222,18 @@ abbr 指定カラム全てでuniqueかチェックの場合は第二引数をtru
 snippet msave
 options word
     $this->${1:model_name}->save(${2:array_data}, ${3:true}, ${4:array_validate_fields})${0}
+
+snippet mbegin
+options word
+    $this->${1:model_name}->begin()
+
+snippet mcommit
+options word
+    $this->${1:model_name}->commit()
+
+snippet mrollback
+options word
+    $this->${1:model_name}->rollback()
 
 snippet msaveall
 abbr 複数レコードやアソシエーションを一括登録
@@ -964,9 +981,6 @@ snippet pendif
 options word
   <? endif ?>
 
-snippet this
-options word
-	$this->${0}
 
 snippet thisa
 options word
@@ -1164,8 +1178,17 @@ alias switch
 		break;
 	}
 
+snippet try
+	try {
+		${1}
+	} catch (Exeption $e) {
+	
+	}
+  ${0}
+
 snippet throw
-	throw new ${1}Exception(${2});
+options word
+	throw new ${1}Exception(sprintf('Error! %s::%s L%s', __CLASS__, __FUNCTION__, __LINE__));
 	${0}
 
 snippet while

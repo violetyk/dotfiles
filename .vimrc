@@ -99,6 +99,9 @@ NeoBundleLazy 'tomasr/molokai'
 NeoBundleLazy 'Zenburn'
 NeoBundleLazy 'altercation/vim-colors-solarized'
 " }}}
+
+NeoBundle 'mattn/habatobi-vim'
+
 " syntax {{{
 " NeoBundle 'php.vim--Garvin'
 NeoBundle 'StanAngeloff/php.vim'
@@ -155,6 +158,7 @@ set splitright
 " 補完時、現在選択中の候補の付加情報を表示しない。
 set completeopt-=preview
 
+" 正規表現エンジンの設定
 set regexpengine=1
 " }}}
 
@@ -599,7 +603,7 @@ cnoreabbrev <expr> cd
 " |------------------|----------|----------|-----------|----------|
 
 
-" バッファ・タブ操作 {{{
+" 移動操作 {{{
 nnoremap <silent>bf :bf<CR>
 nnoremap <silent>bp :bprevious<CR>
 nnoremap <silent>bn :bnext<CR>
@@ -635,9 +639,8 @@ noremap <Space>l $
 
 " 縦分割版gf
 nnoremap gs :vertical wincmd f<CR>
-" }}}
 
-" 移動量の調節 {{{
+" 移動量の調節
 nnoremap <C-e> 10<C-e>
 nnoremap <C-y> 10<C-y>
 " }}}
@@ -724,6 +727,9 @@ nnoremap <silent> <Leader>yp :<C-u>let @" = expand("%:p")<CR>:echo "yank: ". @"<
 nnoremap gc `[v`]
 vnoremap gc :<C-u>normal gc<CR>
 onoremap gc :<C-u>normal gc<CR>
+
+" 行末までヤンク
+nnoremap Y y$
 
 " }}}
 
