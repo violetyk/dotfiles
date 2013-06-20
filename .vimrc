@@ -731,6 +731,9 @@ onoremap gc :<C-u>normal gc<CR>
 " 行末までヤンク
 nnoremap Y y$
 
+" w!! でsudoしつつ保存
+cmap w!! w !sudo tee > /dev/null %
+
 " }}}
 
 " その他 {{{
