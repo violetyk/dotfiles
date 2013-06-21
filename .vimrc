@@ -72,7 +72,12 @@ NeoBundle 'joonty/vdebug'
 " NeoBundle 'rking/ag.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'yanktmp.vim'
+NeoBundle 'Shougo/context_filetype.vim'
+NeoBundle 'osyo-manga/vim-precious'
 
+" }}}
+" game {{{
+NeoBundle 'mattn/habatobi-vim'
 " }}}
 " framework {{{
 NeoBundle 'tpope/vim-rails'
@@ -99,9 +104,6 @@ NeoBundleLazy 'tomasr/molokai'
 NeoBundleLazy 'Zenburn'
 NeoBundleLazy 'altercation/vim-colors-solarized'
 " }}}
-
-NeoBundle 'mattn/habatobi-vim'
-
 " syntax {{{
 " NeoBundle 'php.vim--Garvin'
 NeoBundle 'StanAngeloff/php.vim'
@@ -1018,7 +1020,7 @@ nnoremap [unite]j   :<C-u>Unite buffer file_mru bookmark -start-insert<CR>
 " nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
 nnoremap [unite]l   :<C-u>Unite line -start-insert<CR>
 nnoremap [unite]L   :<C-u>UniteWithCursorWord line -start-insert -auto-preview<CR>
-nnoremap [unite]m   :<C-u>Unite -start-insert -vertical -no-quit file:<C-r>=g:memolist_path."/"<CR><CR>
+nnoremap [unite]m   :<C-u>Unite -start-insert file:<C-r>=g:memolist_path."/"<CR><CR>
 " nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
 nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=45 -no-quit<CR>
 " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
@@ -1185,15 +1187,11 @@ endif
 
 " memolist.vim {{{
 
-let g:memolist_memo_suffix = "markdown"
-" let g:memolist_memo_suffix = "txt"
+let g:memolist_memo_suffix = "md"
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"
-" let g:memolist_memo_date = "epoch"
-" let g:memolist_memo_date = "%D %T"
 let g:memolist_prompt_tags = 1
 " let g:memolist_prompt_categories = 1
-" let g:memolist_qfixgrep = 1
-" let g:memolist_vimfiler = 1
+let g:memolist_filename_prefix_none = 1
 let g:memolist_template_dir_path = '~/dotfiles/memotemplates'
 
 " Function: s:MemoRemove() メモをゴミ箱に入れる。 {{{
@@ -1227,7 +1225,6 @@ function! s:MemoRemove()
   return 0
 endfunction "}}}
 
-" nnoremap <Leader>mf :exe "CtrlP" g:memolist_path<CR><F5>
 nnoremap <Leader>mc :MemoNew<CR>
 nnoremap <Leader>mg :MemoGrep<CR>
 nnoremap <Leader>ml :MemoList<CR>
@@ -1326,6 +1323,17 @@ map <silent> ty :call YanktmpYank()<CR>
 map <silent> tp :call YanktmpPaste_p()<CR>
 map <silent> tP :call YanktmpPaste_P()<CR>
 let g:yanktmp_file = '/tmp/vimyanktmp'
+" }}}
+
+" precious " {{{
+let g:precious_enable_switchers = {
+      \ "*" : {
+      \   "setfiletype" : 0
+      \ },
+      \ "md" : {
+      \   "setfiletype" : 1
+      \ },
+      \}
 " }}}
 
 " }}}
