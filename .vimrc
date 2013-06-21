@@ -1330,7 +1330,7 @@ let g:precious_enable_switchers = {
       \ "*" : {
       \   "setfiletype" : 0
       \ },
-      \ "md" : {
+      \ "markdown" : {
       \   "setfiletype" : 1
       \ },
       \}
