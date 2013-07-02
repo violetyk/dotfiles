@@ -74,6 +74,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'yanktmp.vim'
 NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'osyo-manga/vim-precious'
+NeoBundle 'gcmt/breeze.vim'
 
 " }}}
 " game {{{
@@ -83,7 +84,6 @@ NeoBundle 'mattn/habatobi-vim'
 NeoBundle 'tpope/vim-rails'
 " NeoBundle 'violetyk/cake.vim'
 " NeoBundle 'git@github.com:nanapi/nanapi.vim.git'
-NeoBundle 'naberon/vim-cakehtml'
 " }}}
 " unite source {{{
 NeoBundle 'unite-colorscheme'
@@ -91,6 +91,8 @@ NeoBundle 'unite-locate'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'zhaocai/unite-scriptnames'
+NeoBundle 'thinca/vim-editvar'
+
 " }}}
 " colorscheme {{{
 NeoBundle 'mrkn256.vim'
@@ -98,6 +100,7 @@ NeoBundleLazy 'chriskempson/tomorrow-theme', {
       \ 'rtp': "~/.vim/bundle/tomorrow-theme/vim/",
       \ }
 NeoBundleLazy 'nanotech/jellybeans.vim'
+NeoBundleLazy 'w0ng/vim-hybrid'
 NeoBundleLazy 'desert.vim'
 NeoBundleLazy 'desert256.vim'
 NeoBundleLazy 'tomasr/molokai'
@@ -296,11 +299,12 @@ else
   " 対応する括弧の色を控えめにしておく
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
+  " silent! colorscheme molokai
   silent! colorscheme mrkn256
   " silent! colorscheme Tomorrow-Night-Bright
   " silent! colorscheme jellybeans
 
-  " set background=dark
+  " set background=light
   " silent! colorscheme solarized
   " let g:solarized_termtrans = 1
 
@@ -541,9 +545,6 @@ augroup vimrc-checktime
   autocmd WinEnter * checktime
 augroup END
 
-
-" php,ctpをバッファに追加したときにlcdする。
-" autocmd BufAdd *.{php,ctp} execute "lcd " . expand("<afile>:p:h")
 
 " }}}
 
@@ -926,7 +927,6 @@ if !exists('g:neocomplcache_member_prefix_patterns')
     let g:neocomplcache_member_prefix_patterns = {}
 endif
 " let g:neocomplcache_member_prefix_patterns.php = '->\|::'
-" let g:neocomplcache_member_prefix_patterns.htmlcake = '->\|::'
 " }}}
 " 補完の区切り文字パターンの設定 {{{
 if !exists('g:neocomplcache_delimiter_patterns')
@@ -936,11 +936,11 @@ let g:neocomplcache_delimiter_patterns.php = ['-\>', '::', '\']
 " }}}
 " オムニ補完の設定 {{{
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown,htmlcake setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" autocmd FileType php,htmlcake setlocal omnifunc=phpcomplete#CompletePHP
+" autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 
 " オムニ補完のパターン
 if !exists('g:neocomplcache_omni_patterns')
@@ -995,7 +995,7 @@ xmap <C-l> <Plug>(neosnippet_start_unite_snippet_target)
 " To track long mru history.
 let g:unite_source_file_mru_long_limit = 3000
 let g:unite_source_directory_mru_long_limit = 3000
-let g:unite_prompt = 'unite » '
+let g:unite_prompt = '» '
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings() "{{{
@@ -1039,6 +1039,7 @@ nmap f [unite]
 nnoremap [unite]b   :<C-u>Unite bookmark<CR>
 nnoremap [unite]c   :<C-u>Unite cake_controller cake_model cake_config cake_component cake_behavior cake_helper cake_shell cake_fixture cake_core cake_lib -start-insert<CR>
 nnoremap [unite]d   :<C-u>UniteWithBufferDir -buffer-name=files file -start-insert<CR>
+nnoremap [unite]e   :<C-u>Unite output:echo\ system('set')<CR>
 nnoremap [unite]f   :<C-u>UniteWithInputDirectory file_rec/async -start-insert<CR>
 
 if executable('ag')
@@ -1065,7 +1066,8 @@ nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
 nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
 nnoremap [unite].   :<C-u>UniteResume<CR>
 " nnoremap [unite]s   :<C-u>Unite history/search<CR>
-nnoremap [unite]v   :<C-u>Unite output:version -start-insert<CR>
+" nnoremap [unite]v   :<C-u>Unite output:version -start-insert<CR>
+nnoremap [unite]v   :<C-u>Unite variable -auto-preview -start-insert<CR>
 
 let g:unite_source_history_yank_enable = 1
 nnoremap [unite]y   :<C-u>Unite history/yank<CR>
@@ -1088,9 +1090,9 @@ endif
 
 
 " ftと辞書のマッピング
-let g:ref_detect_filetype = {
-      \ 'htmlcake' : 'phpmanual'
-      \ }
+" let g:ref_detect_filetype = {
+      " \ 'htmlcake' : 'phpmanual'
+      " \ }
 
 " }}}
 
@@ -1131,9 +1133,6 @@ let g:user_zen_settings = {
       \ },
       \ 'php' : {
       \   'filters' : 'html',
-      \ },
-      \ 'htmlcake' : {
-      \   'indentation' : '  ',
       \   'extends' : 'html',
       \ },
       \ 'perl' : {
@@ -1373,6 +1372,14 @@ let g:precious_enable_switchers = {
       \   "setfiletype" : 1
       \ },
       \}
+" }}}
+
+" breeze.vim {{{
+let g:breeze_highlight_filename_patterns = '*.ctp,*.html,*.htm,*.xhtml,*.xml'
+let g:breeze_highlight_tag = 1
+let g:breeze_hl_color = 'ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black '
+nnoremap th :<C-u>BreezeHlElementBlock<CR>
+
 " }}}
 
 " }}}
