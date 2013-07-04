@@ -1,5 +1,5 @@
 [user]
-  name = kagaya
+  name = violetyk
   #email = yuhei.kagaya@gmail.com
   email = yuhei.kagaya@nanapi.co.jp
 
@@ -12,6 +12,7 @@
   ss = "status -s"
   br = "branch -a"
   co = "checkout"
+  cot = "checkout --track"
   unstage = "reset HEAD --"
   addu = "add --update"
   adda = "add --all"

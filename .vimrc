@@ -29,6 +29,7 @@ NeoBundle 'Shougo/vimproc', {
       \   'unix' : 'make -f make_unix.mak',
       \ },
       \}
+NeoBundle 'kana/vim-gf-user'
 " }}}
 " utility {{{
 " NeoBundle 'taglist.vim' " tab切り替え時にエラーが出るので下記fix版を使う。
@@ -1149,6 +1150,10 @@ let g:user_zen_settings = {
 " }}}
 
 " cake.vim {{{
+
+let g:cakephp_gf_fallback_n = "normal \<Plug>(gf-user-gf)"
+let g:cakephp_gf_fallback_s = "normal \<Plug>(gf-user-\<C-w>f)"
+let g:cakephp_gf_fallback_t = "normal \<Plug>(gf-user-\<C-w>gf)"
 
 nnoremap <Space>cc :<C-u>Ccontroller 
 " nnoremap <Space>ccv :<C-u>Ccontrollervsp 
