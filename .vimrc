@@ -93,7 +93,7 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'zhaocai/unite-scriptnames'
 NeoBundle 'thinca/vim-editvar'
-
+NeoBundle 'ujihisa/unite-launch'
 " }}}
 " colorscheme {{{
 NeoBundle 'mrkn256.vim'
@@ -1388,6 +1388,10 @@ nnoremap th :<C-u>BreezeHlElementBlock<CR>
 " }}}
 
 " }}}
+
+" let g:unite_launch_apps = [
+      " \ 'git pull',
+      " \ 'git push']
 
 let g:loaded_vimrc = 1
 
