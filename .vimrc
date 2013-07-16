@@ -1038,7 +1038,7 @@ nmap f [unite]
 " nnoremap <C-f> :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " inoremap <C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap [unite]b   :<C-u>Unite bookmark<CR>
-nnoremap [unite]c   :<C-u>Unite cake_controller cake_model cake_config cake_component cake_behavior cake_helper cake_shell cake_fixture cake_core cake_lib -start-insert<CR>
+nnoremap [unite]c   :<C-u>Unite cake_controller cake_model cake_config cake_component cake_behavior cake_helper cake_shell cake_fixture cake_core cake_lib n_class -start-insert<CR>
 nnoremap [unite]d   :<C-u>UniteWithBufferDir -buffer-name=files file -start-insert<CR>
 nnoremap [unite]e   :<C-u>Unite output:echo\ system('set')<CR>
 nnoremap [unite]f   :<C-u>UniteWithInputDirectory file_rec/async -start-insert<CR>
