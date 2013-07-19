@@ -20,8 +20,8 @@ if [ `uname` = "Linux" ]; then
   PATH=$PATH:/usr/local/ctags/bin
   PATH=$PATH:/usr/local/tig-1.0/bin
   
-  alias vim='/usr/local/vim-7.3/bin/vim'
-  alias vimdiff='/usr/local/vim-7.3/bin/vimdiff'
+  alias vim='/usr/local/vim-7.4/bin/vim'
+  alias vimdiff='/usr/local/vim-7.4/bin/vimdiff'
 
 elif [ `uname` = "Darwin" ]; then
   # for Mac
@@ -62,7 +62,7 @@ alias vmstat='vmstat -S M'
 
 # -S オプションで折り返さなくする
 # エディタはvim
-alias mysql="EDITOR=\"/usr/local/vim-7.3/bin/vim -c ':set ft=sql'\" mysql --auto-rehash"
+alias mysql="EDITOR=\"/usr/local/vim-7.4/bin/vim -c ':set ft=sql'\" mysql --auto-rehash"
 # alias mysql="EDITOR=\"/usr/local/vim-7.3/bin/vim -c ':set ft=sql'\" mysql --auto-rehash --pager='less -S'"
 
 ### SVN
