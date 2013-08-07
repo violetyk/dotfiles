@@ -9,7 +9,7 @@ LANG=ja_JP.UTF-8
 # LANG=en_US.utf8
 
 ### PATH
-PATH=$PATH:$HOME/bin
+PATH=$PATH:/bin:/sbin:$HOME/bin
 CONFIGS=()
 
 
