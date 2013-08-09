@@ -59,8 +59,7 @@ NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'akiyan/vim-textobj-php'
 NeoBundle 'akiyan/vim-textobj-xml-attribute'
 NeoBundle 'vim-scripts/Align'
-" NeoBundle 'Lokaltog/vim-powerline'
-NeoBundle 'Lokaltog/powerline', {'rtp' : 'powerline/bindings/vim'}
+NeoBundle 'Lokaltog/powerline', {'rtp' : 'powerline/bindings/vim/'}
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'SQLUtilities'
 NeoBundle 'tomtom/checksyntax_vim'
@@ -1220,12 +1219,7 @@ let g:surround_{char2nr("p")} = "<?php \r ?>"
 " }}}
 
 " powerline.vim {{{ 
-
-if has('gui_running') 
-  let g:Powerline_symbols = 'fancy'
-endif
-
-
+let g:Powerline_symbols = 'fancy'
 " }}}
 
 " memolist.vim {{{
@@ -1389,9 +1383,9 @@ nnoremap th :<C-u>BreezeHlElementBlock<CR>
 
 " }}}
 
-" let g:unite_launch_apps = [
-      " \ 'git pull',
-      " \ 'git push']
+let g:unite_launch_apps = [
+      \ 'git push'
+      \ ]
 
 let g:loaded_vimrc = 1
 

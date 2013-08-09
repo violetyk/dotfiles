@@ -1,0 +1,17 @@
+{
+  "segment_data": {
+    "buffer_name": {
+      "contents": "NERD_tree"
+    }
+  },
+  "segments": {
+    "left": [
+      {
+      "type": "string",
+      "name": "buffer_name",
+      "highlight_group": ["file_name"],
+      "draw_soft_divider": false
+    }
+    ]
+  }
+}
