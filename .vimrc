@@ -59,8 +59,8 @@ NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'akiyan/vim-textobj-php'
 NeoBundle 'akiyan/vim-textobj-xml-attribute'
 NeoBundle 'vim-scripts/Align'
-NeoBundle 'Lokaltog/vim-powerline'
-" NeoBundle 'Lokaltog/powerline'
+" NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'Lokaltog/powerline', {'rtp' : 'powerline/bindings/vim'}
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'SQLUtilities'
 NeoBundle 'tomtom/checksyntax_vim'
@@ -941,7 +941,7 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 
 " オムニ補完のパターン
 if !exists('g:neocomplcache_omni_patterns')
