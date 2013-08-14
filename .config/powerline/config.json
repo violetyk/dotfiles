@@ -41,9 +41,7 @@
 			"local_themes": {
 				"cmdwin": "cmdwin",
 				"help": "help",
-				"quickfix": "quickfix",
-        "ext.vim.matcher.unite": "unite",
-        "ext.vim.matcher.nerdtree": "nerdtree"
+				"quickfix": "quickfix"
 			}
 		},
 		"wm": {
