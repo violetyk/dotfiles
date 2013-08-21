@@ -1086,43 +1086,40 @@ let g:scratchBackupFile=$HOME . "/scratch.txt"
 
 " }}}
 
-" zencoding.vim {{{
+" emmet.vim {{{
 
 " デフォルトは<C-Y>
-let g:user_zen_leader_key = '<C-Space>'
+" let g:user_emmet_leader_key = '<C-Space>'
 
 " タグやスニペットの入力補完を使う
-let g:use_zen_complete_tag = 1
+let g:use_emmet_complete_tag = 1
 
-" user_zen_leader_key -> カンマで展開ではなく、一発で展開する。
-" let g:user_zen_expandabbr_key = '<C-Z>'
+" <Tab>で展開
+" autocmd FileType css imap <tab> <plug>(EmmetExpandAbbr)
 
 " filterについて -> http://code.google.com/p/zen-coding/wiki/Filters
-let g:user_zen_settings = {
-      \ 'lang' : 'ja',
-      \ 'indentation' : '\t',
-      \ 'html' : {
-      \   'indentation' : '  ',
-      \   'filters' : 'html,c',
-      \ },
-      \ 'css' : {
-      \   'filters' : 'fc',
-      \ },
-      \ 'php' : {
-      \   'filters' : 'html',
-      \   'extends' : 'html',
-      \ },
-      \ 'perl' : {
-      \   'aliases' : { 
-      \     'req' : 'require '
-      \   },
-      \   'snippets' : {
-      \     'use' : "use strict\nuse warnings\n\n",
-      \     'warn' : "warn \"|\";",
-      \   }
-      \ }
+let g:user_emmet_settings = {
+      \  'lang' : 'ja',
+      \  'html' : {
+      \    'filters' : 'html',
+      \    'indentation' : ' '
+      \  },
+      \  'php' : {
+      \    'extends' : 'html',
+      \    'filters' : 'html,c',
+      \  },
+      \  'css' : {
+      \    'filters' : 'fc',
+      \  },
+      \  'javascript' : {
+      \    'snippets' : {
+      \      'jq' : "$(function() {\n\t${cursor}${child}\n});",
+      \      'jq:each' : "$.each(arr, function(index, item)\n\t${child}\n});",
+      \      'fn' : "(function() {\n\t${cursor}\n})();",
+      \      'tm' : "setTimeout(function() {\n\t${cursor}\n}, 100);",
+      \    },
+      \  },
       \}
-
 " }}}
 
 " cake.vim {{{
