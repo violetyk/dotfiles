@@ -59,8 +59,8 @@ NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'akiyan/vim-textobj-php'
 NeoBundle 'akiyan/vim-textobj-xml-attribute'
 NeoBundle 'vim-scripts/Align'
-NeoBundle 'Lokaltog/powerline', {'rtp' : 'powerline/bindings/vim/'}
 NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'bling/vim-airline'
 NeoBundle 'SQLUtilities'
 NeoBundle 'tomtom/checksyntax_vim'
 " NeoBundle 'tomtom/quickfixsigns_vim'
@@ -1356,6 +1356,10 @@ let g:breeze_highlight_tag = 1
 let g:breeze_hl_color = 'ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black '
 nnoremap th :<C-u>BreezeHlElementBlock<CR>
 
+" }}}
+
+" airline {{{ 
+let g:airline_powerline_fonts = 1
 " }}}
 
 " let g:tern_show_argument_hints = 'on_hold'
