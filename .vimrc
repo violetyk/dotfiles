@@ -77,6 +77,8 @@ NeoBundle 'osyo-manga/vim-precious'
 NeoBundle 'gcmt/breeze.vim'
 NeoBundle 'marijnh/tern_for_vim'
 
+NeoBundle 'shawncplus/phpcomplete.vim'
+
 " }}}
 " game {{{
 NeoBundle 'mattn/habatobi-vim'
