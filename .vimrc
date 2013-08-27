@@ -60,7 +60,6 @@ NeoBundle 'akiyan/vim-textobj-php'
 NeoBundle 'akiyan/vim-textobj-xml-attribute'
 NeoBundle 'vim-scripts/Align'
 NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'bling/vim-airline'
 NeoBundle 'SQLUtilities'
 NeoBundle 'tomtom/checksyntax_vim'
 " NeoBundle 'tomtom/quickfixsigns_vim'
@@ -97,7 +96,9 @@ NeoBundle 'zhaocai/unite-scriptnames', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'thinca/vim-editvar',        { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'ujihisa/unite-launch',      { 'depends' : 'Shougo/unite.vim' }
 " }}}
-" colorscheme {{{
+" statusline, colorscheme {{{
+NeoBundle 'itchyny/lightline.vim'
+
 NeoBundle 'mrkn256.vim'
 NeoBundleLazy 'chriskempson/tomorrow-theme', {
       \ 'rtp': "~/.vim/bundle/tomorrow-theme/vim/",
@@ -1357,8 +1358,25 @@ nnoremap th :<C-u>BreezeHlElementBlock<CR>
 
 " }}}
 
-" airline {{{ 
-let g:airline_powerline_fonts = 1
+" lightline {{{ 
+let g:lightline = {
+      \ 'component': {
+      \   'lineinfo': ' %3l:%-2v',
+      \ },
+      \ 'component_function': {
+      \   'readonly': 'MyReadonly',
+      \   'fugitive': 'MyFugitive'
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
+function! MyReadonly()
+  return &readonly ? '' : ''
+endfunction
+function! MyFugitive()
+  return exists("*fugitive#head") && strlen(fugitive#head()) ? ''.fugitive#head() : ''
+endfunction
+
 " }}}
 
 " let g:tern_show_argument_hints = 'on_hold'

@@ -5,7 +5,7 @@
 .vim/manual/php_manual*
 tags
 setting.local.php
-kagaya*.php
+[Kk]agaya*.php
 .cake
 .netrwhist
 .vim/bundle/neobundle.vim
