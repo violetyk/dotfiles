@@ -18,6 +18,4 @@ mv php-chunked-xhtml php_manual_ja
 
 cd ~/dotfiles/
 git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-
-# vim -u ~/dotfiles/bundles.vim +BundleInstall +q
 vim  +NeoBundleInstall +q

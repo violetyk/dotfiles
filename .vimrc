@@ -30,51 +30,47 @@ NeoBundle 'Shougo/vimproc', {
       \ },
       \}
 NeoBundle 'kana/vim-gf-user'
+NeoBundle 'kana/vim-textobj-user'
 " }}}
 " utility {{{
-" NeoBundle 'taglist.vim' " tab切り替え時にエラーが出るので下記fix版を使う。
-NeoBundle 'rgo/taglist.vim'
+NeoBundle 'vim-scripts/matchit.zip'
+NeoBundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
+NeoBundle 'vim-scripts/dbext.vim'
+NeoBundle 'vim-scripts/SQLUtilities'
+NeoBundle 'vim-scripts/Align'
+NeoBundle 'vim-scripts/yanktmp.vim'
 NeoBundle 'majutsushi/tagbar'
-
-NeoBundle 'matchit.zip'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
-" NeoBundle 'Townk/vim-autoclose'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'mattn/gist-vim'
-NeoBundleLazy 'mattn/qiita-vim'
 NeoBundle 'violetyk/scratch-utility'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'dbext.vim'
 NeoBundleLazy 'motemen/hatena-vim'
-NeoBundle 'PDV--phpDocumentor-for-Vim'
 NeoBundleLazy 'kana/vim-smartchr'
 NeoBundleLazy 'kana/vim-smartinput'
-NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'akiyan/vim-textobj-php'
 NeoBundle 'akiyan/vim-textobj-xml-attribute'
-NeoBundle 'vim-scripts/Align'
 NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'SQLUtilities'
 NeoBundle 'tomtom/checksyntax_vim'
-" NeoBundle 'tomtom/quickfixsigns_vim'
-" NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'tomtom/quickfixsigns_vim'
+NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'glidenote/nogistub.vim'
 NeoBundle 'vim-scripts/Modeliner'
 NeoBundle 'joonty/vdebug'
-" NeoBundle 'rking/ag.vim'
+NeoBundle 'rking/ag.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'yanktmp.vim'
 NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'osyo-manga/vim-precious'
-NeoBundle 'gcmt/breeze.vim'
-NeoBundle 'marijnh/tern_for_vim'
+NeoBundle 'osyo-manga/vim-anzu'
+" NeoBundle 'gcmt/breeze.vim'
+" NeoBundle 'marijnh/tern_for_vim'
 
 NeoBundle 'shawncplus/phpcomplete.vim'
 
@@ -655,7 +651,7 @@ nnoremap <C-y> 10<C-y>
 " 検索操作 {{{
 
 " ハイライトを消す。
-noremap <Esc><Esc> :<C-u>set nohlsearch<Return>
+noremap <silent> <Esc><Esc> :<C-u>set nohlsearch<Return>:<C-u>AnzuClearSearchStatus<Return>
 
 " 新しく別の単語を検索するときだけハイライトして、nやNでの移動はハイライトしたくない
 nnoremap / :<C-u>set hlsearch<Return>/
@@ -1195,10 +1191,6 @@ vnoremap <Leader>d :call PhpDocRange()<CR>
 let g:surround_{char2nr("p")} = "<?php \r ?>"
 " }}}
 
-" powerline.vim {{{ 
-let g:Powerline_symbols = 'fancy'
-" }}}
-
 " memolist.vim {{{
 
 let g:memolist_memo_suffix = "md"
@@ -1322,14 +1314,11 @@ let g:scratchSplitOption =
 " }}}
 
 " vim-anzu {{{
-  " nmap n <Plug>(anzu-n)
-  " nmap N <Plug>(anzu-N)
-  " nmap * <Plug>(anzu-star)
-  " nmap # <Plug>(anzu-sharp)
-  " set statusline=%{anzu#search_status()}
-
-
-  " call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+" set statusline=%{anzu#search_status()}
 " }}}
 
 " yanktmp.vim {{{
@@ -1380,6 +1369,13 @@ endfunction
 " }}}
 
 " let g:tern_show_argument_hints = 'on_hold'
+
+" gitgutter {{{
+nmap gj <Plug>GitGutterNextHunk
+nmap gk <Plug>GitGutterPrevHunk
+nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
+nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
+" }}}
 
 " }}}
 
