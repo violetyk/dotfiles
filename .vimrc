@@ -58,8 +58,8 @@ NeoBundle 'akiyan/vim-textobj-php'
 NeoBundle 'akiyan/vim-textobj-xml-attribute'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'tomtom/checksyntax_vim'
-NeoBundle 'tomtom/quickfixsigns_vim'
-NeoBundle 'airblade/vim-gitgutter'
+" NeoBundle 'tomtom/quickfixsigns_vim'
+" NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'glidenote/nogistub.vim'
 NeoBundle 'vim-scripts/Modeliner'
@@ -68,7 +68,7 @@ NeoBundle 'rking/ag.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'osyo-manga/vim-precious'
-NeoBundle 'osyo-manga/vim-anzu'
+" NeoBundle 'osyo-manga/vim-anzu'
 " NeoBundle 'gcmt/breeze.vim'
 " NeoBundle 'marijnh/tern_for_vim'
 
@@ -93,7 +93,7 @@ NeoBundle 'thinca/vim-editvar',        { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'ujihisa/unite-launch',      { 'depends' : 'Shougo/unite.vim' }
 " }}}
 " statusline, colorscheme {{{
-NeoBundle 'itchyny/lightline.vim'
+" NeoBundle 'itchyny/lightline.vim'
 
 NeoBundle 'mrkn256.vim'
 NeoBundleLazy 'chriskempson/tomorrow-theme', {
@@ -651,7 +651,8 @@ nnoremap <C-y> 10<C-y>
 " 検索操作 {{{
 
 " ハイライトを消す。
-noremap <silent> <Esc><Esc> :<C-u>set nohlsearch<Return>:<C-u>AnzuClearSearchStatus<Return>
+" noremap <silent> <Esc><Esc> :<C-u>set nohlsearch<Return>:<C-u>AnzuClearSearchStatus<Return>
+noremap <silent> <Esc><Esc> :<C-u>set nohlsearch<Return>
 
 " 新しく別の単語を検索するときだけハイライトして、nやNでの移動はハイライトしたくない
 nnoremap / :<C-u>set hlsearch<Return>/
@@ -1127,20 +1128,20 @@ let g:cakephp_gf_fallback_n = "normal \<Plug>(gf-user-gf)"
 let g:cakephp_gf_fallback_s = "normal \<Plug>(gf-user-\<C-w>f)"
 let g:cakephp_gf_fallback_t = "normal \<Plug>(gf-user-\<C-w>gf)"
 
-nnoremap <Space>cc :<C-u>Ccontroller 
+nnoremap <Space>cc :<C-u>Ccontroller
 " nnoremap <Space>ccv :<C-u>Ccontrollervsp 
-nnoremap <Space>cm :<C-u>Cmodel 
-nnoremap <Space>cv :<C-u>Cview 
-nnoremap <Space>cl :<C-u>Clog 
+nnoremap <Space>cm :<C-u>Cmodel
+nnoremap <Space>cv :<C-u>Cview
+nnoremap <Space>cl :<C-u>Clog
 nnoremap <Space>ccv :<C-u>Ccontrollerview
-nnoremap <Space>ccm :<C-u>Ccomponent 
-nnoremap <Space>ccf :<C-u>Cconfig 
-nnoremap <Space>cb :<C-u>Cbehavior 
-nnoremap <Space>ch :<C-u>Chelper 
-nnoremap <Space>ct :<C-u>Ctest 
-nnoremap <Space>cf :<C-u>Cfixture 
-nnoremap <Space>cs :<C-u>Cshell 
-nnoremap <Space>cd :<C-u>Cdesc 
+nnoremap <Space>ccm :<C-u>Ccomponent
+nnoremap <Space>ccf :<C-u>Cconfig
+nnoremap <Space>cb :<C-u>Cbehavior
+nnoremap <Space>ch :<C-u>Chelper
+nnoremap <Space>ct :<C-u>Ctest
+nnoremap <Space>cf :<C-u>Cfixture
+nnoremap <Space>cs :<C-u>Cshell
+nnoremap <Space>cd :<C-u>Cdesc
 
 " プロジェクト切り替えコマンド
 " let g:my_cakephp_projects = {
