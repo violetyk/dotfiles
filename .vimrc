@@ -1129,11 +1129,9 @@ let g:cakephp_gf_fallback_s = "normal \<Plug>(gf-user-\<C-w>f)"
 let g:cakephp_gf_fallback_t = "normal \<Plug>(gf-user-\<C-w>gf)"
 
 nnoremap <Space>cc :<C-u>Ccontroller
-" nnoremap <Space>ccv :<C-u>Ccontrollervsp 
 nnoremap <Space>cm :<C-u>Cmodel
 nnoremap <Space>cv :<C-u>Cview
 nnoremap <Space>cl :<C-u>Clog
-nnoremap <Space>ccv :<C-u>Ccontrollerview
 nnoremap <Space>ccm :<C-u>Ccomponent
 nnoremap <Space>ccf :<C-u>Cconfig
 nnoremap <Space>cb :<C-u>Cbehavior
@@ -1315,10 +1313,10 @@ let g:scratchSplitOption =
 " }}}
 
 " vim-anzu {{{
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
-nmap * <Plug>(anzu-star-with-echo)
-nmap # <Plug>(anzu-sharp-with-echo)
+" nmap n <Plug>(anzu-n-with-echo)
+" nmap N <Plug>(anzu-N-with-echo)
+" nmap * <Plug>(anzu-star-with-echo)
+" nmap # <Plug>(anzu-sharp-with-echo)
 " set statusline=%{anzu#search_status()}
 " }}}
 
