@@ -819,8 +819,7 @@ let Tlist_Compact_Format = 1
 
 let g:Tlist_php_settings = 'php;c:class;f:function'
 
-
-nnoremap <silent> <Leader>t :TlistOpen<CR>
+" nnoremap <silent> <Leader>t :TlistOpen<CR>
 
 " ~/.ctags に設定を書くことにした。
 " --langmapは次のように調べられる。
@@ -1076,7 +1075,6 @@ endif
 " scratch.vim {{{
 
 nmap <silent> <Leader>b <Plug>ShowScratchBuffer
-imap <silent> <Leader>b <Plug>InsShowScratchBuffer
 
 " スクラッチバッファを開くマッピングを定義しない
 let no_plugin_maps = 1
@@ -1127,6 +1125,8 @@ let g:user_emmet_settings = {
 let g:cakephp_gf_fallback_n = "normal \<Plug>(gf-user-gf)"
 let g:cakephp_gf_fallback_s = "normal \<Plug>(gf-user-\<C-w>f)"
 let g:cakephp_gf_fallback_t = "normal \<Plug>(gf-user-\<C-w>gf)"
+let g:cakephp_test_window_vertical = 1
+let g:cakephp_test_window_width = 70
 
 nnoremap <Space>cc :<C-u>Ccontroller
 nnoremap <Space>cm :<C-u>Cmodel
@@ -1140,6 +1140,7 @@ nnoremap <Space>ct :<C-u>Ctest
 nnoremap <Space>cf :<C-u>Cfixture
 nnoremap <Space>cs :<C-u>Cshell
 nnoremap <Space>cd :<C-u>Cdesc
+nnoremap <Leader>t :<C-u>Ctestrunmethod<CR>
 
 " プロジェクト切り替えコマンド
 " let g:my_cakephp_projects = {
