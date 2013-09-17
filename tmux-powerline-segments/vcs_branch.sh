@@ -4,7 +4,8 @@
 source "${TMUX_POWERLINE_DIR_LIB}/tmux_adapter.sh"
 
 branch_symbol="⭠"
-git_colour="5"
+# git_colour="5"
+git_colour="253"
 svn_colour="220"
 hg_colour="45"
 

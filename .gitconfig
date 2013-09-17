@@ -14,9 +14,10 @@
   co = "checkout"
   cot = "checkout --track"
   unstage = "reset HEAD --"
-  addu = "add --update"
-  adda = "add --all"
-  commit = "commit -av"
+  u = "add --update ."
+  a = "add --all ."
+  c = "commit -v"
+  timesheet = "!$SHELL -c 'git log --author=`git config --get user.name` --oneline --no-merges --since=`date -d \"$(date +%Y-%m-15) -1 month\" +%Y-%m-01` --until=`date -d \"$(date +%d) day ago\" +%Y-%m-%d`'"
 
 [core]
   #editor = vim -c \"set fenc=utf-8\"

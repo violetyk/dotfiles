@@ -15,20 +15,15 @@ CONFIGS=()
 
 # OS別環境設定
 if [ `uname` = "Linux" ]; then
-  # for Linux
-  PATH=$PATH:/usr/local/tmux/bin
-  PATH=$PATH:/usr/local/ctags/bin
-  PATH=$PATH:/usr/local/tig-1.0/bin
-  
-  alias vim='/usr/local/vim-7.4/bin/vim'
-  alias vimdiff='/usr/local/vim-7.4/bin/vimdiff'
+  # pathは/etc/profile.d/に追加することにした
+
+  alias ls='ls'
+
 
 elif [ `uname` = "Darwin" ]; then
-  # for Mac
-  PATH=$PATH:/usr/local/tmux/bin
-  PATH=$PATH:/usr/local/ctags/bin
-  PATH=$PATH:/usr/local/tig-1.0/bin
+  # pathは/etc/paths.d/に追加することにした
 
+  alias ls='gls --color'
 
   CONFIGS=(${CONFIGS[@]} '/usr/local/git/contrib/completion/git-prompt.sh')
   CONFIGS=(${CONFIGS[@]} '/usr/local/git/contrib/completion/git-completion.bash')
@@ -41,6 +36,19 @@ for CONFIG in ${CONFIGS[@]}; do
   fi
 done
 
+if [ -e /usr/local/vim-7.4 ]; then
+  alias vim='/usr/local/vim-7.4/bin/vim'
+  alias vimdiff='/usr/local/vim-7.4/bin/vimdiff'
+fi
+
+
+if [ -f ~/.dircolors ]; then
+  if type dircolors > /dev/null 2>&1; then
+    eval $(dircolors ~/.dircolors)
+  elif type gdircolors > /dev/null 2>&1; then
+    eval $(gdircolors ~/.dircolors)
+  fi
+fi
 
 
 ### bashのモード

@@ -30,38 +30,33 @@ NeoBundle 'Shougo/vimproc', {
       \ },
       \}
 NeoBundle 'kana/vim-gf-user'
+NeoBundle 'kana/vim-textobj-user'
 " }}}
 " utility {{{
-" NeoBundle 'taglist.vim' " tab切り替え時にエラーが出るので下記fix版を使う。
-NeoBundle 'rgo/taglist.vim'
+NeoBundle 'vim-scripts/matchit.zip'
+NeoBundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
+NeoBundle 'vim-scripts/dbext.vim'
+NeoBundle 'vim-scripts/SQLUtilities'
+NeoBundle 'vim-scripts/Align'
+NeoBundle 'vim-scripts/yanktmp.vim'
 NeoBundle 'majutsushi/tagbar'
-
-NeoBundle 'matchit.zip'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
-" NeoBundle 'Townk/vim-autoclose'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'mattn/gist-vim'
-NeoBundleLazy 'mattn/qiita-vim'
 NeoBundle 'violetyk/scratch-utility'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'dbext.vim'
 NeoBundleLazy 'motemen/hatena-vim'
-NeoBundle 'PDV--phpDocumentor-for-Vim'
 NeoBundleLazy 'kana/vim-smartchr'
 NeoBundleLazy 'kana/vim-smartinput'
-NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'akiyan/vim-textobj-php'
 NeoBundle 'akiyan/vim-textobj-xml-attribute'
-NeoBundle 'vim-scripts/Align'
-NeoBundle 'Lokaltog/powerline', {'rtp' : 'powerline/bindings/vim/'}
 NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'SQLUtilities'
 NeoBundle 'tomtom/checksyntax_vim'
 " NeoBundle 'tomtom/quickfixsigns_vim'
 " NeoBundle 'airblade/vim-gitgutter'
@@ -69,13 +64,15 @@ NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'glidenote/nogistub.vim'
 NeoBundle 'vim-scripts/Modeliner'
 NeoBundle 'joonty/vdebug'
-" NeoBundle 'rking/ag.vim'
+NeoBundle 'rking/ag.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'yanktmp.vim'
 NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'osyo-manga/vim-precious'
-NeoBundle 'gcmt/breeze.vim'
-NeoBundle 'marijnh/tern_for_vim'
+" NeoBundle 'osyo-manga/vim-anzu'
+" NeoBundle 'gcmt/breeze.vim'
+" NeoBundle 'marijnh/tern_for_vim'
+
+NeoBundle 'shawncplus/phpcomplete.vim'
 
 " }}}
 " game {{{
@@ -95,7 +92,9 @@ NeoBundle 'zhaocai/unite-scriptnames', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'thinca/vim-editvar',        { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'ujihisa/unite-launch',      { 'depends' : 'Shougo/unite.vim' }
 " }}}
-" colorscheme {{{
+" statusline, colorscheme {{{
+" NeoBundle 'itchyny/lightline.vim'
+
 NeoBundle 'mrkn256.vim'
 NeoBundleLazy 'chriskempson/tomorrow-theme', {
       \ 'rtp': "~/.vim/bundle/tomorrow-theme/vim/",
@@ -652,7 +651,8 @@ nnoremap <C-y> 10<C-y>
 " 検索操作 {{{
 
 " ハイライトを消す。
-noremap <Esc><Esc> :<C-u>set nohlsearch<Return>
+" noremap <silent> <Esc><Esc> :<C-u>set nohlsearch<Return>:<C-u>AnzuClearSearchStatus<Return>
+noremap <silent> <Esc><Esc> :<C-u>set nohlsearch<Return>
 
 " 新しく別の単語を検索するときだけハイライトして、nやNでの移動はハイライトしたくない
 nnoremap / :<C-u>set hlsearch<Return>/
@@ -819,8 +819,7 @@ let Tlist_Compact_Format = 1
 
 let g:Tlist_php_settings = 'php;c:class;f:function'
 
-
-nnoremap <silent> <Leader>t :TlistOpen<CR>
+" nnoremap <silent> <Leader>t :TlistOpen<CR>
 
 " ~/.ctags に設定を書くことにした。
 " --langmapは次のように調べられる。
@@ -1076,7 +1075,6 @@ endif
 " scratch.vim {{{
 
 nmap <silent> <Leader>b <Plug>ShowScratchBuffer
-imap <silent> <Leader>b <Plug>InsShowScratchBuffer
 
 " スクラッチバッファを開くマッピングを定義しない
 let no_plugin_maps = 1
@@ -1086,43 +1084,40 @@ let g:scratchBackupFile=$HOME . "/scratch.txt"
 
 " }}}
 
-" zencoding.vim {{{
+" emmet.vim {{{
 
 " デフォルトは<C-Y>
-let g:user_zen_leader_key = '<C-Space>'
+" let g:user_emmet_leader_key = '<C-Space>'
 
 " タグやスニペットの入力補完を使う
-let g:use_zen_complete_tag = 1
+let g:use_emmet_complete_tag = 1
 
-" user_zen_leader_key -> カンマで展開ではなく、一発で展開する。
-" let g:user_zen_expandabbr_key = '<C-Z>'
+" <Tab>で展開
+" autocmd FileType css imap <tab> <plug>(EmmetExpandAbbr)
 
 " filterについて -> http://code.google.com/p/zen-coding/wiki/Filters
-let g:user_zen_settings = {
-      \ 'lang' : 'ja',
-      \ 'indentation' : '\t',
-      \ 'html' : {
-      \   'indentation' : '  ',
-      \   'filters' : 'html,c',
-      \ },
-      \ 'css' : {
-      \   'filters' : 'fc',
-      \ },
-      \ 'php' : {
-      \   'filters' : 'html',
-      \   'extends' : 'html',
-      \ },
-      \ 'perl' : {
-      \   'aliases' : { 
-      \     'req' : 'require '
-      \   },
-      \   'snippets' : {
-      \     'use' : "use strict\nuse warnings\n\n",
-      \     'warn' : "warn \"|\";",
-      \   }
-      \ }
+let g:user_emmet_settings = {
+      \  'lang' : 'ja',
+      \  'html' : {
+      \    'filters' : 'html',
+      \    'indentation' : ' '
+      \  },
+      \  'php' : {
+      \    'extends' : 'html',
+      \    'filters' : 'html,c',
+      \  },
+      \  'css' : {
+      \    'filters' : 'fc',
+      \  },
+      \  'javascript' : {
+      \    'snippets' : {
+      \      'jq' : "$(function() {\n\t${cursor}${child}\n});",
+      \      'jq:each' : "$.each(arr, function(index, item)\n\t${child}\n});",
+      \      'fn' : "(function() {\n\t${cursor}\n})();",
+      \      'tm' : "setTimeout(function() {\n\t${cursor}\n}, 100);",
+      \    },
+      \  },
       \}
-
 " }}}
 
 " cake.vim {{{
@@ -1130,21 +1125,22 @@ let g:user_zen_settings = {
 let g:cakephp_gf_fallback_n = "normal \<Plug>(gf-user-gf)"
 let g:cakephp_gf_fallback_s = "normal \<Plug>(gf-user-\<C-w>f)"
 let g:cakephp_gf_fallback_t = "normal \<Plug>(gf-user-\<C-w>gf)"
+let g:cakephp_test_window_vertical = 1
+let g:cakephp_test_window_width = 70
 
-nnoremap <Space>cc :<C-u>Ccontroller 
-" nnoremap <Space>ccv :<C-u>Ccontrollervsp 
-nnoremap <Space>cm :<C-u>Cmodel 
-nnoremap <Space>cv :<C-u>Cview 
-nnoremap <Space>cl :<C-u>Clog 
-nnoremap <Space>ccv :<C-u>Ccontrollerview
-nnoremap <Space>ccm :<C-u>Ccomponent 
-nnoremap <Space>ccf :<C-u>Cconfig 
-nnoremap <Space>cb :<C-u>Cbehavior 
-nnoremap <Space>ch :<C-u>Chelper 
-nnoremap <Space>ct :<C-u>Ctest 
-nnoremap <Space>cf :<C-u>Cfixture 
-nnoremap <Space>cs :<C-u>Cshell 
-nnoremap <Space>cd :<C-u>Cdesc 
+nnoremap <Space>cc :<C-u>Ccontroller
+nnoremap <Space>cm :<C-u>Cmodel
+nnoremap <Space>cv :<C-u>Cview
+nnoremap <Space>cl :<C-u>Clog
+nnoremap <Space>ccm :<C-u>Ccomponent
+nnoremap <Space>ccf :<C-u>Cconfig
+nnoremap <Space>cb :<C-u>Cbehavior
+nnoremap <Space>ch :<C-u>Chelper
+nnoremap <Space>ct :<C-u>Ctest
+nnoremap <Space>cf :<C-u>Cfixture
+nnoremap <Space>cs :<C-u>Cshell
+nnoremap <Space>cd :<C-u>Cdesc
+nnoremap <Leader>t :<C-u>Ctestrunmethod<CR>
 
 " プロジェクト切り替えコマンド
 " let g:my_cakephp_projects = {
@@ -1193,10 +1189,6 @@ vnoremap <Leader>d :call PhpDocRange()<CR>
 
 " surround.vim {{{
 let g:surround_{char2nr("p")} = "<?php \r ?>"
-" }}}
-
-" powerline.vim {{{ 
-let g:Powerline_symbols = 'fancy'
 " }}}
 
 " memolist.vim {{{
@@ -1322,14 +1314,11 @@ let g:scratchSplitOption =
 " }}}
 
 " vim-anzu {{{
-  " nmap n <Plug>(anzu-n)
-  " nmap N <Plug>(anzu-N)
-  " nmap * <Plug>(anzu-star)
-  " nmap # <Plug>(anzu-sharp)
-  " set statusline=%{anzu#search_status()}
-
-
-  " call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
+" nmap n <Plug>(anzu-n-with-echo)
+" nmap N <Plug>(anzu-N-with-echo)
+" nmap * <Plug>(anzu-star-with-echo)
+" nmap # <Plug>(anzu-sharp-with-echo)
+" set statusline=%{anzu#search_status()}
 " }}}
 
 " yanktmp.vim {{{
@@ -1358,7 +1347,35 @@ nnoremap th :<C-u>BreezeHlElementBlock<CR>
 
 " }}}
 
+" lightline {{{ 
+let g:lightline = {
+      \ 'component': {
+      \   'lineinfo': ' %3l:%-2v',
+      \ },
+      \ 'component_function': {
+      \   'readonly': 'MyReadonly',
+      \   'fugitive': 'MyFugitive'
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
+function! MyReadonly()
+  return &readonly ? '' : ''
+endfunction
+function! MyFugitive()
+  return exists("*fugitive#head") && strlen(fugitive#head()) ? ''.fugitive#head() : ''
+endfunction
+
+" }}}
+
 " let g:tern_show_argument_hints = 'on_hold'
+
+" gitgutter {{{
+nmap gj <Plug>GitGutterNextHunk
+nmap gk <Plug>GitGutterPrevHunk
+nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
+nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
+" }}}
 
 " }}}
 
