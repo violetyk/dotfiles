@@ -17,7 +17,7 @@ CONFIGS=()
 if [ `uname` = "Linux" ]; then
   # pathは/etc/profile.d/に追加することにした
 
-  alias ls='ls'
+  alias ls='ls --color'
 
 
 elif [ `uname` = "Darwin" ]; then
