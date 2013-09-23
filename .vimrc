@@ -51,7 +51,6 @@ NeoBundle 'mattn/gist-vim'
 NeoBundle 'violetyk/scratch-utility'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundleLazy 'motemen/hatena-vim'
 NeoBundleLazy 'kana/vim-smartchr'
 NeoBundleLazy 'kana/vim-smartinput'
 NeoBundle 'akiyan/vim-textobj-php'
@@ -59,7 +58,7 @@ NeoBundle 'akiyan/vim-textobj-xml-attribute'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'tomtom/checksyntax_vim'
 " NeoBundle 'tomtom/quickfixsigns_vim'
-" NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'glidenote/nogistub.vim'
 NeoBundle 'vim-scripts/Modeliner'
@@ -68,11 +67,11 @@ NeoBundle 'rking/ag.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'osyo-manga/vim-precious'
-" NeoBundle 'osyo-manga/vim-anzu'
+NeoBundle 'osyo-manga/vim-anzu'
 " NeoBundle 'gcmt/breeze.vim'
 " NeoBundle 'marijnh/tern_for_vim'
 
-NeoBundle 'shawncplus/phpcomplete.vim'
+" NeoBundle 'shawncplus/phpcomplete.vim'
 
 " }}}
 " game {{{
@@ -93,13 +92,13 @@ NeoBundle 'thinca/vim-editvar',        { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'ujihisa/unite-launch',      { 'depends' : 'Shougo/unite.vim' }
 " }}}
 " statusline, colorscheme {{{
-" NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'itchyny/lightline.vim'
 
 NeoBundle 'mrkn256.vim'
 NeoBundleLazy 'chriskempson/tomorrow-theme', {
       \ 'rtp': "~/.vim/bundle/tomorrow-theme/vim/",
       \ }
-NeoBundleLazy 'nanotech/jellybeans.vim'
+NeoBundle 'nanotech/jellybeans.vim'
 NeoBundleLazy 'w0ng/vim-hybrid'
 NeoBundleLazy 'desert.vim'
 NeoBundleLazy 'desert256.vim'
@@ -164,7 +163,7 @@ set splitright
 set completeopt-=preview
 
 " 正規表現エンジンの設定
-set regexpengine=1
+set regexpengine=0
 " }}}
 
 " 文字コードの設定 {{{
@@ -312,7 +311,7 @@ else
 endif
 " }}}
 
-" 表示色の設定 {{{
+" ハイライトの設定 {{{
 
 " 色のチェック方法
 " :so $VIMRUNTIME/syntax/colortest.vim
@@ -324,52 +323,11 @@ endif
 highlight link ZenkakuSpace Error
 autocmd BufRead,BufNew * match ZenkakuSpace /　/
 
-" ステータスラインの色 ctermfgがバックの色で、ctermbgがフロントの文字色
-" highlight StatusLine term=NONE cterm=NONE ctermfg=black ctermbg=white
-" highlight StatusLine term=reverse cterm=reverse ctermfg=blue ctermbg=white
-
-" 入力モードの時にステータスラインの色を変える。
-let g:hi_insert = 'highlight StatusLine guifg=LightGrey guibg=darkblue gui=none ctermfg=white ctermbg=blue cterm=none'
-
-if has('syntax')
-augroup InsertHook
-  autocmd!
-  autocmd InsertEnter * call s:StatusLine('Enter')
-  autocmd InsertLeave * call s:StatusLine('Leave')
-augroup END
-endif
-
-let s:slhlcmd = ''
-function! s:StatusLine(mode)
-  if a:mode == 'Enter'
-    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-    silent exec g:hi_insert
-  else
-    highlight clear StatusLine
-    silent exec s:slhlcmd
-  endif
-endfunction
-
-function! s:GetHighlight(hi)
-  redir => hl
-  exec 'highlight '.a:hi
-  redir END
-  let hl = substitute(hl, '[\r\n]', '', 'g')
-  let hl = substitute(hl, 'xxx', '', '')
-  return hl
-endfunction
-
-" カーソルラインのハイライト。reverseで反転表示。
-" highlight CursorLine term=reverse cterm=reverse
-
-" カーソル列のハイライト。reverseで反転表示。
-" highlight CursorColumn term=reverse cterm=reverse
-
 " }}}
 
 " 検索・補完の設定 {{{
 
-" コマンド、検索パターンを100個まで履歴に残す
+" コマンド、検索パターンをn個まで履歴に残す
 set history=100
 
 " 検索の時に大文字小文字を区別しない
@@ -381,7 +339,7 @@ set smartcase
 " 最後altercation / solarized まで検索したら先頭に戻る
 set wrapscan
 
-" インクリメンタルサーチを使わない
+" インクリメンタルサーチの使用
 "set noincsearch
 set incsearch
 
@@ -551,27 +509,42 @@ augroup END
 " コマンド {{{
 
 " 戦闘力を計測
-function! Scouter(file, ...)
+function! s:scouter(file, ...) " {{{
   let pat = '^\s*$\|^\s*"'
   let lines = readfile(a:file)
   if !a:0 || !a:1
     let lines = split(substitute(join(lines, "\n"), '\n\s*\\', '', 'g'), "\n")
   endif
   return len(filter(lines,'v:val !~ pat'))
-endfunction
-command! -bar -bang -nargs=? -complete=file Scouter
-      \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
+endfunction " }}}
+command! -bar -bang -nargs=? -complete=file Scouter echo <SID>scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
 
 " cdpathからcdする
 command! -complete=customlist,CompleteCD -nargs=? CD cd <args>
-function! CompleteCD(arglead, cmdline, cursorpos)
+function! CompleteCD(arglead, cmdline, cursorpos) " {{{
   let pattern = join(split(a:cmdline, '\s', !0)[1:], '') . '*/'
   return split(globpath(&cdpath, pattern), "\n")
-endfunction
+endfunction " }}}
+
 " コマンドラインの時だけcdをCDとして略語展開
 cnoreabbrev <expr> cd
       \ (getcmdtype() == ':' && getcmdline() ==# 'cd') ? 'CD' : 'cd'
 
+
+" ファイル名やパスなどのヤンク
+function! s:yank_file_name() "{{{
+  let @" = expand("%:t")
+endfunction "}}}
+command! -nargs=0 Yankfilename call s:yank_file_name() | echo printf('yank: %s', @")
+function! s:yank_file_path() "{{{
+  let @" = expand("%:p")
+endfunction "}}}
+command! -nargs=0 Yankfilepath call s:yank_file_path() | echo printf('yank: %s', @")
+
+" 行末の文字が引数の1文字かどうか
+function! s:is_endof_line(char) " {{{
+  return getline(".")[col("$")-2] == a:char
+endfunction " }}}
 
 " }}}
 
@@ -651,7 +624,6 @@ nnoremap <C-y> 10<C-y>
 " 検索操作 {{{
 
 " ハイライトを消す。
-" noremap <silent> <Esc><Esc> :<C-u>set nohlsearch<Return>:<C-u>AnzuClearSearchStatus<Return>
 noremap <silent> <Esc><Esc> :<C-u>set nohlsearch<Return>
 
 " 新しく別の単語を検索するときだけハイライトして、nやNでの移動はハイライトしたくない
@@ -670,7 +642,6 @@ cnoremap <expr>/ getcmdtype() == '/' ? '\/' : '/'
 " }}}
 
 " 編集操作 {{{
-
 
 " ～まで、を少し便利にする。
 onoremap ) t)
@@ -693,39 +664,14 @@ nnoremap <expr> s* ':%substitute/\<' . expand('<cword>') . '\>/'
 nnoremap <Space>m :<C-u>marks<Space>
 nnoremap <Space>r :<C-u>registers<Space>
 
-
-function! IsEndOfLine(char)
-  let c = getline(".")[col("$")-2]
-  if c != a:char
-    return 1
-  else
-    return 0
-  endif
-endfunction
 " 行末に;を追加する。
-" inoremap <expr>;; IsEndOfLine() ? "<C-O>$;<CR>" : "<C-O>$<CR>"
-inoremap <expr>;; IsEndOfLine(";") ? "<C-O>$;" : "<C-O>$"
-nnoremap <expr>;; IsEndOfLine(";") ? "$a;<Esc>" : "$"
+inoremap <expr>;; <SID>is_endof_line(";") ? "<C-O>$" : "<C-O>$;"
+nnoremap <expr>;; <SID>is_endof_line(";") ? "$" : "$a;<Esc>"
+
 " 行末に,を追加する。
-inoremap <expr>,, IsEndOfLine(",") ? "<C-O>$," : "<C-O>$"
-nnoremap <expr>,, IsEndOfLine(",") ? "$a,<Esc>" : "$"
+inoremap <expr>,, <SID>is_endof_line(";") ? "<C-O>$" : "<C-O>$,"
+nnoremap <expr>,, <SID>is_endof_line(";") ? "$" : "$a,<Esc>"
 
-" vimスクリプト開発用に即バッファをsource。
-" nnoremap <Leader>so :<C-u>source %<CR>
-
-" ev / eg ですぐに.vimrcを開けるようにする。rv / rg で反映させる。
-if has('gui_running')
-  nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
-  nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
-else
-  nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
-  nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
-endif
-
-" カレントバッファのファイル名をヤンク
-nnoremap <silent> <Leader>yf :<C-u>let @" = expand("%:t")<CR>:echo "yank: ". @"<CR>
-" カレントバッファのフルパスをヤンク
-nnoremap <silent> <Leader>yp :<C-u>let @" = expand("%:p")<CR>:echo "yank: ". @"<CR>
 
 " 最後に編集したテキストを選択。
 nnoremap gc `[v`]
@@ -748,6 +694,15 @@ map! <Nul> <C-Space>
 " ヘルプを引きやすくする
 nnoremap <C-h> :<C-u>help<Space>
 nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
+
+" ev / eg ですぐに.vimrcを開けるようにする。rv / rg で反映させる。
+if has('gui_running')
+  nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
+  nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
+else
+  nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
+  nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
+endif
 
 " }}}
 
@@ -931,7 +886,8 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+" autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+autocmd FileType php setlocal omnifunc=
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -1034,7 +990,7 @@ nnoremap [unite]j   :<C-u>Unite buffer file_mru bookmark -start-insert<CR>
 " nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
 nnoremap [unite]l   :<C-u>Unite line -start-insert<CR>
 nnoremap [unite]L   :<C-u>UniteWithCursorWord line -start-insert -auto-preview<CR>
-nnoremap [unite]m   :<C-u>Unite -start-insert file:<C-r>=g:memolist_path."/"<CR><CR>
+" nnoremap [unite]m   :<C-u>Unite -start-insert file:<C-r>=g:memolist_path."/"<CR><CR>
 " nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
 nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=45 -no-quit<CR>
 " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
@@ -1175,9 +1131,6 @@ let g:gist_put_url_to_clipboard_after_post = 1
 
 " }}}
 
-" hatena.vim {{{
-let g:hatena_user = 'yuhei_kagaya'
-" }}}
 
 " PDV--phpDocumentor-for-Vim {{{
 
@@ -1199,6 +1152,10 @@ let g:memolist_prompt_tags = 1
 " let g:memolist_prompt_categories = 1
 let g:memolist_filename_prefix_none = 1
 let g:memolist_template_dir_path = '~/dotfiles/memotemplates'
+let g:memolist_unite = 1
+let g:memolist_unite_option = "-start-insert -auto-preview"
+let g:memolist_unite_source = "file_rec"
+let g:memolist_filename_prefix_none = 1
 
 " Function: s:MemoRemove() メモをゴミ箱に入れる。 {{{
 function! s:MemoRemove()
@@ -1244,13 +1201,15 @@ let g:Modeliner_format='ft= et ff= fenc= sts= sw= ts='
 " }}}
 
 " Fugitive {{{
-nnoremap <Space>gd :<C-u>Gdiff<Enter>
-nnoremap <Space>gs :<C-u>Gstatus<Enter>
-nnoremap <Space>gl :<C-u>Glog<Enter>
-nnoremap <Space>ga :<C-u>Gwrite<Enter>
-nnoremap <Space>gc :<C-u>Gcommit<Enter>
-nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
-nnoremap <Space>gb :<C-u>Gblame<Enter>
+
+" nnoremap <Space>gd :<C-u>Gdiff<Enter>
+" nnoremap <Space>gs :<C-u>Gstatus<Enter>
+" nnoremap <Space>gl :<C-u>Glog<Enter>
+" nnoremap <Space>ga :<C-u>Gwrite<Enter>
+" nnoremap <Space>gc :<C-u>Gcommit<Enter>
+" nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
+" nnoremap <Space>gb :<C-u>Gblame<Enter>
+
 " }}}
 
 " dbext.vim {{{
@@ -1314,11 +1273,15 @@ let g:scratchSplitOption =
 " }}}
 
 " vim-anzu {{{
-" nmap n <Plug>(anzu-n-with-echo)
-" nmap N <Plug>(anzu-N-with-echo)
-" nmap * <Plug>(anzu-star-with-echo)
-" nmap # <Plug>(anzu-sharp-with-echo)
-" set statusline=%{anzu#search_status()}
+nmap n <Plug>(anzu-n)
+nmap N <Plug>(anzu-N)
+nmap * <Plug>(anzu-star)
+nmap # <Plug>(anzu-sharp)
+augroup vim-anzu
+  autocmd!
+  autocmd CursorHold,CursorHoldI,WinLeave,TabLeave * call anzu#clear_search_status()
+augroup END
+
 " }}}
 
 " yanktmp.vim {{{
@@ -1343,34 +1306,93 @@ let g:precious_enable_switchers = {
 let g:breeze_highlight_filename_patterns = '*.ctp,*.html,*.htm,*.xhtml,*.xml'
 let g:breeze_highlight_tag = 1
 let g:breeze_hl_color = 'ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black '
-nnoremap th :<C-u>BreezeHlElementBlock<CR>
+" nnoremap th :<C-u>BreezeHlElementBlock<CR>
 
 " }}}
 
 " lightline {{{ 
 let g:lightline = {
+      \ 'colorscheme': 'powerline',
+      \ 'mode_map': {'c': 'NORMAL'},
+      \ 'active': {
+      \   'left': [ ['mode', 'paste'], ['fugitive', 'filename', 'cakephp', 'currenttag', 'anzu'] ]
+      \ },
       \ 'component': {
       \   'lineinfo': ' %3l:%-2v',
       \ },
       \ 'component_function': {
+      \   'modified': 'MyModified',
       \   'readonly': 'MyReadonly',
-      \   'fugitive': 'MyFugitive'
-      \ },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' }
+      \   'fugitive': 'MyFugitive',
+      \   'filename': 'MyFilename',
+      \   'fileformat': 'MyFileformat',
+      \   'filetype': 'MyFiletype',
+      \   'fileencoding': 'MyFileencoding',
+      \   'mode': 'MyMode',
+      \   'anzu': 'anzu#search_status',
+      \   'currenttag': 'MyCurrentTag',
+      \   'cakephp': 'MyCakephp',
       \ }
-function! MyReadonly()
-  return &readonly ? '' : ''
-endfunction
-function! MyFugitive()
-  return exists("*fugitive#head") && strlen(fugitive#head()) ? ''.fugitive#head() : ''
+      \ }
+
+
+function! MyModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
+function! MyReadonly()
+  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? ' ' : ''
+endfunction
+
+function! MyFilename()
+  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyFugitive()
+  try
+    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
+      return ' ' . fugitive#head()
+    endif
+  catch
+  endtry
+  return ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! MyFileencoding()
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! MyMode()
+  return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! MyCurrentTag()
+  return tagbar#currenttag('%s', '')
+endfunction
+
+function! MyCakephp()
+  return exists('*cake#buffer') ? cake#buffer('type') : ''
+endfunction
 " }}}
 
 " let g:tern_show_argument_hints = 'on_hold'
 
 " gitgutter {{{
+let g:gitgutter_enabled = 0
+let g:gitgutter_realtime = 0
 nmap gj <Plug>GitGutterNextHunk
 nmap gk <Plug>GitGutterPrevHunk
 nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
