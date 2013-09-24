@@ -587,6 +587,9 @@ nnoremap <silent>bl :bl<CR>
 nnoremap <silent>bb :b#<CR>
 nnoremap <silent>bm :bm<CR>
 nnoremap <silent>bd :bdelete<CR>
+nnoremap <silent>bs :split #<CR>
+nnoremap <silent>bv :vsplit #<CR>
+nnoremap <silent>bt :tabedit #<CR>
 
 " 分割幅を広く
 map <PageUp> 3<C-w>+
