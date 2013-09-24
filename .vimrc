@@ -1273,10 +1273,10 @@ let g:scratchSplitOption =
 " }}}
 
 " vim-anzu {{{
-nmap n <Plug>(anzu-n)
-nmap N <Plug>(anzu-N)
-nmap * <Plug>(anzu-star)
-nmap # <Plug>(anzu-sharp)
+nmap n <Plug>(anzu-n)zv
+nmap N <Plug>(anzu-N)zv
+nmap * <Plug>(anzu-star)zv
+nmap # <Plug>(anzu-sharp)zv
 augroup vim-anzu
   autocmd!
   autocmd CursorHold,CursorHoldI,WinLeave,TabLeave * call anzu#clear_search_status()
