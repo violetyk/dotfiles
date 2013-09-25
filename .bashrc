@@ -25,8 +25,8 @@ elif [ `uname` = "Darwin" ]; then
 
   alias ls='gls --color'
 
-  CONFIGS=(${CONFIGS[@]} '/usr/local/git/contrib/completion/git-prompt.sh')
-  CONFIGS=(${CONFIGS[@]} '/usr/local/git/contrib/completion/git-completion.bash')
+  # CONFIGS=(${CONFIGS[@]} '/usr/local/git/contrib/completion/git-prompt.sh')
+  # CONFIGS=(${CONFIGS[@]} '/usr/local/git/contrib/completion/git-completion.bash')
 fi
 
 export PATH
