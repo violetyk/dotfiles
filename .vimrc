@@ -13,6 +13,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 
 " パスを通さないけどNeoBundleで管理する
 NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundleFetch 'erikw/tmux-powerline'
+NeoBundleFetch 'seebi/dircolors-solarized'
 
 " help {{{
 NeoBundle 'vim-jp/vimdoc-ja'

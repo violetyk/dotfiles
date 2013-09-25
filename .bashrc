@@ -51,6 +51,21 @@ if [ -f ~/.dircolors ]; then
 fi
 
 
+if [ -d ~/etc/profile.d ]; then
+  for i in ~/etc/profile.d/*.{sh,bash}; do
+    if [ -r "$i" ]; then
+      if [ "$PS1" ]; then
+        . "$i"
+      else
+        . "$i" >/dev/null 2>&1
+      fi
+    fi
+  done
+
+  unset i
+fi
+
+
 ### bashのモード
 # set -o vi
 # set -o emacs
