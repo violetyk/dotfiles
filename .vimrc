@@ -13,6 +13,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 
 " パスを通さないけどNeoBundleで管理する
 NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundleFetch 'erikw/tmux-powerline'
+NeoBundleFetch 'seebi/dircolors-solarized'
 
 " help {{{
 NeoBundle 'vim-jp/vimdoc-ja'
@@ -587,6 +589,9 @@ nnoremap <silent>bl :bl<CR>
 nnoremap <silent>bb :b#<CR>
 nnoremap <silent>bm :bm<CR>
 nnoremap <silent>bd :bdelete<CR>
+nnoremap <silent>bs :split #<CR>
+nnoremap <silent>bv :vsplit #<CR>
+nnoremap <silent>bt :tabedit #<CR>
 
 " 分割幅を広く
 map <PageUp> 3<C-w>+
@@ -1273,10 +1278,10 @@ let g:scratchSplitOption =
 " }}}
 
 " vim-anzu {{{
-nmap n <Plug>(anzu-n)
-nmap N <Plug>(anzu-N)
-nmap * <Plug>(anzu-star)
-nmap # <Plug>(anzu-sharp)
+nmap n <Plug>(anzu-n)zv
+nmap N <Plug>(anzu-N)zv
+nmap * <Plug>(anzu-star)zv
+nmap # <Plug>(anzu-sharp)zv
 augroup vim-anzu
   autocmd!
   autocmd CursorHold,CursorHoldI,WinLeave,TabLeave * call anzu#clear_search_status()

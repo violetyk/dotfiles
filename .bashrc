@@ -25,8 +25,8 @@ elif [ `uname` = "Darwin" ]; then
 
   alias ls='gls --color'
 
-  CONFIGS=(${CONFIGS[@]} '/usr/local/git/contrib/completion/git-prompt.sh')
-  CONFIGS=(${CONFIGS[@]} '/usr/local/git/contrib/completion/git-completion.bash')
+  # CONFIGS=(${CONFIGS[@]} '/usr/local/git/contrib/completion/git-prompt.sh')
+  # CONFIGS=(${CONFIGS[@]} '/usr/local/git/contrib/completion/git-completion.bash')
 fi
 
 export PATH
@@ -48,6 +48,21 @@ if [ -f ~/.dircolors ]; then
   elif type gdircolors > /dev/null 2>&1; then
     eval $(gdircolors ~/.dircolors)
   fi
+fi
+
+
+if [ -d ~/etc/profile.d ]; then
+  for i in ~/etc/profile.d/*.{sh,bash}; do
+    if [ -r "$i" ]; then
+      if [ "$PS1" ]; then
+        . "$i"
+      else
+        . "$i" >/dev/null 2>&1
+      fi
+    fi
+  done
+
+  unset i
 fi
 
 
