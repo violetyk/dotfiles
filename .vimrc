@@ -33,6 +33,7 @@ NeoBundle 'Shougo/vimproc', {
       \}
 NeoBundle 'kana/vim-gf-user'
 NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'vim-jp/vital.vim'
 " }}}
 " utility {{{
 NeoBundle 'vim-scripts/matchit.zip'
@@ -42,6 +43,7 @@ NeoBundle 'vim-scripts/SQLUtilities'
 NeoBundle 'vim-scripts/Align'
 NeoBundle 'vim-scripts/yanktmp.vim'
 NeoBundle 'majutsushi/tagbar'
+NeoBundle 'techlivezheng/vim-plugin-tagbar-phpctags'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'thinca/vim-ref'
@@ -70,6 +72,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'osyo-manga/vim-precious'
 NeoBundle 'osyo-manga/vim-anzu'
+NeoBundle 'sgur/vim-gf-autoload'
 " NeoBundle 'gcmt/breeze.vim'
 " NeoBundle 'marijnh/tern_for_vim'
 
@@ -1403,6 +1406,9 @@ nmap gk <Plug>GitGutterPrevHunk
 nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
 " }}}
+
+let g:tagbar_phpctags_bin = $HOME . '/bin/phpctags.phar'
+let g:tagbar_phpctags_memory_limit = '512M'
 
 " }}}
 
