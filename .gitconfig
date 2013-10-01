@@ -29,3 +29,6 @@
 
 [merge]
   tool = /usr/local/vim-7.4/bin/vimdiff
+[push]
+  # default = matching
+  # default = simple

@@ -88,7 +88,6 @@ alias vmstat='vmstat -S M'
 alias mysql="EDITOR=\"/usr/local/vim-7.4/bin/vim -c ':set ft=sql'\" mysql --auto-rehash"
 # alias mysql="EDITOR=\"/usr/local/vim-7.3/bin/vim -c ':set ft=sql'\" mysql --auto-rehash --pager='less -S'"
 
-### SVN
 # svn に登録されていないファイルをまとめて svn add
 alias svnadd="svn st | grep '^\?' | sed -e 's/\?[ ]*/svn add /g' | sh" 
 # ignoreも含めてstatus確認。
@@ -97,9 +96,11 @@ alias svnst="svn st --no-ignore"
 alias svnpl="svn proplist -Rv"
 
 ### Git
-# gitのブランチの情報をプロンプトに表示させておく
-# export PS1="[\u@\h \W]\$(__git_ps1) \$ "
-export PS1='[\u@\h \W$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")]\$ '
+if [ -n "$SUDO_USER" ]; then
+  export PS1='[\u@\h \W]# '
+else
+  export PS1='[\u@\h \W$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")]\$ '
+fi
 
 # SSH
 _ssh() {
@@ -109,6 +110,16 @@ _ssh() {
   rm -f "$tmp"
 }
 alias ssh='_ssh'
+
+tssh() {
+  if [ $# -eq 1 ]; then
+    tmp=$(mktemp XXXXXX)
+    cat ~/dotfiles/.sshconfig ~/.ssh/config > "$tmp" 2>/dev/null
+    ssh_cmd=$(printf '/usr/bin/ssh -t -F %s %s' "$tmp" "$@")
+    tmux new-window -n $1 "$ssh_cmd"
+    rm -f "$tmp"
+  fi
+}
 
 ### function
 # mkdir + cd
