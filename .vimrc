@@ -26,7 +26,6 @@ NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
-      \   'sygwin' : 'make -f make_cygwin.mak',
       \   'mac' : 'make -f make_mac.mak',
       \   'unix' : 'make -f make_unix.mak',
       \ },
@@ -43,7 +42,12 @@ NeoBundle 'vim-scripts/SQLUtilities'
 NeoBundle 'vim-scripts/Align'
 NeoBundle 'vim-scripts/yanktmp.vim'
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'techlivezheng/vim-plugin-tagbar-phpctags'
+NeoBundle 'techlivezheng/vim-plugin-tagbar-phpctags', {
+      \ 'build' : {
+      \   'mac' : 'make',
+      \   'unix' : 'make',
+      \ },
+      \}
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'thinca/vim-ref'
@@ -119,6 +123,8 @@ NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'tpope/vim-markdown'
+NeoBundle 'elzr/vim-json'
+
 " }}}
 " indent {{{
 NeoBundle 'pangloss/vim-javascript'
@@ -550,6 +556,17 @@ command! -nargs=0 Yankfilepath call s:yank_file_path() | echo printf('yank: %s',
 function! s:is_endof_line(char) " {{{
   return getline(".")[col("$")-2] == a:char
 endfunction " }}}
+
+
+command! -nargs=? Jq call s:Jq(<f-args>)
+function! s:Jq(...)
+    if 0 == a:0
+        let l:arg = "."
+    else
+        let l:arg = a:1
+    endif
+    execute "%! jq \"" . l:arg . "\""
+endfunction
 
 " }}}
 
@@ -1407,8 +1424,14 @@ nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
 " }}}
 
-let g:tagbar_phpctags_bin = $HOME . '/bin/phpctags.phar'
+" tagbar-phpctags {{{
+let g:tagbar_phpctags_bin = $HOME . '/dotfiles/.vim/bundle/vim-plugin-tagbar-phpctags/bin/phpctags'
 let g:tagbar_phpctags_memory_limit = '512M'
+" }}}
+
+" vim-json {{{
+let g:vim_json_syntax_conceal = 0
+" }}}
 
 " }}}
 
