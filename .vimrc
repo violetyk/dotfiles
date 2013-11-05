@@ -32,15 +32,32 @@ NeoBundle 'Shougo/vimproc', {
       \}
 NeoBundle 'kana/vim-gf-user'
 NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-metarw'
+NeoBundle 'mattn/webapi-vim'
 NeoBundle 'vim-jp/vital.vim'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-localrc'
 " }}}
-" utility {{{
+" editing {{{
 NeoBundle 'vim-scripts/matchit.zip'
-NeoBundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
-NeoBundle 'vim-scripts/dbext.vim'
-NeoBundle 'vim-scripts/SQLUtilities'
 NeoBundle 'vim-scripts/Align'
 NeoBundle 'vim-scripts/yanktmp.vim'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'vim-scripts/Modeliner'
+NeoBundleLazy 'kana/vim-smartchr'
+NeoBundleLazy 'kana/vim-smartinput'
+" }}}
+" textobj {{{
+NeoBundle 'akiyan/vim-textobj-php'
+NeoBundle 'akiyan/vim-textobj-xml-attribute'
+" }}}
+" filer {{{
+NeoBundle 'scrooloose/nerdtree'
+" }}}
+" outliner {{{
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'techlivezheng/vim-plugin-tagbar-phpctags', {
       \ 'build' : {
@@ -48,48 +65,39 @@ NeoBundle 'techlivezheng/vim-plugin-tagbar-phpctags', {
       \   'unix' : 'make',
       \ },
       \}
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-localrc'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'mattn/gist-vim'
-NeoBundle 'violetyk/scratch-utility'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundleLazy 'kana/vim-smartchr'
-NeoBundleLazy 'kana/vim-smartinput'
-NeoBundle 'akiyan/vim-textobj-php'
-NeoBundle 'akiyan/vim-textobj-xml-attribute'
+
+" }}}
+" database {{{
+NeoBundle 'vim-scripts/dbext.vim'
+NeoBundle 'vim-scripts/SQLUtilities'
+" }}}
+" navigation {{{
 NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'tomtom/checksyntax_vim'
-" NeoBundle 'tomtom/quickfixsigns_vim'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'glidenote/memolist.vim'
-NeoBundle 'glidenote/nogistub.vim'
-NeoBundle 'vim-scripts/Modeliner'
-NeoBundle 'joonty/vdebug'
-NeoBundle 'rking/ag.vim'
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'Shougo/context_filetype.vim'
-NeoBundle 'osyo-manga/vim-precious'
-NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'sgur/vim-gf-autoload'
-" NeoBundle 'gcmt/breeze.vim'
-" NeoBundle 'marijnh/tern_for_vim'
-
-" NeoBundle 'shawncplus/phpcomplete.vim'
-
 " }}}
-" game {{{
-NeoBundle 'mattn/habatobi-vim'
+" sign {{{
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'airblade/vim-gitgutter'
+" NeoBundle 'tomtom/quickfixsigns_vim'
 " }}}
-" framework {{{
+" search {{{
+NeoBundle 'osyo-manga/vim-anzu'
+NeoBundle 'rking/ag.vim'
+" }}}
+" vcs {{{
+NeoBundle 'tpope/vim-fugitive'
+" }}}
+" php {{{
+NeoBundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
+NeoBundle 'joonty/vdebug'
+" }}}
+" ruby {{{
 NeoBundleLazy 'tpope/vim-rails'
-" NeoBundle 'violetyk/cake.vim'
-" NeoBundle 'git@github.com:nanapi/nanapi.vim.git'
+" }}}
+" syntax check {{{
+" NeoBundle 'tomtom/checksyntax_vim'
+NeoBundle 'scrooloose/syntastic'
+" NeoBundle 'errormarker.vim'
 " }}}
 " unite source {{{
 NeoBundle 'unite-colorscheme',         { 'depends' : 'Shougo/unite.vim' }
@@ -116,6 +124,8 @@ NeoBundleLazy 'Zenburn'
 NeoBundleLazy 'altercation/vim-colors-solarized'
 " }}}
 " syntax {{{
+NeoBundle 'Shougo/context_filetype.vim'
+NeoBundle 'osyo-manga/vim-precious'
 " NeoBundle 'php.vim--Garvin'
 NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'jQuery'
@@ -124,10 +134,35 @@ NeoBundle 'othree/html5.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'elzr/vim-json'
-
 " }}}
 " indent {{{
 NeoBundle 'pangloss/vim-javascript'
+" }}}
+" service {{{
+NeoBundle 'mattn/gist-vim'
+NeoBundle 'glidenote/nogistub.vim'
+" }}}
+" memo {{{
+NeoBundle 'glidenote/memolist.vim'
+" }}}
+" game {{{
+NeoBundle 'mattn/habatobi-vim'
+" }}}
+
+" NeoBundle 'gcmt/breeze.vim'
+" NeoBundle 'marijnh/tern_for_vim'
+" NeoBundle 'shawncplus/phpcomplete.vim'
+
+" :NeoBundleUpdate!でも更新しない
+command! -nargs=1 MyNeoBundle NeoBundle <args>, 
+      \ {
+      \   'base' : $HOME . '/works/',
+      \   'type' : 'nosync', 
+      \ }
+
+MyNeoBundle 'violetyk/cake.vim'
+MyNeoBundle 'violetyk/scratch-utility'
+MyNeoBundle 'git@github.com:nanapi/nanapi.vim.git'
 " }}}
 
 filetype plugin indent on
@@ -1156,7 +1191,6 @@ let g:gist_put_url_to_clipboard_after_post = 1
 
 " }}}
 
-
 " PDV--phpDocumentor-for-Vim {{{
 
 inoremap <Leader>d <ESC>:call PhpDocSingle()<CR>i
@@ -1178,7 +1212,7 @@ let g:memolist_prompt_tags = 1
 let g:memolist_filename_prefix_none = 1
 let g:memolist_template_dir_path = '~/dotfiles/memotemplates'
 let g:memolist_unite = 1
-let g:memolist_unite_option = "-start-insert -auto-preview"
+let g:memolist_unite_option = "-start-insert -vertical"
 let g:memolist_unite_source = "file_rec"
 let g:memolist_filename_prefix_none = 1
 
@@ -1424,6 +1458,10 @@ nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
 " }}}
 
+" tagbar {{{
+let g:tagbar_ctags_bin = '/usr/local/ctags/bin/ctags'
+" }}}
+
 " tagbar-phpctags {{{
 let g:tagbar_phpctags_bin = $HOME . '/dotfiles/.vim/bundle/vim-plugin-tagbar-phpctags/bin/phpctags'
 let g:tagbar_phpctags_memory_limit = '512M'
@@ -1433,6 +1471,16 @@ let g:tagbar_phpctags_memory_limit = '512M'
 let g:vim_json_syntax_conceal = 0
 " }}}
 
+" syntastic {{{
+let g:syntastic_mode_map = {
+      \ 'map' : 'active',
+      \ 'active_filetypes' : ['php', 'javascript'],
+      \ 'passive_filetypes' : [],
+      \ }
+
+nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
+cabbrev <silent> bd lclose\|bdelete
+" }}}
 " }}}
 
 let g:unite_launch_apps = [
