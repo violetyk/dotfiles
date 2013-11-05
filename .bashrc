@@ -52,7 +52,8 @@ fi
 
 
 if [ -d ~/etc/profile.d ]; then
-  for i in ~/etc/profile.d/*.{sh,bash}; do
+  # for i in ~/etc/profile.d/*.{sh,bash}; do
+  for i in ~/etc/profile.d/*; do
     if [ -r "$i" ]; then
       if [ "$PS1" ]; then
         . "$i"
