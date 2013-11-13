@@ -603,6 +603,25 @@ function! s:Jq(...)
     execute "%! jq \"" . l:arg . "\""
 endfunction
 
+function! s:Paste64Copy() range
+  let l:tmp = @@
+  silent normal gvy
+  let l:selected = @@
+  let b64 = webapi#base64#b64encode(l:selected)
+  if $TMUX != ""
+    let cmd = printf('printf "\x1bPtmux;\x1b\x1b]52;;%s\x1b\x1b\\\\\x1b\\" > /dev/tty', b64)
+  elseif $TERM == "screen"
+    let cmd = printf('printf "\x1bP\x1b]52;;%s\x07\x1b\\" > /dev/tty', b64)
+  else
+    let cmd = printf('printf "\x1b]52;;%s\x1b\\" > /dev/tty', b64)
+  endif
+  call system(cmd)
+  redraw!
+  let @@ = l:tmp
+endfunction
+
+command! -range Paste64Copy :call s:Paste64Copy()
+
 " }}}
 
 " keybindの設定 {{{
@@ -1488,4 +1507,3 @@ let g:unite_launch_apps = [
       \ ]
 
 let g:loaded_vimrc = 1
-
