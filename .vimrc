@@ -79,6 +79,7 @@ NeoBundle 'sgur/vim-gf-autoload'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'airblade/vim-gitgutter'
 " NeoBundle 'tomtom/quickfixsigns_vim'
+NeoBundle 'osyo-manga/vim-over'
 " }}}
 " search {{{
 NeoBundle 'osyo-manga/vim-anzu'
@@ -1157,6 +1158,8 @@ nnoremap <Space>cf :<C-u>Cfixture
 nnoremap <Space>cs :<C-u>Cshell
 nnoremap <Space>cd :<C-u>Cdesc
 nnoremap <Leader>t :<C-u>Ctestrunmethod<CR>
+
+
 
 " プロジェクト切り替えコマンド
 " let g:my_cakephp_projects = {
