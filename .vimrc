@@ -108,6 +108,7 @@ NeoBundle 'tacroe/unite-mark',         { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'zhaocai/unite-scriptnames', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'thinca/vim-editvar',        { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'ujihisa/unite-launch',      { 'depends' : 'Shougo/unite.vim' }
+NeoBundle 'osyo-manga/unite-qfixhowm', { 'depends' : 'Shougo/unite.vim' }
 " }}}
 " statusline, colorscheme {{{
 NeoBundle 'itchyny/lightline.vim'
@@ -144,7 +145,7 @@ NeoBundle 'mattn/gist-vim'
 NeoBundle 'glidenote/nogistub.vim'
 " }}}
 " memo {{{
-NeoBundle 'glidenote/memolist.vim'
+NeoBundle 'fuenor/qfixhowm'
 " }}}
 " game {{{
 NeoBundle 'mattn/habatobi-vim'
@@ -1070,11 +1071,11 @@ nnoremap [unite]j   :<C-u>Unite buffer file_mru bookmark -start-insert<CR>
 " nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
 nnoremap [unite]l   :<C-u>Unite line -start-insert<CR>
 nnoremap [unite]L   :<C-u>UniteWithCursorWord line -start-insert -auto-preview<CR>
-" nnoremap [unite]m   :<C-u>Unite -start-insert file:<C-r>=g:memolist_path."/"<CR><CR>
 " nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
 nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=45 -no-quit<CR>
 " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
 nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
+nnoremap [unite]q   :<C-u>Unite qfixhowm:nocache<CR>
 nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
 nnoremap [unite].   :<C-u>UniteResume<CR>
 " nnoremap [unite]s   :<C-u>Unite history/search<CR>
@@ -1223,56 +1224,6 @@ vnoremap <Leader>d :call PhpDocRange()<CR>
 
 " surround.vim {{{
 let g:surround_{char2nr("p")} = "<?php \r ?>"
-" }}}
-
-" memolist.vim {{{
-
-let g:memolist_memo_suffix = "md"
-let g:memolist_memo_date = "%Y-%m-%d %H:%M"
-let g:memolist_prompt_tags = 1
-" let g:memolist_prompt_categories = 1
-let g:memolist_filename_prefix_none = 1
-let g:memolist_template_dir_path = '~/dotfiles/memotemplates'
-let g:memolist_unite = 1
-let g:memolist_unite_option = "-start-insert -vertical"
-let g:memolist_unite_source = "file_rec"
-let g:memolist_filename_prefix_none = 1
-
-" Function: s:MemoRemove() メモをゴミ箱に入れる。 {{{
-function! s:MemoRemove()
-  let src        = g:memolist_path . '/' . expand("%:t")
-  let trash_path = g:memolist_path . '/../.trash'
-  let dest       = trash_path . '/' . expand("%:t") . '.del.' . strftime("%Y%m%d_%H%M")
-
-  let name = expand("%:t:r")
-
-  if !filereadable(src)
-    return 0
-  endif
-
-  let choice = confirm('Remove ' . name . " ?", "&Yes\n&No", 0)
-  if choice == 0
-    " Was interrupted. Using Esc or Ctrl-C.
-    return 0
-  elseif choice == 1
-    let result1 = system("mkdir -p " . trash_path)
-    let result2 = system("mv " . src . " " . dest)
-    if strlen(result1) != 0 && strlen(result2) != 0
-      echohl WarningMsg | redraw | echo 'Error!' | echohl None
-      return 0
-    else
-      execute "normal bd"
-      return 1
-    endif
-  endif
-
-  return 0
-endfunction "}}}
-
-nnoremap <Leader>mc :MemoNew<CR>
-nnoremap <Leader>mg :MemoGrep<CR>
-nnoremap <Leader>ml :MemoList<CR>
-nnoremap <silent> <Leader>md :call <SID>MemoRemove()<CR>
 " }}}
 
 " Modeliner {{{
@@ -1503,6 +1454,22 @@ let g:syntastic_mode_map = {
 nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
 cabbrev <silent> bd lclose\|bdelete
 " }}}
+
+" howm {{{
+let g:howm_fileencoding = 'utf-8'
+let g:howm_fileformat   = 'unix'
+let g:howm_dir          = $HOME . '/howm'
+let g:QFixHowm_key      = 'g'
+let g:QFixHowm_SaveTime = 2
+" }}}
+
+" unite-qfixhowm {{{
+" 更新日順で表示する場合
+call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', 'sorter_reverse'])
+" 新規作成時の開き方
+let g:unite_qfixhowm_new_memo_cmd = "tabnew"
+" }}}
+
 " }}}
 
 let g:unite_launch_apps = [
