@@ -594,8 +594,6 @@ function! s:is_endof_line(char) " {{{
   return getline(".")[col("$")-2] == a:char
 endfunction " }}}
 
-
-command! -nargs=? Jq call s:Jq(<f-args>)
 function! s:Jq(...)
     if 0 == a:0
         let l:arg = "."
@@ -604,8 +602,9 @@ function! s:Jq(...)
     endif
     execute "%! jq \"" . l:arg . "\""
 endfunction
+command! -nargs=? Jq call s:Jq(<f-args>)
 
-function! s:Paste64Copy() range
+function! s:Copy() range
   let l:tmp = @@
   silent normal gvy
   let l:selected = @@
@@ -621,8 +620,14 @@ function! s:Paste64Copy() range
   redraw!
   let @@ = l:tmp
 endfunction
+command! -range Copy :call s:Copy()
 
-command! -range Paste64Copy :call s:Paste64Copy()
+
+function! s:BashHistory()
+  let cmd = 'echo ''history'' | bash -i 2>/dev/null | sed -e ''s/.*\x07//g'' | awk ''{ $1=""; print $0}'''
+  silent exec ':r !' . cmd
+endfunction
+command! -nargs=0 BashHistory :call s:BashHistory()
 
 " }}}
 
