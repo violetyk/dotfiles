@@ -92,6 +92,9 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 NeoBundle 'joonty/vdebug'
 " }}}
+" coffee {{{
+NeoBundle 'kchmck/vim-coffee-script'
+" }}}
 " ruby {{{
 NeoBundleLazy 'tpope/vim-rails'
 " }}}
@@ -1473,6 +1476,14 @@ let g:QFixHowm_SaveTime = 2
 call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', 'sorter_reverse'])
 " 新規作成時の開き方
 let g:unite_qfixhowm_new_memo_cmd = "tabnew"
+" }}}
+
+" quickrun {{{
+let g:quickrun_config = {}
+let g:quickrun_config.coffee = {
+\ 'command': 'coffee',
+\ 'exec': ['%c -cbp %s']
+\ }
 " }}}
 
 " }}}
