@@ -8,6 +8,7 @@ curl -S -o ~/etc/profile.d/git-prompt.sh https://raw.github.com/git/git/master/c
 curl -S -o ~/etc/profile.d/git-completion.bash https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
 
 ln -sf ~/dotfiles/.bashrc ~/.bashrc
+ln -sf ~/dotfiles/.profile ~/.profile
 ln -sf ~/dotfiles/.vimrc ~/.vimrc
 ln -sf ~/dotfiles/.vim ~/.vim
 ln -sf ~/dotfiles/.ctags ~/.ctags
