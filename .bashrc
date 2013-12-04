@@ -22,11 +22,11 @@ export HISTSIZE=10000
 export HISTCONTROL=ignoreboth
 
 # 履歴に保存しないコマンドの指定
-export HISTIGNORE="jobs*:fg*:bg*:history*:cd*:ls*:ll*"
+export HISTIGNORE="jobs*:fg*:bg*:history*"
 
 
 ### PATH
-PATH=$PATH:/bin:/sbin:$HOME/bin
+PATH=$HOME/bin:$PATH:/bin:/sbin
 CONFIGS=()
 
 
@@ -52,11 +52,6 @@ for CONFIG in ${CONFIGS[@]}; do
     . ${CONFIG}
   fi
 done
-
-if [ -e /usr/local/vim-7.4 ]; then
-  alias vim='/usr/local/vim-7.4/bin/vim'
-  alias vimdiff='/usr/local/vim-7.4/bin/vimdiff'
-fi
 
 
 if [ -f ~/.dircolors ]; then

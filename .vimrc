@@ -167,6 +167,7 @@ command! -nargs=1 MyNeoBundle NeoBundle <args>,
 
 MyNeoBundle 'violetyk/cake.vim'
 MyNeoBundle 'violetyk/scratch-utility'
+MyNeoBundle 'violetyk/neosnippet-cakephp2'
 MyNeoBundle 'git@github.com:nanapi/nanapi.vim.git'
 " }}}
 
@@ -993,7 +994,11 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " }}}
 
 " neosnippet.vim {{{
-let g:neosnippet#snippets_directory = $HOME.'/.vim/snippets'
+let snippets_directory = [
+      \ $HOME.'/.vim/snippets',
+      \ $HOME.'/works/neosnippet-cakephp2',
+      \]
+let g:neosnippet#snippets_directory = join(snippets_directory, ',')
 
 nnoremap <silent> <Space>es  :<C-u>NeoSnippetEdit -split -vertical 
 nnoremap <silent> <Space>rs  :<C-u>NeoSnippetSource 
