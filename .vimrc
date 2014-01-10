@@ -56,6 +56,7 @@ NeoBundle 'akiyan/vim-textobj-xml-attribute'
 " }}}
 " filer {{{
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'Shougo/vimfiler'
 " }}}
 " outliner {{{
 NeoBundle 'majutsushi/tagbar'
@@ -72,7 +73,7 @@ NeoBundle 'vim-scripts/dbext.vim'
 NeoBundle 'vim-scripts/SQLUtilities'
 " }}}
 " navigation {{{
-NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundleLazy 'Lokaltog/vim-easymotion'
 NeoBundle 'sgur/vim-gf-autoload'
 " }}}
 " sign {{{
@@ -132,7 +133,7 @@ NeoBundleLazy 'altercation/vim-colors-solarized'
 NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'osyo-manga/vim-precious'
 " NeoBundle 'php.vim--Garvin'
-NeoBundle 'StanAngeloff/php.vim'
+" NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'jQuery'
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'othree/html5.vim'
@@ -810,25 +811,25 @@ let NERDSpaceDelims = 1
 " }}}
 
 " NERDTree {{{
+if neobundle#is_sourced('nerdtree')
+  " カラー表示するか
+  let NERDChristmasTree = 1
+  " 起動時に隠しファイルを表示するか（あとで切り替えられる）
+  let NERDTreeShowHidden = 0
+  " カーソル行を強調する場合1
+  let NERDTreeHighlightCursorline = 0
+  " NERDTreeウィンドウのサイズ
+  let NERDTreeWinSize = 30
+  " NERDTreeウィンドウを横に表示するか上に表示するか
+  let NERDTreeWinPos = "left"
 
-" カラー表示するか
-let NERDChristmasTree = 1
-" 起動時に隠しファイルを表示するか（あとで切り替えられる）
-let NERDTreeShowHidden = 0
-" カーソル行を強調する場合1
-let NERDTreeHighlightCursorline = 0
-" NERDTreeウィンドウのサイズ
-let NERDTreeWinSize = 30
-" NERDTreeウィンドウを横に表示するか上に表示するか
-let NERDTreeWinPos = "left"
+  nnoremap <silent> <Leader>e :<C-u>NERDTreeToggle<CR>
+  nnoremap <silent> <Leader>f :<C-u>NERDTreeFind<CR>
+  autocmd BufEnter * if bufname('%') =~ 'NERD_tree_\d\+'|setlocal cursorline|endif
 
-nnoremap <silent> <Leader>e :<C-u>NERDTreeToggle<CR>
-nnoremap <silent> <Leader>f :<C-u>NERDTreeFind<CR>
-autocmd BufEnter * if bufname('%') =~ 'NERD_tree_\d\+'|setlocal cursorline|endif
-
-let NERDTreeHijackNetrw = 0
-let NERDTreeAutoCenter = 0
-
+  let NERDTreeHijackNetrw = 0
+  let NERDTreeAutoCenter = 0
+endif
 " }}}
 
 " taglist.vim / ctags {{{
@@ -1288,14 +1289,16 @@ endfunction
 " }}}
 
 " easymotion {{{
-" ホームポジションに近いキーを使う
-let g:EasyMotion_keys = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
-let g:EasyMotion_leader_key = "<Space>"
-" 1 ストローク選択を優先する
-let g:EasyMotion_grouping = 1
-" カラー設定変更
-hi EasyMotionTarget ctermbg=none ctermfg=red
-hi EasyMotionShade  ctermbg=none ctermfg=blue
+if neobundle#is_sourced('vim-easymotion')
+  " ホームポジションに近いキーを使う
+  let g:EasyMotion_keys = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+  let g:EasyMotion_leader_key = "<Space>"
+  " 1 ストローク選択を優先する
+  let g:EasyMotion_grouping = 1
+  " カラー設定変更
+  hi EasyMotionTarget ctermbg=none ctermfg=red
+  hi EasyMotionShade  ctermbg=none ctermfg=blue
+endif
 " }}}
 
 " localrc.vim {{{
@@ -1436,12 +1439,12 @@ endfunction
 " let g:tern_show_argument_hints = 'on_hold'
 
 " gitgutter {{{
-let g:gitgutter_enabled = 0
+let g:gitgutter_enabled = 1
 let g:gitgutter_realtime = 0
 nmap gj <Plug>GitGutterNextHunk
 nmap gk <Plug>GitGutterPrevHunk
-nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
-nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
+nnoremap ,gg :<C-u>GitGutterToggle<CR>
+nnoremap ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
 " }}}
 
 " tagbar {{{
