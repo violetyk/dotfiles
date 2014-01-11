@@ -23,6 +23,7 @@ NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
