@@ -601,16 +601,6 @@ function! s:is_endof_line(char) " {{{
   return getline(".")[col("$")-2] == a:char
 endfunction " }}}
 
-function! s:Jq(...)
-    if 0 == a:0
-        let l:arg = "."
-    else
-        let l:arg = a:1
-    endif
-    execute "%! jq \"" . l:arg . "\""
-endfunction
-command! -nargs=? Jq call s:Jq(<f-args>)
-
 function! s:Copy() range
   let l:tmp = @@
   silent normal gvy
