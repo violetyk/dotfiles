@@ -80,7 +80,7 @@ NeoBundle 't9md/vim-choosewin'
 " }}}
 " sign {{{
 NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'airblade/vim-gitgutter'
+NeoBundleLazy 'airblade/vim-gitgutter'
 " NeoBundle 'tomtom/quickfixsigns_vim'
 NeoBundle 'osyo-manga/vim-over'
 " }}}
@@ -171,6 +171,7 @@ command! -nargs=1 MyNeoBundle NeoBundle <args>,
 MyNeoBundle 'violetyk/cake.vim'
 MyNeoBundle 'violetyk/scratch-utility'
 MyNeoBundle 'violetyk/neosnippet-cakephp2'
+MyNeoBundle 'violetyk/neocomplete-php.vim'
 MyNeoBundle 'git@github.com:nanapi/nanapi.vim.git'
 " }}}
 
@@ -1509,6 +1510,8 @@ if neobundle#is_sourced('vim-choosewin')
   let g:choosewin_statusline_replace = 0 " どうかステータスラインリプレイスしないで下さい!
   let g:choosewin_tabline_replace    = 0 " どうかタブラインもリプレイスしないでいただきたい！
 endif
+
+let g:neocomplete_php_locale = 'ja'
 
 " }}}
 
