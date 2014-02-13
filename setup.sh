@@ -1,5 +1,20 @@
 #!/bin/sh
 
+if [ `uname` = "Darwin" -a -z `which brew` ]; then
+  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+  brew install wget
+  brew install tig
+  brew install ag
+  brew install tmux
+  brew install libevent
+  brew install fontforge
+  brew install coreutils
+  brew install bash-completion
+  brew install macvim --HEAD --with-lua
+  brew linkapps
+fi
+brew update
+
 cd ~
 mkdir bin swap backup tmp memo tags src .trash .tmux
 mkdir -p ~/etc/profile.d

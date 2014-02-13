@@ -21,7 +21,10 @@ NeoBundle 'vim-jp/vimdoc-ja'
 " }}}
 " base {{{
 NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/neocomplete.vim', {
+  \ 'disabled' : !has('lua'),
+  \ 'vim_version' : '7.3.885'
+  \ }
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite.vim'
@@ -124,12 +127,14 @@ NeoBundleLazy 'chriskempson/tomorrow-theme', {
       \ 'rtp': "~/.vim/bundle/tomorrow-theme/vim/",
       \ }
 NeoBundle 'nanotech/jellybeans.vim'
-NeoBundleLazy 'w0ng/vim-hybrid'
+NeoBundle 'w0ng/vim-hybrid'
 NeoBundleLazy 'desert.vim'
 NeoBundleLazy 'desert256.vim'
 NeoBundleLazy 'tomasr/molokai'
 NeoBundleLazy 'Zenburn'
-NeoBundleLazy 'altercation/vim-colors-solarized'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundleLazy 'jpo/vim-railscasts-theme'
+NeoBundleLazy 'vim-scripts/pyte'
 " }}}
 " syntax {{{
 NeoBundle 'Shougo/context_filetype.vim'
@@ -219,7 +224,7 @@ set splitright
 set completeopt-=preview
 
 " 正規表現エンジンの設定
-set regexpengine=0
+" set regexpengine=0
 " }}}
 
 " 文字コードの設定 {{{
@@ -286,29 +291,34 @@ set updatecount=500
 
 " }}}
 
-" 環境別の設定・カラースキーマ {{{
+" 環境別の設定 {{{
 if has('gui_running')
-  " GUI共通 {{{
 
   " カラースキーマ
-  set background=light
-  silent! colorscheme solarized
+  set background=dark
+  " set background=light
+  " let g:solarized_contrast="normal"
+  " silent! colorscheme solarized
+
+  silent! colorscheme hybrid
 
   " マウスを使う。
-  "set mouse=a
-  "set ttymouse=xterm2
+  set mouse=a
+  set ttymouse=xterm2
 
   " 入力時にマウスポインタを隠す (nomousehide:隠さない)
   set mousehide
 
   " GUIの設定。m:メニュー、r:右垂直バー、b:下のスクロールバー、l:左垂直バー
-  " set guioptions=m
   set guioptions=
 
-  " }}}
+  " ヤンクの内容や、選択した内容をクリップボードに格納する。
+  set clipboard=unnamed,autoselect
+
+
+  " Font
   " Windows gvim {{{
   if has('win32') || has('win64')
-    " Font
     " Windows の gvim でフォントを設定するには guifont オプションと guifontwide オプションを使う。
     " 前者がいわゆる半角文字のフォント、後者が全角文字のフォント。
     " どちらもカンマで区切って複数のフォントを指定できる (最初に利用可能なフォントが選ばれる)。例えば _gvimrc に以下のように書く:
@@ -321,26 +331,20 @@ if has('gui_running')
     " set guifont=Osaka－等幅:h9:cSHIFTJIS
     set guifont=TakaoGothic:h10:cSHIFTJIS
 
-    " ヤンク内容をwindowsのクリップボードに格納する。
-    set clipboard=unnamed
-
     " 起動したときに最大化
     au GUIEnter * simalt ~x
-
   " }}}
   " MacOSX gvim {{{
   elseif has('mac')
+    set guifont=Ricty\ Regular\ for\ Powerline:h13
 
-    set guifont=Ricty\ 11
-
+    " 起動したときに最大化
+    autocmd BufEnter * macaction performZoom:
   " }}}
   " Linux gvim {{{
   elseif has('gui_gtk2')
-
-    " Font
     set guifont=Terminus-ja\ 11
     " set guifont=Migu\ 1M\ 11
-
   endif
   " }}}
 else
@@ -354,15 +358,7 @@ else
   " 対応する括弧の色を控えめにしておく
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
-  " silent! colorscheme molokai
   silent! colorscheme mrkn256
-  " silent! colorscheme Tomorrow-Night-Bright
-  " silent! colorscheme jellybeans
-
-  " set background=light
-  " silent! colorscheme solarized
-  " let g:solarized_termtrans = 1
-
   " }}}
 endif
 " }}}
@@ -408,6 +404,7 @@ set wildmode=full
 " コマンドラインの補完キー
 set wildchar=<Tab>
 
+set showfulltag
 " }}}
 
 " 画面表示の設定 {{{
@@ -794,17 +791,13 @@ endif
 
 " プラグインの設定 {{{
 
-" NERD commenter {{{
-
-"未対応ファイルタイプのエラーメッセージを表示しない
-let NERDShutUp=1
-" /**/をスペース空けて/* */
-let NERDSpaceDelims = 1
-
-" }}}
-
-" NERDTree {{{
-if neobundle#is_sourced('nerdtree')
+if neobundle#is_sourced('nerdcommenter') " {{{
+  "未対応ファイルタイプのエラーメッセージを表示しない
+  let NERDShutUp=1
+  " /**/をスペース空けて/* */
+  let NERDSpaceDelims = 1
+endif " }}}
+if neobundle#is_sourced('nerdtree') " {{{
   " カラー表示するか
   let NERDChristmasTree = 1
   " 起動時に隠しファイルを表示するか（あとで切り替えられる）
@@ -822,467 +815,433 @@ if neobundle#is_sourced('nerdtree')
 
   let NERDTreeHijackNetrw = 0
   let NERDTreeAutoCenter = 0
-endif
-" }}}
-
-" taglist.vim / ctags {{{
-set showfulltag
-
-if has('win32') || has('win64')
+endif " }}}
+if neobundle#is_sourced('taglist.vim') " {{{
   let Tlist_Ctags_Cmd = "ctags"
-else
-  let Tlist_Ctags_Cmd = "ctags"
-endif
 
-let Tlist_Inc_Winwidth = 1
-"taglistのウィンドウが最後のウィンドーならばVimを閉じる
-let Tlist_Exit_OnlyWindow = 1
-" Do not close tags for other files
-let Tlist_File_Fold_Auto_Close = 1
-let Tlist_Process_File_Always = 1
-" Do not show folding tree
-let Tlist_Enable_Fold_Column = 0
-" 現在編集中のソースのタグしか表示しない
-let Tlist_Show_One_File = 1
-" 左右分割ではなく上下分割を使う。
-let Tlist_Use_Horiz_Window = 0
-let Tlist_WinHeight = 10
-" 左右分割の時に右側にだす
-let Tlist_Use_Right_Window = 1
-let Tlist_WinWidth = 40
+  let Tlist_Inc_Winwidth = 1
+  "taglistのウィンドウが最後のウィンドーならばVimを閉じる
+  let Tlist_Exit_OnlyWindow = 1
+  " Do not close tags for other files
+  let Tlist_File_Fold_Auto_Close = 1
+  let Tlist_Process_File_Always = 1
+  " Do not show folding tree
+  let Tlist_Enable_Fold_Column = 0
+  " 現在編集中のソースのタグしか表示しない
+  let Tlist_Show_One_File = 1
+  " 左右分割ではなく上下分割を使う。
+  let Tlist_Use_Horiz_Window = 0
+  let Tlist_WinHeight = 10
+  " 左右分割の時に右側にだす
+  let Tlist_Use_Right_Window = 1
+  let Tlist_WinWidth = 40
 
-" Sort by the order
-let Tlist_Sort_Type = "order"
-" Do not display the help info
-let Tlist_Compact_Format = 1
+  " Sort by the order
+  let Tlist_Sort_Type = "order"
+  " Do not display the help info
+  let Tlist_Compact_Format = 1
 
-let g:Tlist_php_settings = 'php;c:class;f:function'
+  let g:Tlist_php_settings = 'php;c:class;f:function'
 
-" nnoremap <silent> <Leader>t :TlistOpen<CR>
+  " nnoremap <silent> <Leader>t :TlistOpen<CR>
 
-" ~/.ctags に設定を書くことにした。
-" --langmapは次のように調べられる。
-" $ ctags --list-maps
-" PHP      *.php *.php3 *.phtml
+  " ~/.ctags に設定を書くことにした。
+  " --langmapは次のように調べられる。
+  " $ ctags --list-maps
+  " PHP      *.php *.php3 *.phtml
 
-" --php-typesは次のように調べられる。
-" $ ctags --list-kinds=php
-" c  classes
-" i  interfaces
-" d  constant definitions
-" f  functions
-" v  variables
-" j  javascript functions
+  " --php-typesは次のように調べられる。
+  " $ ctags --list-kinds=php
+  " c  classes
+  " i  interfaces
+  " d  constant definitions
+  " f  functions
+  " v  variables
+  " j  javascript functions
 
-nmap <silent> <F12> :!ctags -R -f %:p:h/tags ./<CR>
-if has('path_extra')
+  nmap <silent> <F12> :!ctags -R -f %:p:h/tags ./<CR>
+  if has('path_extra')
 
-" 現ディレクトリ含む親ディレクトリをさかのぼってtagsファイルを指定
-" set tags=tags;
+    " 現ディレクトリ含む親ディレクトリをさかのぼってtagsファイルを指定
+    " set tags=tags;
 
-" 上だとルートまでさかのぼっちゃうので;以降に特定のディレクトリを指定して、さかのぼり上限を設定。
-" set tags+=tags;$HOME
-set tags=tags;$HOME,$HOME/tags/*.tags
+    " 上だとルートまでさかのぼっちゃうので;以降に特定のディレクトリを指定して、さかのぼり上限を設定。
+    " set tags+=tags;$HOME
+    set tags=tags;$HOME,$HOME/tags/*.tags
 
-" 現在のディレクトリからした全てのtagsを読み込む。
-" set tags=./**/tags;
+    " 現在のディレクトリからした全てのtagsを読み込む。
+    " set tags=./**/tags;
 
-" **は30階層が上限なので、上記だと処理が重くなる可能性がある。階層の深さの上限を指定するやりかた。
-" set " tags=./**3/tags;
+    " **は30階層が上限なので、上記だと処理が重くなる可能性がある。階層の深さの上限を指定するやりかた。
+    " set " tags=./**3/tags;
 
-" 現在のディレクトリから上はルート、下は全部さかのぼってtagsファイルを読み込む。
-" set " tags=**;
-else
-  set tags=./tags,tags
-endif
+    " 現在のディレクトリから上はルート、下は全部さかのぼってtagsファイルを読み込む。
+    " set " tags=**;
+  else
+    set tags=./tags,tags
+  endif
+endif " }}}
+if neobundle#is_sourced('neocomplete.vim') " {{{
+  " Disable AutoComplPop.
+  let g:acp_enableAtStartup = 0
+  " Use neocomplete.
+  let g:neocomplete#enable_at_startup = 1
+  " Use smartcase.
+  let g:neocomplete#enable_smart_case = 1
+  " Set minimum syntax keyword length.
+  let g:neocomplete#sources#syntax#min_keyword_length = 3
+  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-" }}}
+  " Define dictionary.
+  let g:neocomplete#sources#dictionary#dictionaries = {
+      \ 'default' : '',
+      \ 'vimshell' : $HOME.'/.vimshell_hist',
+      \ 'scheme' : $HOME.'/.gosh_completions'
+          \ }
 
-" neocomplete.vim {{{
+  " Define keyword.
+  if !exists('g:neocomplete#keyword_patterns')
+      let g:neocomplete#keyword_patterns = {}
+  endif
+  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+  " Plugin key-mappings.
+  inoremap <expr><C-g>     neocomplete#undo_completion()
+  inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
+  " Recommended key-mappings.
+  " <CR>: close popup and save indent.
+  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+  function! s:my_cr_function()
+    return neocomplete#smart_close_popup() . "\<CR>"
+    " For no inserting <CR> key.
+    "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+  endfunction
+  " <TAB>: completion.
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><C-y>  neocomplete#close_popup()
+  inoremap <expr><C-e>  neocomplete#cancel_popup()
+  " Close popup by <Space>.
+  "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+  " For cursor moving in insert mode(Not recommended)
+  "inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
+  "inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
+  "inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
+  "inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
+  " Or set this.
+  "let g:neocomplete#enable_cursor_hold_i = 1
+  " Or set this.
+  "let g:neocomplete#enable_insert_char_pre = 1
+
+  " AutoComplPop like behavior.
+  "let g:neocomplete#enable_auto_select = 1
+
+  " Shell like behavior(not recommended).
+  "set completeopt+=longest
+  "let g:neocomplete#enable_auto_select = 1
+  "let g:neocomplete#disable_auto_complete = 1
+  "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+  " Enable omni completion.
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+  autocmd FileType php setlocal omnifunc=
+
+  " Enable heavy omni completion.
+  if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+  endif
+  let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+  let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+  let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+  " For perlomni.vim setting.
+  " https://github.com/c9s/perlomni.vim
+  let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+endif " }}}
+if neobundle#is_sourced('neosinippet') " {{{
+  let snippets_directory = [
+        \ $HOME.'/.vim/snippets',
+        \ $HOME.'/works/neosnippet-cakephp2',
+        \]
+  let g:neosnippet#snippets_directory = join(snippets_directory, ',')
+
+  nnoremap <silent> <Space>es  :<C-u>NeoSnippetEdit -split -vertical 
+  nnoremap <silent> <Space>rs  :<C-u>NeoSnippetSource 
+
+  " Plugin key-mappings.
+  imap <C-k> <Plug>(neosnippet_expand_or_jump)
+  smap <C-k> <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k> <Plug>(neosnippet_expand_target)
+  xmap <C-l> <Plug>(neosnippet_start_unite_snippet_target)
+
+  " For snippet_complete marker.
+  " if has('conceal')
+    " set conceallevel=2 concealcursor=i
+  " endif
+endif " }}}
+if neobundle#is_sourced('unite.vim') " {{{
+  " To track long mru history.
+  let g:unite_source_file_mru_long_limit = 3000
+  let g:unite_source_directory_mru_long_limit = 3000
+  let g:unite_prompt = '» '
+
+  autocmd FileType unite call s:unite_my_settings()
+  function! s:unite_my_settings() "{{{
+    " Overwrite settings.
+
+    nmap <buffer> <ESC>    <Plug>(unite_exit)
+    imap <buffer> jj       <Plug>(unite_insert_leave)
+    "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+
+    imap <buffer><expr> j  unite#smart_map('j', '')
+    imap <buffer> <TAB>    <Plug>(unite_select_next_line)
+    imap <buffer> <C-w>    <Plug>(unite_delete_backward_path)
+    imap <buffer> '        <Plug>(unite_quick_match_default_action)
+    imap <buffer><expr> x  unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
+    nmap <buffer> x        <Plug>(unite_quick_match_choose_action)
+    imap <buffer> <C-z>    <Plug>(unite_toggle_transpose_window)
+    imap <buffer> <C-y>    <Plug>(unite_narrowing_path)
+    nmap <buffer> <C-y>    <Plug>(unite_narrowing_path)
+    nmap <buffer> <C-j>    <Plug>(unite_toggle_auto_preview)
+    imap <buffer> <C-r>    <Plug>(unite_narrowing_input_history)
+    nnoremap <silent><buffer><expr> l unite#smart_map('l', unite#do_action('default'))
+
+    let unite = unite#get_current_unite()
+    if unite.buffer_name =~# '^search'
+      nnoremap <silent><buffer><expr> r     unite#do_action('replace')
+    else
+      nnoremap <silent><buffer><expr> r     unite#do_action('rename')
+    endif
+
+    nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
+    nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
+          \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
+  endfunction "}}}
+
+
+  nnoremap [unite] :<C-u>Unite<Space>
+  nmap f [unite]
+
+  " nnoremap <C-f> :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+  " inoremap <C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+  nnoremap [unite]b   :<C-u>Unite bookmark<CR>
+  nnoremap [unite]c   :<C-u>Unite cake_controller cake_model cake_config cake_component cake_behavior cake_helper cake_shell cake_fixture cake_core cake_lib n_class -start-insert<CR>
+  nnoremap [unite]d   :<C-u>UniteWithBufferDir -buffer-name=files file -start-insert<CR>
+  nnoremap [unite]e   :<C-u>Unite output:echo\ system('set')<CR>
+  nnoremap [unite]f   :<C-u>UniteWithInputDirectory file_rec/async -start-insert<CR>
+
+  if executable('ag')
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nocolor --nogroup'
+    let g:unite_source_grep_recursive_opt = ''
+  " let g:unite_source_grep_max_candidates = 200
+    nnoremap [unite]g   :<C-u>Unite -no-quit grep<CR>
+    nnoremap [unite]G   :<C-u>Unite -no-quit grep<CR><CR><C-r><C-w><CR>
+  else
+    nnoremap [unite]g   :<C-u>Unite -no-quit grep<CR>
+  endif
+
+  " nnoremap [unite]h   :<C-u>Unite history/command<CR>
+  nnoremap [unite]j   :<C-u>Unite buffer file_mru bookmark -start-insert<CR>
+  " nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
+  nnoremap [unite]l   :<C-u>Unite line -start-insert<CR>
+  nnoremap [unite]L   :<C-u>UniteWithCursorWord line -start-insert -auto-preview<CR>
+  " nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
+  nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=45 -no-quit<CR>
+  " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
+  nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
+  nnoremap [unite]q   :<C-u>Unite qfixhowm:nocache<CR>
+  nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
+  nnoremap [unite].   :<C-u>UniteResume<CR>
+  " nnoremap [unite]s   :<C-u>Unite history/search<CR>
+  " nnoremap [unite]v   :<C-u>Unite output:version -start-insert<CR>
+  nnoremap [unite]v   :<C-u>Unite variable -auto-preview -start-insert<CR>
+
+  let g:unite_source_history_yank_enable = 1
+  nnoremap [unite]y   :<C-u>Unite history/yank<CR>
+  nnoremap [unite]A   :<C-u>Unite output:autocmd<CR>
+  nnoremap [unite]C   :<C-u>Unite change<CR>
+  nnoremap [unite]J   :<C-u>Unite jump<CR>
+  " nnoremap [unite]L   :<C-u>Unite launcher<CR>
+  nnoremap [unite]M   :<C-u>Unite output:messages<CR>
+  " nnoremap [unite]M   :<C-u>Unite mapping -start-insert<CR>
+  nnoremap [unite]R   :<C-u>Unite -buffer-name=register register<CR>
+  nnoremap [unite]S   :<C-u>Unite output:scriptnames<CR>
+
+endif " }}}
+if neobundle#is_sourced('vim-ref') " {{{
+  if has('win32') || has('win64')
+    let g:ref_phpmanual_path = $VIM . '/vimfiles/manual/php_manual_ja/'
+  else
+    let g:ref_phpmanual_path = $HOME . '/.vim/manual/php_manual_ja/'
+  endif
+
+  " ftと辞書のマッピング
+  " let g:ref_detect_filetype = {
+        " \ 'htmlcake' : 'phpmanual'
+        " \ }
+endif "}}}
+if neobundle#is_sourced('scratch-utility') " {{{
+  nmap <silent> <Leader>b <Plug>ShowScratchBuffer
+
+  " スクラッチバッファを開くマッピングを定義しない
+  let no_plugin_maps = 1
+
+  " vim終了時にスクラッチの内容を保存しておく。
+  let g:scratchBackupFile=$HOME . "/scratch.txt"
+
+  let g:scratchSplitOption =
+        \ {
+        \   'vertical'           : 1,
+        \   'take_over_filetype' : 1
         \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#smart_close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplete#enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplete#enable_insert_char_pre = 1
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-autocmd FileType php setlocal omnifunc=
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-" }}}
-
-" neosnippet.vim {{{
-let snippets_directory = [
-      \ $HOME.'/.vim/snippets',
-      \ $HOME.'/works/neosnippet-cakephp2',
-      \]
-let g:neosnippet#snippets_directory = join(snippets_directory, ',')
-
-nnoremap <silent> <Space>es  :<C-u>NeoSnippetEdit -split -vertical 
-nnoremap <silent> <Space>rs  :<C-u>NeoSnippetSource 
-
-" Plugin key-mappings.
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-xmap <C-l> <Plug>(neosnippet_start_unite_snippet_target)
-
-" For snippet_complete marker.
-" if has('conceal')
-  " set conceallevel=2 concealcursor=i
-" endif
-
-" }}}
-
-" unite.vim {{{
-
-" To track long mru history.
-let g:unite_source_file_mru_long_limit = 3000
-let g:unite_source_directory_mru_long_limit = 3000
-let g:unite_prompt = '» '
-
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings() "{{{
-  " Overwrite settings.
-
-  nmap <buffer> <ESC>    <Plug>(unite_exit)
-  imap <buffer> jj       <Plug>(unite_insert_leave)
-  "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-
-  imap <buffer><expr> j  unite#smart_map('j', '')
-  imap <buffer> <TAB>    <Plug>(unite_select_next_line)
-  imap <buffer> <C-w>    <Plug>(unite_delete_backward_path)
-  imap <buffer> '        <Plug>(unite_quick_match_default_action)
-  imap <buffer><expr> x  unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
-  nmap <buffer> x        <Plug>(unite_quick_match_choose_action)
-  imap <buffer> <C-z>    <Plug>(unite_toggle_transpose_window)
-  imap <buffer> <C-y>    <Plug>(unite_narrowing_path)
-  nmap <buffer> <C-y>    <Plug>(unite_narrowing_path)
-  nmap <buffer> <C-j>    <Plug>(unite_toggle_auto_preview)
-  imap <buffer> <C-r>    <Plug>(unite_narrowing_input_history)
-  nnoremap <silent><buffer><expr> l unite#smart_map('l', unite#do_action('default'))
-
-  let unite = unite#get_current_unite()
-  if unite.buffer_name =~# '^search'
-    nnoremap <silent><buffer><expr> r     unite#do_action('replace')
-  else
-    nnoremap <silent><buffer><expr> r     unite#do_action('rename')
-  endif
-
-  nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
-  nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
-        \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
-endfunction "}}}
-
-
-nnoremap [unite] :<C-u>Unite<Space>
-nmap f [unite]
-
-" nnoremap <C-f> :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-" inoremap <C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap [unite]b   :<C-u>Unite bookmark<CR>
-nnoremap [unite]c   :<C-u>Unite cake_controller cake_model cake_config cake_component cake_behavior cake_helper cake_shell cake_fixture cake_core cake_lib n_class -start-insert<CR>
-nnoremap [unite]d   :<C-u>UniteWithBufferDir -buffer-name=files file -start-insert<CR>
-nnoremap [unite]e   :<C-u>Unite output:echo\ system('set')<CR>
-nnoremap [unite]f   :<C-u>UniteWithInputDirectory file_rec/async -start-insert<CR>
-
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nocolor --nogroup'
-  let g:unite_source_grep_recursive_opt = ''
-" let g:unite_source_grep_max_candidates = 200
-  nnoremap [unite]g   :<C-u>Unite -no-quit grep<CR>
-  nnoremap [unite]G   :<C-u>Unite -no-quit grep<CR><CR><C-r><C-w><CR>
-else
-  nnoremap [unite]g   :<C-u>Unite -no-quit grep<CR>
-endif
-
-" nnoremap [unite]h   :<C-u>Unite history/command<CR>
-nnoremap [unite]j   :<C-u>Unite buffer file_mru bookmark -start-insert<CR>
-" nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
-nnoremap [unite]l   :<C-u>Unite line -start-insert<CR>
-nnoremap [unite]L   :<C-u>UniteWithCursorWord line -start-insert -auto-preview<CR>
-" nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
-nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=45 -no-quit<CR>
-" nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
-nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
-nnoremap [unite]q   :<C-u>Unite qfixhowm:nocache<CR>
-nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
-nnoremap [unite].   :<C-u>UniteResume<CR>
-" nnoremap [unite]s   :<C-u>Unite history/search<CR>
-" nnoremap [unite]v   :<C-u>Unite output:version -start-insert<CR>
-nnoremap [unite]v   :<C-u>Unite variable -auto-preview -start-insert<CR>
-
-let g:unite_source_history_yank_enable = 1
-nnoremap [unite]y   :<C-u>Unite history/yank<CR>
-nnoremap [unite]A   :<C-u>Unite output:autocmd<CR>
-nnoremap [unite]C   :<C-u>Unite change<CR>
-nnoremap [unite]J   :<C-u>Unite jump<CR>
-" nnoremap [unite]L   :<C-u>Unite launcher<CR>
-nnoremap [unite]M   :<C-u>Unite output:messages<CR>
-" nnoremap [unite]M   :<C-u>Unite mapping -start-insert<CR>
-nnoremap [unite]R   :<C-u>Unite -buffer-name=register register<CR>
-nnoremap [unite]S   :<C-u>Unite output:scriptnames<CR>
-" }}}
-
-" ref.vim {{{
-if has('win32') || has('win64')
-  let g:ref_phpmanual_path = $VIM . '/vimfiles/manual/php_manual_ja/'
-else
-  let g:ref_phpmanual_path = $HOME . '/.vim/manual/php_manual_ja/'
-endif
-
-
-" ftと辞書のマッピング
-" let g:ref_detect_filetype = {
-      " \ 'htmlcake' : 'phpmanual'
-      " \ }
-
-" }}}
-
-" scratch.vim {{{
-
-nmap <silent> <Leader>b <Plug>ShowScratchBuffer
-
-" スクラッチバッファを開くマッピングを定義しない
-let no_plugin_maps = 1
-
-" vim終了時にスクラッチの内容を保存しておく。
-let g:scratchBackupFile=$HOME . "/scratch.txt"
-
-" }}}
-
-" emmet.vim {{{
-
-" デフォルトは<C-Y>
-" let g:user_emmet_leader_key = '<C-Space>'
-
-" タグやスニペットの入力補完を使う
-let g:use_emmet_complete_tag = 1
-
-" <Tab>で展開
-" autocmd FileType css imap <tab> <plug>(EmmetExpandAbbr)
-
-" filterについて -> http://code.google.com/p/zen-coding/wiki/Filters
-let g:user_emmet_settings = {
-      \  'lang' : 'ja',
-      \  'html' : {
-      \    'filters' : 'html',
-      \    'indentation' : ' '
-      \  },
-      \  'php' : {
-      \    'extends' : 'html',
-      \    'filters' : 'html,c',
-      \  },
-      \  'css' : {
-      \    'filters' : 'fc',
-      \  },
-      \  'javascript' : {
-      \    'snippets' : {
-      \      'jq' : "$(function() {\n\t${cursor}${child}\n});",
-      \      'jq:each' : "$.each(arr, function(index, item)\n\t${child}\n});",
-      \      'fn' : "(function() {\n\t${cursor}\n})();",
-      \      'tm' : "setTimeout(function() {\n\t${cursor}\n}, 100);",
-      \    },
-      \  },
-      \}
-" }}}
-
-" cake.vim {{{
-
-let g:cakephp_gf_fallback_n = "normal \<Plug>(gf-user-gf)"
-let g:cakephp_gf_fallback_s = "normal \<Plug>(gf-user-\<C-w>f)"
-let g:cakephp_gf_fallback_t = "normal \<Plug>(gf-user-\<C-w>gf)"
-let g:cakephp_test_window_vertical = 1
-let g:cakephp_test_window_width = 70
-
-nnoremap <Space>cc :<C-u>Ccontroller
-nnoremap <Space>cm :<C-u>Cmodel
-nnoremap <Space>cv :<C-u>Cview
-nnoremap <Space>cl :<C-u>Clog
-nnoremap <Space>ccm :<C-u>Ccomponent
-nnoremap <Space>ccf :<C-u>Cconfig
-nnoremap <Space>cb :<C-u>Cbehavior
-nnoremap <Space>ch :<C-u>Chelper
-nnoremap <Space>ct :<C-u>Ctest
-nnoremap <Space>cf :<C-u>Cfixture
-nnoremap <Space>cs :<C-u>Cshell
-nnoremap <Space>cd :<C-u>Cdesc
-nnoremap <Leader>t :<C-u>Ctestrunmethod<CR>
-
-
-
-" プロジェクト切り替えコマンド
-" let g:my_cakephp_projects = {
-  " \ 'project' : '/path/to/app',
-  " \ }
-let g:my_cakephp_projects = get(g:, 'my_cakephp_projects', {})
-command! -n=1  -complete=customlist,s:GetCakePHPProjectList C :call s:SetCakePHPProject(<f-args>)
-function! s:GetCakePHPProjectList(ArgLead, CmdLine, CursorPos) "{{{
-  if exists("g:my_cakephp_projects") && len(g:my_cakephp_projects)
-    return filter(sort(keys(g:my_cakephp_projects)), 'v:val =~ "^'. fnameescape(a:ArgLead) . '"')
-  else
-    return []
-  endif
-endfunction "}}}
-
-" プロジェクト切り替え
-function! s:SetCakePHPProject(app) " {{{
-  if isdirectory(g:my_cakephp_projects[a:app])
-    silent exec ":Cakephp " . g:my_cakephp_projects[a:app]
-    echo "CakePHP project changed: ". a:app
-  endif
-endfunction " }}}
-
-" }}}
-
-" gist.vim {{{
-
-let g:gist_privates = 1
-let g:gist_detect_filetype = 1
-let g:gist_show_privates = 1
-let g:gist_put_url_to_clipboard_after_post = 1
-
-" }}}
-
-" PDV--phpDocumentor-for-Vim {{{
-
-inoremap <Leader>d <ESC>:call PhpDocSingle()<CR>i
-nnoremap <Leader>d :call PhpDocSingle()<CR>
-vnoremap <Leader>d :call PhpDocRange()<CR>
-
-" }}}
-
-" surround.vim {{{
-let g:surround_{char2nr("p")} = "<?php \r ?>"
-" }}}
-
-" Modeliner {{{
-
-let g:Modeliner_format='ft= et ff= fenc= sts= sw= ts='
-
-" }}}
-
-" Fugitive {{{
-
-" nnoremap <Space>gd :<C-u>Gdiff<Enter>
-" nnoremap <Space>gs :<C-u>Gstatus<Enter>
-" nnoremap <Space>gl :<C-u>Glog<Enter>
-" nnoremap <Space>ga :<C-u>Gwrite<Enter>
-" nnoremap <Space>gc :<C-u>Gcommit<Enter>
-" nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
-" nnoremap <Space>gb :<C-u>Gblame<Enter>
-
-" }}}
-
-" dbext.vim {{{
-
-" let g:dbext_default_profile_xxxx      = 'type=MYSQL:user=mysql:passwd=mysql:dbname=hoge:host=localhost:port=3306:buffer_lines=50'
-
-" let g:dbext_default_window_use_horiz = 0  " Use vertical split
-let g:dbext_default_window_use_horiz = 1  " Use horizontal split
-let g:dbext_default_window_use_bottom = 1  " Bottom
-" let g:dbext_default_window_use_bottom = 0  " Top
-" let g:dbext_default_window_use_right = 1   " Right
-" let g:dbext_default_window_use_right = 1   " Left
-let g:dbext_default_window_width = 100
-
-" 接続切り替えコマンド
-" let g:my_db_profiles = {
-"   \ 'table': 'type=MYSQL:user=mysqluser:passwd=mysqlpasswd:dbname=dbname:host=localhost:port=3306',
-"   \ }
-command! -n=1  -complete=customlist,s:GetDBProfileList DB :call s:ConnectDB(<f-args>)
-function! s:GetDBProfileList(ArgLead, CmdLine, CursorPos) "{{{
-  return filter(sort(keys(g:my_db_profiles)), 'v:val =~ "^'. fnameescape(a:ArgLead) . '"')
-endfunction "}}}
-function! s:ConnectDB(profile)
-  call dbext#DB_setMultipleOptions(g:my_db_profiles[a:profile])
-  silent exec ":DBCompleteTables"
-  silent exec ":DBCompleteProcedures"
-  silent exec ":DBCompleteViews"
-  echo "Connect Database : " . a:profile
-endfunction
-
-" }}}
-
-" easymotion {{{
-if neobundle#is_sourced('vim-easymotion')
+endif "}}}
+if neobundle#is_sourced('emmet.vim') " {{{
+  " デフォルトは<C-Y>
+  " let g:user_emmet_leader_key = '<C-Space>'
+
+  " タグやスニペットの入力補完を使う
+  let g:use_emmet_complete_tag = 1
+
+  " <Tab>で展開
+  " autocmd FileType css imap <tab> <plug>(EmmetExpandAbbr)
+
+  " filterについて -> http://code.google.com/p/zen-coding/wiki/Filters
+  let g:user_emmet_settings = {
+        \  'lang' : 'ja',
+        \  'html' : {
+        \    'filters' : 'html',
+        \    'indentation' : ' '
+        \  },
+        \  'php' : {
+        \    'extends' : 'html',
+        \    'filters' : 'html,c',
+        \  },
+        \  'css' : {
+        \    'filters' : 'fc',
+        \  },
+        \  'javascript' : {
+        \    'snippets' : {
+        \      'jq' : "$(function() {\n\t${cursor}${child}\n});",
+        \      'jq:each' : "$.each(arr, function(index, item)\n\t${child}\n});",
+        \      'fn' : "(function() {\n\t${cursor}\n})();",
+        \      'tm' : "setTimeout(function() {\n\t${cursor}\n}, 100);",
+        \    },
+        \  },
+        \}
+endif "}}}
+if neobundle#is_sourced('cake.vim') " {{{
+  let g:cakephp_gf_fallback_n = "normal \<Plug>(gf-user-gf)"
+  let g:cakephp_gf_fallback_s = "normal \<Plug>(gf-user-\<C-w>f)"
+  let g:cakephp_gf_fallback_t = "normal \<Plug>(gf-user-\<C-w>gf)"
+  let g:cakephp_test_window_vertical = 1
+  let g:cakephp_test_window_width = 70
+
+  nnoremap <Space>cc :<C-u>Ccontroller
+  nnoremap <Space>cm :<C-u>Cmodel
+  nnoremap <Space>cv :<C-u>Cview
+  nnoremap <Space>cl :<C-u>Clog
+  nnoremap <Space>ccm :<C-u>Ccomponent
+  nnoremap <Space>ccf :<C-u>Cconfig
+  nnoremap <Space>cb :<C-u>Cbehavior
+  nnoremap <Space>ch :<C-u>Chelper
+  nnoremap <Space>ct :<C-u>Ctest
+  nnoremap <Space>cf :<C-u>Cfixture
+  nnoremap <Space>cs :<C-u>Cshell
+  nnoremap <Space>cd :<C-u>Cdesc
+  nnoremap <Leader>t :<C-u>Ctestrunmethod<CR>
+
+  " プロジェクト切り替えコマンド
+  " let g:my_cakephp_projects = {
+    " \ 'project' : '/path/to/app',
+    " \ }
+  let g:my_cakephp_projects = get(g:, 'my_cakephp_projects', {})
+  command! -n=1  -complete=customlist,s:GetCakePHPProjectList C :call s:SetCakePHPProject(<f-args>)
+  function! s:GetCakePHPProjectList(ArgLead, CmdLine, CursorPos) "{{{
+    if exists("g:my_cakephp_projects") && len(g:my_cakephp_projects)
+      return filter(sort(keys(g:my_cakephp_projects)), 'v:val =~ "^'. fnameescape(a:ArgLead) . '"')
+    else
+      return []
+    endif
+  endfunction "}}}
+
+  " プロジェクト切り替え
+  function! s:SetCakePHPProject(app) " {{{
+    if isdirectory(g:my_cakephp_projects[a:app])
+      silent exec ":Cakephp " . g:my_cakephp_projects[a:app]
+      echo "CakePHP project changed: ". a:app
+    endif
+  endfunction " }}}
+
+endif "}}}
+if neobundle#is_sourced('gist-vim') " {{{
+  let g:gist_privates = 1
+  let g:gist_detect_filetype = 1
+  let g:gist_show_privates = 1
+  let g:gist_put_url_to_clipboard_after_post = 1
+endif " }}}
+if neobundle#is_sourced('gist-vim') " {{{
+  let g:gist_privates = 1
+  let g:gist_detect_filetype = 1
+  let g:gist_show_privates = 1
+  let g:gist_put_url_to_clipboard_after_post = 1
+endif " }}}
+if neobundle#is_sourced('PDV--phpDocumentor-for-Vim') " {{{
+  inoremap <Leader>d <ESC>:call PhpDocSingle()<CR>i
+  nnoremap <Leader>d :call PhpDocSingle()<CR>
+  vnoremap <Leader>d :call PhpDocRange()<CR>
+endif " }}}
+if neobundle#is_sourced('vim-surround') " {{{
+  let g:surround_{char2nr("p")} = "<?php \r ?>"
+endif " }}}
+if neobundle#is_sourced('Modeliner') " {{{
+  let g:Modeliner_format='ft= et ff= fenc= sts= sw= ts='
+endif " }}}
+if neobundle#is_sourced('vim-fugitive') " {{{
+  " nnoremap <Space>gd :<C-u>Gdiff<Enter>
+  " nnoremap <Space>gs :<C-u>Gstatus<Enter>
+  " nnoremap <Space>gl :<C-u>Glog<Enter>
+  " nnoremap <Space>ga :<C-u>Gwrite<Enter>
+  " nnoremap <Space>gc :<C-u>Gcommit<Enter>
+  " nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
+  " nnoremap <Space>gb :<C-u>Gblame<Enter>
+endif " }}}
+if neobundle#is_sourced('dbext.vim') " {{{
+  " let g:dbext_default_profile_xxxx      = 'type=MYSQL:user=mysql:passwd=mysql:dbname=hoge:host=localhost:port=3306:buffer_lines=50'
+  " let g:dbext_default_window_use_horiz = 0  " Use vertical split
+  let g:dbext_default_window_use_horiz = 1  " Use horizontal split
+  let g:dbext_default_window_use_bottom = 1  " Bottom
+  " let g:dbext_default_window_use_bottom = 0  " Top
+  " let g:dbext_default_window_use_right = 1   " Right
+  " let g:dbext_default_window_use_right = 1   " Left
+  let g:dbext_default_window_width = 100
+
+  " 接続切り替えコマンド
+  " let g:my_db_profiles = {
+  "   \ 'table': 'type=MYSQL:user=mysqluser:passwd=mysqlpasswd:dbname=dbname:host=localhost:port=3306',
+  "   \ }
+  command! -n=1  -complete=customlist,s:GetDBProfileList DB :call s:ConnectDB(<f-args>)
+  function! s:GetDBProfileList(ArgLead, CmdLine, CursorPos) "{{{
+    return filter(sort(keys(g:my_db_profiles)), 'v:val =~ "^'. fnameescape(a:ArgLead) . '"')
+  endfunction "}}}
+  function! s:ConnectDB(profile)
+    call dbext#DB_setMultipleOptions(g:my_db_profiles[a:profile])
+    silent exec ":DBCompleteTables"
+    silent exec ":DBCompleteProcedures"
+    silent exec ":DBCompleteViews"
+    echo "Connect Database : " . a:profile
+  endfunction
+endif " }}}
+if neobundle#is_sourced('vim-easymotion') " {{{
   " ホームポジションに近いキーを使う
   let g:EasyMotion_keys = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
   let g:EasyMotion_leader_key = "<Space>"
@@ -1291,204 +1250,179 @@ if neobundle#is_sourced('vim-easymotion')
   " カラー設定変更
   hi EasyMotionTarget ctermbg=none ctermfg=red
   hi EasyMotionShade  ctermbg=none ctermfg=blue
-endif
-" }}}
-
-" localrc.vim {{{
-silent! call localrc#load('.init.vimrc', $HOME)
-" }}}
-
-" vim-indent-guides {{{
-let g:indent_guides_enable_on_vim_startup = 0
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-let g:indent_guides_start_level = 3
-let g:indent_guides_guide_size = 1
-" }}}
-
-" violetyk/scratch-utility {{{
-let g:scratchSplitOption =
-      \ {
-      \   'vertical'           : 1,
-      \   'take_over_filetype' : 1
-      \ }
-" }}}
-
-" vim-anzu {{{
-nmap n <Plug>(anzu-n)zv
-nmap N <Plug>(anzu-N)zv
-nmap * <Plug>(anzu-star)zv
-nmap # <Plug>(anzu-sharp)zv
-augroup vim-anzu
-  autocmd!
-  autocmd CursorHold,CursorHoldI,WinLeave,TabLeave * call anzu#clear_search_status()
-augroup END
-
-" }}}
-
-" yanktmp.vim {{{
-map <silent> ty :call YanktmpYank()<CR>
-map <silent> tp :call YanktmpPaste_p()<CR>
-map <silent> tP :call YanktmpPaste_P()<CR>
-let g:yanktmp_file = '/tmp/vimyanktmp'
-" }}}
-
-" precious " {{{
-let g:precious_enable_switchers = {
-      \ "*" : {
-      \   "setfiletype" : 0
-      \ },
-      \ "markdown" : {
-      \   "setfiletype" : 1
-      \ },
-      \}
-" }}}
-
-" breeze.vim {{{
-let g:breeze_highlight_filename_patterns = '*.ctp,*.html,*.htm,*.xhtml,*.xml'
-let g:breeze_highlight_tag = 1
-let g:breeze_hl_color = 'ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black '
-" nnoremap th :<C-u>BreezeHlElementBlock<CR>
-
-" }}}
-
-" lightline {{{ 
-let g:lightline = {
-      \ 'colorscheme': 'powerline',
-      \ 'mode_map': {'c': 'NORMAL'},
-      \ 'active': {
-      \   'left': [ ['mode', 'paste'], ['fugitive', 'filename', 'cakephp', 'currenttag', 'anzu'] ]
-      \ },
-      \ 'component': {
-      \   'lineinfo': ' %3l:%-2v',
-      \ },
-      \ 'component_function': {
-      \   'modified': 'MyModified',
-      \   'readonly': 'MyReadonly',
-      \   'fugitive': 'MyFugitive',
-      \   'filename': 'MyFilename',
-      \   'fileformat': 'MyFileformat',
-      \   'filetype': 'MyFiletype',
-      \   'fileencoding': 'MyFileencoding',
-      \   'mode': 'MyMode',
-      \   'anzu': 'anzu#search_status',
-      \   'currenttag': 'MyCurrentTag',
-      \   'cakephp': 'MyCakephp',
-      \ }
-      \ }
+endif " }}}
+if neobundle#is_sourced('vim-localrc') " {{{
+  silent! call localrc#load('.init.vimrc', $HOME)
+endif " }}}
+if neobundle#is_sourced('vim-indent-guides') " {{{
+  let g:indent_guides_enable_on_vim_startup = 0
+  let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+  let g:indent_guides_start_level = 3
+  let g:indent_guides_guide_size = 1
+endif " }}}
+if neobundle#is_sourced('vim-anzu') " {{{
+  nmap n <Plug>(anzu-n)zv
+  nmap N <Plug>(anzu-N)zv
+  nmap * <Plug>(anzu-star)zv
+  nmap # <Plug>(anzu-sharp)zv
+  augroup vim-anzu
+    autocmd!
+    autocmd CursorHold,CursorHoldI,WinLeave,TabLeave * call anzu#clear_search_status()
+  augroup END
+endif " }}}
+if neobundle#is_sourced('vimyanktmp.vim') " {{{
+  map <silent> ty :call YanktmpYank()<CR>
+  map <silent> tp :call YanktmpPaste_p()<CR>
+  map <silent> tP :call YanktmpPaste_P()<CR>
+  let g:yanktmp_file = '/tmp/vimyanktmp'
+endif " }}}
+if neobundle#is_sourced('vim-precious') " {{{
+  let g:precious_enable_switchers = {
+        \ "*" : {
+        \   "setfiletype" : 0
+        \ },
+        \ "markdown" : {
+        \   "setfiletype" : 1
+        \ },
+        \}
+endif " }}}
+if neobundle#is_sourced('breeze.vim') " {{{
+  let g:breeze_highlight_filename_patterns = '*.ctp,*.html,*.htm,*.xhtml,*.xml'
+  let g:breeze_highlight_tag = 1
+  let g:breeze_hl_color = 'ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black '
+  " nnoremap th :<C-u>BreezeHlElementBlock<CR>
+endif " }}}
+if neobundle#is_sourced('lightline.vim') " {{{
+  let g:lightline = {
+        \ 'colorscheme': 'jellybeans',
+        \ 'mode_map': {'c': 'NORMAL'},
+        \ 'active': {
+        \   'left': [ ['mode', 'paste'], ['fugitive', 'filename', 'cakephp', 'currenttag', 'anzu'] ]
+        \ },
+        \ 'component': {
+        \   'lineinfo': ' %3l:%-2v',
+        \ },
+        \ 'component_function': {
+        \   'modified': 'MyModified',
+        \   'readonly': 'MyReadonly',
+        \   'fugitive': 'MyFugitive',
+        \   'filename': 'MyFilename',
+        \   'fileformat': 'MyFileformat',
+        \   'filetype': 'MyFiletype',
+        \   'fileencoding': 'MyFileencoding',
+        \   'mode': 'MyMode',
+        \   'anzu': 'anzu#search_status',
+        \   'currenttag': 'MyCurrentTag',
+        \   'cakephp': 'MyCakephp',
+        \ }
+        \ }
 
 
-function! MyModified()
-  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
+  function! MyModified()
+    return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+  endfunction
 
-function! MyReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? ' ' : ''
-endfunction
+  function! MyReadonly()
+    return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? ' ' : ''
+  endfunction
 
-function! MyFilename()
-  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \  &ft == 'unite' ? unite#get_status_string() :
-        \  &ft == 'vimshell' ? vimshell#get_status_string() :
-        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != MyModified() ? ' ' . MyModified() : '')
-endfunction
+  function! MyFilename()
+    return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+          \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+          \  &ft == 'unite' ? unite#get_status_string() :
+          \  &ft == 'vimshell' ? vimshell#get_status_string() :
+          \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+          \ ('' != MyModified() ? ' ' . MyModified() : '')
+  endfunction
 
-function! MyFugitive()
-  try
-    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
-      return ' ' . fugitive#head()
-    endif
-  catch
-  endtry
-  return ''
-endfunction
+  function! MyFugitive()
+    try
+      if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
+        return ' ' . fugitive#head()
+      endif
+    catch
+    endtry
+    return ''
+  endfunction
 
-function! MyFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
+  function! MyFileformat()
+    return winwidth(0) > 70 ? &fileformat : ''
+  endfunction
 
-function! MyFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-endfunction
+  function! MyFiletype()
+    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  endfunction
 
-function! MyFileencoding()
-  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-endfunction
+  function! MyFileencoding()
+    return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  endfunction
 
-function! MyMode()
-  return winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
+  function! MyMode()
+    return winwidth(0) > 60 ? lightline#mode() : ''
+  endfunction
 
-function! MyCurrentTag()
-  return tagbar#currenttag('%s', '')
-endfunction
+  function! MyCurrentTag()
+    return tagbar#currenttag('%s', '')
+  endfunction
 
-function! MyCakephp()
-  return exists('*cake#buffer') ? cake#buffer('type') : ''
-endfunction
-" }}}
+  function! MyCakephp()
+    return exists('*cake#buffer') ? cake#buffer('type') : ''
+  endfunction
 
-" let g:tern_show_argument_hints = 'on_hold'
+endif " }}}
+if neobundle#is_sourced('tern_for_vim') " {{{
+  " let g:tern_show_argument_hints = 'on_hold'
+endif " }}}
+if neobundle#is_sourced('vim-gitgutter') " {{{
+  let g:gitgutter_enabled = 1
+  let g:gitgutter_realtime = 0
+  nmap gj <Plug>GitGutterNextHunk
+  nmap gk <Plug>GitGutterPrevHunk
+  nnoremap ,gg :<C-u>GitGutterToggle<CR>
+  nnoremap ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
+endif " }}}
+if neobundle#is_sourced('tagbar') " {{{
+  let g:tagbar_ctags_bin = '/usr/local/ctags/bin/ctags'
+endif " }}}
+if neobundle#is_sourced('vim-plugin-tagbar-phpctags') " {{{
+  let g:tagbar_phpctags_bin = $HOME . '/dotfiles/.vim/bundle/vim-plugin-tagbar-phpctags/bin/phpctags'
+  let g:tagbar_phpctags_memory_limit = '512M'
+endif " }}}
+if neobundle#is_sourced('vim-json') " {{{
+  let g:vim_json_syntax_conceal = 0
+endif " }}}
+if neobundle#is_sourced('syntastic') " {{{
+  let g:syntastic_mode_map = {
+        \ 'map' : 'active',
+        \ 'active_filetypes' : ['php', 'javascript'],
+        \ 'passive_filetypes' : [],
+        \ }
 
-" gitgutter {{{
-let g:gitgutter_enabled = 1
-let g:gitgutter_realtime = 0
-nmap gj <Plug>GitGutterNextHunk
-nmap gk <Plug>GitGutterPrevHunk
-nnoremap ,gg :<C-u>GitGutterToggle<CR>
-nnoremap ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
-" }}}
-
-" tagbar {{{
-let g:tagbar_ctags_bin = '/usr/local/ctags/bin/ctags'
-" }}}
-
-" tagbar-phpctags {{{
-let g:tagbar_phpctags_bin = $HOME . '/dotfiles/.vim/bundle/vim-plugin-tagbar-phpctags/bin/phpctags'
-let g:tagbar_phpctags_memory_limit = '512M'
-" }}}
-
-" vim-json {{{
-let g:vim_json_syntax_conceal = 0
-" }}}
-
-" syntastic {{{
-let g:syntastic_mode_map = {
-      \ 'map' : 'active',
-      \ 'active_filetypes' : ['php', 'javascript'],
-      \ 'passive_filetypes' : [],
-      \ }
-
-nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
-cabbrev <silent> bd lclose\|bdelete
-" }}}
-
-" howm {{{
-let g:howm_fileencoding = 'utf-8'
-let g:howm_fileformat   = 'unix'
-let g:howm_dir          = $HOME . '/howm'
-let g:QFixHowm_key      = 'g'
-let g:QFixHowm_SaveTime = 2
-" }}}
-
-" unite-qfixhowm {{{
-" 更新日順で表示する場合
-call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', 'sorter_reverse'])
-" 新規作成時の開き方
-let g:unite_qfixhowm_new_memo_cmd = "tabnew"
-" }}}
-
-" quickrun {{{
-let g:quickrun_config = {}
-let g:quickrun_config.coffee = {
-\ 'command': 'coffee',
-\ 'exec': ['%c -cbp %s']
-\ }
-" }}}
-
-if neobundle#is_sourced('vim-choosewin')
-  nmap  -  <Plug>(choosewin)
+  nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
+  cabbrev <silent> bd lclose\|bdelete
+endif " }}}
+if neobundle#is_sourced('qfixhowm') " {{{
+  let g:howm_fileencoding = 'utf-8'
+  let g:howm_fileformat   = 'unix'
+  let g:howm_dir          = $HOME . '/howm'
+  let g:QFixHowm_key      = 'g'
+  let g:QFixHowm_SaveTime = 2
+endif " }}}
+if neobundle#is_sourced('unite-qfixhowm') " {{{
+  " 更新日順で表示する場合
+  call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', 'sorter_reverse'])
+  " 新規作成時の開き方
+  let g:unite_qfixhowm_new_memo_cmd = "tabnew"
+endif " }}}
+if neobundle#is_sourced('vim-quickrun') " {{{
+  let g:quickrun_config = {}
+  let g:quickrun_config.coffee = {
+  \ 'command': 'coffee',
+  \ 'exec': ['%c -cbp %s']
+  \ }
+endif " }}}
+if neobundle#is_sourced('vim-choosewin') " {{{
+  nmap  <C-w><C-w>  <Plug>(choosewin)
 
   " オーバーレイを使う
   let g:choosewin_overlay_enable = 1
@@ -1496,27 +1430,14 @@ if neobundle#is_sourced('vim-choosewin')
   " マルチバイトバッファでオーバーレイフォントを崩さないように
   let g:choosewin_overlay_clear_multibyte = 1
 
-  " tmux の色に雰囲気を合わせる。
-  " let g:choosewin_color_overlay = {
-        " \ 'gui': ['DodgerBlue3', 'DodgerBlue3' ],
-        " \ 'cterm': [ 25, 25 ]
-        " \ }
-  " let g:choosewin_color_overlay_current = {
-        " \ 'gui': ['firebrick1', 'firebrick1' ],
-        " \ 'cterm': [ 124, 124 ]
-        " \ }
-
   let g:choosewin_blink_on_land      = 0 " 頼むから着地時にカーソル点滅をさせないでくれ！
   let g:choosewin_statusline_replace = 0 " どうかステータスラインリプレイスしないで下さい!
   let g:choosewin_tabline_replace    = 0 " どうかタブラインもリプレイスしないでいただきたい！
-endif
-
-let g:neocomplete_php_locale = 'ja'
+endif " }}}
+if neobundle#is_sourced('neocomplete-php.vim') " {{{
+  let g:neocomplete_php_locale = 'ja'
+endif " }}}
 
 " }}}
-
-let g:unite_launch_apps = [
-      \ 'git push',
-      \ ]
 
 let g:loaded_vimrc = 1
