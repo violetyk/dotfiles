@@ -1422,7 +1422,7 @@ if neobundle#is_sourced('vim-quickrun') " {{{
   \ }
 endif " }}}
 if neobundle#is_sourced('vim-choosewin') " {{{
-  nmap  <C-w><C-w>  <Plug>(choosewin)
+  nmap  <C-w><CR>  <Plug>(choosewin)
 
   " オーバーレイを使う
   let g:choosewin_overlay_enable = 1
