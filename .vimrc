@@ -306,11 +306,11 @@ if has('gui_running')
   set mouse=a
   set ttymouse=xterm2
 
-  " 入力時にマウスポインタを隠す (nomousehide:隠さない)
+  " キータイプ時にマウスポインタを隠す (nomousehide:隠さない)
   set mousehide
 
   " GUIの設定。m:メニュー、r:右垂直バー、b:下のスクロールバー、l:左垂直バー
-  set guioptions=
+  set guioptions=c
 
   " ヤンクの内容や、選択した内容をクリップボードに格納する。
   set clipboard=unnamed,autoselect
