@@ -1,6 +1,7 @@
 #!/bin/sh
 
 if [ `uname` = "Darwin" -a -z `which brew` ]; then
+  # home brew
   ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
   brew install wget
   brew install tig
@@ -10,8 +11,13 @@ if [ `uname` = "Darwin" -a -z `which brew` ]; then
   brew install fontforge
   brew install coreutils
   brew install bash-completion
+  brew install openssl
+  brew install source-highlight
   brew install macvim --HEAD --with-lua
   brew linkapps
+
+  # php
+  curl -s http://php-osx.liip.ch/install.sh | bash -s 5.5
 fi
 brew update
 
