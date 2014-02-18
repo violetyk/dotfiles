@@ -967,7 +967,7 @@ if neobundle#is_sourced('neocomplete.vim') " {{{
   " https://github.com/c9s/perlomni.vim
   let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 endif " }}}
-if neobundle#is_sourced('neosinippet') " {{{
+if neobundle#is_sourced('neosnippet') " {{{
   let snippets_directory = [
         \ $HOME.'/.vim/snippets',
         \ $HOME.'/works/neosnippet-cakephp2',
