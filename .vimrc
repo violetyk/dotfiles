@@ -118,6 +118,7 @@ NeoBundle 'zhaocai/unite-scriptnames', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'thinca/vim-editvar',        { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'ujihisa/unite-launch',      { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'osyo-manga/unite-qfixhowm', { 'depends' : 'Shougo/unite.vim' }
+NeoBundle 'Shougo/neomru.vim',         { 'depends' : 'Shougo/unite.vim' }
 " }}}
 " statusline, colorscheme {{{
 NeoBundle 'itchyny/lightline.vim'

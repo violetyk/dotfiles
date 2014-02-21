@@ -36,6 +36,7 @@ ln -sf ~/dotfiles/.ctags ~/.ctags
 ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/.tigrc ~/.tigrc
 ln -sf ~/dotfiles/.tmux-powerlinerc ~/.tmux-powerlinerc
+ln -sf ~/dotfiles/.agignore ~/.agignore
 ln -sf ~/dotfiles/.gitignore ~/.gitignore
 ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
 ln -sf ~/dotfiles/.vim/bundle/dircolors-solarized/dircolors.ansi-universal ~/.dircolors
