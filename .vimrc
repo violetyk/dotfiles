@@ -118,6 +118,7 @@ NeoBundle 'zhaocai/unite-scriptnames', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'thinca/vim-editvar',        { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'ujihisa/unite-launch',      { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'osyo-manga/unite-qfixhowm', { 'depends' : 'Shougo/unite.vim' }
+NeoBundle 'Shougo/neomru.vim',         { 'depends' : 'Shougo/unite.vim' }
 " }}}
 " statusline, colorscheme {{{
 NeoBundle 'itchyny/lightline.vim'
@@ -306,11 +307,11 @@ if has('gui_running')
   set mouse=a
   set ttymouse=xterm2
 
-  " 入力時にマウスポインタを隠す (nomousehide:隠さない)
+  " キータイプ時にマウスポインタを隠す (nomousehide:隠さない)
   set mousehide
 
   " GUIの設定。m:メニュー、r:右垂直バー、b:下のスクロールバー、l:左垂直バー
-  set guioptions=
+  set guioptions=c
 
   " ヤンクの内容や、選択した内容をクリップボードに格納する。
   set clipboard=unnamed,autoselect

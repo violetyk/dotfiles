@@ -78,6 +78,12 @@ if [ -d ~/etc/profile.d ]; then
   unset i
 fi
 
+### less
+if [ -n `which source-highlight` ]; then
+  export LESS='-R'
+  export LESSOPEN='| ~/dotfiles/src-hilite-lesspipe.sh %s'
+fi
+
 
 ### bashのモード
 # set -o vi
