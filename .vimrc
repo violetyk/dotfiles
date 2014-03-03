@@ -43,6 +43,12 @@ NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 " }}}
+" session {{{
+NeoBundle 'xolox/vim-session', {
+ \ 'depends' : 'xolox/vim-misc',
+ \ }
+
+" }}}
 " editing {{{
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'vim-scripts/Align'
@@ -179,6 +185,7 @@ command! -nargs=1 MyNeoBundle NeoBundle <args>,
 MyNeoBundle 'violetyk/cake.vim'
 MyNeoBundle 'violetyk/scratch-utility'
 MyNeoBundle 'violetyk/neosnippet-cakephp2'
+MyNeoBundle 'violetyk/neosnippet-rails'
 MyNeoBundle 'violetyk/neocomplete-php.vim'
 MyNeoBundle 'git@github.com:nanapi/nanapi.vim.git'
 " }}}
@@ -1460,6 +1467,13 @@ if neobundle#is_sourced('vim-choosewin') " {{{
 endif " }}}
 if neobundle#is_sourced('neocomplete-php.vim') " {{{
   let g:neocomplete_php_locale = 'ja'
+endif " }}}
+if neobundle#is_sourced('vim-session') " {{{
+  let g:session_directory = $HOME . '/.vimsessions/'
+  let g:session_autoload = 'yes'
+  let g:session_autosave = 'yes'
+  let g:session_default_to_last = 1
+  let g:session_default_overwrite = 1
 endif " }}}
 
 " }}}
