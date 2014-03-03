@@ -50,6 +50,7 @@ NeoBundle 'vim-scripts/yanktmp.vim'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-endwise'
 NeoBundle 'vim-scripts/Modeliner'
 NeoBundleLazy 'kana/vim-smartchr'
 NeoBundleLazy 'kana/vim-smartinput'
@@ -102,7 +103,8 @@ NeoBundle 'joonty/vdebug'
 NeoBundle 'kchmck/vim-coffee-script'
 " }}}
 " ruby {{{
-NeoBundleLazy 'tpope/vim-rails'
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'tpope/vim-rails'
 " }}}
 " syntax check {{{
 " NeoBundle 'tomtom/checksyntax_vim'
@@ -226,6 +228,9 @@ set completeopt-=preview
 
 " 正規表現エンジンの設定
 " set regexpengine=0
+
+" プレビューウィンドウの高さ
+set previewheight=20
 " }}}
 
 " 文字コードの設定 {{{
@@ -972,6 +977,7 @@ if neobundle#is_sourced('neosnippet') " {{{
   let snippets_directory = [
         \ $HOME.'/.vim/snippets',
         \ $HOME.'/works/neosnippet-cakephp2',
+        \ $HOME.'/works/neosnippet-rails',
         \]
   let g:neosnippet#snippets_directory = join(snippets_directory, ',')
 
@@ -1408,6 +1414,23 @@ if neobundle#is_sourced('qfixhowm') " {{{
   let g:howm_dir          = $HOME . '/howm'
   let g:QFixHowm_key      = 'g'
   let g:QFixHowm_SaveTime = 2
+
+  " markdown
+  let g:QFixHowm_FileType = 'markdown'
+  let g:QFixHowm_Title = '#'
+  let g:howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.md'
+  let g:QFixMRU_Title = {
+        \ 'markdown' : '^#',
+        \ 'markdown_regexp' : '^#',
+        \ }
+
+  " preview
+  " let g:QFix_PreviewOpenCmd = 'vertical'
+  let g:QFix_PreviewCursorLine = 1
+  let g:QFix_PreviewWrap = 0
+  " let g:QFix_PreviewWidth = 100
+  let g:QFix_PreviewHeight = 30
+
 endif " }}}
 if neobundle#is_sourced('unite-qfixhowm') " {{{
   " 更新日順で表示する場合
