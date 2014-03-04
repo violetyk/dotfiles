@@ -235,9 +235,6 @@ set completeopt-=preview
 
 " 正規表現エンジンの設定
 " set regexpengine=0
-
-" プレビューウィンドウの高さ
-set previewheight=20
 " }}}
 
 " 文字コードの設定 {{{
@@ -917,6 +914,11 @@ if neobundle#is_sourced('neocomplete.vim') " {{{
       let g:neocomplete#keyword_patterns = {}
   endif
   let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+  let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
   " Plugin key-mappings.
   inoremap <expr><C-g>     neocomplete#undo_completion()
