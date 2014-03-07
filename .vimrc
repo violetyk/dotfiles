@@ -111,6 +111,8 @@ NeoBundle 'kchmck/vim-coffee-script'
 " ruby {{{
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tpope/vim-rails'
+NeoBundle 'tpope/vim-bundler'
+NeoBundle 'tpope/vim-rake'
 " }}}
 " syntax check {{{
 " NeoBundle 'tomtom/checksyntax_vim'
@@ -127,12 +129,13 @@ NeoBundle 'thinca/vim-editvar',        { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'ujihisa/unite-launch',      { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'osyo-manga/unite-qfixhowm', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'Shougo/neomru.vim',         { 'depends' : 'Shougo/unite.vim' }
+NeoBundle 'tsukkee/unite-tag',         { 'depends' : 'Shougo/unite.vim' }
 " }}}
 " statusline, colorscheme {{{
 NeoBundle 'itchyny/lightline.vim'
 
 NeoBundle 'mrkn256.vim'
-NeoBundleLazy 'chriskempson/tomorrow-theme', {
+NeoBundle 'chriskempson/tomorrow-theme', {
       \ 'rtp': "~/.vim/bundle/tomorrow-theme/vim/",
       \ }
 NeoBundle 'nanotech/jellybeans.vim'
@@ -305,12 +308,14 @@ set updatecount=500
 if has('gui_running')
 
   " カラースキーマ
-  set background=dark
+  " set background=dark
   " set background=light
-  " let g:solarized_contrast="normal"
+  " let g:solarized_contrast="row"
   " silent! colorscheme solarized
 
-  silent! colorscheme hybrid
+  " silent! colorscheme Tomorrow-Night-Blight
+  " silent! colorscheme Tomorrow-Night-Blue
+  silent! colorscheme Tomorrow-Night
 
   " マウスを使う。
   set mouse=a
@@ -707,6 +712,10 @@ noremap <Space>l $
 " 縦分割版gf
 nnoremap gs :vertical wincmd f<CR>
 
+" タグジャンプで複数ある時は一覧表示
+nnoremap <C-]> g<C-]> 
+
+
 " 移動量の調節
 nnoremap <C-e> 10<C-e>
 nnoremap <C-y> 10<C-y>
@@ -1076,6 +1085,7 @@ if neobundle#is_sourced('unite.vim') " {{{
   " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
   nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
   nnoremap [unite]q   :<C-u>Unite qfixhowm:nocache<CR>
+  " nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
   nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
   nnoremap [unite].   :<C-u>UniteResume<CR>
   " nnoremap [unite]s   :<C-u>Unite history/search<CR>
@@ -1092,6 +1102,7 @@ if neobundle#is_sourced('unite.vim') " {{{
   " nnoremap [unite]M   :<C-u>Unite mapping -start-insert<CR>
   nnoremap [unite]R   :<C-u>Unite -buffer-name=register register<CR>
   nnoremap [unite]S   :<C-u>Unite output:scriptnames<CR>
+  nnoremap [unite]t   :<C-u>Unite tag -start-insert<CR>
 
 endif " }}}
 if neobundle#is_sourced('vim-ref') " {{{
@@ -1472,7 +1483,7 @@ if neobundle#is_sourced('neocomplete-php.vim') " {{{
 endif " }}}
 if neobundle#is_sourced('vim-session') " {{{
   let g:session_directory = $HOME . '/.vimsessions/'
-  let g:session_autoload = 'yes'
+  let g:session_autoload = 'no'
   let g:session_autosave = 'yes'
   let g:session_default_to_last = 1
   let g:session_default_overwrite = 1
