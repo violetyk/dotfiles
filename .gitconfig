@@ -36,3 +36,6 @@
 [push]
   # default = matching
   default = simple
+
+[rebase]
+  autostash = true
