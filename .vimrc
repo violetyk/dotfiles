@@ -130,6 +130,7 @@ NeoBundle 'ujihisa/unite-launch',      { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'osyo-manga/unite-qfixhowm', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'Shougo/neomru.vim',         { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'tsukkee/unite-tag',         { 'depends' : 'Shougo/unite.vim' }
+
 " }}}
 " statusline, colorscheme {{{
 NeoBundle 'itchyny/lightline.vim'
@@ -1086,7 +1087,7 @@ if neobundle#is_sourced('unite.vim') " {{{
   nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
   nnoremap [unite]q   :<C-u>Unite qfixhowm:nocache<CR>
   " nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
-  nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
+  nnoremap [unite]r   :Rc<C-u>Unite output:!bin/rake\ routes -start-insert<CR>
   nnoremap [unite].   :<C-u>UniteResume<CR>
   " nnoremap [unite]s   :<C-u>Unite history/search<CR>
   " nnoremap [unite]v   :<C-u>Unite output:version -start-insert<CR>
