@@ -13,6 +13,7 @@ install bash-completion
 install openssl
 install source-highlight
 install macvim --HEAD --with-lua --enable-pythoninterp --with-lua
+install nodejs
 linkapps
 
 # Remove outdated versions
