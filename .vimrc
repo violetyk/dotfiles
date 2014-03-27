@@ -98,8 +98,9 @@ NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'rking/ag.vim'
 " }}}
-" vcs {{{
+" git {{{
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'jaxbot/github-issues.vim'
 " }}}
 " php {{{
 NeoBundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
