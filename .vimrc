@@ -60,6 +60,7 @@ NeoBundle 'tpope/vim-endwise'
 NeoBundle 'vim-scripts/Modeliner'
 NeoBundleLazy 'kana/vim-smartchr'
 NeoBundleLazy 'kana/vim-smartinput'
+NeoBundle 'mattn/emoji-vim'
 " }}}
 " textobj {{{
 NeoBundle 'akiyan/vim-textobj-php'
