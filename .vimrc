@@ -72,12 +72,13 @@ NeoBundle 'Shougo/vimfiler'
 " }}}
 " outliner {{{
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'techlivezheng/vim-plugin-tagbar-phpctags', {
+NeoBundle 'vim-php/phpctags', {
       \ 'build' : {
       \   'mac' : 'make',
       \   'unix' : 'make',
       \ },
       \}
+NeoBundle 'vim-php/tagbar-phpctags.vim'
 
 " }}}
 " database {{{
@@ -1414,8 +1415,8 @@ endif " }}}
 if neobundle#is_sourced('tagbar') " {{{
   let g:tagbar_ctags_bin = '/usr/local/ctags/bin/ctags'
 endif " }}}
-if neobundle#is_sourced('vim-plugin-tagbar-phpctags') " {{{
-  let g:tagbar_phpctags_bin = $HOME . '/dotfiles/.vim/bundle/vim-plugin-tagbar-phpctags/bin/phpctags'
+if neobundle#is_sourced('tagbar-phpctags.vim') " {{{
+  let g:tagbar_phpctags_bin = $HOME . '/dotfiles/.vim/bundle/phpctags/phpctags'
   let g:tagbar_phpctags_memory_limit = '512M'
 endif " }}}
 if neobundle#is_sourced('vim-json') " {{{
