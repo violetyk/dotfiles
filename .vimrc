@@ -319,7 +319,7 @@ if has('gui_running')
 
   " silent! colorscheme Tomorrow-Night-Blight
   " silent! colorscheme Tomorrow-Night-Blue
-  silent! colorscheme Tomorrow-Night
+  silent! colorscheme jellybeans
 
   " マウスを使う。
   set mouse=a
@@ -377,7 +377,8 @@ else
   " 対応する括弧の色を控えめにしておく
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
-  silent! colorscheme mrkn256
+  " silent! colorscheme mrkn256
+  silent! colorscheme jellybeans
   " }}}
 endif
 " }}}
@@ -914,6 +915,9 @@ if neobundle#is_sourced('neocomplete.vim') " {{{
   " Set minimum syntax keyword length.
   let g:neocomplete#sources#syntax#min_keyword_length = 3
   let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+  let g:neocomplete#max_list = 30
+  let g:neocomplete#sources#buffer#max_keyword_width = 100
 
   " Define dictionary.
   let g:neocomplete#sources#dictionary#dictionaries = {
