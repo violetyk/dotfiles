@@ -38,7 +38,7 @@ NeoBundle 'kana/vim-gf-user'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-metarw'
 NeoBundle 'mattn/webapi-vim'
-NeoBundle 'vim-jp/vital.vim'
+" NeoBundle 'vim-jp/vital.vim'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
@@ -106,7 +106,7 @@ NeoBundle 'jaxbot/github-issues.vim'
 " }}}
 " php {{{
 NeoBundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
-NeoBundle 'joonty/vdebug'
+" NeoBundle 'joonty/vdebug'
 " }}}
 " coffee {{{
 NeoBundle 'kchmck/vim-coffee-script'
@@ -153,8 +153,8 @@ NeoBundleLazy 'jpo/vim-railscasts-theme'
 NeoBundleLazy 'vim-scripts/pyte'
 " }}}
 " syntax {{{
-NeoBundle 'Shougo/context_filetype.vim'
-NeoBundle 'osyo-manga/vim-precious'
+" NeoBundle 'Shougo/context_filetype.vim'
+" NeoBundle 'osyo-manga/vim-precious'
 " NeoBundle 'php.vim--Garvin'
 " NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'jQuery'
@@ -173,6 +173,9 @@ NeoBundle 'glidenote/nogistub.vim'
 " }}}
 " memo {{{
 NeoBundle 'fuenor/qfixhowm'
+" }}}
+" blog {{{
+NeoBundle 'csexton/jekyll.vim'
 " }}}
 " game {{{
 NeoBundle 'mattn/habatobi-vim'
@@ -377,8 +380,8 @@ else
   " 対応する括弧の色を控えめにしておく
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
-  " silent! colorscheme mrkn256
-  silent! colorscheme jellybeans
+  silent! colorscheme mrkn256
+  " silent! colorscheme jellybeans
   " }}}
 endif
 " }}}
@@ -1495,6 +1498,15 @@ if neobundle#is_sourced('vim-session') " {{{
   let g:session_autosave = 'yes'
   let g:session_default_to_last = 1
   let g:session_default_overwrite = 1
+endif " }}}
+if neobundle#is_sourced('jekyll.vim') " {{{
+  let g:jekyll_path = $HOME . "/violetyk.jp"
+  " let g:jekyll_post_suffix = "textile"
+  " let g:jekyll_post_published = "false"
+  " let g:jekyll_post_created = "epoch"
+  " let g:jekyll_post_created = "%D %T"
+  " let g:jekyll_prompt_tags = "true"
+  " let g:jekyll_prompt_categories = "true"
 endif " }}}
 
 " }}}
