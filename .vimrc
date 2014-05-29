@@ -1,5 +1,14 @@
 " vim:set ts=4 sts=2 sw=2 tw=0 ft=vim fdm=marker:
 
+"  ██████╗  ██████╗     ███████╗ █████╗ ███████╗██╗   ██╗     ██████╗ ███╗   ██╗    ███╗   ███╗███████╗██╗
+" ██╔════╝ ██╔═══██╗    ██╔════╝██╔══██╗██╔════╝╚██╗ ██╔╝    ██╔═══██╗████╗  ██║    ████╗ ████║██╔════╝██║
+" ██║  ███╗██║   ██║    █████╗  ███████║███████╗ ╚████╔╝     ██║   ██║██╔██╗ ██║    ██╔████╔██║█████╗  ██║
+" ██║   ██║██║   ██║    ██╔══╝  ██╔══██║╚════██║  ╚██╔╝      ██║   ██║██║╚██╗██║    ██║╚██╔╝██║██╔══╝  ╚═╝
+" ╚██████╔╝╚██████╔╝    ███████╗██║  ██║███████║   ██║       ╚██████╔╝██║ ╚████║    ██║ ╚═╝ ██║███████╗██╗
+"  ╚═════╝  ╚═════╝     ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝        ╚═════╝ ╚═╝  ╚═══╝    ╚═╝     ╚═╝╚══════╝╚═╝
+" please... (´･ω･`;)
+
+
 " viとの互換性をとらない(vimの独自拡張機能を使う為)
 set nocompatible
 
@@ -103,6 +112,9 @@ NeoBundle 'rking/ag.vim'
 " git {{{
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'jaxbot/github-issues.vim'
+NeoBundle 'moznion/github-commit-comment.vim'
+NeoBundle 'tyru/open-browser-github.vim'
+NeoBundle 'tyru/open-browser.vim'
 " }}}
 " php {{{
 NeoBundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
@@ -261,10 +273,9 @@ set fileencodings=utf-8,ucs-bom,euc-jp,cp932,sjis
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
 
-" □とか○の文字があってもカーソル位置がずれないようにす
-" powerline を使った時にステータスラインが更新されない場合があるのsingleで。
-" set ambiwidth=double
-set ambiwidth=single
+" □とか○の文字があってもカーソル位置がずれないようにする
+set ambiwidth=double
+" set ambiwidth=single
 
 " }}}
 
@@ -320,6 +331,7 @@ if has('gui_running')
   " silent! colorscheme Tomorrow-Night-Blight
   " silent! colorscheme Tomorrow-Night-Blue
   silent! colorscheme jellybeans
+
 
   " マウスを使う。
   set mouse=a
