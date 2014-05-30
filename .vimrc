@@ -47,7 +47,7 @@ NeoBundle 'kana/vim-gf-user'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-metarw'
 NeoBundle 'mattn/webapi-vim'
-" NeoBundle 'vim-jp/vital.vim'
+NeoBundle 'vim-jp/vital.vim'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
@@ -155,14 +155,15 @@ NeoBundle 'chriskempson/tomorrow-theme', {
       \ 'rtp': "~/.vim/bundle/tomorrow-theme/vim/",
       \ }
 NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'w0ng/vim-hybrid'
+NeoBundleLazy 'w0ng/vim-hybrid'
 NeoBundleLazy 'desert.vim'
 NeoBundleLazy 'desert256.vim'
 NeoBundleLazy 'tomasr/molokai'
 NeoBundleLazy 'Zenburn'
-NeoBundle 'altercation/vim-colors-solarized'
+NeoBundleLazy 'altercation/vim-colors-solarized'
 NeoBundleLazy 'jpo/vim-railscasts-theme'
 NeoBundleLazy 'vim-scripts/pyte'
+NeoBundle 'cocopon/iceberg.vim'
 " }}}
 " syntax {{{
 " NeoBundle 'Shougo/context_filetype.vim'
@@ -331,8 +332,6 @@ if has('gui_running')
   " let g:solarized_contrast="row"
   " silent! colorscheme solarized
 
-  " silent! colorscheme Tomorrow-Night-Blight
-  " silent! colorscheme Tomorrow-Night-Blue
   silent! colorscheme jellybeans
 
 
@@ -393,7 +392,6 @@ else
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
   silent! colorscheme mrkn256
-  " silent! colorscheme jellybeans
   " }}}
 endif
 " }}}
