@@ -606,11 +606,11 @@ endfunction " }}}
 command! -bar -bang -nargs=? -complete=file Scouter echo <SID>scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
 
 " cdpathからcdする
-command! -complete=customlist,CompleteCD -nargs=? CD cd <args>
 function! CompleteCD(arglead, cmdline, cursorpos) " {{{
   let pattern = join(split(a:cmdline, '\s', !0)[1:], '') . '*/'
   return split(globpath(&cdpath, pattern), "\n")
 endfunction " }}}
+command! -complete=customlist,CompleteCD -nargs=? CD cd <args>
 
 " コマンドラインの時だけcdをCDとして略語展開
 cnoreabbrev <expr> cd
@@ -632,7 +632,38 @@ function! s:is_endof_line(char) " {{{
   return getline(".")[col("$")-2] == a:char
 endfunction " }}}
 
-function! s:Copy() range
+" historyを読み込む
+function! s:BashHistory(...) " {{{
+  if a:0 == 1
+    let limit = a:1
+  else
+    let limit = ''
+  endif
+  let cmd = 'echo ''history ' . limit . ''' | bash -i 2>/dev/null | sed -e ''s/.*\x07//g'' | awk ''{ $1=""; print $0}'''
+  silent exec ':r !' . cmd
+endfunction " }}}
+command! -nargs=? BashHistory :call s:BashHistory(<f-args>)
+
+" graph-easy
+function! s:GraphEasy(...) range "{{{
+  if !neobundle#is_sourced('vim-quickrun') || !executable('graph-easy')
+    return 0
+  endif
+  let range = a:firstline . ',' . a:lastline
+  echo range
+  let tmp = @@
+  silent exec range . 'yank'
+  let src = @@
+  let @@ = tmp
+  call quickrun#run({
+        \ 'runner': 'vimproc',
+        \ 'command': 'graph-easy'
+        \})
+endfunction "}}}
+command! -nargs=0 -range GraphEasy :<line1>,<line2>call s:GraphEasy(<f-args>)
+
+
+function! s:Copy() range " {{{
   let l:tmp = @@
   silent normal gvy
   let l:selected = @@
@@ -647,16 +678,8 @@ function! s:Copy() range
   call system(cmd)
   redraw!
   let @@ = l:tmp
-endfunction
+endfunction " }}}
 command! -range Copy :call s:Copy()
-
-
-function! s:BashHistory()
-  let cmd = 'echo ''history'' | bash -i 2>/dev/null | sed -e ''s/.*\x07//g'' | awk ''{ $1=""; print $0}'''
-  silent exec ':r !' . cmd
-endfunction
-command! -nargs=0 BashHistory :call s:BashHistory()
-
 " }}}
 
 " keybindの設定 {{{
@@ -1480,11 +1503,13 @@ if neobundle#is_sourced('unite-qfixhowm') " {{{
   let g:unite_qfixhowm_new_memo_cmd = "tabnew"
 endif " }}}
 if neobundle#is_sourced('vim-quickrun') " {{{
-  let g:quickrun_config = {}
-  let g:quickrun_config.coffee = {
-  \ 'command': 'coffee',
-  \ 'exec': ['%c -cbp %s']
-  \ }
+  let g:quickrun_config = {
+        \   "coffee" : {
+        \     'command': 'coffee',
+        \     'exec': ['%c -cbp %s']
+        \   },
+        \ }
+  nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 endif " }}}
 if neobundle#is_sourced('vim-choosewin') " {{{
   nmap  <C-w><CR>  <Plug>(choosewin)
