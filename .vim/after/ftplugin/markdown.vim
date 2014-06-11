@@ -19,3 +19,17 @@ function! ToggleCheckbox()
     call setline('.', l:result)
   end
 endfunction
+
+" markdown syntaxは syn include に対応している
+let g:markdown_fenced_languages = [
+      \ 'coffee',
+      \ 'css',
+      \ 'erb=eruby',
+      \ 'javascript',
+      \ 'js=javascript',
+      \ 'json=javascript',
+      \ 'ruby',
+      \ 'sass',
+      \ 'xml',
+      \ 'php',
+      \]

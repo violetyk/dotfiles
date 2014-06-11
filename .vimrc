@@ -1,13 +1,5 @@
 " vim:set ts=4 sts=2 sw=2 tw=0 ft=vim fdm=marker:
 
-"  ██████╗  ██████╗     ███████╗ █████╗ ███████╗██╗   ██╗     ██████╗ ███╗   ██╗    ███╗   ███╗███████╗██╗
-" ██╔════╝ ██╔═══██╗    ██╔════╝██╔══██╗██╔════╝╚██╗ ██╔╝    ██╔═══██╗████╗  ██║    ████╗ ████║██╔════╝██║
-" ██║  ███╗██║   ██║    █████╗  ███████║███████╗ ╚████╔╝     ██║   ██║██╔██╗ ██║    ██╔████╔██║█████╗  ██║
-" ██║   ██║██║   ██║    ██╔══╝  ██╔══██║╚════██║  ╚██╔╝      ██║   ██║██║╚██╗██║    ██║╚██╔╝██║██╔══╝  ╚═╝
-" ╚██████╔╝╚██████╔╝    ███████╗██║  ██║███████║   ██║       ╚██████╔╝██║ ╚████║    ██║ ╚═╝ ██║███████╗██╗
-"  ╚═════╝  ╚═════╝     ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝        ╚═════╝ ╚═╝  ╚═══╝    ╚═╝     ╚═╝╚══════╝╚═╝
-" please... (´･ω･`;)
-
 
 " viとの互換性をとらない(vimの独自拡張機能を使う為)
 set nocompatible
@@ -28,7 +20,6 @@ NeoBundleFetch 'seebi/dircolors-solarized'
 NeoBundle 'vim-jp/vimdoc-ja'
 " }}}
 " base {{{
-NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplete.vim', {
   \ 'disabled' : !has('lua'),
   \ 'vim_version' : '7.3.885'
@@ -192,16 +183,19 @@ NeoBundle 'csexton/jekyll.vim'
 " game {{{
 NeoBundle 'mattn/habatobi-vim'
 " }}}
+" system {{{
+NeoBundle 'mopp/autodirmake.vim'
+" }}}
 
 " NeoBundle 'gcmt/breeze.vim'
 " NeoBundle 'marijnh/tern_for_vim'
 " NeoBundle 'shawncplus/phpcomplete.vim'
 
 " :NeoBundleUpdate!でも更新しない
-command! -nargs=1 MyNeoBundle NeoBundle <args>, 
+command! -nargs=1 MyNeoBundle NeoBundle <args>,
       \ {
       \   'base' : $HOME . '/works/',
-      \   'type' : 'nosync', 
+      \   'type' : 'nosync',
       \ }
 
 MyNeoBundle 'violetyk/cake.vim'
@@ -212,7 +206,6 @@ MyNeoBundle 'violetyk/neocomplete-php.vim'
 MyNeoBundle 'git@github.com:nanapi/nanapi.vim.git'
 " }}}
 
-filetype plugin indent on
 " }}}
 
 " 基本的な設定: {{{
@@ -237,7 +230,7 @@ set notagbsearch
 " ヘルプファイルの検索順
 set helplang=ja,en
 
-" バッファを切替えてもundoの効力を失わない
+" 保存していないバッファでも切り替えられる
 set hidden
 
 " 起動時のメッセージを表示しない
@@ -287,19 +280,18 @@ set ambiwidth=double
 " バックアップをとらない
 set nobackup
 
-" バックアップをとる
-" set backup
-
 " ファイルの上書きの前にバックアップを作る
 " (backup がオフの場合、バックアップは上書きに成功した後削除される)
 " set writebackup
-
 
 " バックアップを作成しないファイルパターン
 " set backupskip = escape(expand('$HOME'), '\') . '/tmp/*'
 
 " バックアップ名の最後に文字列を追加
-au BufWritePre * let &bex = '-' . strftime("%Y%m%d_%H%M")
+augroup Backup
+  autocmd!
+  autocmd BufWritePre * let &backupext = '-' . strftime("%Y%m%d_%H%M")
+augroup END
 
 " バックアップファイルを作るディレクトリ
 if has('win32') || has('win64')
@@ -308,8 +300,8 @@ else
   set backupdir=$HOME/backup
 endif
 
-" スワップファイルを作らない
-" set noswapfile
+" スワップファイルをつくる
+set swapfile
 
 " スワップファイルを作るディレクトリ
 if has('win32') || has('win64')
@@ -336,7 +328,6 @@ if has('gui_running')
 
   " マウスを使う。
   set mouse=a
-  set ttymouse=xterm2
 
   " キータイプ時にマウスポインタを隠す (nomousehide:隠さない)
   set mousehide
@@ -370,8 +361,12 @@ if has('gui_running')
   elseif has('mac')
     set guifont=Ricty\ Regular\ for\ Powerline:h13
 
-    " 起動したときに最大化
-    autocmd BufEnter * macaction performZoom:
+    augroup MacVim
+      autocmd!
+      " 起動したときに最大化
+      autocmd BufEnter * macaction performZoom:
+    augroup END
+
   " }}}
   " Linux gvim {{{
   elseif has('gui_gtk2')
@@ -400,19 +395,29 @@ endif
 " 色のチェック方法
 " :so $VIMRUNTIME/syntax/colortest.vim
 
-" 全角スペースの表示
-"highlight ZenkakuSpace cterm=underline ctermfg=red guibg=red
 
-" エラーと同じハイライトを適用。
-highlight link ZenkakuSpace Error
-autocmd BufRead,BufNew * match ZenkakuSpace /　/
+" 全角スペースのハイライト
+function! s:highlight_zenkaku_space()
+  " エラーと同じ色
+  highlight link ZenkakuSpace Error
+  "highlight ZenkakuSpace cterm=underline ctermfg=red guibg=red
+
+  "全角スペースを明示的に表示する。
+  silent! match ZenkakuSpace /　/
+endfunction
+if has('syntax')
+  augroup ZenkakuSpace
+    autocmd!
+    autocmd VimEnter,BufEnter,WinEnter * nested call <SID>highlight_zenkaku_space()
+  augroup END
+endif
 
 " }}}
 
 " 検索・補完の設定 {{{
 
 " コマンド、検索パターンをn個まで履歴に残す
-set history=100
+set history=500
 
 " 検索の時に大文字小文字を区別しない
 set ignorecase
@@ -478,8 +483,7 @@ set hlsearch
 " (行がそれより長くなると、この幅を超えないように空白の後で改行される)を無効にする
 set textwidth=0
 
-" ウィンドウの幅より長い行は折り返して、次の行に続けて表示する
-"set wrap
+" ウィンドウの幅より長い行でも折り返さない
 set nowrap
 
 " カーソルラインを表示させる
@@ -487,7 +491,7 @@ set nowrap
 " カーソル列を表示させる
 " set cursorcolumn
 
-" コマンド実行中は再描画しない
+" マクロ/レジスタの内容/キーボードから打ち込まれないコマンド を実行する管は再描画しない
 set lazyredraw
 
 " 高速ターミナル接続を行う
@@ -532,62 +536,28 @@ set expandtab
 
 " }}}
 
-" オートコマンド {{{ 
+" 共通オートコマンド {{{
 
-" カーソル位置を記憶する
-autocmd BufReadPost *
-   \ if line("'\"") > 0 && line("'\"") <= line("$") |
-   \   exe "normal g`\"" |
-   \ endif
-
-" javascript って打つのがめんどくさいので js にする
-autocmd FileType js setlocal ft=javascript
-
-" :vimgrep や :makeしたときに自動的にQuickFixを開く
-autocmd QuickfixCmdPost make,grep,grepadd,vimgrep copen
-
-
-" 場所ごとに設定を用意する。
-" 下の例では場所ごとのファイルは.vimrc_local
-"
-"   設定ファイルには例えば下記のようなことを書いておく。
-"   カレントディレクトリを設定ファイルがある階層に移動
-"   lcd <sfile>:h
-function! s:vimrc_local(loc)
-    let files = findfile('.vimrc_local', escape(a:loc, ' ') . ';', -1)
-    for i in reverse(filter(files, 'filereadable(v:val)'))
-        source `=i`
-    endfor
-endfunction
-augroup vimrc-local
-    autocmd!
-    autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
-augroup END
-
-" vimrcの一番最後でloaded_vimrcを1にしてる。
-if exists('g:loaded_vimrc') && g:loaded_vimrc == 0
-    call s:vimrc_local(getcwd())
-endif
-
-" vimで新しいファイルを作るとき、ディレクトリがなければ確認して作る。
-augroup vimrc-auto-mkdir
+augroup MyAutoCommands
   autocmd!
-  autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
-  function! s:auto_mkdir(dir, force)
-    if !isdirectory(a:dir) && (a:force ||
-          \    input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
-      call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
-    endif
-  endfunction
-augroup END
 
-" ウィンドウを移動する度に外部で変更のあったファイルを自動的に読み直す
-" 関連：autoread
-augroup vimrc-checktime
-  autocmd!
+  " カーソル位置を記憶する
+  autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal g`\"" |
+     \ endif
+
+  " javascript って打つのがめんどくさいので js にする
+  autocmd FileType js setlocal ft=javascript
+
+  " :vimgrep や :makeしたときに自動的にQuickFixを開く
+  autocmd QuickfixCmdPost make,grep,grepadd,vimgrep copen
+
+  " ウィンドウを移動する度に外部で変更のあったファイルを自動的に読み直す
+  " 関連：autoread
   autocmd WinEnter * checktime
-augroup END
 
+augroup END
 
 " }}}
 
@@ -642,25 +612,6 @@ function! s:BashHistory(...) " {{{
   silent exec ':r !' . cmd
 endfunction " }}}
 command! -nargs=? BashHistory :call s:BashHistory(<f-args>)
-
-" graph-easy
-function! s:GraphEasy(...) range "{{{
-  if !neobundle#is_sourced('vim-quickrun') || !executable('graph-easy')
-    return 0
-  endif
-  let range = a:firstline . ',' . a:lastline
-  echo range
-  let tmp = @@
-  silent exec range . 'yank'
-  let src = @@
-  let @@ = tmp
-  call quickrun#run({
-        \ 'runner': 'vimproc',
-        \ 'command': 'graph-easy'
-        \})
-endfunction "}}}
-command! -nargs=0 -range GraphEasy :<line1>,<line2>call s:GraphEasy(<f-args>)
-
 
 function! s:Copy() range " {{{
   let l:tmp = @@
@@ -753,7 +704,7 @@ noremap <Space>l $
 nnoremap gs :vertical wincmd f<CR>
 
 " タグジャンプで複数ある時は一覧表示
-nnoremap <C-]> g<C-]> 
+nnoremap <C-]> g<C-]><Space>
 
 
 " 移動量の調節
@@ -836,13 +787,8 @@ nnoremap <C-h> :<C-u>help<Space>
 nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 " ev / eg ですぐに.vimrcを開けるようにする。rv / rg で反映させる。
-if has('gui_running')
-  nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
-  nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
-else
-  nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
-  nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
-endif
+nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
 
 " }}}
 
@@ -862,7 +808,7 @@ if neobundle#is_sourced('nerdtree') " {{{
   " 起動時に隠しファイルを表示するか（あとで切り替えられる）
   let NERDTreeShowHidden = 0
   " カーソル行を強調する場合1
-  let NERDTreeHighlightCursorline = 0
+  let NERDTreeHighlightCursorline = 1
   " NERDTreeウィンドウのサイズ
   let NERDTreeWinSize = 30
   " NERDTreeウィンドウを横に表示するか上に表示するか
@@ -870,7 +816,6 @@ if neobundle#is_sourced('nerdtree') " {{{
 
   nnoremap <silent> <Leader>e :<C-u>NERDTreeToggle<CR>
   nnoremap <silent> <Leader>f :<C-u>NERDTreeFind<CR>
-  autocmd BufEnter * if bufname('%') =~ 'NERD_tree_\d\+'|setlocal cursorline|endif
 
   let NERDTreeHijackNetrw = 0
   let NERDTreeAutoCenter = 0
@@ -1014,13 +959,17 @@ if neobundle#is_sourced('neocomplete.vim') " {{{
   "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
   " Enable omni completion.
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-  autocmd FileType php setlocal omnifunc=
+  augroup PluginNeoComplete
+    autocmd!
+
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+    autocmd FileType php setlocal omnifunc=
+  augroup END
 
   " Enable heavy omni completion.
   if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -1042,8 +991,8 @@ if neobundle#is_sourced('neosnippet') " {{{
         \]
   let g:neosnippet#snippets_directory = join(snippets_directory, ',')
 
-  nnoremap <silent> <Space>es  :<C-u>NeoSnippetEdit -split -vertical 
-  nnoremap <silent> <Space>rs  :<C-u>NeoSnippetSource 
+  nnoremap <silent> <Space>es  :<C-u>NeoSnippetEdit -split -vertical<Space>
+  nnoremap <silent> <Space>rs  :<C-u>NeoSnippetSource<Space>
 
   " Plugin key-mappings.
   imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -1062,7 +1011,6 @@ if neobundle#is_sourced('unite.vim') " {{{
   let g:unite_source_directory_mru_long_limit = 3000
   let g:unite_prompt = '» '
 
-  autocmd FileType unite call s:unite_my_settings()
   function! s:unite_my_settings() "{{{
     " Overwrite settings.
 
@@ -1094,7 +1042,10 @@ if neobundle#is_sourced('unite.vim') " {{{
     nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
           \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
   endfunction "}}}
-
+  augroup PluginUnite
+    autocmd!
+    autocmd FileType unite call s:unite_my_settings()
+  augroup END
 
   nnoremap [unite] :<C-u>Unite<Space>
   nmap f [unite]
@@ -1182,9 +1133,6 @@ if neobundle#is_sourced('emmet.vim') " {{{
   " タグやスニペットの入力補完を使う
   let g:use_emmet_complete_tag = 1
 
-  " <Tab>で展開
-  " autocmd FileType css imap <tab> <plug>(EmmetExpandAbbr)
-
   " filterについて -> http://code.google.com/p/zen-coding/wiki/Filters
   let g:user_emmet_settings = {
         \  'lang' : 'ja',
@@ -1259,12 +1207,6 @@ if neobundle#is_sourced('gist-vim') " {{{
   let g:gist_show_privates = 1
   let g:gist_put_url_to_clipboard_after_post = 1
 endif " }}}
-if neobundle#is_sourced('gist-vim') " {{{
-  let g:gist_privates = 1
-  let g:gist_detect_filetype = 1
-  let g:gist_show_privates = 1
-  let g:gist_put_url_to_clipboard_after_post = 1
-endif " }}}
 if neobundle#is_sourced('PDV--phpDocumentor-for-Vim') " {{{
   inoremap <Leader>d <ESC>:call PhpDocSingle()<CR>i
   nnoremap <Leader>d :call PhpDocSingle()<CR>
@@ -1322,6 +1264,8 @@ if neobundle#is_sourced('vim-easymotion') " {{{
   hi EasyMotionShade  ctermbg=none ctermfg=blue
 endif " }}}
 if neobundle#is_sourced('vim-localrc') " {{{
+  " ディレクトリごとにvimの設定を用意するファイル名
+  let g:localrc_filename = '.local.vimrc'
   silent! call localrc#load('.init.vimrc', $HOME)
 endif " }}}
 if neobundle#is_sourced('vim-indent-guides') " {{{
@@ -1335,7 +1279,7 @@ if neobundle#is_sourced('vim-anzu') " {{{
   nmap N <Plug>(anzu-N)zv
   nmap * <Plug>(anzu-star)zv
   nmap # <Plug>(anzu-sharp)zv
-  augroup vim-anzu
+  augroup PluginAuzu
     autocmd!
     autocmd CursorHold,CursorHoldI,WinLeave,TabLeave * call anzu#clear_search_status()
   augroup END
@@ -1448,8 +1392,8 @@ if neobundle#is_sourced('vim-gitgutter') " {{{
   let g:gitgutter_realtime = 0
   nmap gj <Plug>GitGutterNextHunk
   nmap gk <Plug>GitGutterPrevHunk
-  nnoremap ,gg :<C-u>GitGutterToggle<CR>
-  nnoremap ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
+  nnoremap <Leader>gg :<C-u>GitGutterToggle<CR>
+  nnoremap <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
 endif " }}}
 if neobundle#is_sourced('tagbar') " {{{
   let g:tagbar_ctags_bin = '/usr/local/ctags/bin/ctags'
@@ -1544,6 +1488,3 @@ if neobundle#is_sourced('jekyll.vim') " {{{
 endif " }}}
 
 " }}}
-
-
-let g:loaded_vimrc = 1

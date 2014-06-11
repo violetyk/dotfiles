@@ -27,10 +27,4 @@ let php_folding = 0
 " set errorformat=%m\ in\ %f\ on\ line\ %l
 " autocmd BufWritePost *.php :CheckSyntax
 
-if has('win32') || has('win64')
-    let g:ref_phpmanual_path = $VIM . '/vimfiles/manual/php_manual_ja/'
-else
-    let g:ref_phpmanual_path = $HOME . '/.vim/manual/php_manual_ja/'
-endif
-
 setlocal iskeyword-=$
