@@ -22,7 +22,6 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 
 " パスを通さないけどNeoBundleで管理する
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundleFetch 'erikw/tmux-powerline'
 NeoBundleFetch 'seebi/dircolors-solarized'
 
 " help {{{
@@ -1545,5 +1544,6 @@ if neobundle#is_sourced('jekyll.vim') " {{{
 endif " }}}
 
 " }}}
+
 
 let g:loaded_vimrc = 1

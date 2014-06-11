@@ -16,7 +16,7 @@ export HISTSIZE=10000
 # export HISTCONTROL=ignoredups
 
 # 空白から始めたコマンドを保存しない
-# export HISTCONTROL=ignorespace
+export HISTCONTROL=ignorespace
 
 # 重複、空白開始コマンドの両方を保存しない
 export HISTCONTROL=ignoreboth
@@ -123,7 +123,7 @@ fi
 
 # SSH
 _ssh() {
-  tmp=$(mktemp XXXXXX)
+  tmp=$(mktemp ~/tmp/XXXXXX)
   cat ~/dotfiles/.sshconfig ~/.ssh/config > "$tmp" 2>/dev/null
   /usr/bin/ssh -F "$tmp" "$@"
   rm -f "$tmp"
@@ -132,7 +132,7 @@ alias ssh='_ssh'
 
 tssh() {
   if [ $# -eq 1 ]; then
-    tmp=$(mktemp XXXXXX)
+    tmp=$(mktemp ~/tmp/XXXXXX)
     cat ~/dotfiles/.sshconfig ~/.ssh/config > "$tmp" 2>/dev/null
     ssh_cmd=$(printf '/usr/bin/ssh -t -F %s %s' "$tmp" "$@")
     tmux new-window -n $1 "$ssh_cmd"
@@ -140,14 +140,23 @@ tssh() {
   fi
 }
 
+# tmuxで設定できる色一覧
+tmux-colors() {
+  for i in {255..0} ; do
+    printf "\x1b[38;5;${i}mcolour${i} "
+  done
+  printf "\n"
+}
+
+
 ### function
 # mkdir + cd
-mkdircd(){
+mkdircd() {
   mkdir -p $1 && cd $1
 }
 
 # Get list from file. The line of # is comment the top.
-list(){
+list() {
   LIST=''
   for ITEM in `cat $1 | grep -v "^#"`
   do

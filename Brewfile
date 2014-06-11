@@ -9,6 +9,7 @@ update
 
 # Packages
 install wget
+install w3m
 install tig
 install ag
 install tmux
