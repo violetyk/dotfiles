@@ -91,7 +91,7 @@ NeoBundle 't9md/vim-choosewin'
 " }}}
 " sign {{{
 NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundleLazy 'airblade/vim-gitgutter'
+NeoBundle 'airblade/vim-gitgutter'
 " NeoBundle 'tomtom/quickfixsigns_vim'
 NeoBundle 'osyo-manga/vim-over'
 " }}}
@@ -135,6 +135,7 @@ NeoBundle 'ujihisa/unite-launch',      { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'osyo-manga/unite-qfixhowm', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'Shougo/neomru.vim',         { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'tsukkee/unite-tag',         { 'depends' : 'Shougo/unite.vim' }
+NeoBundle 'thinca/vim-unite-history',  { 'depends' : 'Shougo/unite.vim' }
 
 " }}}
 " statusline, colorscheme {{{
