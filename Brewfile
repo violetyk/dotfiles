@@ -8,6 +8,7 @@ tap homebrew/homebrew-php
 update
 
 # Packages
+install zsh
 install wget
 install w3m
 install tig

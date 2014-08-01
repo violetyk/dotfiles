@@ -146,7 +146,7 @@ NeoBundle 'chriskempson/tomorrow-theme', {
       \ 'rtp': "~/.vim/bundle/tomorrow-theme/vim/",
       \ }
 NeoBundle 'nanotech/jellybeans.vim'
-NeoBundleLazy 'w0ng/vim-hybrid'
+NeoBundle 'w0ng/vim-hybrid'
 NeoBundleLazy 'desert.vim'
 NeoBundleLazy 'desert256.vim'
 NeoBundleLazy 'tomasr/molokai'
@@ -154,7 +154,7 @@ NeoBundleLazy 'Zenburn'
 NeoBundleLazy 'altercation/vim-colors-solarized'
 NeoBundleLazy 'jpo/vim-railscasts-theme'
 NeoBundleLazy 'vim-scripts/pyte'
-NeoBundle 'cocopon/iceberg.vim'
+NeoBundleLazy 'cocopon/iceberg.vim'
 " }}}
 " syntax {{{
 " NeoBundle 'Shougo/context_filetype.vim'
@@ -387,6 +387,7 @@ else
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
   silent! colorscheme mrkn256
+
   " }}}
 endif
 " }}}
