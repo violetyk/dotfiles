@@ -194,7 +194,7 @@ NeoBundle 'mopp/autodirmake.vim'
 " :NeoBundleUpdate!でも更新しない
 command! -nargs=1 MyNeoBundle NeoBundle <args>,
       \ {
-      \   'base' : $HOME . '/.ghq/github.com/violetyk/',
+      \   'base' : $HOME . '/src/github.com/violetyk/',
       \   'type' : 'nosync',
       \ }
 
@@ -206,7 +206,7 @@ MyNeoBundle 'violetyk/neosnippet-rails'
 MyNeoBundle 'violetyk/neocomplete-php.vim'
 MyNeoBundle 'git@github.com:nanapi/nanapi.vim.git'
 
-set runtimepath+=$HOME/.ghq/github.com/nanapi/nanapi.vim
+set runtimepath+=$HOME/src/github.com/nanapi/nanapi.vim
 
 " }}}
 
@@ -991,8 +991,8 @@ endif " }}}
 if neobundle#is_sourced('neosnippet') " {{{
   let snippets_directory = [
         \ $HOME.'/.vim/snippets',
-        \ $HOME.'/.ghq/github.com/violetyk/neosnippet-cakephp2',
-        \ $HOME.'/.ghq/github.com/violetyk/neosnippet-rails',
+        \ $HOME.'/src/github.com/violetyk/neosnippet-cakephp2',
+        \ $HOME.'/src/github.com/violetyk/neosnippet-rails',
         \]
   let g:neosnippet#snippets_directory = join(snippets_directory, ',')
 
