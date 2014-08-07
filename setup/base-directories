@@ -1,0 +1,9 @@
+# home directories
+swap
+backup
+tmp
+tags
+src
+.trash
+.tmux
+etc/profile.d

@@ -1,13 +1,13 @@
 *\.swp
 .init.vimrc
 .local.vimrc
-vim/bundle/*
-vim/manual/*
+.vim/bundle/*
+.vim/manual/*
 tags
 setting.local.php
 [Kk]agaya*.php
 kagaya/
 .cake
 .netrwhist
-vim/bundle/neobundle.vim
+.vim/bundle/neobundle.vim
 __pycache__

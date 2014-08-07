@@ -14,7 +14,6 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 
 " パスを通さないけどNeoBundleで管理する
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundleFetch 'seebi/dircolors-solarized'
 
 " help {{{
 NeoBundle 'vim-jp/vimdoc-ja'
@@ -1320,7 +1319,7 @@ if neobundle#is_sourced('lightline.vim') " {{{
         \   'left': [ ['mode', 'paste'], ['fugitive', 'filename', 'cakephp', 'currenttag', 'anzu'] ]
         \ },
         \ 'component': {
-        \   'lineinfo': ' %3l:%-2v',
+        \   'lineinfo': '⭡ %3l:%-2v',
         \ },
         \ 'component_function': {
         \   'modified': 'MyModified',
@@ -1337,13 +1336,12 @@ if neobundle#is_sourced('lightline.vim') " {{{
         \ }
         \ }
 
-
   function! MyModified()
     return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
   endfunction
 
   function! MyReadonly()
-    return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? ' ' : ''
+    return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '⭤' : ''
   endfunction
 
   function! MyFilename()
@@ -1358,7 +1356,7 @@ if neobundle#is_sourced('lightline.vim') " {{{
   function! MyFugitive()
     try
       if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
-        return ' ' . fugitive#head()
+        return '⭠ ' . fugitive#head()
       endif
     catch
     endtry

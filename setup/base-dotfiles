@@ -1,0 +1,11 @@
+.bashrc
+.profile
+.vimrc
+.vim
+.ctags
+.tmux.conf
+.tigrc
+.agignore
+.gitignore
+.gitconfig
+Brewfile
