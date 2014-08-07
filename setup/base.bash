@@ -3,7 +3,7 @@
 DIR=`dirname ${0}`
 
 # import
-. $DIR/../functions.sh
+. $DIR/../functions.bash
 
 
 # make directories

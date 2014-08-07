@@ -9,3 +9,9 @@
 .gitignore
 .gitconfig
 Brewfile
+.zlogin
+.zlogout
+.zpreztorc
+.zprofile
+.zshenv
+.zshrc

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # mkdir + cd
 mkdircd() {
@@ -8,8 +8,9 @@ mkdircd() {
 
 # Get list from file. The line of # is comment the top.
 list() {
+  echo $1
   LIST=''
-  for ITEM in `cat $1 | grep -v "^#"`
+  for ITEM in $(cat $1 | grep -v "^#")
   do
     # if [ -e $ITEM ] ; then
       LIST="$LIST $ITEM"
