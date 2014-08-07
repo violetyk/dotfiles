@@ -28,14 +28,33 @@ mv php-chunked-xhtml php_manual_ja
 
 # Mac
 if [ `uname` = "Darwin" ]; then
+  # home brew
   if [ -z `which brew` ]; then
-    # home brew
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-
-    # php
-    curl -s http://php-osx.liip.ch/install.sh | bash -s 5.5
   fi
   brew bundle
+
+
+  # ghq
+  cd ~
+  go get github.com/motemen/ghq
+
+  ghq get shiguredo/packer-templates
+  ghq get violetyk/cake.vim
+  ghq get violetyk/scratch-utillity
+  ghq get violetyk/w.vim
+  ghq get violetyk/neocomplete-php.vim
+  ghq get violetyk/neosnippet-cakephp2
+  ghq get violetyk/neosnippet-rails
+  ghq get nanapi/nanapi.vim
+
+  # packer
+  # ghq look shiguredo/packer-templates
+  # cd ubuntu-14.04/
+  # packer build -only=virtualbox-iso template.json
+  # vagrant box add ubuntu-14.04 ubuntu-14-04-x64-virtualbox.box
+
+
 fi
 
 

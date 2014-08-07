@@ -29,6 +29,9 @@ export HISTIGNORE="jobs*:fg*:bg*:history*"
 PATH=$HOME/bin:$PATH:/bin:/sbin
 CONFIGS=()
 
+### golang
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
 
 # OS別環境設定
 if [ `uname` = "Linux" ]; then
