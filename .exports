@@ -1,0 +1,21 @@
+export TERM=xterm-256color
+
+# less
+if [ -n `which source-highlight` ]; then
+  export LESS='-R'
+  export LESSOPEN='| ~/dotfiles/src-hilite-lesspipe.sh %s'
+fi
+
+# Homebrew
+if which brew > /dev/null; then
+  export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
+  export PATH=/usr/local/Cellar/vim/HEAD/bin:$PATH
+fi
+
+# golang
+export GOPATH=$HOME
+# export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+
+# vim: set et fenc=utf-8 ff=unix ft=sh sts=2 sw=2 ts=2 : 

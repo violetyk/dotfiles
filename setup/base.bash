@@ -1,10 +1,9 @@
 #!/bin/bash
 
-DIR=`dirname ${0}`
-
 # import
-. $DIR/../functions.bash
+. $(dirname ${0})/../.functions
 
+DIR=$(dirname $(path ${0}))
 
 # make directories
 for v in $(list "${DIR}/base-directories"); do
@@ -16,7 +15,7 @@ done
 
 # get external profiles
 for v in $(list "${DIR}/base-profiles"); do
-  cd "${HOME}/etc/profile.d"
+  cd ${HOME}/etc/profile.d
   curl -s -L -O ${v}
 done
 

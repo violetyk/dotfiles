@@ -1,0 +1,27 @@
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+if [ -f ~/.dircolors ]; then
+  if type dircolors > /dev/null 2>&1; then
+    eval $(dircolors ~/.dircolors)
+  elif type gdircolors > /dev/null 2>&1; then
+    eval $(gdircolors ~/.dircolors)
+  fi
+fi
+
+if [ -d ~/etc/profile.d ]; then
+  for i in ~/etc/profile.d/*; do
+    if [ -r "$i" ]; then
+      # シェルスクリプトの時は$PS1がsetされないことを利用して判定
+      if [ "$PS1" ]; then
+        . "$i"
+      else
+        . "$i" >/dev/null 2>&1
+      fi
+    fi
+  done
+
+  unset i
+fi
+
+
+# vim: set et fenc=utf-8 ff=unix ft=sh sts=2 sw=2 ts=2 : 

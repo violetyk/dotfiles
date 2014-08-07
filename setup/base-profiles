@@ -1,2 +1,3 @@
 https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh
-https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
+
+# vim: set et fenc=utf-8 ff=unix ft=sh sts=2 sw=2 ts=2 : 

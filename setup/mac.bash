@@ -12,8 +12,9 @@ fi
 brew bundle
 
 
-# ghq
+# ghq & peco
 go get github.com/motemen/ghq
+go get github.com/peco/peco/cmd/peco
 
 ghq get shiguredo/packer-templates
 ghq get violetyk/cake.vim
@@ -24,3 +25,5 @@ ghq get violetyk/neosnippet-cakephp2
 ghq get violetyk/neosnippet-rails
 ghq get nanapi/nanapi.vim
 ghq get seebi/dircolors-solarized
+
+ln -sf ${HOME}/.ghq/github.com/seebi/dircolors-solarized/dircolors.ansi-universal ~/.dircolors

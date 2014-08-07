@@ -89,3 +89,6 @@
 
 [rebase]
   autostash = true
+
+[ghq]
+  root = ~/src

@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# mkdir + cd
+mkdircd() {
+  mkdir -p $1 && cd $1
+}
+
+
+# Get list from file. The line of # is comment the top.
+list() {
+  LIST=''
+  for ITEM in $(cat $1 | grep -v "^#")
+  do
+    # if [ -e $ITEM ] ; then
+      LIST="$LIST $ITEM"
+    # fi
+  done
+
+  echo $LIST
+}
+
+# get fullpath
+path() {
+  # mac
+  if [ -n $(which greadlink) ]; then
+    greadlink -f $1
+  else
+    readlink -f $1
+  fi
+}
+
+
+# tmuxで設定できる色一覧
+tmux_colors() {
+  for i in {255..0} ; do
+    printf "\x1b[38;5;${i}mcolour${i} "
+  done
+  printf "\n"
+}
+
+
+# ssh
+_ssh() {
+  tmp=$(mktemp ~/tmp/XXXXXX)
+  cat ~/dotfiles/sshconfig ~/.ssh/config > "$tmp" 2>/dev/null
+  /usr/bin/ssh -F "$tmp" "$@"
+  rm -f "$tmp"
+}
+alias ssh='_ssh'
+
+tssh() {
+  if [ $# -eq 1 ]; then
+    tmp=$(mktemp ~/tmp/XXXXXX)
+    cat ~/dotfiles/sshconfig ~/.ssh/config > "$tmp" 2>/dev/null
+    ssh_cmd=$(printf '/usr/bin/ssh -t -F %s %s' "$tmp" "$@")
+    tmux new-window -n $1 "$ssh_cmd"
+    rm -f "$tmp"
+  fi
+}
