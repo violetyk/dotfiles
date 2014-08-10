@@ -1,10 +1,9 @@
 dotfiles
 ========
 
-環境設定もろもろ。
+## 使っているもの
 
 - Homebrew
-- bash
 - zsh(prezto)
 - ctags
 - ag
@@ -14,3 +13,11 @@ dotfiles
 - tmux
 - ghq
 - peco
+
+
+## セットアップ
+
+- setup/base.bash
+- setup/mac.bash
+- setup/vim.bash
+- setup/zsh.zsh

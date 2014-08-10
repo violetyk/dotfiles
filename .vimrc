@@ -109,6 +109,8 @@ NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 " NeoBundle 'joonty/vdebug'
 " }}}
+" vim {{{
+NeoBundle 'thinca/vim-prettyprint'
 " coffee {{{
 NeoBundle 'kchmck/vim-coffee-script'
 " }}}
