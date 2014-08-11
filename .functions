@@ -40,20 +40,20 @@ tmux_colors() {
 
 
 # ssh
-_ssh() {
-  tmp=$(mktemp ~/tmp/XXXXXX)
-  cat ~/dotfiles/sshconfig ~/.ssh/config > "$tmp" 2>/dev/null
-  /usr/bin/ssh -F "$tmp" "$@"
-  rm -f "$tmp"
-}
-alias ssh='_ssh'
+# _ssh() {
+  # tmp=$(mktemp ~/tmp/XXXXXX)
+  # cat ~/dotfiles/sshconfig ~/.ssh/config > "$tmp" 2>/dev/null
+  # /usr/bin/ssh -F "$tmp" "$@"
+  # rm -f "$tmp"
+# }
+# alias ssh='_ssh'
 
-tssh() {
-  if [ $# -eq 1 ]; then
-    tmp=$(mktemp ~/tmp/XXXXXX)
-    cat ~/dotfiles/sshconfig ~/.ssh/config > "$tmp" 2>/dev/null
-    ssh_cmd=$(printf '/usr/bin/ssh -t -F %s %s' "$tmp" "$@")
-    tmux new-window -n $1 "$ssh_cmd"
-    rm -f "$tmp"
-  fi
-}
+# tssh() {
+  # if [ $# -eq 1 ]; then
+    # tmp=$(mktemp ~/tmp/XXXXXX)
+    # cat ~/dotfiles/sshconfig ~/.ssh/config > "$tmp" 2>/dev/null
+    # ssh_cmd=$(printf '/usr/bin/ssh -t -F %s %s' "$tmp" "$@")
+    # tmux new-window -n $1 "$ssh_cmd"
+    # rm -f "$tmp"
+  # fi
+# }
