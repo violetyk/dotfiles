@@ -32,8 +32,6 @@ install php55-mcrypt
 install php55-intl
 install composer
 install --vim-powerline ricty
-cp -f /usr/local/Cellar/ricty/3.2.3/share/fonts/Ricty*.ttf ~/Library/Fonts/
-fc-cache -vf # remove font cache
 install go
 
 linkapps

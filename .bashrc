@@ -22,13 +22,6 @@ else
   export PS1='[\u@\h \W$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")]\$ '
 fi
 
-# ls
-if [ `uname` = "Linux" ]; then
-  alias ls='ls --color'
-elif [ `uname` = "Darwin" ]; then
-  alias ls='gls --color'
-fi
-
 for file in $HOME/dotfiles/.{path,exports,aliases,functions,commonrc,local}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;

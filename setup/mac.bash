@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $(uname) = "Darwin" ]; then
+if [ $(uname) != "Darwin" ]; then
   exit
 fi
 
@@ -9,6 +9,7 @@ fi
 if [ -z $(which brew) ]; then
   ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 fi
+cd ~
 brew bundle
 
 
@@ -25,5 +26,11 @@ ghq get violetyk/neosnippet-cakephp2
 ghq get violetyk/neosnippet-rails
 ghq get nanapi/nanapi.vim
 ghq get seebi/dircolors-solarized
+ghq get tomislav/osx-terminal.app-colors-solarized
 
-ln -sf ${HOME}/.ghq/github.com/seebi/dircolors-solarized/dircolors.ansi-universal ~/.dircolors
+# vim-poserline ricty
+cp -f /usr/local/Cellar/ricty/3.2.3/share/fonts/Ricty*.ttf ~/Library/Fonts/
+fc-cache -vf # remove font cache
+
+# dircolors-solarized
+ln -sf ${HOME}/src/github.com/seebi/dircolors-solarized/dircolors.256dark ~/.dircolors

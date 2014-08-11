@@ -37,6 +37,12 @@ for file in $HOME/dotfiles/.{path,exports,aliases,functions,commonrc,local}; do
 done;
 unset file;
 
+# dircolors
+if [ $(uname) = "Darwin" ]; then;
+  eval $(gdircolors ~/.dircolors)
+else
+  eval $(dircolors ~/.dircolors)
+fi
 
 # git completion
 fpath=($(brew --prefix)/share/zsh/site-functions $fpath)

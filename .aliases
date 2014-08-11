@@ -78,5 +78,14 @@ alias reload="exec $SHELL -l"
 
 # unalias (for prezto)
 alias diff='command diff'
+unalias gls > /dev/null 2>&1
+
+# ls
+if [ `uname` = "Linux" ]; then
+  alias ls='ls --color'
+elif [ `uname` = "Darwin" ]; then
+  alias ls='gls --color'
+fi
+
 
 # vim: set et fenc=utf-8 ff=unix ft=sh sts=2 sw=2 ts=2 : 
