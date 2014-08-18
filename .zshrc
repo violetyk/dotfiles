@@ -15,11 +15,11 @@ fi
 # $()を展開する
 setopt PROMPT_SUBST
 # ステージ済みがある場合+、ステージしてない変更がある場合*を表示
-GIT_PS1_SHOWDIRTYSTATE=true
+# GIT_PS1_SHOWDIRTYSTATE=true
 # stashがある場合$を表示
-GIT_PS1_SHOWSTASHSTATE=true
+# GIT_PS1_SHOWSTASHSTATE=true
 # untracked fileがある場合%を表示
-GIT_PS1_SHOWUNTRACKEDFILES=false
+# GIT_PS1_SHOWUNTRACKEDFILES=false
 # アップストリームとの差分を< >で表示
 GIT_PS1_SHOWUPSTREAM='auto'
 # 特定のタグやブランチをチェックアウトしていたときの表示
