@@ -42,6 +42,7 @@
 
   # reset
   unstage = reset HEAD --
+  reset-lastcommit = reset --soft HEAD~
   cancel = !git commit -a -m 'Temporary commit for cancel' && git reset --hard HEAD~
 
 
