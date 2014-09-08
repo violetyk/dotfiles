@@ -75,3 +75,5 @@ if [[ ! -d "$TMPPREFIX" ]]; then
   mkdir -p "$TMPPREFIX"
 fi
 
+# rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi

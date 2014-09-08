@@ -52,3 +52,6 @@ if which peco > /dev/null; then
   bindkey '^s' peco-ghq-look
   # bindkey '^f' peco-cdr
 fi
+
+# tmuxinator
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator

@@ -33,6 +33,7 @@ install php55-intl
 install composer
 install --vim-powerline ricty
 install go
+install rbenv ruby-build
 
 linkapps
 

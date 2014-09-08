@@ -93,6 +93,8 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'airblade/vim-gitgutter'
 " NeoBundle 'tomtom/quickfixsigns_vim'
 NeoBundle 'osyo-manga/vim-over'
+NeoBundle 'takahirojin/gbr.vim'
+
 " }}}
 " search {{{
 NeoBundle 'osyo-manga/vim-anzu'
