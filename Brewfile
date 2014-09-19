@@ -21,8 +21,9 @@ install coreutils
 install bash-completion
 install openssl
 install source-highlight
-install vim --HEAD --enable-pythoninterp --with-lua
-install macvim --HEAD --with-lua --enable-pythoninterp --with-lua
+install cscope
+install lua
+install vim --HEAD --with-lua --with-luajit
 install nodejs
 install memcached
 install packer

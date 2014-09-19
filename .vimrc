@@ -93,8 +93,6 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'airblade/vim-gitgutter'
 " NeoBundle 'tomtom/quickfixsigns_vim'
 NeoBundle 'osyo-manga/vim-over'
-NeoBundle 'takahirojin/gbr.vim'
-
 " }}}
 " search {{{
 NeoBundle 'osyo-manga/vim-anzu'
@@ -106,6 +104,7 @@ NeoBundle 'jaxbot/github-issues.vim'
 NeoBundle 'moznion/github-commit-comment.vim'
 NeoBundle 'tyru/open-browser-github.vim'
 NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'takahirojin/gbr.vim'
 " }}}
 " php {{{
 NeoBundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
@@ -113,6 +112,7 @@ NeoBundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 " }}}
 " vim {{{
 NeoBundle 'thinca/vim-prettyprint'
+" }}}
 " coffee {{{
 NeoBundle 'kchmck/vim-coffee-script'
 " }}}
@@ -154,7 +154,7 @@ NeoBundleLazy 'desert.vim'
 NeoBundleLazy 'desert256.vim'
 NeoBundleLazy 'tomasr/molokai'
 NeoBundleLazy 'Zenburn'
-NeoBundleLazy 'altercation/vim-colors-solarized'
+NeoBundle 'altercation/vim-colors-solarized'
 NeoBundleLazy 'jpo/vim-railscasts-theme'
 NeoBundleLazy 'vim-scripts/pyte'
 NeoBundleLazy 'cocopon/iceberg.vim'
@@ -328,10 +328,10 @@ if has('gui_running')
   " カラースキーマ
   " set background=dark
   " set background=light
-  " let g:solarized_contrast="row"
-  " silent! colorscheme solarized
+  "let g:solarized_contrast="row"
+  "silent! colorscheme solarized
 
-  silent! colorscheme jellybeans
+  " silent! colorscheme jellybeans
 
 
   " マウスを使う。
@@ -1494,5 +1494,10 @@ if neobundle#is_sourced('jekyll.vim') " {{{
   " let g:jekyll_prompt_tags = "true"
   " let g:jekyll_prompt_categories = "true"
 endif " }}}
+if neobundle#is_sourced('github-issues.vim') " {{{
+  let g:github_upstream_issues = 1
+  let g:gissues_default_remote = 'github'
+endif " }}}
+
 
 " }}}
