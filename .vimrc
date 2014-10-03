@@ -26,7 +26,7 @@ NeoBundle 'Shougo/neocomplete.vim', {
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc', {
+NeoBundle 'Shougo/vimproc.vim', {
       \ 'build' : {
       \   'mac' : 'make -f make_mac.mak',
       \   'unix' : 'make -f make_unix.mak',

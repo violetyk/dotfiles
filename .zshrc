@@ -55,3 +55,6 @@ fi
 
 # tmuxinator
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+
+## direnv
+eval "$(direnv hook zsh)"

@@ -16,6 +16,7 @@ brew bundle
 # ghq & peco
 go get github.com/motemen/ghq
 go get github.com/peco/peco/cmd/peco
+go get github.com/zimbatm/direnv
 
 ghq get -p shiguredo/packer-templates
 ghq get -p violetyk/cake.vim

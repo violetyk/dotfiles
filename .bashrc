@@ -26,3 +26,6 @@ for file in $HOME/dotfiles/.{path,exports,aliases,functions,commonrc,local}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
+
+## direnv
+eval "$(direnv hook bash)"
