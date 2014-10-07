@@ -258,6 +258,8 @@ set completeopt-=preview
 
 " 正規表現エンジンの設定
 " set regexpengine=0
+
+set pastetoggle=<C-p>
 " }}}
 
 " 文字コードの設定 {{{
@@ -784,6 +786,7 @@ nnoremap Y y$
 " w!! でsudoしつつ保存
 cmap w!! w !sudo tee > /dev/null %
 
+
 " }}}
 
 " その他 {{{
@@ -924,7 +927,7 @@ if neobundle#is_sourced('neocomplete.vim') " {{{
   if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
   endif
-  let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+  " let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
   " Plugin key-mappings.
   inoremap <expr><C-g>     neocomplete#undo_completion()
@@ -991,6 +994,8 @@ if neobundle#is_sourced('neocomplete.vim') " {{{
   " For perlomni.vim setting.
   " https://github.com/c9s/perlomni.vim
   let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+  let g:neocomplete#force_overwrite_completefunc = 1
 endif " }}}
 if neobundle#is_sourced('neosnippet') " {{{
   let snippets_directory = [
