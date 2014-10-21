@@ -10,7 +10,7 @@ if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 " パスを通さないけどNeoBundleで管理する
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -121,6 +121,7 @@ NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-bundler'
 NeoBundle 'tpope/vim-rake'
+NeoBundle 'slim-template/vim-slim.git'
 " }}}
 " syntax check {{{
 " NeoBundle 'tomtom/checksyntax_vim'
@@ -135,7 +136,6 @@ NeoBundle 'tacroe/unite-mark',         { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'zhaocai/unite-scriptnames', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'thinca/vim-editvar',        { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'ujihisa/unite-launch',      { 'depends' : 'Shougo/unite.vim' }
-NeoBundle 'osyo-manga/unite-qfixhowm', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'Shougo/neomru.vim',         { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'tsukkee/unite-tag',         { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'thinca/vim-unite-history',  { 'depends' : 'Shougo/unite.vim' }
@@ -179,10 +179,8 @@ NeoBundle 'mattn/gist-vim'
 NeoBundle 'glidenote/nogistub.vim'
 " }}}
 " memo {{{
-NeoBundle 'fuenor/qfixhowm'
 " }}}
 " blog {{{
-NeoBundle 'csexton/jekyll.vim'
 " }}}
 " game {{{
 NeoBundle 'mattn/habatobi-vim'
@@ -212,6 +210,7 @@ MyNeoBundle 'git@github.com:nanapi/nanapi.vim.git'
 
 set runtimepath+=$HOME/src/github.com/nanapi/nanapi.vim
 
+call neobundle#end()
 " }}}
 
 " }}}
@@ -259,6 +258,7 @@ set completeopt-=preview
 " 正規表現エンジンの設定
 " set regexpengine=0
 
+" pasteモードの切り替えマッピング
 set pastetoggle=<C-p>
 " }}}
 
@@ -641,6 +641,7 @@ function! s:Copy() range " {{{
   let @@ = l:tmp
 endfunction " }}}
 command! -range Copy :call s:Copy()
+
 " }}}
 
 " keybindの設定 {{{
@@ -792,7 +793,7 @@ cmap w!! w !sudo tee > /dev/null %
 " その他 {{{
 
 " <C-Space>を押すと<Nul>が送られるようなので。
-map! <Nul> <C-Space>
+" map! <Nul> <C-Space>
 
 " ヘルプを引きやすくする
 nnoremap <C-h> :<C-u>help<Space>
@@ -1092,7 +1093,7 @@ if neobundle#is_sourced('unite.vim') " {{{
   nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=45 -no-quit<CR>
   " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
   nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
-  nnoremap [unite]q   :<C-u>Unite qfixhowm:nocache<CR>
+  " nnoremap [unite]q   :<C-u>Unite qfixhowm:nocache<CR>
   " nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
   nnoremap [unite]r   :Rc<C-u>Unite output:!bin/rake\ routes -start-insert<CR>
   nnoremap [unite].   :<C-u>UniteResume<CR>
@@ -1428,36 +1429,6 @@ if neobundle#is_sourced('syntastic') " {{{
   nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
   cabbrev <silent> bd lclose\|bdelete
 endif " }}}
-if neobundle#is_sourced('qfixhowm') " {{{
-  let g:howm_fileencoding = 'utf-8'
-  let g:howm_fileformat   = 'unix'
-  let g:howm_dir          = $HOME . '/howm'
-  let g:QFixHowm_key      = 'g'
-  let g:QFixHowm_SaveTime = 2
-
-  " markdown
-  let g:QFixHowm_FileType = 'markdown'
-  let g:QFixHowm_Title = '#'
-  let g:howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.md'
-  let g:QFixMRU_Title = {
-        \ 'markdown' : '^#',
-        \ 'markdown_regexp' : '^#',
-        \ }
-
-  " preview
-  " let g:QFix_PreviewOpenCmd = 'vertical'
-  let g:QFix_PreviewCursorLine = 1
-  let g:QFix_PreviewWrap = 0
-  " let g:QFix_PreviewWidth = 100
-  let g:QFix_PreviewHeight = 30
-
-endif " }}}
-if neobundle#is_sourced('unite-qfixhowm') " {{{
-  " 更新日順で表示する場合
-  call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', 'sorter_reverse'])
-  " 新規作成時の開き方
-  let g:unite_qfixhowm_new_memo_cmd = "tabnew"
-endif " }}}
 if neobundle#is_sourced('vim-quickrun') " {{{
   let g:quickrun_config = {
         \   "coffee" : {
@@ -1490,18 +1461,13 @@ if neobundle#is_sourced('vim-session') " {{{
   let g:session_default_to_last = 1
   let g:session_default_overwrite = 1
 endif " }}}
-if neobundle#is_sourced('jekyll.vim') " {{{
-  let g:jekyll_path = $HOME . "/violetyk.jp"
-  " let g:jekyll_post_suffix = "textile"
-  " let g:jekyll_post_published = "false"
-  " let g:jekyll_post_created = "epoch"
-  " let g:jekyll_post_created = "%D %T"
-  " let g:jekyll_prompt_tags = "true"
-  " let g:jekyll_prompt_categories = "true"
-endif " }}}
 if neobundle#is_sourced('github-issues.vim') " {{{
   let g:github_upstream_issues = 1
   let g:gissues_default_remote = 'github'
+endif " }}}
+if neobundle#is_sourced('w.vim') " {{{
+  let g:w_note_dir     = $HOME . '/Dropbox/w.vim/notes/'
+  let g:w_database_dir = $HOME . '/Dropbox/w.vim/'
 endif " }}}
 
 

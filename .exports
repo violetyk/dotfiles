@@ -18,4 +18,9 @@ export GOPATH=$HOME
 # export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
+
+export GEM_EDITOR=vi
+export VISUAL=vi
+export EDITOR=vi
+
 # vim: set et fenc=utf-8 ff=unix ft=sh sts=2 sw=2 ts=2 : 
