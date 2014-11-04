@@ -122,6 +122,8 @@ NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-bundler'
 NeoBundle 'tpope/vim-rake'
 NeoBundle 'slim-template/vim-slim.git'
+NeoBundle 'tpope/vim-dispatch'
+NeoBundle 'thoughtbot/vim-rspec'
 " }}}
 " syntax check {{{
 " NeoBundle 'tomtom/checksyntax_vim'
@@ -1191,7 +1193,7 @@ if neobundle#is_sourced('cake.vim') " {{{
   nnoremap <Space>cf :<C-u>Cfixture
   nnoremap <Space>cs :<C-u>Cshell
   nnoremap <Space>cd :<C-u>Cdesc
-  nnoremap <Leader>t :<C-u>Ctestrunmethod<CR>
+  " nnoremap <Leader>t :<C-u>Ctestrunmethod<CR>
 
   " プロジェクト切り替えコマンド
   " let g:my_cakephp_projects = {
@@ -1470,5 +1472,10 @@ if neobundle#is_sourced('w.vim') " {{{
   let g:w_database_dir = $HOME . '/Dropbox/w.vim/'
 endif " }}}
 
+
+let g:rspec_command = "Dispatch spring rspec {spec}"
+let g:rspec_runner = "os_x_iterm"
+nnoremap <silent><leader>s :<C-u>call Run
+nnoremap <silent><leader>t :<C-u>call RunNearestSpec()<CR>
 
 " }}}
