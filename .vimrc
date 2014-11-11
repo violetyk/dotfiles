@@ -157,7 +157,7 @@ NeoBundleLazy 'desert256.vim'
 NeoBundleLazy 'tomasr/molokai'
 NeoBundleLazy 'Zenburn'
 NeoBundle 'altercation/vim-colors-solarized'
-NeoBundleLazy 'jpo/vim-railscasts-theme'
+NeoBundle 'jpo/vim-railscasts-theme'
 NeoBundleLazy 'vim-scripts/pyte'
 NeoBundleLazy 'cocopon/iceberg.vim'
 " }}}
@@ -1028,12 +1028,16 @@ if neobundle#is_sourced('unite.vim') " {{{
   let g:unite_source_directory_mru_long_limit = 3000
   let g:unite_prompt = '» '
 
-  function! s:unite_my_settings() "{{{
+  let g:unite_source_history_yank_enable = 1
+  let g:unite_source_tag_max_name_length  = 30
+  let g:unite_source_tag_max_fname_length = 150
+
+
+  function! s:unite_my_settings() " {{{
     " Overwrite settings.
 
     nmap <buffer> <ESC>    <Plug>(unite_exit)
     imap <buffer> jj       <Plug>(unite_insert_leave)
-    "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
 
     imap <buffer><expr> j  unite#smart_map('j', '')
     imap <buffer> <TAB>    <Plug>(unite_select_next_line)
@@ -1058,19 +1062,25 @@ if neobundle#is_sourced('unite.vim') " {{{
     nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
     nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
           \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
-  endfunction "}}}
+  endfunction " }}}
+
   augroup PluginUnite
     autocmd!
     autocmd FileType unite call s:unite_my_settings()
+    autocmd BufEnter *
+          \   if empty(&buftype)
+          \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+          \|  endif
   augroup END
+
 
   nnoremap [unite] :<C-u>Unite<Space>
   nmap f [unite]
 
-  " nnoremap <C-f> :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-  " inoremap <C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+  nnoremap [unite]A   :<C-u>Unite output:autocmd<CR>
   nnoremap [unite]b   :<C-u>Unite bookmark<CR>
   nnoremap [unite]c   :<C-u>Unite cake_controller cake_model cake_config cake_component cake_behavior cake_helper cake_shell cake_fixture cake_core cake_lib n_class -start-insert<CR>
+  nnoremap [unite]C   :<C-u>Unite change<CR>
   nnoremap [unite]d   :<C-u>UniteWithBufferDir -buffer-name=files file -start-insert<CR>
   nnoremap [unite]e   :<C-u>Unite output:echo\ system('set')<CR>
   nnoremap [unite]f   :<C-u>UniteWithInputDirectory file_rec/async -start-insert<CR>
@@ -1088,32 +1098,30 @@ if neobundle#is_sourced('unite.vim') " {{{
 
   " nnoremap [unite]h   :<C-u>Unite history/command<CR>
   nnoremap [unite]j   :<C-u>Unite buffer file_mru bookmark -start-insert<CR>
+  nnoremap [unite]J   :<C-u>Unite jump<CR>
   " nnoremap [unite]l   :<C-u>Unite locate -start-insert<CR>
   nnoremap [unite]l   :<C-u>Unite line -start-insert<CR>
   nnoremap [unite]L   :<C-u>UniteWithCursorWord line -start-insert -auto-preview<CR>
+  " nnoremap [unite]L   :<C-u>Unite launcher<CR>
+  nnoremap [unite]M   :<C-u>Unite output:messages<CR>
+  " nnoremap [unite]M   :<C-u>Unite mapping -start-insert<CR>
   " nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
   nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=45 -no-quit<CR>
   " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
   nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
   " nnoremap [unite]q   :<C-u>Unite qfixhowm:nocache<CR>
   " nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
-  nnoremap [unite]r   :Rc<C-u>Unite output:!bin/rake\ routes -start-insert<CR>
+  " nnoremap [unite]r   :<C-u>Unite ref/refe -start-insert -default-action=tabopen<CR>
+  nnoremap [unite]r   :<C-u>Unite -buffer-name=register register<CR>
+  nnoremap [unite]R   :<C-u>UniteWithCursorWord ref/refe -start-insert -default-action=tabopen<CR>
   nnoremap [unite].   :<C-u>UniteResume<CR>
-  " nnoremap [unite]s   :<C-u>Unite history/search<CR>
+  nnoremap [unite]s   :<C-u>Unite history/search<CR>
+  nnoremap [unite]S   :<C-u>Unite output:scriptnames<CR>
+  nnoremap [unite]t   :<C-u>Unite tag -start-insert<CR>
   " nnoremap [unite]v   :<C-u>Unite output:version -start-insert<CR>
   nnoremap [unite]v   :<C-u>Unite variable -auto-preview -start-insert<CR>
 
-  let g:unite_source_history_yank_enable = 1
   nnoremap [unite]y   :<C-u>Unite history/yank<CR>
-  nnoremap [unite]A   :<C-u>Unite output:autocmd<CR>
-  nnoremap [unite]C   :<C-u>Unite change<CR>
-  nnoremap [unite]J   :<C-u>Unite jump<CR>
-  " nnoremap [unite]L   :<C-u>Unite launcher<CR>
-  nnoremap [unite]M   :<C-u>Unite output:messages<CR>
-  " nnoremap [unite]M   :<C-u>Unite mapping -start-insert<CR>
-  nnoremap [unite]R   :<C-u>Unite -buffer-name=register register<CR>
-  nnoremap [unite]S   :<C-u>Unite output:scriptnames<CR>
-  nnoremap [unite]t   :<C-u>Unite tag -start-insert<CR>
 
 endif " }}}
 if neobundle#is_sourced('vim-ref') " {{{
