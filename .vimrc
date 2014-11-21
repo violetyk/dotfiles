@@ -1000,16 +1000,37 @@ if neobundle#is_sourced('neocomplete.vim') " {{{
 
   let g:neocomplete#force_overwrite_completefunc = 1
 endif " }}}
-if neobundle#is_sourced('neosnippet') " {{{
-  let snippets_directory = [
-        \ $HOME.'/.vim/snippets',
-        \ $HOME.'/src/github.com/violetyk/neosnippet-cakephp2',
-        \ $HOME.'/src/github.com/violetyk/neosnippet-rails',
-        \]
-  let g:neosnippet#snippets_directory = join(snippets_directory, ',')
 
-  nnoremap <silent> <Space>es  :<C-u>NeoSnippetEdit -split -vertical<Space>
+if neobundle#is_sourced('neosnippet') " {{{
+
+  function! s:setup_neosnippets()
+    if exists('b:rails_root')
+      let dirs = [
+            \ $HOME.'/src/github.com/violetyk/neosnippet-rails/neosnippets',
+            \]
+      nnoremap <buffer><silent><expr> <Space>es ':NeoSnippetEdit -split -vertical ' . &filetype . '/'. RailsFileType()
+    elseif index(['php', 'ctp'], &filetype) != -1
+      let dirs = [
+            \ $HOME.'/src/github.com/violetyk/neosnippet-cakephp2/neosnippets',
+            \]
+      nnoremap <buffer><silent> <Space>es :NeoSnippetEdit -split -vertical<space>
+    else
+      let dirs = [
+            \ $HOME.'/.vim/bundle/neosnippet-snippets/neosnippets'
+            \]
+      nnoremap <buffer><silent><expr> <Space>es ':NeoSnippetEdit -split -vertical ' . &filetype . '.snip'
+    endif
+
+    let g:neosnippet#snippets_directory = dirs
+  endfunction
+
+  augroup neosnippet_set_directory
+    autocmd!
+    autocmd BufEnter * call s:setup_neosnippets()
+  augroup END
+
   nnoremap <silent> <Space>rs  :<C-u>NeoSnippetSource<Space>
+
 
   " Plugin key-mappings.
   imap <C-k> <Plug>(neosnippet_expand_or_jump)

@@ -14,9 +14,9 @@ GEM
     refe2 (0.8.0)
       bitclust-core (= 0.8.0)
     thor (0.19.1)
-    tmuxinator (0.6.8)
-      erubis
-      thor (>= 0.18.0)
+    tmuxinator (0.6.9)
+      erubis (~> 2.6)
+      thor (~> 0.19, >= 0.15.0)
 
 PLATFORMS
   ruby
