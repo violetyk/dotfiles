@@ -30,9 +30,11 @@ install packer
 install mysql
 install php55
 install php55-mcrypt
-install php55-intl
+#install php55-intl
 install composer
-install --vim-powerline ricty
+install automake
+install pkg-config
+#install --vim-powerline ricty
 install go
 install rbenv ruby-build
 
