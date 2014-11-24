@@ -63,6 +63,7 @@ NeoBundle 'mattn/emoji-vim'
 " textobj {{{
 NeoBundle 'akiyan/vim-textobj-php'
 NeoBundle 'akiyan/vim-textobj-xml-attribute'
+NeoBundle 'rhysd/vim-textobj-ruby'
 " }}}
 " filer {{{
 NeoBundle 'scrooloose/nerdtree'
