@@ -126,6 +126,10 @@ NeoBundle 'slim-template/vim-slim.git'
 NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'thoughtbot/vim-rspec'
 " }}}
+" typescript {{{
+NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'clausreinke/typescript-tools'
+" }}}
 " syntax check {{{
 " NeoBundle 'tomtom/checksyntax_vim'
 NeoBundle 'scrooloose/syntastic'
@@ -565,7 +569,7 @@ augroup MyAutoCommands
   autocmd FileType js setlocal ft=javascript
 
   " :vimgrep や :makeしたときに自動的にQuickFixを開く
-  autocmd QuickfixCmdPost make,grep,grepadd,vimgrep copen
+  " autocmd QuickfixCmdPost make,grep,grepadd,vimgrep copen
 
   " ウィンドウを移動する度に外部で変更のあったファイルを自動的に読み直す
   " 関連：autoread

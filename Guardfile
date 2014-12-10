@@ -39,4 +39,4 @@ guard 'bundler' do
   #   end
 end
 
-notification :tmux, display_message: true, color_location: 'status-left-bg', default_message_color: 'black'
+# notification :tmux, display_message: true, color_location: 'status-left-bg', default_message_color: 'black'
