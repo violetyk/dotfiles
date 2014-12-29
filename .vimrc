@@ -1506,7 +1506,6 @@ if neobundle#is_sourced('w.vim') " {{{
   let g:w_database_dir = $HOME . '/Dropbox/w.vim/'
 endif " }}}
 
-
 let g:rspec_command = "Dispatch spring rspec {spec}"
 let g:rspec_runner = "os_x_iterm"
 nnoremap <silent><leader>s :<C-u>call Run
