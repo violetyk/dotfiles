@@ -1,0 +1,48 @@
+" カラースキーマ
+" set background=dark
+" set background=light
+" let g:solarized_contrast="row"
+" silent! colorscheme solarized
+
+silent! colorscheme hybrid
+
+" マウスを使う。
+set mouse=a
+
+" キータイプ時にマウスポインタを隠す (nomousehide:隠さない)
+set mousehide
+
+" GUIの設定。m:メニュー、r:右垂直バー、b:下のスクロールバー、l:左垂直バー
+" set guioptions=c
+set guioptions=ceg
+
+" ヤンクの内容や、選択した内容をクリップボードに格納する。
+set clipboard=unnamed,autoselect
+
+
+if has('win32') || has('win64')
+  " Windows の gvim でフォントを設定するには guifont オプションと guifontwide オプションを使う。
+  " 前者がいわゆる半角文字のフォント、後者が全角文字のフォント。
+  " どちらもカンマで区切って複数のフォントを指定できる (最初に利用可能なフォントが選ばれる)。例えば _gvimrc に以下のように書く:
+  " set guifont=Consolas:h10,Lucida_Console:h10:w5 guifontwide=MS_Gothic:h10
+  " h10"はフォントの高さを 10 ポイントにする指定。同様に"w5"は幅を 5 ポイントにする。
+  " 半角と全角でフォントを使い分ける必要がない場合は guifont だけ設定すればよい。
+
+  " set guifont=MS_Gothic:h9:cSHIFTJIS
+  " set guifont=MS_Mincho:h12:cSHIFTJIS
+  " set guifont=Osaka－等幅:h9:cSHIFTJIS
+  set guifont=TakaoGothic:h10:cSHIFTJIS
+
+  " 起動したときに最大化
+  au GUIEnter * simalt ~x
+
+
+elseif has('mac')
+
+  set guifont=Ricty\ Regular\ for\ Powerline:h13
+
+elseif has('gui_gtk2')
+  set guifont=Terminus-ja\ 11
+  " set guifont=Migu\ 1M\ 11
+
+endif

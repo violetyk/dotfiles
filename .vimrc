@@ -208,8 +208,6 @@ set runtimepath+=$HOME/src/github.com/nanapi/nanapi.vim
 call neobundle#end()
 " }}}
 
-" }}}
-
 " 基本的な設定: {{{
 
 " ファイル形式別のプラグインとインデントを有効にする
@@ -319,67 +317,13 @@ set updatecount=500
 
 " }}}
 
-" 環境別の設定 {{{
-if has('gui_running')
+" Undoの設定 {{{
+set undofile
+set undodir=$HOME/undo
+" }}}
 
-  " カラースキーマ
-  set background=dark
-  " set background=light
-  " let g:solarized_contrast="row"
-  " silent! colorscheme solarized
-
-  silent! colorscheme hybrid
-
-  " マウスを使う。
-  set mouse=a
-
-  " キータイプ時にマウスポインタを隠す (nomousehide:隠さない)
-  set mousehide
-
-  " GUIの設定。m:メニュー、r:右垂直バー、b:下のスクロールバー、l:左垂直バー
-  set guioptions=c
-
-  " ヤンクの内容や、選択した内容をクリップボードに格納する。
-  set clipboard=unnamed,autoselect
-
-
-  " Font
-  " Windows gvim {{{
-  if has('win32') || has('win64')
-    " Windows の gvim でフォントを設定するには guifont オプションと guifontwide オプションを使う。
-    " 前者がいわゆる半角文字のフォント、後者が全角文字のフォント。
-    " どちらもカンマで区切って複数のフォントを指定できる (最初に利用可能なフォントが選ばれる)。例えば _gvimrc に以下のように書く:
-    " set guifont=Consolas:h10,Lucida_Console:h10:w5 guifontwide=MS_Gothic:h10
-    " h10"はフォントの高さを 10 ポイントにする指定。同様に"w5"は幅を 5 ポイントにする。
-    " 半角と全角でフォントを使い分ける必要がない場合は guifont だけ設定すればよい。
-
-    " set guifont=MS_Gothic:h9:cSHIFTJIS
-    " set guifont=MS_Mincho:h12:cSHIFTJIS
-    " set guifont=Osaka－等幅:h9:cSHIFTJIS
-    set guifont=TakaoGothic:h10:cSHIFTJIS
-
-    " 起動したときに最大化
-    au GUIEnter * simalt ~x
-  " }}}
-  " MacOSX gvim {{{
-  elseif has('mac')
-    set guifont=Ricty\ Regular\ for\ Powerline:h13
-
-    " augroup MacVim
-      " autocmd!
-      " " 起動したときに最大化
-      " autocmd BufEnter * macaction performZoom:
-    " augroup END
-
-  " }}}
-  " Linux gvim {{{
-  elseif has('gui_gtk2')
-    set guifont=Terminus-ja\ 11
-    " set guifont=Migu\ 1M\ 11
-  endif
-  " }}}
-else
-  " CUI vim {{{
+" CUI環境のみの設定 {{{
+if !has('gui_running')
 
   " 補完の色を変更
   " hi Pmenu ctermfg=Black ctermbg=Grey
@@ -390,8 +334,6 @@ else
   " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
   silent! colorscheme mrkn256
-
-  " }}}
 endif
 " }}}
 

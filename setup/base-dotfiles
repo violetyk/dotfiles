@@ -1,6 +1,7 @@
 .bashrc
 .profile
 .vimrc
+.gvimrc
 .vim
 .ctags
 .tmux.conf

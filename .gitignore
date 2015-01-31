@@ -11,3 +11,4 @@ kagaya/
 .netrwhist
 .vim/bundle/neobundle.vim
 __pycache__
+.*.un~
