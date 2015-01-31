@@ -13,6 +13,11 @@ if which brew > /dev/null; then
   export PATH=/usr/local/Cellar/vim/HEAD/bin:$PATH
 fi
 
+# MacVim.app
+if [ -e /Applications/MacVim.app/Contents/MacOS ]; then
+  export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
+fi
+
 # golang
 export GOPATH=$HOME
 # export GOPATH=$HOME/go

@@ -41,16 +41,9 @@ NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 " }}}
-" session {{{
-NeoBundle 'xolox/vim-session', {
- \ 'depends' : 'xolox/vim-misc',
- \ }
-
-" }}}
 " editing {{{
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'vim-scripts/Align'
-NeoBundle 'vim-scripts/yanktmp.vim'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'tpope/vim-surround'
@@ -59,7 +52,7 @@ NeoBundle 'vim-scripts/Modeliner'
 NeoBundleLazy 'kana/vim-smartchr'
 NeoBundleLazy 'kana/vim-smartinput'
 NeoBundle 'mattn/emoji-vim'
-" }}}
+" " }}}
 " textobj {{{
 NeoBundle 'akiyan/vim-textobj-php'
 NeoBundle 'akiyan/vim-textobj-xml-attribute'
@@ -85,14 +78,12 @@ NeoBundle 'vim-scripts/dbext.vim'
 NeoBundle 'vim-scripts/SQLUtilities'
 " }}}
 " navigation {{{
-NeoBundleLazy 'Lokaltog/vim-easymotion'
 NeoBundle 'sgur/vim-gf-autoload'
 NeoBundle 't9md/vim-choosewin'
 " }}}
 " sign {{{
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'airblade/vim-gitgutter'
-" NeoBundle 'tomtom/quickfixsigns_vim'
 NeoBundle 'osyo-manga/vim-over'
 " }}}
 " search {{{
@@ -108,7 +99,6 @@ NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'takahirojin/gbr.vim'
 " }}}
 " php {{{
-NeoBundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 " NeoBundle 'joonty/vdebug'
 " }}}
 " vim {{{
@@ -126,14 +116,16 @@ NeoBundle 'slim-template/vim-slim.git'
 NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'thoughtbot/vim-rspec'
 " }}}
+
+" javascript {{{
+" NeoBundle 'marijnh/tern_for_vim'
+" }}}
 " typescript {{{
 NeoBundle 'leafgarland/typescript-vim'
 NeoBundle 'clausreinke/typescript-tools'
 " }}}
 " syntax check {{{
-" NeoBundle 'tomtom/checksyntax_vim'
 NeoBundle 'scrooloose/syntastic'
-" NeoBundle 'errormarker.vim'
 " }}}
 " unite source {{{
 NeoBundle 'unite-colorscheme',         { 'depends' : 'Shougo/unite.vim' }
@@ -152,17 +144,17 @@ NeoBundle 'thinca/vim-unite-history',  { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'itchyny/lightline.vim'
 
 NeoBundle 'mrkn256.vim'
-NeoBundle 'chriskempson/tomorrow-theme', {
-      \ 'rtp': "~/.vim/bundle/tomorrow-theme/vim/",
-      \ }
-NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundleLazy 'desert.vim'
 NeoBundleLazy 'desert256.vim'
 NeoBundleLazy 'tomasr/molokai'
 NeoBundleLazy 'Zenburn'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'jpo/vim-railscasts-theme'
+NeoBundleLazy 'altercation/vim-colors-solarized'
+NeoBundleLazy 'nanotech/jellybeans.vim'
+NeoBundleLazy 'chriskempson/tomorrow-theme', {
+      \ 'rtp': "~/.vim/bundle/tomorrow-theme/vim/",
+      \ }
+NeoBundleLazy 'jpo/vim-railscasts-theme'
 NeoBundleLazy 'vim-scripts/pyte'
 NeoBundleLazy 'cocopon/iceberg.vim'
 " }}}
@@ -183,7 +175,7 @@ NeoBundle 'pangloss/vim-javascript'
 " }}}
 " service {{{
 NeoBundle 'mattn/gist-vim'
-NeoBundle 'glidenote/nogistub.vim'
+" NeoBundleLazy 'glidenote/nogistub.vim'
 " }}}
 " memo {{{
 " }}}
@@ -196,10 +188,6 @@ NeoBundle 'mattn/habatobi-vim'
 NeoBundle 'mopp/autodirmake.vim'
 " }}}
 
-" NeoBundle 'gcmt/breeze.vim'
-" NeoBundle 'marijnh/tern_for_vim'
-" NeoBundle 'shawncplus/phpcomplete.vim'
-
 " :NeoBundleUpdate!でも更新しない
 command! -nargs=1 MyNeoBundle NeoBundle <args>,
       \ {
@@ -209,11 +197,11 @@ command! -nargs=1 MyNeoBundle NeoBundle <args>,
 
 MyNeoBundle 'violetyk/cake.vim'
 MyNeoBundle 'violetyk/scratch-utility'
-MyNeoBundle 'violetyk/w.vim'
+" MyNeoBundle 'violetyk/w.vim'
 MyNeoBundle 'violetyk/neosnippet-cakephp2'
 MyNeoBundle 'violetyk/neosnippet-rails'
 MyNeoBundle 'violetyk/neocomplete-php.vim'
-MyNeoBundle 'git@github.com:nanapi/nanapi.vim.git'
+" MyNeoBundle 'git@github.com:nanapi/nanapi.vim.git'
 
 set runtimepath+=$HOME/src/github.com/nanapi/nanapi.vim
 
@@ -260,13 +248,13 @@ set splitbelow
 set splitright
 
 " 補完時、現在選択中の候補の付加情報を表示しない。
-set completeopt-=preview
+set completeopt-=menu,preview
 
 " 正規表現エンジンの設定
 " set regexpengine=0
 
 " pasteモードの切り替えマッピング
-set pastetoggle=<C-p>
+" set pastetoggle=<C-p>
 " }}}
 
 " 文字コードの設定 {{{
@@ -335,13 +323,12 @@ set updatecount=500
 if has('gui_running')
 
   " カラースキーマ
-  " set background=dark
+  set background=dark
   " set background=light
-  "let g:solarized_contrast="row"
-  "silent! colorscheme solarized
+  " let g:solarized_contrast="row"
+  " silent! colorscheme solarized
 
-  " silent! colorscheme jellybeans
-
+  silent! colorscheme hybrid
 
   " マウスを使う。
   set mouse=a
@@ -378,11 +365,11 @@ if has('gui_running')
   elseif has('mac')
     set guifont=Ricty\ Regular\ for\ Powerline:h13
 
-    augroup MacVim
-      autocmd!
-      " 起動したときに最大化
-      autocmd BufEnter * macaction performZoom:
-    augroup END
+    " augroup MacVim
+      " autocmd!
+      " " 起動したときに最大化
+      " autocmd BufEnter * macaction performZoom:
+    " augroup END
 
   " }}}
   " Linux gvim {{{
@@ -1258,11 +1245,6 @@ if neobundle#is_sourced('gist-vim') " {{{
   let g:gist_show_privates = 1
   let g:gist_put_url_to_clipboard_after_post = 1
 endif " }}}
-if neobundle#is_sourced('PDV--phpDocumentor-for-Vim') " {{{
-  inoremap <Leader>d <ESC>:call PhpDocSingle()<CR>i
-  nnoremap <Leader>d :call PhpDocSingle()<CR>
-  vnoremap <Leader>d :call PhpDocRange()<CR>
-endif " }}}
 if neobundle#is_sourced('vim-surround') " {{{
   let g:surround_{char2nr("p")} = "<?php \r ?>"
 endif " }}}
@@ -1304,25 +1286,15 @@ if neobundle#is_sourced('dbext.vim') " {{{
     echo "Connect Database : " . a:profile
   endfunction
 endif " }}}
-if neobundle#is_sourced('vim-easymotion') " {{{
-  " ホームポジションに近いキーを使う
-  let g:EasyMotion_keys = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
-  let g:EasyMotion_leader_key = "<Space>"
-  " 1 ストローク選択を優先する
-  let g:EasyMotion_grouping = 1
-  " カラー設定変更
-  hi EasyMotionTarget ctermbg=none ctermfg=red
-  hi EasyMotionShade  ctermbg=none ctermfg=blue
-endif " }}}
 if neobundle#is_sourced('vim-localrc') " {{{
   " ディレクトリごとにvimの設定を用意するファイル名
   let g:localrc_filename = '.local.vimrc'
   silent! call localrc#load('.init.vimrc', $HOME)
 endif " }}}
 if neobundle#is_sourced('vim-indent-guides') " {{{
-  let g:indent_guides_enable_on_vim_startup = 0
+  let g:indent_guides_enable_on_vim_startup = 1
   let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-  let g:indent_guides_start_level = 3
+  let g:indent_guides_start_level = 2
   let g:indent_guides_guide_size = 1
 endif " }}}
 if neobundle#is_sourced('vim-anzu') " {{{
@@ -1335,12 +1307,6 @@ if neobundle#is_sourced('vim-anzu') " {{{
     autocmd CursorHold,CursorHoldI,WinLeave,TabLeave * call anzu#clear_search_status()
   augroup END
 endif " }}}
-if neobundle#is_sourced('vimyanktmp.vim') " {{{
-  map <silent> ty :call YanktmpYank()<CR>
-  map <silent> tp :call YanktmpPaste_p()<CR>
-  map <silent> tP :call YanktmpPaste_P()<CR>
-  let g:yanktmp_file = '/tmp/vimyanktmp'
-endif " }}}
 if neobundle#is_sourced('vim-precious') " {{{
   let g:precious_enable_switchers = {
         \ "*" : {
@@ -1350,12 +1316,6 @@ if neobundle#is_sourced('vim-precious') " {{{
         \   "setfiletype" : 1
         \ },
         \}
-endif " }}}
-if neobundle#is_sourced('breeze.vim') " {{{
-  let g:breeze_highlight_filename_patterns = '*.ctp,*.html,*.htm,*.xhtml,*.xml'
-  let g:breeze_highlight_tag = 1
-  let g:breeze_hl_color = 'ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black '
-  " nnoremap th :<C-u>BreezeHlElementBlock<CR>
 endif " }}}
 if neobundle#is_sourced('lightline.vim') " {{{
   let g:lightline = {
@@ -1446,7 +1406,7 @@ if neobundle#is_sourced('vim-gitgutter') " {{{
   nnoremap <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
 endif " }}}
 if neobundle#is_sourced('tagbar') " {{{
-  let g:tagbar_ctags_bin = '/usr/local/ctags/bin/ctags'
+  let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 endif " }}}
 if neobundle#is_sourced('tagbar-phpctags.vim') " {{{
   let g:tagbar_phpctags_bin = $HOME . '/dotfiles/.vim/bundle/phpctags/phpctags'
@@ -1490,13 +1450,6 @@ endif " }}}
 if neobundle#is_sourced('neocomplete-php.vim') " {{{
   let g:neocomplete_php_locale = 'ja'
 endif " }}}
-if neobundle#is_sourced('vim-session') " {{{
-  let g:session_directory = $HOME . '/.vimsessions/'
-  let g:session_autoload = 'no'
-  let g:session_autosave = 'yes'
-  let g:session_default_to_last = 1
-  let g:session_default_overwrite = 1
-endif " }}}
 if neobundle#is_sourced('github-issues.vim') " {{{
   let g:github_upstream_issues = 1
   let g:gissues_default_remote = 'github'
@@ -1505,10 +1458,15 @@ if neobundle#is_sourced('w.vim') " {{{
   let g:w_note_dir     = $HOME . '/Dropbox/w.vim/notes/'
   let g:w_database_dir = $HOME . '/Dropbox/w.vim/'
 endif " }}}
+if neobundle#is_sourced('emoji-vim') " {{{
+  nmap <leader>emoji <plug>(emoji-selector-insert)
+  imap <c-w> <plug>(emoji-selector-insert)
+endif " }}}
 
 let g:rspec_command = "Dispatch spring rspec {spec}"
 let g:rspec_runner = "os_x_iterm"
 nnoremap <silent><leader>s :<C-u>call Run
 nnoremap <silent><leader>t :<C-u>call RunNearestSpec()<CR>
+
 
 " }}}
