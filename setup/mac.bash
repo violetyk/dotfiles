@@ -14,7 +14,16 @@ brew tap homebrew/boneyard
 brew bundle
 
 
-# ghq & peco
+# go & ghq & peco
+go get golang.org/x/tools/cmd/goimports
+go get golang.org/x/tools/cmd/godoc
+go get golang.org/x/tools/cmd/vet
+go get golang.org/x/tools/cmd/cover
+go get github.com/nsf/gocode
+go get github.com/golang/lint
+go get code.google.com/p/rog-go/exp/cmd/godef
+go get github.com/jstemmer/gotags
+
 go get github.com/motemen/ghq
 go get github.com/peco/peco/cmd/peco
 go get github.com/zimbatm/direnv

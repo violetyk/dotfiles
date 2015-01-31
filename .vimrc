@@ -116,7 +116,11 @@ NeoBundle 'slim-template/vim-slim.git'
 NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'thoughtbot/vim-rspec'
 " }}}
-
+" golang {{{
+NeoBundleLazy 'vim-jp/vim-go-extra', {'autoload': {'filetypes': ['go']}}
+NeoBundleLazy 'dgryski/vim-godef', {'autoload': {'filetypes': ['go']}}
+set runtimepath+=$GOPATH/src/github.com/nsf/gocode/vim
+" }}}
 " javascript {{{
 " NeoBundle 'marijnh/tern_for_vim'
 " }}}
@@ -1235,7 +1239,7 @@ if neobundle#is_sourced('vim-localrc') " {{{
 endif " }}}
 if neobundle#is_sourced('vim-indent-guides') " {{{
   let g:indent_guides_enable_on_vim_startup = 1
-  let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+  let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar']
   let g:indent_guides_start_level = 2
   let g:indent_guides_guide_size = 1
 endif " }}}
