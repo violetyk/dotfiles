@@ -82,8 +82,8 @@ NeoBundle 'sgur/vim-gf-autoload'
 NeoBundle 't9md/vim-choosewin'
 " }}}
 " sign {{{
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'airblade/vim-gitgutter'
+" NeoBundle 'nathanaelkane/vim-indent-guides'
+" NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'osyo-manga/vim-over'
 " }}}
 " search {{{
@@ -118,8 +118,10 @@ NeoBundle 'thoughtbot/vim-rspec'
 " }}}
 " golang {{{
 NeoBundleLazy 'vim-jp/vim-go-extra', {'autoload': {'filetypes': ['go']}}
-NeoBundleLazy 'dgryski/vim-godef', {'autoload': {'filetypes': ['go']}}
-set runtimepath+=$GOPATH/src/github.com/nsf/gocode/vim
+NeoBundleLazy 'dgryski/vim-godef', {
+      \ 'autoload': {'filetypes': ['go'] },
+      \ 'rtp': $GOPATH . '/src/github.com/nsf/gocode/vim',
+      \ }
 " }}}
 " javascript {{{
 " NeoBundle 'marijnh/tern_for_vim'
@@ -859,16 +861,28 @@ if neobundle#is_sourced('neocomplete.vim') " {{{
       \ 'scheme' : $HOME.'/.gosh_completions'
           \ }
 
-  " Define keyword.
+  " completion patterns
   if !exists('g:neocomplete#keyword_patterns')
-      let g:neocomplete#keyword_patterns = {}
+    let g:neocomplete#keyword_patterns = {}
   endif
   let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+  if !exists('g:neocomplete#delimiter_patterns')
+    let g:neocomplete#delimiter_patterns= {}
+  endif
+  let g:neocomplete#delimiter_patterns.vim = ['#']
+  let g:neocomplete#delimiter_patterns.ruby = ['::']
+
+  if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+  endif
 
   if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
   endif
+  let g:neocomplete#force_omni_input_patterns.go = '\h\w*\.\?'
   " let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
 
   " Plugin key-mappings.
   inoremap <expr><C-g>     neocomplete#undo_completion()
@@ -1238,7 +1252,7 @@ if neobundle#is_sourced('vim-localrc') " {{{
   silent! call localrc#load('.init.vimrc', $HOME)
 endif " }}}
 if neobundle#is_sourced('vim-indent-guides') " {{{
-  let g:indent_guides_enable_on_vim_startup = 1
+  let g:indent_guides_enable_on_vim_startup = 0
   let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar']
   let g:indent_guides_start_level = 2
   let g:indent_guides_guide_size = 1
@@ -1406,7 +1420,7 @@ if neobundle#is_sourced('w.vim') " {{{
 endif " }}}
 if neobundle#is_sourced('emoji-vim') " {{{
   nmap <leader>emoji <plug>(emoji-selector-insert)
-  imap <c-w> <plug>(emoji-selector-insert)
+  " imap <c-w> <plug>(emoji-selector-insert)
 endif " }}}
 
 let g:rspec_command = "Dispatch spring rspec {spec}"

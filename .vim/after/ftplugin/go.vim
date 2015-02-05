@@ -1,5 +1,6 @@
 set path+=$GOPATH/src/**
 let g:gofmt_command = 'goimports'
+
 augroup Golang
   autocmd!
   autocmd BufWritePre *.go Fmt
