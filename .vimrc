@@ -123,6 +123,9 @@ NeoBundleLazy 'dgryski/vim-godef', {
       \ 'rtp': $GOPATH . '/src/github.com/nsf/gocode/vim',
       \ }
 " }}}
+" toml {{{
+NeoBundle 'cespare/vim-toml'
+" }}}
 " javascript {{{
 " NeoBundle 'marijnh/tern_for_vim'
 " }}}
