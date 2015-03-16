@@ -1,3 +1,4 @@
 --color
 --format progress
+--fail-fast
 #--format documentation

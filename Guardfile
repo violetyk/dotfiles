@@ -45,7 +45,7 @@ end
 #  * 'just' rspec: 'rspec'
 
 # guard :rspec, cmd: "bundle exec rspec" do
-guard :rspec, cmd: 'spring rspec -f progress', all_on_start: false, all_after_pass: false do
+guard :rspec, cmd: 'spring rspec -f progress --fail-fast', all_on_start: false, all_after_pass: false do
   require 'guard/rspec/dsl'
   dsl = Guard::RSpec::Dsl.new(self)
 
