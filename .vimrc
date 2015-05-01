@@ -184,6 +184,7 @@ NeoBundle 'pangloss/vim-javascript'
 " }}}
 " service {{{
 NeoBundle 'mattn/gist-vim'
+NeoBundle 'lambdalisue/vim-gista'
 " NeoBundleLazy 'glidenote/nogistub.vim'
 " }}}
 " memo {{{
@@ -1424,6 +1425,9 @@ endif " }}}
 if neobundle#is_sourced('emoji-vim') " {{{
   nmap <leader>emoji <plug>(emoji-selector-insert)
   " imap <c-w> <plug>(emoji-selector-insert)
+endif " }}}
+if neobundle#is_sourced('vim-gista') " {{{
+  let g:gista#github_user = 'violetyk'
 endif " }}}
 
 let g:rspec_command = "Dispatch spring rspec {spec}"
