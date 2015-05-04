@@ -28,10 +28,11 @@ install nodejs
 install memcached
 install packer
 install mysql
-install php55
-install php55-mcrypt
+# install php55
+# install php55-mcrypt
 #install php55-intl
 install composer
+install phpctags
 install automake
 install pkg-config
 #install --vim-powerline ricty

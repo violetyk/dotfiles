@@ -64,12 +64,6 @@ NeoBundle 'Shougo/vimfiler'
 " }}}
 " outliner {{{
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'vim-php/phpctags', {
-      \ 'build' : {
-      \   'mac' : 'make',
-      \   'unix' : 'make',
-      \ },
-      \}
 NeoBundle 'vim-php/tagbar-phpctags.vim'
 
 " }}}
@@ -1373,7 +1367,7 @@ if neobundle#is_sourced('tagbar') " {{{
   let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 endif " }}}
 if neobundle#is_sourced('tagbar-phpctags.vim') " {{{
-  let g:tagbar_phpctags_bin = $HOME . '/dotfiles/.vim/bundle/phpctags/phpctags'
+  let g:tagbar_phpctags_bin = '/usr/local/bin/phpctags'
   let g:tagbar_phpctags_memory_limit = '512M'
 endif " }}}
 if neobundle#is_sourced('vim-json') " {{{
@@ -1428,6 +1422,7 @@ if neobundle#is_sourced('emoji-vim') " {{{
 endif " }}}
 if neobundle#is_sourced('vim-gista') " {{{
   let g:gista#github_user = 'violetyk'
+  let g:gista#close_list_after_open = 1
 endif " }}}
 
 let g:rspec_command = "Dispatch spring rspec {spec}"
