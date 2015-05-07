@@ -52,6 +52,7 @@ NeoBundle 'vim-scripts/Modeliner'
 NeoBundleLazy 'kana/vim-smartchr'
 NeoBundleLazy 'kana/vim-smartinput'
 NeoBundle 'mattn/emoji-vim'
+NeoBundle 'editorconfig/editorconfig-vim'
 " " }}}
 " textobj {{{
 NeoBundle 'akiyan/vim-textobj-php'
@@ -200,6 +201,7 @@ command! -nargs=1 MyNeoBundle NeoBundle <args>,
       \ }
 
 MyNeoBundle 'violetyk/cake.vim'
+MyNeoBundle 'violetyk/cake3.vim'
 MyNeoBundle 'violetyk/scratch-utility'
 " MyNeoBundle 'violetyk/w.vim'
 MyNeoBundle 'violetyk/neosnippet-cakephp2'
