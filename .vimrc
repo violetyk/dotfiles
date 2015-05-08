@@ -51,7 +51,6 @@ NeoBundle 'tpope/vim-endwise'
 NeoBundle 'vim-scripts/Modeliner'
 NeoBundleLazy 'kana/vim-smartchr'
 NeoBundleLazy 'kana/vim-smartinput'
-NeoBundle 'mattn/emoji-vim'
 NeoBundle 'editorconfig/editorconfig-vim'
 " " }}}
 " textobj {{{
@@ -209,7 +208,7 @@ MyNeoBundle 'violetyk/neosnippet-rails'
 MyNeoBundle 'violetyk/neocomplete-php.vim'
 " MyNeoBundle 'git@github.com:nanapi/nanapi.vim.git'
 
-set runtimepath+=$HOME/src/github.com/nanapi/nanapi.vim
+" set runtimepath+=$HOME/src/github.com/nanapi/nanapi.vim
 
 call neobundle#end()
 " }}}
@@ -1417,10 +1416,6 @@ endif " }}}
 if neobundle#is_sourced('w.vim') " {{{
   let g:w_note_dir     = $HOME . '/Dropbox/w.vim/notes/'
   let g:w_database_dir = $HOME . '/Dropbox/w.vim/'
-endif " }}}
-if neobundle#is_sourced('emoji-vim') " {{{
-  nmap <leader>emoji <plug>(emoji-selector-insert)
-  " imap <c-w> <plug>(emoji-selector-insert)
 endif " }}}
 if neobundle#is_sourced('vim-gista') " {{{
   let g:gista#github_user = 'violetyk'
