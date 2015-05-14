@@ -120,6 +120,10 @@ NeoBundleLazy 'dgryski/vim-godef', {
 " toml {{{
 NeoBundle 'cespare/vim-toml'
 " }}}
+" markdown {{{
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'kannokanno/previm'
+" }}}
 " javascript {{{
 " NeoBundle 'marijnh/tern_for_vim'
 " }}}
@@ -170,7 +174,6 @@ NeoBundle 'jQuery'
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'tpope/vim-markdown'
 NeoBundle 'elzr/vim-json'
 " }}}
 " indent {{{
@@ -202,7 +205,7 @@ command! -nargs=1 MyNeoBundle NeoBundle <args>,
 MyNeoBundle 'violetyk/cake.vim'
 MyNeoBundle 'violetyk/cake3.vim'
 MyNeoBundle 'violetyk/scratch-utility'
-" MyNeoBundle 'violetyk/w.vim'
+MyNeoBundle 'violetyk/w.vim'
 MyNeoBundle 'violetyk/neosnippet-cakephp2'
 MyNeoBundle 'violetyk/neosnippet-rails'
 MyNeoBundle 'violetyk/neocomplete-php.vim'
@@ -508,6 +511,9 @@ augroup MyAutoCommands
   " ウィンドウを移動する度に外部で変更のあったファイルを自動的に読み直す
   " 関連：autoread
   autocmd WinEnter * checktime
+
+
+  autocmd BufRead,BufNewFile *.{md,markdown} set filetype=markdown
 
 augroup END
 
@@ -1469,3 +1475,17 @@ let g:tagbar_type_go = {
     \ 'ctagsbin'  : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
 \ }
+
+" syntax/markdown.vimはsyn include に対応している
+let g:markdown_fenced_languages = [
+      \ 'coffee',
+      \ 'css',
+      \ 'erb=eruby',
+      \ 'javascript',
+      \ 'js=javascript',
+      \ 'json=javascript',
+      \ 'ruby',
+      \ 'sass',
+      \ 'xml',
+      \ 'php',
+      \]

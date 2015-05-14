@@ -1,7 +1,8 @@
 setlocal autoindent
 setlocal formatoptions=tcroqln
+setlocal nofoldenable
 setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
-set fdm=marker
+" set fdm=marker
 
 abbreviate td [ ]
 abbreviate tl - [ ]
@@ -19,17 +20,3 @@ function! ToggleCheckbox()
     call setline('.', l:result)
   end
 endfunction
-
-" markdown syntaxは syn include に対応している
-let g:markdown_fenced_languages = [
-      \ 'coffee',
-      \ 'css',
-      \ 'erb=eruby',
-      \ 'javascript',
-      \ 'js=javascript',
-      \ 'json=javascript',
-      \ 'ruby',
-      \ 'sass',
-      \ 'xml',
-      \ 'php',
-      \]
