@@ -88,3 +88,6 @@ function _composer {
   compadd -- $RESULT
 };
 compdef _composer composer;
+
+# awscli
+[[ -s /usr/local/bin/aws_zsh_completer.sh ]] && source /usr/local/bin/aws_zsh_completer.sh
