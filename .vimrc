@@ -208,6 +208,7 @@ MyNeoBundle 'violetyk/scratch-utility'
 MyNeoBundle 'violetyk/w.vim'
 MyNeoBundle 'violetyk/neosnippet-cakephp2'
 MyNeoBundle 'violetyk/neosnippet-rails'
+MyNeoBundle 'violetyk/neosnippet-aws-cloud-formation'
 MyNeoBundle 'violetyk/neocomplete-php.vim'
 MyNeoBundle 'violetyk/iikanji-markdown.vim'
 
