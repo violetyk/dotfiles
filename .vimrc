@@ -14,6 +14,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 " パスを通さないけどNeoBundleで管理する
 NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundleFetch 'jszakmeister/markdown2ctags'
 
 " help {{{
 NeoBundle 'vim-jp/vimdoc-ja'
@@ -1130,7 +1131,7 @@ if neobundle#is_sourced('emmet.vim') " {{{
   " let g:user_emmet_leader_key = '<C-Space>'
 
   " タグやスニペットの入力補完を使う
-  let g:use_emmet_complete_tag = 1
+  let g:user_emmet_complete_tag = 1
 
   " filterについて -> http://code.google.com/p/zen-coding/wiki/Filters
   let g:user_emmet_settings = {
@@ -1368,6 +1369,21 @@ if neobundle#is_sourced('vim-gitgutter') " {{{
 endif " }}}
 if neobundle#is_sourced('tagbar') " {{{
   let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+
+  let g:tagbar_type_markdown = {
+      \ 'ctagstype': 'markdown',
+      \ 'ctagsbin' : $HOME . '/.vim/bundle/markdown2ctags/markdown2ctags.py',
+      \ 'ctagsargs' : '-f - --sort=yes',
+      \ 'kinds' : [
+          \ 's:sections',
+          \ 'i:images'
+      \ ],
+      \ 'sro' : '|',
+      \ 'kind2scope' : {
+          \ 's' : 'section',
+      \ },
+      \ 'sort': 0,
+  \ }
 endif " }}}
 if neobundle#is_sourced('tagbar-phpctags.vim') " {{{
   let g:tagbar_phpctags_bin = '/usr/local/bin/phpctags'
@@ -1431,43 +1447,3 @@ nnoremap <silent><leader>t :<C-u>call RunNearestSpec()<CR>
 
 
 " }}}
-
-
-
-set path+=$GOPATH/src/**
-let g:gofmt_command = 'goimports'
-
-augroup Golang
-  autocmd!
-  autocmd BufWritePre *.go Fmt
-  autocmd BufNewFile,BufRead *.go setlocal sw=2 noexpandtab ts=2 completeopt=menu,preview
-  autocmd FileType go compiler go | let g:neocomplete#enable_auto_close_preview = 0
-augroup END
-
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
