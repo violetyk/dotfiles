@@ -1,6 +1,7 @@
 # global aliases
 alias -g B='`git branch | peco | sed -e "s/^\*[ ]*//g"`'
 
+alias g='git'
 # https://github.com/mathiasbynens/dotfiles/blob/master/.aliases
 
 # Easier navigation: .., ..., ...., ....., ~ and -

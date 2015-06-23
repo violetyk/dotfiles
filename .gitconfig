@@ -70,6 +70,7 @@
   # いろいろ
   timesheet = "!$SHELL -c 'git log --author=`git config --get user.name` --oneline --no-merges --since=`date -d \"$(date +%Y-%m-15) -1 month\" +%Y-%m-01` --until=`date -d \"$(date +%d) day ago\" +%Y-%m-%d`'"
   ppp = "!$SHELL -c 'git pull && bin/rspec && git push'"
+  mru = for-each-ref --format='%(refname:short) (%(authordate:relative))' --sort=-committerdate refs/heads/
 
 [core]
   editor = vim -c \"set fenc=utf-8\"
