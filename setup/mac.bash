@@ -10,8 +10,54 @@ if [ -z $(which brew) ]; then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 cd ~
-brew tap homebrew/boneyard
-brew bundle
+
+# Tap Formula
+brew tap homebrew/binary
+brew tap homebrew/dupes
+brew tap homebrew/versions
+brew tap homebrew/homebrew-php
+brew tap sanemat/font
+
+# Make sure using latest Homebrew
+brew update
+
+# Packages
+brew install git
+brew install zsh
+brew install wget
+brew install w3m
+brew install tig
+brew install ag
+brew install tmux
+brew install libevent
+brew install fontforge
+brew install coreutils
+brew install bash-completion
+brew install openssl
+brew install source-highlight
+brew install cscope
+brew install lua
+brew install vim --HEAD --with-lua --with-luajit
+brew install nodejs
+brew install memcached
+brew install packer
+brew install mysql
+# install php55
+# install php55-mcrypt
+#install php55-intl
+brew install composer
+brew install phpctags
+brew install automake
+brew install pkg-config
+#install --vim-powerline ricty
+brew install go
+brew install rbenv ruby-build
+
+brew linkapps
+
+# Remove outdated versions
+brew cleanup
+
 
 
 # go & ghq & peco
