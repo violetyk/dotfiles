@@ -586,6 +586,17 @@ function! s:Copy() range " {{{
 endfunction " }}}
 command! -range Copy :call s:Copy()
 
+" アプリケーションでファイルを開く
+function! s:open_file_in(app, file)
+  let f = len(a:file) > 0 ? fnamemodify(a:file, ':p') : expand('%:p')
+  if has("win32") || has("win64")
+    silent exec "!start cmd /c call " . a:app . " " . shellescape(f)
+  else
+    silent exec "!" . a:app . " " . shellescape(f) " &"
+  endif
+endfunction
+command! -nargs=? -complete=file OpenAtom call s:open_file_in('atom', <q-args>)
+
 " }}}
 
 " keybindの設定 {{{
