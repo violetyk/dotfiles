@@ -213,6 +213,13 @@ MyNeoBundle 'violetyk/neosnippet-aws-cloud-formation'
 MyNeoBundle 'violetyk/neocomplete-php.vim'
 MyNeoBundle 'violetyk/iikanji-markdown.vim'
 
+" lab
+NeoBundle 'lab/my.vim',
+      \ {
+      \   'base' : $HOME . '/src/github.com/violetyk/lab/',
+      \   'type' : 'nosync',
+      \ }
+
 call neobundle#end()
 " }}}
 

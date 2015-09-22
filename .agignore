@@ -1,5 +1,4 @@
 *.swp
 tags
 tmp
-_stash
-_html
+cache
