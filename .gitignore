@@ -1,4 +1,5 @@
 *\.swp
+.gitconfig.local
 .init.vimrc
 .local.vimrc
 .vim/bundle/*

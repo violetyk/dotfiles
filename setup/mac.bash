@@ -46,6 +46,7 @@ brew install mysql
 # install php55-mcrypt
 #install php55-intl
 brew install composer
+brew install ctags
 brew install phpctags
 brew install automake
 brew install pkg-config
@@ -82,7 +83,7 @@ ghq get -p violetyk/w.vim
 ghq get -p violetyk/neocomplete-php.vim
 ghq get -p violetyk/neosnippet-cakephp2
 ghq get -p violetyk/neosnippet-rails
-ghq get -p nanapi/nanapi.vim
+ghq get -p violetyk/lab
 ghq get -p seebi/dircolors-solarized
 ghq get -p tomislav/osx-terminal.app-colors-solarized
 

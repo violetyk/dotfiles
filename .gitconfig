@@ -2,6 +2,9 @@
   name = violetyk
   email = yuhei.kagaya@gmail.com
 
+[include]
+  path = .gitconfig.local
+
 [color]
   ui = auto
   status = auto

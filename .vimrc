@@ -60,7 +60,7 @@ NeoBundle 'akiyan/vim-textobj-xml-attribute'
 NeoBundle 'rhysd/vim-textobj-ruby'
 " }}}
 " filer {{{
-NeoBundle 'scrooloose/nerdtree'
+" NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'Shougo/vimfiler'
 " }}}
 " outliner {{{
@@ -87,8 +87,9 @@ NeoBundle 'rking/ag.vim'
 " }}}
 " git {{{
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'jaxbot/github-issues.vim'
-NeoBundle 'moznion/github-commit-comment.vim'
+" NeoBundle 'jaxbot/github-issues.vim'
+" NeoBundle 'moznion/github-commit-comment.vim'
+NeoBundle 'rhysd/github-complete.vim'
 NeoBundle 'tyru/open-browser-github.vim'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'takahirojin/gbr.vim'
@@ -267,7 +268,7 @@ set completeopt-=menu,preview
 " set regexpengine=0
 
 " pasteモードの切り替えマッピング
-" set pastetoggle=<C-p>
+set pastetoggle=<C-p>
 " }}}
 
 " 文字コードの設定 {{{
@@ -337,19 +338,17 @@ set undofile
 set undodir=$HOME/undo
 " }}}
 
-" CUI環境のみの設定 {{{
-if !has('gui_running')
+" colorscheme {{{
 
-  " 補完の色を変更
-  " hi Pmenu ctermfg=Black ctermbg=Grey
-  " hi PmenuSel ctermbg=Blue
-  " hi PmenuSbar ctermbg=Cyan
+" 補完の色を変更
+" hi Pmenu ctermfg=Black ctermbg=Grey
+" hi PmenuSel ctermbg=Blue
+" hi PmenuSbar ctermbg=Cyan
 
-  " 対応する括弧の色を控えめにしておく
-  " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
+" 対応する括弧の色を控えめにしておく
+" hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
   silent! colorscheme mrkn256
-endif
 " }}}
 
 " ハイライトの設定 {{{
@@ -795,6 +794,11 @@ if neobundle#is_sourced('nerdtree') " {{{
   let NERDTreeHijackNetrw = 0
   let NERDTreeAutoCenter = 0
 endif " }}}
+if neobundle#is_sourced('vimfiler') " {{{
+  let g:vimfiler_as_default_explorer=1
+  nnoremap <silent> <Leader>e :<C-u>VimFiler -split  -toggle -simple -winwidth=30 -no-quit<CR>
+  nnoremap <silent> <Leader>f :<C-u>VimFilerBuffer -split -toggle -simple -winwidth=30 -no-quit<CR>
+endif " }}}
 if neobundle#is_sourced('taglist.vim') " {{{
   let Tlist_Ctags_Cmd = "ctags"
 
@@ -954,6 +958,7 @@ if neobundle#is_sourced('neocomplete.vim') " {{{
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType gitcommit setlocal omnifunc=github_complete#complete
     " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
     autocmd FileType php setlocal omnifunc=
   augroup END
@@ -1386,7 +1391,7 @@ if neobundle#is_sourced('vim-gitgutter') " {{{
   nnoremap <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
 endif " }}}
 if neobundle#is_sourced('tagbar') " {{{
-  let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+  let g:tagbar_ctags_bin = $HOME . '/bin/ctags'
 
   let g:tagbar_type_markdown = {
       \ 'ctagstype': 'markdown',
@@ -1404,7 +1409,7 @@ if neobundle#is_sourced('tagbar') " {{{
   \ }
 endif " }}}
 if neobundle#is_sourced('tagbar-phpctags.vim') " {{{
-  let g:tagbar_phpctags_bin = '/usr/local/bin/phpctags'
+  let g:tagbar_phpctags_bin = $HOME . '/bin/phpctags'
   let g:tagbar_phpctags_memory_limit = '512M'
 endif " }}}
 if neobundle#is_sourced('vim-json') " {{{
@@ -1445,9 +1450,18 @@ endif " }}}
 if neobundle#is_sourced('neocomplete-php.vim') " {{{
   let g:neocomplete_php_locale = 'ja'
 endif " }}}
-if neobundle#is_sourced('github-issues.vim') " {{{
-  let g:github_upstream_issues = 1
-  let g:gissues_default_remote = 'github'
+" if neobundle#is_sourced('github-issues.vim') " {{{
+  " let g:github_upstream_issues = 1
+  " let g:gissues_default_remote = 'github'
+" endif " }}}
+if neobundle#is_sourced('github-complete.vim') " {{{
+  let g:github_complete_enable_neocomplete = 1
+  let g:github_complete_enable_emoji_completion = 1
+  let g:github_complete_enable_issue_completion = 1
+  let g:github_complete_enable_user_completion = 1
+  let g:github_complete_enable_repo_completion = 1
+  let g:github_complete_emoji_japanese_workaround = 1
+
 endif " }}}
 if neobundle#is_sourced('w.vim') " {{{
   let g:w_note_dir     = $HOME . '/Dropbox/w.vim/notes/'
