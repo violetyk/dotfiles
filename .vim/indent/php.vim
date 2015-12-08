@@ -1,3 +1,5 @@
+setlocal iskeyword-=$
+
 " オートインデント
 "setlocal noautoindent
 setlocal autoindent
@@ -9,10 +11,10 @@ setlocal autoindent
 setlocal expandtab
 
 " タブが対応する空白の数
-setlocal tabstop=2
+setlocal tabstop=4
 
 " タブやバックスペースの使用等の編集操作をするときに、タブが対応する空白の数
-setlocal softtabstop=2
+setlocal softtabstop=4
 
 " インデントの各段階に使われる空白の数
-setlocal shiftwidth=2
+setlocal shiftwidth=4

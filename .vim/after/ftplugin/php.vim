@@ -28,8 +28,3 @@ let php_folding = 0
 " autocmd BufWritePost *.php :CheckSyntax
 
 setlocal iskeyword-=$
-
-setlocal tabstop=4
-setlocal softtabstop=4
-setlocal shiftwidth=4
-setlocal expandtab

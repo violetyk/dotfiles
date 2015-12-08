@@ -60,8 +60,8 @@ NeoBundle 'akiyan/vim-textobj-xml-attribute'
 NeoBundle 'rhysd/vim-textobj-ruby'
 " }}}
 " filer {{{
-" NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'Shougo/vimfiler'
+NeoBundle 'scrooloose/nerdtree'
+" NeoBundle 'Shougo/vimfiler'
 " }}}
 " outliner {{{
 NeoBundle 'majutsushi/tagbar'
@@ -271,6 +271,10 @@ set completeopt-=menu,preview
 set pastetoggle=<C-p>
 " }}}
 
+" マウスの設定: {{{
+set mouse=
+" }}}
+
 " 文字コードの設定 {{{
 
 " Vim内部で使われる文字エンコーディング
@@ -333,10 +337,16 @@ set updatecount=500
 
 " }}}
 
-" Undoの設定 {{{
-set undofile
-set undodir=$HOME/undo
+" アンドゥ/リドゥの設定 {{{
+" set undofile
+" set undodir=$HOME/undo
 " }}}
+
+" クリップボードの設定 {{{
+" クリップボードの共有
+set clipboard+=unnamedplus,unnamed
+" }}}
+
 
 " colorscheme {{{
 

@@ -7,7 +7,7 @@
 silent! colorscheme hybrid
 
 " マウスを使う。
-set mouse=a
+" set mouse=a
 
 " キータイプ時にマウスポインタを隠す (nomousehide:隠さない)
 set mousehide
