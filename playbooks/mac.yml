@@ -1,4 +1,5 @@
 ---
 - hosts: localhost
   roles:
+    - home
     - homebrew

@@ -37,8 +37,20 @@ homebrew_packages:
   - automake
   - pkg-config
   - { name: ricty, install_options: 'powerline,vim-powerline' }
+  - jq
   - go
   - rbenv
   - ruby-build
+home_directories:
+  - bin
+  - tmp
+  - etc/profile.d
+  - swap
+  - undo
+  - backup
+  - tags
+  - src
+  - .trash
+  - .tmux
 
 # vim: set et fenc=utf-8 ff=unix ft=yaml sts=2 sw=2 ts=2 :

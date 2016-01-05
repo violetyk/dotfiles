@@ -1,0 +1,7 @@
+---
+- name: make home directories
+  file: >
+    path={{ ansible_env.HOME }}/{{ item }}
+    state=directory
+    recurse=yes
+  with_items: home_directories
