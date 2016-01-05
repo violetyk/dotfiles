@@ -5,3 +5,11 @@
     state=directory
     recurse=yes
   with_items: home_directories
+
+- name: download profile files
+  get_url: >
+    url={{ item }}
+    dest={{ ansible_env.HOME }}/etc/profile.d
+  with_items: home_download_profiles
+
+
