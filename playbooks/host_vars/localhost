@@ -1,0 +1,44 @@
+---
+homebrew_repositories:
+  - homebrew/binary
+  - homebrew/dupes
+  - homebrew/versions
+  - homebrew/php
+  - sanemat/font
+homebrew_packages:
+  - git
+  - zsh
+  - wget
+  - w3m
+  - tig
+  - ag
+  - tmux
+  - libevent
+  - fontforge
+  - coreutils
+  - bash-completion
+  - openssl
+  - coreutils
+  - source-highlight
+  - cscope
+  - lua
+  - { name: vim,  state: head, install_options: 'with-lua,with-luajit' }
+  - nodejs
+  - memcached
+  - redis
+  - mysql
+  - packer
+  - php55
+  - php55-mcrypt
+  - php55-intl
+  - composer
+  - ctags
+  - phpctags
+  - automake
+  - pkg-config
+  - { name: ricty, install_options: 'powerline,vim-powerline' }
+  - go
+  - rbenv
+  - ruby-build
+
+# vim: set et fenc=utf-8 ff=unix ft=yaml sts=2 sw=2 ts=2 :
