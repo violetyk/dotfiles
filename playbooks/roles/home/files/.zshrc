@@ -32,7 +32,7 @@ export PROMPT='[%n@%m %1~%F{green}$(__git_ps1 " (%s)")%f]%(#.#.$) '
 
 # Customize to your needs...
 # for file in $HOME/dotfiles/.{path,exports,aliases,functions,commonrc,local}; do
-for file in $HOME/dotfiles/.{path,exports,aliases,functions,commonrc,local}; do
+for file in $HOME/.{path,exports,aliases,functions,commonrc}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;

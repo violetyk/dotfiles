@@ -22,7 +22,7 @@ else
   export PS1='[\u@\h \W$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")]\$ '
 fi
 
-for file in $HOME/dotfiles/.{path,exports,aliases,functions,commonrc,local}; do
+for file in $HOME/.{path,exports,aliases,functions,commonrc}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;

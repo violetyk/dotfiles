@@ -5,6 +5,7 @@ homebrew_repositories:
   - homebrew/versions
   - homebrew/php
   - sanemat/font
+
 homebrew_packages:
   - git
   - zsh
@@ -41,6 +42,7 @@ homebrew_packages:
   - go
   - rbenv
   - ruby-build
+
 home_directories:
   - bin
   - tmp
@@ -52,8 +54,40 @@ home_directories:
   - src
   - .trash
   - .tmux
+
 home_download_profiles:
   - https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh
+
+home_dotfiles:
+  - .gitignore
+  - .agignore
+  - .gitconfig
+  - .path
+  - .exports
+  - .aliases
+  - .functions
+  - .commonrc
+  - .bashrc
+  - .profile
+  - .zsh
+  - .zlogin
+  - .zlogout
+  - .zpreztorc
+  - .zprofile
+  - .zshenv
+  - .zshrc
+  - .zsh
+  - .ctags
+  - .my.cnf
+  - .pryrc
+  - .tigrc
+  - .tmux.conf
+  - .rspec
+  - .vim
+  - .vimrc
+  - .gvimrc
+  - Guardfile
+
 
 
 # vim: set et fenc=utf-8 ff=unix ft=yaml sts=2 sw=2 ts=2 :

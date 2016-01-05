@@ -13,22 +13,24 @@ cd dotfiles
 ansible-playbook -i hosts site.yml
 ```
 
-## 使っているもの
 
-- Homebrew
-- zsh(prezto)
-- ctags
-- ag
-- vim
-- git
-- tig
-- tmux
-- ghq
-- peco
+## ansibleコマンドいろいろ
 
+```sh
+# シンタックスチェック
+ansible-playbook -i hosts simple-playbook.yml --syntax-check
+
+# タスクの一覧を確認
+ansible-playbook -i hosts simple-playbook.yml --list-tasks
+
+# dry-run
+ansible-playbook -i hosts simple-playbook.yml --check
+
+# 情報を集めるタスクの実行
+ansible -i hosts localhost -m setup
+```
 
 ## セットアップ
-
 - setup/base.bash
 - setup/mac.bash
 - setup/vim.bash
