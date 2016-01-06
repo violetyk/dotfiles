@@ -1,0 +1,4 @@
+---
+- name: git clone
+  command: ghq get -p {{ item }}
+  with_items: workspace_repositories
