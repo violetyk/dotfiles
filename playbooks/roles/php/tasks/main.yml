@@ -1,0 +1,20 @@
+---
+- name: brew tap
+  homebrew_tap: tap={{ item }} state=present
+  with_items:
+    - homebrew/dupes
+    - homebrew/versions
+    - homebrew/php
+
+- name: brew install
+  homebrew: >
+    name={{ item }}
+    state=latest
+    update_homebrew=yes
+  with_items:
+    - php55
+    - php55-mcrypt
+    - php55-intl
+    - composer
+    - phpctags
+

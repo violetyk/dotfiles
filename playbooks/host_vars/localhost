@@ -1,8 +1,5 @@
 ---
 homebrew_repositories:
-  - homebrew/dupes
-  - homebrew/versions
-  - homebrew/php
   - sanemat/font
 
 homebrew_packages:
@@ -28,12 +25,7 @@ homebrew_packages:
   - memcached
   - redis
   - mysql
-  - php55
-  - php55-mcrypt
-  - php55-intl
-  - composer
   - ctags
-  - phpctags
   - automake
   - pkg-config
   - { name: ricty, install_options: 'powerline,vim-powerline' }
