@@ -1,0 +1,18 @@
+---
+- name: brew install coreutils
+  homebrew: >
+    name=coreutils
+    state=latest
+
+- name: git clone dircolors-solarized
+  git: >
+    repo=git@github.com:seebi/dircolors-solarized.git
+    dest={{ lookup('env', 'HOME') }}/src/github.com/seebi/dircolors-solarized
+    accept_hostkey=yes
+
+- name: link color theme
+  file: >
+    src={{ lookup('env', 'HOME') }}/src/github.com/seebi/dircolors-solarized/dircolors.256dark
+    dest={{ ansible_env.HOME }}/.dircolors
+    state=link
+    force=yes
