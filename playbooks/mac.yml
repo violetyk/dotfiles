@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
   roles:
-    # - home
-    # - homebrew
+    - home
+    - homebrew
+    - ruby

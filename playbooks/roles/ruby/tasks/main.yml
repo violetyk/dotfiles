@@ -1,0 +1,24 @@
+---
+- name: get installed global ruby version
+  command: rbenv version-name global
+  register: reg_ruby_version
+
+- name: rbenv install
+  command: rbenv install -fv {{ ruby_version }}
+  when: ruby_version != reg_ruby_version.stdout
+
+- name: set version
+  command: rbenv global {{ ruby_version }}
+
+- name: install bundler
+  gem: >
+    name=bundler
+    state=latest
+    user_install=no
+    executable=~/.rbenv/shims/gem
+
+- name: bundle install
+  command: bundle install --gemfile={{ role_path }}/files/Gemfile
+
+- name: rbenv rehash
+  command: rbenv rehash

@@ -40,6 +40,9 @@ homebrew_packages:
   - { name: ricty, install_options: 'powerline,vim-powerline' }
   - jq
   - go
+  - ghq
+  - direnv
+  - peco
   - rbenv
   - ruby-build
 
@@ -88,6 +91,6 @@ home_dotfiles:
   - .gvimrc
   - Guardfile
 
-
+ruby_version: 2.3.0
 
 # vim: set et fenc=utf-8 ff=unix ft=yaml sts=2 sw=2 ts=2 :
