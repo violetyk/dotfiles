@@ -44,8 +44,6 @@ homebrew_packages:
   - ghq
   - direnv
   - peco
-  - rbenv
-  - ruby-build
 
 home_directories:
   - bin

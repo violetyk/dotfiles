@@ -1,4 +1,13 @@
 ---
+- name: brew install
+  homebrew: >
+    name={{ item }}
+    state=latest
+    update_homebrew=yes
+  with_items:
+    - rbenv
+    - ruby-build
+
 - name: get installed global ruby version
   command: rbenv version-name global
   register: reg_ruby_version
