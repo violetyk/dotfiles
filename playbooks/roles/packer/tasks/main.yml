@@ -6,7 +6,6 @@
   homebrew: >
     name=packer
     state=latest
-    update_homebrew=yes
 
 - name: git clone
   git: >
