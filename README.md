@@ -13,7 +13,7 @@ cd dotfiles
 ansible-playbook -i hosts site.yml
 ```
 
-- packer
+- terminal
 - develop_src
 - vim
 - zsh

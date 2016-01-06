@@ -1,0 +1,27 @@
+---
+- name: brew tap
+  homebrew_tap: tap=homebrew/binary
+
+- name: brew install packer
+  homebrew: >
+    name=packer
+    state=latest
+    update_homebrew=yes
+
+- name: git clone
+  git: >
+    repo=git@github.com:shiguredo/packer-templates.git
+    dest={{ packer_template_directory }}
+    accept_hostkey=yes
+
+- name: packer build ubuntu-14.04
+  command: >
+    packer build -only=virtualbox-iso template.json
+    chdir={{ packer_template_directory }}/ubuntu-14.04
+    creates={{ packer_template_directory }}/ubuntu-14.04/ubuntu-14-04-x64-virtualbox.box
+
+- name: vagrant box add ubuntu-14.04
+  command: >
+    vagrant box add -f ubuntu-14.04 ubuntu-14-04-x64-virtualbox.box
+    chdir={{ packer_template_directory }}/ubuntu-14.04
+

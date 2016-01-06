@@ -1,5 +1,5 @@
 ---
-- name: brew install
+- name: brew install rbenv ruby-build
   homebrew: >
     name={{ item }}
     state=latest

@@ -1,6 +1,5 @@
 ---
 homebrew_repositories:
-  - homebrew/binary
   - homebrew/dupes
   - homebrew/versions
   - homebrew/php
@@ -29,7 +28,6 @@ homebrew_packages:
   - memcached
   - redis
   - mysql
-  - packer
   - php55
   - php55-mcrypt
   - php55-intl
