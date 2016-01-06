@@ -1,4 +1,12 @@
 ---
+- name: brew install go
+  homebrew: >
+    name={{ item }}
+    state=latest
+    update_homebrew=yes
+  with_items:
+    - go
+
 - name: go get
   command: go get {{ item }}
   with_items: golang_get_repositories

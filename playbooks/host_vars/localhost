@@ -40,7 +40,6 @@ homebrew_packages:
   - pkg-config
   - { name: ricty, install_options: 'powerline,vim-powerline' }
   - jq
-  - go
   - ghq
   - direnv
   - peco
