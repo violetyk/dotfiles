@@ -1,0 +1,15 @@
+---
+- name: set up neobundle
+  file: >
+    path={{ ansible_env.HOME }}/.vim/bundle
+    state=directory
+    recurse=yes
+
+- name: git clone neobundle.vim
+  git: >
+    repo=git@github.com:Shougo/neobundle.vim
+    dest={{ ansible_env.HOME }}/.vim/bundle/neobundle.vim
+    accept_hostkey=yes
+
+- name: NeoBundleInstall
+  command: vim +NeoBundleInstall +q
