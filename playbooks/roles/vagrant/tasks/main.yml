@@ -1,0 +1,11 @@
+---
+- name: brew tap
+  homebrew_tap: tap=caskroom/cask state=present
+
+- name: brew cask install vagrant virtualbox
+  homebrew_cask: >
+    name={{ item }}
+    state=present
+  with_items:
+    - vagrant
+    - virtualbox
