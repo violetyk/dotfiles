@@ -1,2 +1,2 @@
 ---
-packer_template_directory: "{{ lookup('env', 'HOME') }}/src/shiguredo/packer-templates"
+packer_template_directory: "{{ lookup('env', 'HOME') }}/src/github.com/shiguredo/packer-templates"
