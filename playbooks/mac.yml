@@ -3,6 +3,12 @@
   roles:
     # - home
     # - homebrew
+    # - vim
+    - zsh
+    # - dircolors
+    # - php
     # - ruby
     # - golang
-    - packer
+    # - vagrant
+    # - packer
+    # - workspace

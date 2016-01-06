@@ -13,13 +13,9 @@ cd dotfiles
 ansible-playbook -i hosts site.yml
 ```
 
-- terminal
-- develop_src
-- vim
-- zsh
+## ansible
 
-
-## ansibleコマンドいろいろ
+### コマンドいろいろ
 
 ```sh
 # シンタックスチェック
@@ -35,7 +31,7 @@ ansible-playbook -i hosts simple-playbook.yml --check
 ansible -i hosts localhost -m setup
 ```
 
-## ansibleデバッグ
+### デバッグ
 
 ```yml
 ---
@@ -46,13 +42,7 @@ ansible -i hosts localhost -m setup
 - debug: var=r.stdout_lines
 ```
 
-## ansible参考リンク
+### 参考リンク
 - [Ansible Note · yteraoka/ansible-tutorial Wiki](https://github.com/yteraoka/ansible-tutorial/wiki/Ansible-Note)
 - [Module Index — Ansible Documentation](http://docs.ansible.com/ansible/modules_by_category.html)
 - [lorin/ansible-quickref](https://github.com/lorin/ansible-quickref)
-
-## セットアップ
-- setup/base.bash
-- setup/mac.bash
-- setup/vim.bash
-- setup/zsh.zsh

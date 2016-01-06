@@ -1132,18 +1132,6 @@ if neobundle#is_sourced('unite.vim') " {{{
   nnoremap [unite]y   :<C-u>Unite history/yank<CR>
 
 endif " }}}
-if neobundle#is_sourced('vim-ref') " {{{
-  if has('win32') || has('win64')
-    let g:ref_phpmanual_path = $VIM . '/vimfiles/manual/php_manual_ja/'
-  else
-    let g:ref_phpmanual_path = $HOME . '/.vim/manual/php_manual_ja/'
-  endif
-
-  " ftと辞書のマッピング
-  " let g:ref_detect_filetype = {
-        " \ 'htmlcake' : 'phpmanual'
-        " \ }
-endif "}}}
 if neobundle#is_sourced('scratch-utility') " {{{
   nmap <silent> <Leader>b <Plug>ShowScratchBuffer
 

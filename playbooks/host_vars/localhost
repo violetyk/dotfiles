@@ -13,7 +13,6 @@ homebrew_packages:
   - tmux
   - libevent
   - fontforge
-  - coreutils
   - bash-completion
   - openssl
   - coreutils
@@ -81,7 +80,7 @@ home_dotfiles:
 
 ruby_version: 2.3.0
 
-golang_get_repositories:
+golang_get_repostories:
   - golang.org/x/tools/cmd/goimports
   - golang.org/x/tools/cmd/godoc
   - golang.org/x/tools/cmd/vet
@@ -92,5 +91,17 @@ golang_get_repositories:
   - github.com/jstemmer/gotags
   - github.com/mattn/gom
 
+workspace_repositories:
+  - violetyk/cake.vim
+  - violetyk/cake3.vim
+  - violetyk/scratch-utility
+  - violetyk/w.vim
+  - violetyk/neosnippet-cakephp2
+  - violetyk/neosnippet-rails
+  - violetyk/neosnippet-aws-cloud-formation
+  - violetyk/neocomplete-php.vim
+  - violetyk/iikanji-markdown.vim
+  - violetyk/lab
+  - violetyk/graid
 
 # vim: set et fenc=utf-8 ff=unix ft=yaml sts=2 sw=2 ts=2 :
