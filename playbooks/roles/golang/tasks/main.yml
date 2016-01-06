@@ -1,0 +1,6 @@
+---
+- name: go get
+  command: go get {{ item }}
+  with_items: golang_get_repositories
+  environment:
+    GOPATH: "{{ lookup('env', 'HOME') }}"

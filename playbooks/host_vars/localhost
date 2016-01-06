@@ -8,6 +8,7 @@ homebrew_repositories:
 
 homebrew_packages:
   - git
+  - hg
   - zsh
   - wget
   - w3m
@@ -92,5 +93,17 @@ home_dotfiles:
   - Guardfile
 
 ruby_version: 2.3.0
+
+golang_get_repositories:
+  - golang.org/x/tools/cmd/goimports
+  - golang.org/x/tools/cmd/godoc
+  - golang.org/x/tools/cmd/vet
+  - golang.org/x/tools/cmd/cover
+  - github.com/nsf/gocode
+  - github.com/golang/lint
+  - github.com/rogpeppe/godef
+  - github.com/jstemmer/gotags
+  - github.com/mattn/gom
+
 
 # vim: set et fenc=utf-8 ff=unix ft=yaml sts=2 sw=2 ts=2 :

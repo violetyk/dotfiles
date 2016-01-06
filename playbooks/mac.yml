@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   roles:
-    - home
-    - homebrew
-    - ruby
+    - golang
+    # - home
+    # - homebrew
+    # - ruby

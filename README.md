@@ -13,9 +13,10 @@ cd dotfiles
 ansible-playbook -i hosts site.yml
 ```
 
-- go get
 - packer
 - develop_src
+- vim
+- zsh
 
 
 ## ansibleコマンドいろいろ
