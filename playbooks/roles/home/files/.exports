@@ -4,7 +4,7 @@ export TERM=xterm-256color
 # less
 if [ -n `which source-highlight` ]; then
   export LESS='-R'
-  export LESSOPEN='| ~/dotfiles/src-hilite-lesspipe.sh %s'
+  export LESSOPEN='| ~/.source-highlight/src-hilite-lesspipe.sh %s'
 fi
 
 # Homebrew
