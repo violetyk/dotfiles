@@ -1,6 +1,7 @@
 dotfiles
 ========
 
+
 ```sh
 sudo xcodebuild -license
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -12,6 +13,7 @@ git clone git@github.com:violetyk/dotfiles.git
 cd dotfiles
 ansible-playbook -i hosts site.yml --ask-sudo-pass
 ```
+
 
 ## ansible
 
