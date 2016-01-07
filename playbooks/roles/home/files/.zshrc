@@ -43,6 +43,16 @@ fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 autoload -U compinit
 compinit -u
 
+# cdr
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+zstyle ':completion:*:*:cdr:*:*' menu selection
+zstyle ':completion:*' recent-dirs-insert both # both | always | fallback
+zstyle ':chpwd:*' recent-dirs-max 1000
+zstyle ':chpwd:*' recent-dirs-default true
+zstyle ':chpwd:*' recent-dirs-file "${XDG_CACHE_HOME:-$HOME/.cache}/chpwd-recent-dirs"
+zstyle ':chpwd:*' recent-dirs-pushd true
+
 # peco
 if which peco > /dev/null; then
   for f ($HOME/.zsh/peco-sources/*) source "${f}"
@@ -51,7 +61,7 @@ if which peco > /dev/null; then
   bindkey '^r' peco-select-history
   bindkey '^s' peco-ghq-look
   bindkey '^b' peco-git-branches
-  # bindkey '^f' peco-cdr
+  bindkey '^f' peco-cdr
 fi
 
 # tmuxinator
