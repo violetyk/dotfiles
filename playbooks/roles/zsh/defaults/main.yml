@@ -1,0 +1,2 @@
+---
+zsh_prezto_directory: "{{ lookup('env', 'HOME') }}/src/github.com/sorin-ionescu/prezto"

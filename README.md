@@ -10,7 +10,7 @@ brew install ansible
 ```sh
 git clone git@github.com:violetyk/dotfiles.git
 cd dotfiles
-ansible-playbook -i hosts site.yml
+ansible-playbook -i hosts site.yml --ask-sudo-pass
 ```
 
 ## ansible

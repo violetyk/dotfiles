@@ -1,0 +1,23 @@
+---
+- name: brew install
+  homebrew: >
+    name=zsh
+    state=latest
+    update_homebrew=yes
+
+- name: git clone prezto
+  git: >
+    repo=https://github.com/sorin-ionescu/prezto.git
+    dest={{ zsh_prezto_directory }}
+    accept_hostkey=yes
+
+- name: link ~/.zprezto
+  file: >
+    src={{ zsh_prezto_directory }}
+    dest={{ ansible_env.HOME }}/.zprezto
+    state=link
+    force=yes
+
+- name: change shell
+  shell: chsh -s /bin/zsh {{ ansible_user_id }}
+  sudo: yes
