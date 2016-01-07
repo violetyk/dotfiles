@@ -1,14 +1,14 @@
 ---
 - hosts: localhost
   roles:
-    # - home
-    # - homebrew
-    # - vim
+    - home
+    - homebrew
+    - vim
     - zsh
-    # - dircolors
-    # - php
-    # - ruby
-    # - golang
-    # - vagrant
-    # - packer
-    # - workspace
+    - dircolors
+    - php
+    - ruby
+    - golang
+    - vagrant
+    - packer
+    - workspace

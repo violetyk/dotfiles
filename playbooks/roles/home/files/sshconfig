@@ -4,3 +4,4 @@ Host *
   ServerAliveInterval 60
   AddressFamily inet
   Compression yes
+  IdentityFile ~/.ssh/id_rsa
