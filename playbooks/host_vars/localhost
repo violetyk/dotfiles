@@ -17,9 +17,6 @@ homebrew_packages:
   - openssl
   - coreutils
   - source-highlight
-  - cscope
-  - lua
-  - { name: vim,  state: head, install_options: 'with-lua,with-luajit' }
   - nodejs
   - memcached
   - redis

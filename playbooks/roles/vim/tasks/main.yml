@@ -1,4 +1,15 @@
 ---
+- name: brew install
+  homebrew: >
+    name={{ item.name | default(item) }}
+    state={{ item.state | default('latest') }}
+    update_homebrew=yes
+    install_options={{ item.install_options | default('') }}
+  with_items:
+    - cscope
+    - lua
+    - { name: vim,  state: head, install_options: 'with-lua,with-luajit' }
+
 - name: set up neobundle
   file: >
     path={{ ansible_env.HOME }}/.vim/bundle
