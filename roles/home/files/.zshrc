@@ -38,7 +38,9 @@ done;
 unset file;
 
 # git completion
-fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+if which brew > /dev/null; then
+  fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+fi
 
 autoload -U compinit
 compinit -u
@@ -68,7 +70,9 @@ fi
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 
 ## direnv
-eval "$(direnv hook zsh)"
+if which direnv > /dev/null; then
+  eval "$(direnv hook zsh)"
+fi
 
 ## composer completion
 function _composer {
