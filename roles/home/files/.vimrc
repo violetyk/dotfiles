@@ -33,6 +33,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \   'unix' : 'make -f make_unix.mak',
       \ },
       \}
+NeoBundle 'Shougo/neossh.vim'
 NeoBundle 'kana/vim-gf-user'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-metarw'
@@ -60,8 +61,8 @@ NeoBundle 'akiyan/vim-textobj-xml-attribute'
 NeoBundle 'rhysd/vim-textobj-ruby'
 " }}}
 " filer {{{
-NeoBundle 'scrooloose/nerdtree'
-" NeoBundle 'Shougo/vimfiler'
+" NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'Shougo/vimfiler'
 " }}}
 " outliner {{{
 NeoBundle 'majutsushi/tagbar'
@@ -133,13 +134,16 @@ NeoBundle 'kannokanno/previm'
 NeoBundle 'leafgarland/typescript-vim'
 NeoBundle 'clausreinke/typescript-tools'
 " }}}
+" python {{{
+NeoBundle 'davidhalter/jedi-vim'
+" }}}
 " syntax check {{{
 NeoBundle 'scrooloose/syntastic'
 " }}}
 " unite source {{{
 NeoBundle 'unite-colorscheme',         { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'unite-locate',              { 'depends' : 'Shougo/unite.vim' }
-NeoBundle 'h1mesuke/unite-outline',    { 'depends' : 'Shougo/unite.vim' }
+" NeoBundle 'h1mesuke/unite-outline',    { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'tacroe/unite-mark',         { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'zhaocai/unite-scriptnames', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'thinca/vim-editvar',        { 'depends' : 'Shougo/unite.vim' }
@@ -806,8 +810,8 @@ if neobundle#is_sourced('nerdtree') " {{{
 endif " }}}
 if neobundle#is_sourced('vimfiler') " {{{
   let g:vimfiler_as_default_explorer=1
-  nnoremap <silent> <Leader>e :<C-u>VimFiler -split  -toggle -simple -winwidth=30 -no-quit<CR>
-  nnoremap <silent> <Leader>f :<C-u>VimFilerBuffer -split -toggle -simple -winwidth=30 -no-quit<CR>
+  nnoremap <silent> <Leader>e :<C-u>VimFiler -split -toggle -simple -winwidth=30 -no-quit -project -create<CR>
+  nnoremap <silent> <Leader>f :<C-u>VimFilerBuffer -split -toggle -simple -winwidth=30 -no-quit -project -create<CR>
 endif " }}}
 if neobundle#is_sourced('taglist.vim') " {{{
   let Tlist_Ctags_Cmd = "ctags"
@@ -916,6 +920,7 @@ if neobundle#is_sourced('neocomplete.vim') " {{{
   endif
   let g:neocomplete#force_omni_input_patterns.go = '\h\w*\.\?'
   " let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+  let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
 
 
   " Plugin key-mappings.
@@ -966,7 +971,8 @@ if neobundle#is_sourced('neocomplete.vim') " {{{
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType python setlocal omnifunc=jedi#completions
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     autocmd FileType gitcommit setlocal omnifunc=github_complete#complete
     " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
@@ -1040,6 +1046,8 @@ if neobundle#is_sourced('unite.vim') " {{{
   let g:unite_source_tag_max_name_length  = 30
   let g:unite_source_tag_max_fname_length = 150
 
+  " let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '-g', '']
+  let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--ignore-dir', '.vagrant', '-g', '']
 
   function! s:unite_my_settings() " {{{
     " Overwrite settings.
@@ -1114,7 +1122,7 @@ if neobundle#is_sourced('unite.vim') " {{{
   nnoremap [unite]M   :<C-u>Unite output:messages<CR>
   " nnoremap [unite]M   :<C-u>Unite mapping -start-insert<CR>
   " nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
-  nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=45 -no-quit<CR>
+  " nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=45 -no-quit<CR>
   " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
   nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
   " nnoremap [unite]q   :<C-u>Unite qfixhowm:nocache<CR>
@@ -1468,6 +1476,10 @@ endif " }}}
 if neobundle#is_sourced('vim-gista') " {{{
   let g:gista#github_user = 'violetyk'
   let g:gista#close_list_after_open = 1
+endif " }}}
+if neobundle#is_sourced('jedi.vim') " {{{
+  let g:jedi#completions_enabled = 0
+  let g:jedi#auto_vim_configuration = 0
 endif " }}}
 
 let g:rspec_command = "Dispatch spring rspec {spec}"

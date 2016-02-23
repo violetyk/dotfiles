@@ -61,7 +61,7 @@ if which peco > /dev/null; then
   bindkey '^r' peco-select-history
   bindkey '^s' peco-ghq-look
   bindkey '^b' peco-git-branches
-  bindkey '^f' peco-cdr
+  bindkey '^j' peco-cdr
 fi
 
 # tmuxinator
