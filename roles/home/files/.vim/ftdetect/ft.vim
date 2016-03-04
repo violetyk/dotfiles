@@ -13,3 +13,6 @@ au! BufNewFile,BufRead *.h setf objc
 
 " jQuery
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
+
+" Python
+au! BufNewFile,BufRead *.mako setf mako

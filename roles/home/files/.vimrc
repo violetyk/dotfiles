@@ -29,8 +29,9 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc.vim', {
       \ 'build' : {
-      \   'mac' : 'make -f make_mac.mak',
-      \   'unix' : 'make -f make_unix.mak',
+      \   'mac' : 'make',
+      \   'linux' : 'make',
+      \   'unix' : 'gmake',
       \ },
       \}
 NeoBundle 'Shougo/neossh.vim'
@@ -61,8 +62,8 @@ NeoBundle 'akiyan/vim-textobj-xml-attribute'
 NeoBundle 'rhysd/vim-textobj-ruby'
 " }}}
 " filer {{{
-" NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'Shougo/vimfiler'
+NeoBundle 'scrooloose/nerdtree'
+" NeoBundle 'Shougo/vimfiler'
 " }}}
 " outliner {{{
 NeoBundle 'majutsushi/tagbar'
@@ -135,7 +136,8 @@ NeoBundle 'leafgarland/typescript-vim'
 NeoBundle 'clausreinke/typescript-tools'
 " }}}
 " python {{{
-NeoBundle 'davidhalter/jedi-vim'
+" NeoBundle 'davidhalter/jedi-vim'
+NeoBundle 'vim-scripts/mako.vim'
 " }}}
 " syntax check {{{
 NeoBundle 'scrooloose/syntastic'
@@ -185,6 +187,7 @@ NeoBundle 'elzr/vim-json'
 " indent {{{
 NeoBundle 'pangloss/vim-javascript'
 " }}}
+
 " service {{{
 NeoBundle 'mattn/gist-vim'
 NeoBundle 'lambdalisue/vim-gista'
@@ -211,7 +214,7 @@ command! -nargs=1 MyNeoBundle NeoBundle <args>,
 MyNeoBundle 'violetyk/cake.vim'
 MyNeoBundle 'violetyk/cake3.vim'
 MyNeoBundle 'violetyk/scratch-utility'
-MyNeoBundle 'violetyk/w.vim'
+" MyNeoBundle 'violetyk/w.vim'
 MyNeoBundle 'violetyk/neosnippet-cakephp2'
 MyNeoBundle 'violetyk/neosnippet-rails'
 MyNeoBundle 'violetyk/neosnippet-aws-cloud-formation'
@@ -971,8 +974,11 @@ if neobundle#is_sourced('neocomplete.vim') " {{{
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType python setlocal omnifunc=jedi#completions
+    if neobundle#is_sourced('jedi.vim')
+      autocmd FileType python setlocal omnifunc=jedi#completions
+    else
+      autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    endif
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     autocmd FileType gitcommit setlocal omnifunc=github_complete#complete
     " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
