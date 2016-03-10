@@ -23,9 +23,14 @@ alias wget='wget --no-check-certificate'
 alias grep='grep --color'
 alias vmstat='vmstat -S M'
 
+# mysql
 # -S オプションで折り返さなくする
 alias mysql="EDITOR=\"vim -c ':set ft=sql'\" mysql --auto-rehash"
 # alias mysql="EDITOR=\"vim -c ':set ft=sql'\" mysql --auto-rehash --pager='less -S'"
+
+# ag
+alias ag="ag -S --stats"
+alias agh="ag --hidden"
 
 # subversion
 # 登録されていないファイルをまとめて svn add

@@ -1052,8 +1052,6 @@ if neobundle#is_sourced('unite.vim') " {{{
   let g:unite_source_tag_max_name_length  = 30
   let g:unite_source_tag_max_fname_length = 150
 
-  " let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '-g', '']
-  let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--ignore-dir', '.vagrant', '-g', '']
 
   function! s:unite_my_settings() " {{{
     " Overwrite settings.
@@ -1111,6 +1109,7 @@ if neobundle#is_sourced('unite.vim') " {{{
     let g:unite_source_grep_command = 'ag'
     let g:unite_source_grep_default_opts = '--nocolor --nogroup'
     let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_rec_async_command = ['ag', '-S', '--follow', '--nocolor', '--nogroup', '--ignore-dir', '.vagrant', '-g', '']
   " let g:unite_source_grep_max_candidates = 200
     nnoremap [unite]g   :<C-u>Unite -no-quit grep<CR>
     nnoremap [unite]G   :<C-u>Unite -no-quit grep<CR><CR><C-r><C-w><CR>
@@ -1130,7 +1129,8 @@ if neobundle#is_sourced('unite.vim') " {{{
   " nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
   " nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=45 -no-quit<CR>
   " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
-  nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
+  " nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
+  nnoremap [unite]p   :<C-u>Unite file_rec/async:! -start-insert<CR>
   " nnoremap [unite]q   :<C-u>Unite qfixhowm:nocache<CR>
   " nnoremap [unite]r   :<C-u>Unite ref/phpmanual -start-insert<CR>
   " nnoremap [unite]r   :<C-u>Unite ref/refe -start-insert -default-action=tabopen<CR>
