@@ -3,6 +3,13 @@
 set nocompatible
 
 " Plugins {{{
+let g:dein#install_max_processes = 48
+augroup PluginInstall
+  autocmd!
+  autocmd VimEnter * if dein#check_install() | call dein#install() | endif
+augroup END
+command! -nargs=0 PluginUpdate call dein#update()
+
 let s:plugin_dir = expand('~/.vim/bundle/')
 let s:dein_dir = s:plugin_dir . 'repos/github.com/Shougo/dein.vim'
 execute 'set runtimepath+=' . s:dein_dir
@@ -220,18 +227,11 @@ if dein#load_cache()
   call dein#save_cache()
 endif
 
-if dein#check_install()
-  call dein#install()
-endif
-
 call dein#end()
 filetype plugin indent on
 " }}}
 
 " 基本的な設定: {{{
-
-" ファイル形式別のプラグインとインデントを有効にする
-filetype indent plugin on
 
 " ビープ音を鳴らさない
 set vb t_vb=
@@ -784,11 +784,6 @@ nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
 "}}}
 
 " プラグインの設定 {{{
-if dein#is_sourced('dein.vim') " {{{
-  let g:dein#install_max_processes = 48
-  let g:dein#install_progress_type = 'tabline'
-  command! -nargs=0 PluginUpdate call dein#update()
-endif " }}}
 
 if dein#is_sourced('nerdcommenter') " {{{
   "未対応ファイルタイプのエラーメッセージを表示しない
