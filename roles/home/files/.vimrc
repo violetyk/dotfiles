@@ -1,236 +1,231 @@
 " vim:set ts=4 sts=2 sw=2 tw=0 ft=vim fdm=marker:
 
-
-" viとの互換性をとらない(vimの独自拡張機能を使う為)
 set nocompatible
 
 " Plugins {{{
-filetype off
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+let s:plugin_dir = expand('~/.vim/bundle/')
+let s:dein_dir = s:plugin_dir . 'repos/github.com/Shougo/dein.vim'
+execute 'set runtimepath+=' . s:dein_dir
+
+if !isdirectory(s:dein_dir)
+  call mkdir(s:dein_dir, 'p')
+  silent execute printf('!git clone %s %s', 'https://github.com/Shougo/dein.vim', s:dein_dir)
 endif
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+call dein#begin(s:plugin_dir)
 
-" パスを通さないけどNeoBundleで管理する
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundleFetch 'jszakmeister/markdown2ctags'
+if dein#load_cache()
+  " base
+  call dein#add('Shougo/dein.vim')
+  call dein#add('Shougo/vimproc.vim', {
+        \ 'build': {
+        \     'mac': 'make -f make_mac.mak',
+        \     'linux': 'make',
+        \     'unix': 'gmake',
+        \    },
+        \ })
+  call dein#add('vim-jp/vimdoc-ja')
+  call dein#add('Shougo/neocomplete.vim', {
+        \ 'if' : has('lua')
+        \ })
+  call dein#add('Shougo/neosnippet')
+  call dein#add('Shougo/neosnippet-snippets')
+  call dein#add('Shougo/neossh.vim')
+  call dein#add('kana/vim-gf-user')
+  call dein#add('kana/vim-textobj-user')
+  call dein#add('kana/vim-metarw')
+  call dein#add('mattn/webapi-vim')
+  call dein#add('vim-jp/vital.vim')
+  call dein#add('thinca/vim-ref')
+  call dein#add('thinca/vim-quickrun')
+  call dein#add('thinca/vim-localrc')
 
-" help {{{
-NeoBundle 'vim-jp/vimdoc-ja'
-" }}}
-" base {{{
-NeoBundle 'Shougo/neocomplete.vim', {
-  \ 'disabled' : !has('lua'),
-  \ 'vim_version' : '7.3.885'
-  \ }
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \   'mac' : 'make',
-      \   'linux' : 'make',
-      \   'unix' : 'gmake',
-      \ },
-      \}
-NeoBundle 'Shougo/neossh.vim'
-NeoBundle 'kana/vim-gf-user'
-NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'kana/vim-metarw'
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'vim-jp/vital.vim'
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-localrc'
-" }}}
-" editing {{{
-NeoBundle 'vim-scripts/matchit.zip'
-NeoBundle 'vim-scripts/Align'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'vim-scripts/Modeliner'
-NeoBundleLazy 'kana/vim-smartchr'
-NeoBundleLazy 'kana/vim-smartinput'
-NeoBundle 'editorconfig/editorconfig-vim'
-" " }}}
-" textobj {{{
-NeoBundle 'akiyan/vim-textobj-php'
-NeoBundle 'akiyan/vim-textobj-xml-attribute'
-NeoBundle 'rhysd/vim-textobj-ruby'
-" }}}
-" filer {{{
-NeoBundle 'scrooloose/nerdtree'
-" NeoBundle 'Shougo/vimfiler'
-" }}}
-" outliner {{{
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'vim-php/tagbar-phpctags.vim'
+  " unite
+  call dein#add('Shougo/unite.vim')
+  call dein#add('ujihisa/unite-colorscheme', {'depends' : 'Shougo/unite.vim'})
+  call dein#add('ujihisa/unite-locate', {'depends' : 'Shougo/unite.vim'})
+  call dein#add('tacroe/unite-mark', {'depends' : 'Shougo/unite.vim'})
+  call dein#add('zhaocai/unite-scriptnames', {'depends' : 'Shougo/unite.vim'})
+  call dein#add('thinca/vim-editvar', {'depends' : 'Shougo/unite.vim'})
+  call dein#add('thinca/vim-unite-history', {'depends' : 'Shougo/unite.vim'})
+  call dein#add('ujihisa/unite-launch', {'depends' : 'Shougo/unite.vim'})
+  call dein#add('Shougo/neomru.vim', {'depends' : 'Shougo/unite.vim'})
+  call dein#add('tsukkee/unite-tag', {'depends' : 'Shougo/unite.vim'})
+  call dein#add('sorah/unite-ghq', {'depends' : 'Shougo/unite.vim'})
 
-" }}}
-" database {{{
-NeoBundle 'vim-scripts/dbext.vim'
-NeoBundle 'vim-scripts/SQLUtilities'
-" }}}
-" navigation {{{
-NeoBundle 'sgur/vim-gf-autoload'
-NeoBundle 't9md/vim-choosewin'
-" }}}
-" sign {{{
-" NeoBundle 'nathanaelkane/vim-indent-guides'
-" NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'osyo-manga/vim-over'
-" }}}
-" search {{{
-NeoBundle 'osyo-manga/vim-anzu'
-NeoBundle 'rking/ag.vim'
-" }}}
-" git {{{
-NeoBundle 'tpope/vim-fugitive'
-" NeoBundle 'jaxbot/github-issues.vim'
-" NeoBundle 'moznion/github-commit-comment.vim'
-NeoBundle 'rhysd/github-complete.vim'
-NeoBundle 'tyru/open-browser-github.vim'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'takahirojin/gbr.vim'
-" }}}
-" php {{{
-" NeoBundle 'joonty/vdebug'
-" }}}
-" vim {{{
-NeoBundle 'thinca/vim-prettyprint'
-" }}}
-" coffee {{{
-NeoBundle 'kchmck/vim-coffee-script'
-" }}}
-" ruby {{{
-NeoBundle 'vim-ruby/vim-ruby'
-NeoBundle 'tpope/vim-rails'
-NeoBundle 'tpope/vim-bundler'
-NeoBundle 'tpope/vim-rake'
-NeoBundle 'slim-template/vim-slim.git'
-NeoBundle 'tpope/vim-dispatch'
-NeoBundle 'thoughtbot/vim-rspec'
-" }}}
-" golang {{{
-NeoBundleLazy 'vim-jp/vim-go-extra', {'autoload': {'filetypes': ['go']}}
-NeoBundleLazy 'dgryski/vim-godef', {
-      \ 'autoload': {'filetypes': ['go'] },
-      \ 'rtp': $GOPATH . '/src/github.com/nsf/gocode/vim',
-      \ }
-" }}}
-" toml {{{
-NeoBundle 'cespare/vim-toml'
-" }}}
-" markdown {{{
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'kannokanno/previm'
-" }}}
-" javascript {{{
-" NeoBundle 'marijnh/tern_for_vim'
-" }}}
-" typescript {{{
-NeoBundle 'leafgarland/typescript-vim'
-NeoBundle 'clausreinke/typescript-tools'
-" }}}
-" python {{{
-" NeoBundle 'davidhalter/jedi-vim'
-NeoBundle 'vim-scripts/mako.vim'
-NeoBundle 'hynek/vim-python-pep8-indent'
-" }}}
-" syntax check {{{
-NeoBundle 'scrooloose/syntastic'
-" }}}
-" unite source {{{
-NeoBundle 'unite-colorscheme',         { 'depends' : 'Shougo/unite.vim' }
-NeoBundle 'unite-locate',              { 'depends' : 'Shougo/unite.vim' }
-" NeoBundle 'h1mesuke/unite-outline',    { 'depends' : 'Shougo/unite.vim' }
-NeoBundle 'tacroe/unite-mark',         { 'depends' : 'Shougo/unite.vim' }
-NeoBundle 'zhaocai/unite-scriptnames', { 'depends' : 'Shougo/unite.vim' }
-NeoBundle 'thinca/vim-editvar',        { 'depends' : 'Shougo/unite.vim' }
-NeoBundle 'ujihisa/unite-launch',      { 'depends' : 'Shougo/unite.vim' }
-NeoBundle 'Shougo/neomru.vim',         { 'depends' : 'Shougo/unite.vim' }
-NeoBundle 'tsukkee/unite-tag',         { 'depends' : 'Shougo/unite.vim' }
-NeoBundle 'thinca/vim-unite-history',  { 'depends' : 'Shougo/unite.vim' }
+  " editing
+  call dein#add('vim-scripts/matchit.zip')
+  call dein#add('vim-scripts/Align')
+  call dein#add('scrooloose/nerdcommenter')
+  call dein#add('mattn/emmet-vim')
+  call dein#add('tpope/vim-surround')
+  call dein#add('tpope/vim-endwise')
+  call dein#add('vim-scripts/Modeliner')
+  call dein#add('editorconfig/editorconfig-vim')
+  call dein#add('kana/vim-smartchr', {'lazy' : 1})
+  call dein#add('kana/vim-smartinput', {'lazy' : 1})
+  call dein#add('osyo-manga/vim-over')
 
-" }}}
-" statusline, colorscheme {{{
-NeoBundle 'itchyny/lightline.vim'
+  " text objects
+  call dein#add('akiyan/vim-textobj-php')
+  call dein#add('akiyan/vim-textobj-xml-attribute')
+  call dein#add('rhysd/vim-textobj-ruby')
 
-NeoBundle 'mrkn256.vim'
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundleLazy 'desert.vim'
-NeoBundleLazy 'desert256.vim'
-NeoBundleLazy 'tomasr/molokai'
-NeoBundleLazy 'Zenburn'
-NeoBundleLazy 'altercation/vim-colors-solarized'
-NeoBundleLazy 'nanotech/jellybeans.vim'
-NeoBundleLazy 'chriskempson/tomorrow-theme', {
-      \ 'rtp': "~/.vim/bundle/tomorrow-theme/vim/",
-      \ }
-NeoBundleLazy 'jpo/vim-railscasts-theme'
-NeoBundleLazy 'vim-scripts/pyte'
-NeoBundleLazy 'cocopon/iceberg.vim'
-" }}}
-" syntax {{{
-" NeoBundle 'Shougo/context_filetype.vim'
-" NeoBundle 'osyo-manga/vim-precious'
-" NeoBundle 'php.vim--Garvin'
-" NeoBundle 'StanAngeloff/php.vim'
-NeoBundle 'jQuery'
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'othree/html5.vim'
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'elzr/vim-json'
-NeoBundle 'nginx.vim'
-" }}}
-" indent {{{
-NeoBundle 'pangloss/vim-javascript'
-" }}}
+  " filer
+  call dein#add('scrooloose/nerdtree')
+  call dein#add('Shougo/vimfiler', {'lazy' : 1})
 
-" service {{{
-NeoBundle 'mattn/gist-vim'
-NeoBundle 'lambdalisue/vim-gista'
-" NeoBundleLazy 'glidenote/nogistub.vim'
-" }}}
-" memo {{{
-" }}}
-" blog {{{
-" }}}
-" game {{{
-NeoBundle 'mattn/habatobi-vim'
-" }}}
-" system {{{
-NeoBundle 'mopp/autodirmake.vim'
-" }}}
+  " outliner
+  call dein#add('majutsushi/tagbar')
+  call dein#add('vim-php/tagbar-phpctags.vim')
 
-" :NeoBundleUpdate!でも更新しない
-command! -nargs=1 MyNeoBundle NeoBundle <args>,
-      \ {
-      \   'base' : $HOME . '/src/github.com/violetyk/',
-      \   'type' : 'nosync',
-      \ }
+  " database
+  call dein#add('vim-scripts/dbext.vim')
+  call dein#add('vim-scripts/SQLUtilities')
 
-MyNeoBundle 'violetyk/cake.vim'
-MyNeoBundle 'violetyk/cake3.vim'
-MyNeoBundle 'violetyk/scratch-utility'
-" MyNeoBundle 'violetyk/w.vim'
-MyNeoBundle 'violetyk/neosnippet-cakephp2'
-MyNeoBundle 'violetyk/neosnippet-rails'
-MyNeoBundle 'violetyk/neosnippet-aws-cloud-formation'
-MyNeoBundle 'violetyk/neocomplete-php.vim'
-MyNeoBundle 'violetyk/iikanji-markdown.vim'
+  " navigation
+  call dein#add('sgur/vim-gf-autoload')
+  call dein#add('t9md/vim-choosewin')
 
-" lab
-NeoBundle 'lab/my.vim',
-      \ {
-      \   'base' : $HOME . '/src/github.com/violetyk/lab/',
-      \   'type' : 'nosync',
-      \ }
+  " sign
+  call dein#add('nathanaelkane/vim-indent-guides', {'lazy' : 1})
+  call dein#add('airblade/vim-gitgutter', {'lazy' : 1})
 
-call neobundle#end()
+  " search
+  call dein#add('osyo-manga/vim-anzu')
+  call dein#add('rking/ag.vim')
+
+  " git
+  call dein#add('tpope/vim-fugitive')
+  call dein#add('jaxbot/github-issues.vim', {'lazy' : 1})
+  call dein#add('moznion/github-commit-comment.vim', {'lazy' : 1})
+  call dein#add('rhysd/github-complete.vim')
+  call dein#add('tyru/open-browser-github.vim')
+  call dein#add('tyru/open-browser.vim')
+  call dein#add('takahirojin/gbr.vim')
+
+  " Vim script
+  call dein#add('thinca/vim-prettyprint', {'on_ft' : 'vim'})
+
+  " php
+  call dein#add('joonty/vdebug', {'lazy' : 1, 'on_ft' : 'php'})
+
+  " ruby
+  call dein#add('vim-ruby/vim-ruby', {'on_ft' : 'ruby'})
+  call dein#add('tpope/vim-rails', {'on_ft' : 'ruby'})
+  call dein#add('tpope/vim-bundler', {'on_ft' : 'ruby'})
+  call dein#add('tpope/vim-rake', {'on_ft' : 'ruby'})
+  call dein#add('slim-template/vim-slim.git', {'on_ft' : 'slim'})
+  call dein#add('tpope/vim-dispatch', {'on_ft' : 'ruby'})
+  call dein#add('thoughtbot/vim-rspec', {'on_ft' : 'ruby'})
+
+  " golang
+  call dein#add('vim-jp/vim-go-extra', {'on_ft' : 'go'})
+  call dein#add('dgryski/vim-godef', {
+        \ 'on_ft' : 'go',
+        \ 'rtp' : $GOPATH . '/src/github.com/nsf/gocode/vim'
+        \ })
+
+  " toml
+  call dein#add('cespare/vim-toml',  {'on_ft' : 'toml'})
+
+  " markdown
+  call dein#add('godlygeek/tabular', {'on_ft' : ['markdown', 'md']})
+  call dein#add('kannokanno/previm', {'on_ft' : ['markdown', 'md']})
+  call dein#add('jszakmeister/markdown2ctags', {'rtp': ''})
+
+  " javascript
+  call dein#add('marijnh/tern_for_vim', {'on_ft' : 'javascript'})
+  call dein#add('pangloss/vim-javascript', {'on_ft' : 'javascript'})
+
+  " coffee
+  call dein#add('kchmck/vim-coffee-script', {'on_ft' : 'coffee'})
+
+  " typescript
+  call dein#add('leafgarland/typescript-vim', {'on_ft' : 'typescript'})
+  call dein#add('clausreinke/typescript-tools', {'on_ft' : 'typescript'})
+
+  " python
+  call dein#add('davidhalter/jedi-vim', {'lazy' : 1, 'on_ft' : 'python'})
+  call dein#add('sophacles/vim-bundle-mako', {'on_ft' : 'mako'})
+  call dein#add('hynek/vim-python-pep8-indent', {'on_ft' : 'python'})
+
+  " syntax checking
+  call dein#add('scrooloose/syntastic')
+
+  " statusline
+  call dein#add('itchyny/lightline.vim')
+
+  " colorscheme
+  call dein#add('mrkn/mrkn256.vim')
+  call dein#add('w0ng/vim-hybrid')
+  call dein#add('tomasr/molokai')
+  call dein#add('altercation/vim-colors-solarized')
+  call dein#add('nanotech/jellybeans.vim')
+  call dein#add('chriskempson/tomorrow-theme', {
+        \ 'rtp': s:plugin_dir . 'repos/github.com/chriskempson/tomorrow-theme/vim/',
+        \ })
+  call dein#add('jpo/vim-railscasts-theme')
+  call dein#add('vim-scripts/pyte')
+  call dein#add('cocopon/iceberg.vim')
+
+  " syntax
+  call dein#add('Shougo/context_filetype.vim')
+  call dein#add('osyo-manga/vim-precious', {
+        \ 'depends' : ['Shougo/context_filetype.vim', 'kana/vim-textobj-user']
+        \ })
+  " call dein#add('jelera/vim-javascript-syntax')
+  call dein#add('othree/javascript-libraries-syntax.vim')
+  call dein#add('othree/html5.vim')
+  call dein#add('hail2u/vim-css3-syntax')
+  call dein#add('elzr/vim-json')
+  call dein#add('vim-scripts/nginx.vim')
+
+  " gist
+  call dein#add('mattn/gist-vim')
+  call dein#add('lambdalisue/vim-gista')
+
+  " system
+  call dein#add('mopp/autodirmake.vim')
+
+  " local
+  call dein#local('~/src/github.com/violetyk',
+        \ {
+        \   'frozen' : 1,
+        \   'depends' : [
+        \     'kana/vim-gf-user',
+        \     'Shougo/neosnippet.vim',
+        \     'vim-jp/vital.vim'
+        \   ]
+        \ },
+        \ [
+        \   '*.vim',
+        \   'neosnippet-*',
+        \   'neocomplete-*',
+        \   'scratch-utility'
+        \ ])
+  call dein#local('~/src/github.com/violetyk/lab',
+        \ {
+        \   'frozen' : 1,
+        \   'depends' : [
+        \     'kana/vim-gf-user',
+        \     'Shougo/neosnippet.vim',
+        \     'vim-jp/vital.vim'
+        \   ]
+        \ },
+        \ [
+        \   '*.vim'
+        \ ])
+
+  call dein#save_cache()
+endif
+
+if dein#check_install()
+  call dein#install()
+endif
+
+call dein#end()
+filetype plugin indent on
 " }}}
 
 " 基本的な設定: {{{
@@ -356,7 +351,6 @@ set updatecount=500
 set clipboard+=unnamedplus,unnamed
 " }}}
 
-
 " colorscheme {{{
 
 " 補完の色を変更
@@ -367,7 +361,7 @@ set clipboard+=unnamedplus,unnamed
 " 対応する括弧の色を控えめにしておく
 " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
-  silent! colorscheme mrkn256
+  silent! colorscheme jellybeans
 " }}}
 
 " ハイライトの設定 {{{
@@ -741,7 +735,12 @@ nnoremap p ]p
 nnoremap P ]P
 
 " カーソル位置の単語を置換 s* と打鍵してから置き換え文字を打って /g エンターで発動。
-nnoremap <expr> s* ':%substitute/\<' . expand('<cword>') . '\>/'
+if dein#is_sourced('vim-over')
+  nnoremap <expr> s* ':<C-u>OverCommandLine %s/\<' . expand('<cword>') . '\>/<CR>'
+  vnoremap <expr> s ":<C-u>OverCommandLine '<,'>s/<CR>"
+else
+  nnoremap <expr> s* ':%substitute/\<' . expand('<cword>') . '\>/'
+endif
 
 " レジスタやマークを確認しやすくする。
 nnoremap <Space>m :<C-u>marks<Space>
@@ -772,9 +771,6 @@ cmap w!! w !sudo tee > /dev/null %
 
 " その他 {{{
 
-" <C-Space>を押すと<Nul>が送られるようなので。
-" map! <Nul> <C-Space>
-
 " ヘルプを引きやすくする
 nnoremap <C-h> :<C-u>help<Space>
 nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
@@ -788,14 +784,19 @@ nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
 "}}}
 
 " プラグインの設定 {{{
+if dein#is_sourced('dein.vim') " {{{
+  let g:dein#install_max_processes = 48
+  let g:dein#install_progress_type = 'tabline'
+  command! -nargs=0 PluginUpdate call dein#update()
+endif " }}}
 
-if neobundle#is_sourced('nerdcommenter') " {{{
+if dein#is_sourced('nerdcommenter') " {{{
   "未対応ファイルタイプのエラーメッセージを表示しない
   let NERDShutUp=1
   " /**/をスペース空けて/* */
   let NERDSpaceDelims = 1
 endif " }}}
-if neobundle#is_sourced('nerdtree') " {{{
+if dein#is_sourced('nerdtree') " {{{
   " カラー表示するか
   let NERDChristmasTree = 1
   " 起動時に隠しファイルを表示するか（あとで切り替えられる）
@@ -813,12 +814,12 @@ if neobundle#is_sourced('nerdtree') " {{{
   let NERDTreeHijackNetrw = 0
   let NERDTreeAutoCenter = 0
 endif " }}}
-if neobundle#is_sourced('vimfiler') " {{{
+if dein#is_sourced('vimfiler') " {{{
   let g:vimfiler_as_default_explorer=1
   nnoremap <silent> <Leader>e :<C-u>VimFiler -split -toggle -simple -winwidth=30 -no-quit -project -create<CR>
   nnoremap <silent> <Leader>f :<C-u>VimFilerBuffer -split -toggle -simple -winwidth=30 -no-quit -project -create<CR>
 endif " }}}
-if neobundle#is_sourced('taglist.vim') " {{{
+if dein#is_sourced('taglist.vim') " {{{
   let Tlist_Ctags_Cmd = "ctags"
 
   let Tlist_Inc_Winwidth = 1
@@ -883,7 +884,7 @@ if neobundle#is_sourced('taglist.vim') " {{{
     set tags=./tags,tags
   endif
 endif " }}}
-if neobundle#is_sourced('neocomplete.vim') " {{{
+if dein#is_sourced('neocomplete.vim') " {{{
   " Disable AutoComplPop.
   let g:acp_enableAtStartup = 0
   " Use neocomplete.
@@ -976,7 +977,7 @@ if neobundle#is_sourced('neocomplete.vim') " {{{
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    if neobundle#is_sourced('jedi.vim')
+    if dein#is_sourced('jedi.vim')
       autocmd FileType python setlocal omnifunc=jedi#completions
     else
       autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
@@ -1002,7 +1003,7 @@ if neobundle#is_sourced('neocomplete.vim') " {{{
   let g:neocomplete#force_overwrite_completefunc = 1
 endif " }}}
 
-if neobundle#is_sourced('neosnippet') " {{{
+if dein#is_sourced('neosnippet') " {{{
 
   function! s:setup_neosnippets()
     if exists('b:rails_root')
@@ -1044,7 +1045,7 @@ if neobundle#is_sourced('neosnippet') " {{{
     " set conceallevel=2 concealcursor=i
   " endif
 endif " }}}
-if neobundle#is_sourced('unite.vim') " {{{
+if dein#is_sourced('unite.vim') " {{{
   " To track long mru history.
   let g:unite_source_file_mru_long_limit = 3000
   let g:unite_source_directory_mru_long_limit = 3000
@@ -1055,7 +1056,7 @@ if neobundle#is_sourced('unite.vim') " {{{
   let g:unite_source_tag_max_fname_length = 150
 
 
-  function! s:unite_my_settings() " {{{
+  function! s:unite_my_settings()
     " Overwrite settings.
 
     nmap <buffer> <ESC>    <Plug>(unite_exit)
@@ -1089,7 +1090,7 @@ if neobundle#is_sourced('unite.vim') " {{{
     nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
     nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
           \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
-  endfunction " }}}
+  endfunction
 
   augroup PluginUnite
     autocmd!
@@ -1133,7 +1134,6 @@ if neobundle#is_sourced('unite.vim') " {{{
   " nnoremap [unite]L   :<C-u>Unite launcher<CR>
   nnoremap [unite]M   :<C-u>Unite output:messages<CR>
   " nnoremap [unite]M   :<C-u>Unite mapping -start-insert<CR>
-  " nnoremap [unite]n   :<C-u>Unite neobundle/update<CR>
   " nnoremap [unite]o   :<C-u>Unite outline -buffer-name=outline -vertical -winwidth=45 -no-quit<CR>
   " nnoremap [unite]o   :<C-u>Unite -buffer-name=outline -auto-preview -vertical -no-quit outline<CR>
   " nnoremap [unite]p   :<C-u>Unite process -start-insert<CR>
@@ -1144,16 +1144,17 @@ if neobundle#is_sourced('unite.vim') " {{{
   nnoremap [unite]r   :<C-u>Unite -buffer-name=register register<CR>
   nnoremap [unite]R   :<C-u>UniteWithCursorWord ref/refe -start-insert -default-action=tabopen<CR>
   nnoremap [unite].   :<C-u>UniteResume<CR>
-  nnoremap [unite]s   :<C-u>Unite history/search<CR>
+  nnoremap [unite]/   :<C-u>Unite history/search -start-insert<CR>
+  nnoremap [unite]s   :<C-u>Unite ghq -start-insert<CR>
   nnoremap [unite]S   :<C-u>Unite output:scriptnames<CR>
   nnoremap [unite]t   :<C-u>Unite tag -start-insert<CR>
   " nnoremap [unite]v   :<C-u>Unite output:version -start-insert<CR>
   nnoremap [unite]v   :<C-u>Unite variable -auto-preview -start-insert<CR>
 
-  nnoremap [unite]y   :<C-u>Unite history/yank<CR>
+  nnoremap [unite]y   :<C-u>Unite history/yank -start-insert<CR>
 
 endif " }}}
-if neobundle#is_sourced('scratch-utility') " {{{
+if dein#is_sourced('scratch-utility') " {{{
   nmap <silent> <Leader>b <Plug>ShowScratchBuffer
 
   " スクラッチバッファを開くマッピングを定義しない
@@ -1168,7 +1169,7 @@ if neobundle#is_sourced('scratch-utility') " {{{
         \   'take_over_filetype' : 1
         \ }
 endif "}}}
-if neobundle#is_sourced('emmet.vim') " {{{
+if dein#is_sourced('emmet.vim') " {{{
   " デフォルトは<C-Y>
   " let g:user_emmet_leader_key = '<C-Space>'
 
@@ -1199,7 +1200,7 @@ if neobundle#is_sourced('emmet.vim') " {{{
         \  },
         \}
 endif "}}}
-if neobundle#is_sourced('cake.vim') " {{{
+if dein#is_sourced('cake.vim') " {{{
   let g:cakephp_gf_fallback_n = "normal \<Plug>(gf-user-gf)"
   let g:cakephp_gf_fallback_s = "normal \<Plug>(gf-user-\<C-w>f)"
   let g:cakephp_gf_fallback_t = "normal \<Plug>(gf-user-\<C-w>gf)"
@@ -1243,19 +1244,13 @@ if neobundle#is_sourced('cake.vim') " {{{
   endfunction " }}}
 
 endif "}}}
-if neobundle#is_sourced('gist-vim') " {{{
-  let g:gist_privates = 1
-  let g:gist_detect_filetype = 1
-  let g:gist_show_privates = 1
-  let g:gist_put_url_to_clipboard_after_post = 1
-endif " }}}
-if neobundle#is_sourced('vim-surround') " {{{
+if dein#is_sourced('vim-surround') " {{{
   let g:surround_{char2nr("p")} = "<?php \r ?>"
 endif " }}}
-if neobundle#is_sourced('Modeliner') " {{{
+if dein#is_sourced('Modeliner') " {{{
   let g:Modeliner_format='ft= et ff= fenc= sts= sw= ts='
 endif " }}}
-if neobundle#is_sourced('vim-fugitive') " {{{
+if dein#is_sourced('vim-fugitive') " {{{
   " nnoremap <Space>gd :<C-u>Gdiff<Enter>
   " nnoremap <Space>gs :<C-u>Gstatus<Enter>
   " nnoremap <Space>gl :<C-u>Glog<Enter>
@@ -1264,7 +1259,7 @@ if neobundle#is_sourced('vim-fugitive') " {{{
   " nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
   " nnoremap <Space>gb :<C-u>Gblame<Enter>
 endif " }}}
-if neobundle#is_sourced('dbext.vim') " {{{
+if dein#is_sourced('dbext.vim') " {{{
   " let g:dbext_default_profile_xxxx      = 'type=MYSQL:user=mysql:passwd=mysql:dbname=hoge:host=localhost:port=3306:buffer_lines=50'
   " let g:dbext_default_window_use_horiz = 0  " Use vertical split
   let g:dbext_default_window_use_horiz = 1  " Use horizontal split
@@ -1290,18 +1285,18 @@ if neobundle#is_sourced('dbext.vim') " {{{
     echo "Connect Database : " . a:profile
   endfunction
 endif " }}}
-if neobundle#is_sourced('vim-localrc') " {{{
+if dein#is_sourced('vim-localrc') " {{{
   " ディレクトリごとにvimの設定を用意するファイル名
   let g:localrc_filename = '.local.vimrc'
   silent! call localrc#load('.init.vimrc', $HOME)
 endif " }}}
-if neobundle#is_sourced('vim-indent-guides') " {{{
+if dein#is_sourced('vim-indent-guides') " {{{
   let g:indent_guides_enable_on_vim_startup = 0
   let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar']
   let g:indent_guides_start_level = 2
   let g:indent_guides_guide_size = 1
 endif " }}}
-if neobundle#is_sourced('vim-anzu') " {{{
+if dein#is_sourced('vim-anzu') " {{{
   nmap n <Plug>(anzu-n)zv
   nmap N <Plug>(anzu-N)zv
   nmap * <Plug>(anzu-star)zv
@@ -1311,7 +1306,7 @@ if neobundle#is_sourced('vim-anzu') " {{{
     autocmd CursorHold,CursorHoldI,WinLeave,TabLeave * call anzu#clear_search_status()
   augroup END
 endif " }}}
-if neobundle#is_sourced('vim-precious') " {{{
+if dein#is_sourced('vim-precious') " {{{
   let g:precious_enable_switchers = {
         \ "*" : {
         \   "setfiletype" : 0
@@ -1321,7 +1316,7 @@ if neobundle#is_sourced('vim-precious') " {{{
         \ },
         \}
 endif " }}}
-if neobundle#is_sourced('lightline.vim') " {{{
+if dein#is_sourced('lightline.vim') " {{{
   let g:lightline = {
         \ 'colorscheme': 'jellybeans',
         \ 'mode_map': {'c': 'NORMAL'},
@@ -1398,10 +1393,10 @@ if neobundle#is_sourced('lightline.vim') " {{{
   endfunction
 
 endif " }}}
-if neobundle#is_sourced('tern_for_vim') " {{{
+if dein#is_sourced('tern_for_vim') " {{{
   " let g:tern_show_argument_hints = 'on_hold'
 endif " }}}
-if neobundle#is_sourced('vim-gitgutter') " {{{
+if dein#is_sourced('vim-gitgutter') " {{{
   let g:gitgutter_enabled = 1
   let g:gitgutter_realtime = 0
   nmap gj <Plug>GitGutterNextHunk
@@ -1409,12 +1404,12 @@ if neobundle#is_sourced('vim-gitgutter') " {{{
   nnoremap <Leader>gg :<C-u>GitGutterToggle<CR>
   nnoremap <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
 endif " }}}
-if neobundle#is_sourced('tagbar') " {{{
+if dein#is_sourced('tagbar') " {{{
   let g:tagbar_ctags_bin = $HOME . '/bin/ctags'
 
   let g:tagbar_type_markdown = {
       \ 'ctagstype': 'markdown',
-      \ 'ctagsbin' : $HOME . '/.vim/bundle/markdown2ctags/markdown2ctags.py',
+      \ 'ctagsbin' : $HOME . '/.vim/bundle/repos/github.com/markdown2ctags/markdown2ctags.py',
       \ 'ctagsargs' : '-f - --sort=yes',
       \ 'kinds' : [
           \ 's:sections',
@@ -1427,14 +1422,14 @@ if neobundle#is_sourced('tagbar') " {{{
       \ 'sort': 0,
   \ }
 endif " }}}
-if neobundle#is_sourced('tagbar-phpctags.vim') " {{{
+if dein#is_sourced('tagbar-phpctags.vim') " {{{
   let g:tagbar_phpctags_bin = $HOME . '/bin/phpctags'
   let g:tagbar_phpctags_memory_limit = '512M'
 endif " }}}
-if neobundle#is_sourced('vim-json') " {{{
+if dein#is_sourced('vim-json') " {{{
   let g:vim_json_syntax_conceal = 0
 endif " }}}
-if neobundle#is_sourced('syntastic') " {{{
+if dein#is_sourced('syntastic') " {{{
   let g:syntastic_mode_map = {
         \ 'map' : 'active',
         \ 'active_filetypes' : ['php', 'javascript'],
@@ -1444,7 +1439,7 @@ if neobundle#is_sourced('syntastic') " {{{
   nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
   cabbrev <silent> bd lclose\|bdelete
 endif " }}}
-if neobundle#is_sourced('vim-quickrun') " {{{
+if dein#is_sourced('vim-quickrun') " {{{
   let g:quickrun_config = {
         \   "coffee" : {
         \     'command': 'coffee',
@@ -1453,7 +1448,7 @@ if neobundle#is_sourced('vim-quickrun') " {{{
         \ }
   nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 endif " }}}
-if neobundle#is_sourced('vim-choosewin') " {{{
+if dein#is_sourced('vim-choosewin') " {{{
   nmap  <C-w><CR>  <Plug>(choosewin)
 
   " オーバーレイを使う
@@ -1466,14 +1461,14 @@ if neobundle#is_sourced('vim-choosewin') " {{{
   let g:choosewin_statusline_replace = 0 " どうかステータスラインリプレイスしないで下さい!
   let g:choosewin_tabline_replace    = 0 " どうかタブラインもリプレイスしないでいただきたい！
 endif " }}}
-if neobundle#is_sourced('neocomplete-php.vim') " {{{
+if dein#is_sourced('neocomplete-php.vim') " {{{
   let g:neocomplete_php_locale = 'ja'
 endif " }}}
-" if neobundle#is_sourced('github-issues.vim') " {{{
+" if dein#is_sourced('github-issues.vim') " {{{
   " let g:github_upstream_issues = 1
   " let g:gissues_default_remote = 'github'
 " endif " }}}
-if neobundle#is_sourced('github-complete.vim') " {{{
+if dein#is_sourced('github-complete.vim') " {{{
   let g:github_complete_enable_neocomplete = 1
   let g:github_complete_enable_emoji_completion = 1
   let g:github_complete_enable_issue_completion = 1
@@ -1482,15 +1477,21 @@ if neobundle#is_sourced('github-complete.vim') " {{{
   let g:github_complete_emoji_japanese_workaround = 1
 
 endif " }}}
-if neobundle#is_sourced('w.vim') " {{{
+if dein#is_sourced('w.vim') " {{{
   let g:w_note_dir     = $HOME . '/Dropbox/w.vim/notes/'
   let g:w_database_dir = $HOME . '/Dropbox/w.vim/'
 endif " }}}
-if neobundle#is_sourced('vim-gista') " {{{
+if dein#is_sourced('gist-vim') " {{{
+  let g:gist_privates = 1
+  let g:gist_detect_filetype = 1
+  let g:gist_show_privates = 1
+  let g:gist_put_url_to_clipboard_after_post = 1
+endif " }}}
+if dein#is_sourced('vim-gista') " {{{
   let g:gista#github_user = 'violetyk'
   let g:gista#close_list_after_open = 1
 endif " }}}
-if neobundle#is_sourced('jedi.vim') " {{{
+if dein#is_sourced('jedi.vim') " {{{
   let g:jedi#completions_enabled = 0
   let g:jedi#auto_vim_configuration = 0
 endif " }}}
@@ -1499,6 +1500,4 @@ let g:rspec_command = "Dispatch spring rspec {spec}"
 let g:rspec_runner = "os_x_iterm"
 nnoremap <silent><leader>s :<C-u>call Run
 nnoremap <silent><leader>t :<C-u>call RunNearestSpec()<CR>
-
-
 " }}}
