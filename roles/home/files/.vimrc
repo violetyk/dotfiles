@@ -138,6 +138,7 @@ NeoBundle 'clausreinke/typescript-tools'
 " python {{{
 " NeoBundle 'davidhalter/jedi-vim'
 NeoBundle 'vim-scripts/mako.vim'
+NeoBundle 'hynek/vim-python-pep8-indent'
 " }}}
 " syntax check {{{
 NeoBundle 'scrooloose/syntastic'
@@ -183,6 +184,7 @@ NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'elzr/vim-json'
+NeoBundle 'nginx.vim'
 " }}}
 " indent {{{
 NeoBundle 'pangloss/vim-javascript'
