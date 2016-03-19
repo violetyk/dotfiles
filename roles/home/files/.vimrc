@@ -1070,14 +1070,19 @@ if neobundle#is_sourced('unite.vim') " {{{
     nmap <buffer> <C-y>    <Plug>(unite_narrowing_path)
     nmap <buffer> <C-j>    <Plug>(unite_toggle_auto_preview)
     imap <buffer> <C-r>    <Plug>(unite_narrowing_input_history)
-    nnoremap <silent><buffer><expr> l unite#smart_map('l', unite#do_action('default'))
+    nnoremap <silent><buffer><expr> a unite#smart_map('a', unite#do_action('above'))
+    nnoremap <silent><buffer><expr> b unite#smart_map('b', unite#do_action('below'))
+    nnoremap <silent><buffer><expr> l unite#smart_map('l', unite#do_action('left'))
+    nnoremap <silent><buffer><expr> r unite#smart_map('r', unite#do_action('right'))
+    nnoremap <silent><buffer><expr> t unite#smart_map('t', unite#do_action('tabsplit'))
+    nnoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
 
-    let unite = unite#get_current_unite()
-    if unite.buffer_name =~# '^search'
-      nnoremap <silent><buffer><expr> r     unite#do_action('replace')
-    else
-      nnoremap <silent><buffer><expr> r     unite#do_action('rename')
-    endif
+    " let unite = unite#get_current_unite()
+    " if unite.buffer_name =~# '^search'
+      " nnoremap <silent><buffer><expr> r     unite#do_action('replace')
+    " else
+      " nnoremap <silent><buffer><expr> r     unite#do_action('rename')
+    " endif
 
     nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
     nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
