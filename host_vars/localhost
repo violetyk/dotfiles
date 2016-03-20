@@ -46,35 +46,35 @@ home_download_profiles:
   - https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh
 
 home_dotfiles:
-  - .gitignore
-  - .agignore
-  - .gitconfig
-  - .path
-  - .exports
-  - .aliases
-  - .functions
-  - .commonrc
-  - .bashrc
-  - .profile
-  - .zsh
-  - .zlogin
-  - .zlogout
-  - .zpreztorc
-  - .zprofile
-  - .zshenv
-  - .zshrc
-  - .zsh
-  - .ctags
-  - .my.cnf
-  - .pryrc
-  - .tigrc
-  - .tmux.conf
-  - .rspec
-  - .vim
-  - .vimrc
-  - .gvimrc
-  - Guardfile
-  - .source-highlight
+  - gitignore
+  - agignore
+  - gitconfig
+  - path
+  - exports
+  - aliases
+  - functions
+  - commonrc
+  - bashrc
+  - profile
+  - zsh
+  - zlogin
+  - zlogout
+  - zpreztorc
+  - zprofile
+  - zshenv
+  - zshrc
+  - zsh
+  - ctags
+  - my.cnf
+  - pryrc
+  - tigrc
+  - tmux.conf
+  - rspec
+  - vim
+  - vimrc
+  - gvimrc
+  - { name: Guardfile, hide: False }
+  - source-highlight
 
 ruby_version: 2.3.0
 

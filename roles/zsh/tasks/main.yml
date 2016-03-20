@@ -20,4 +20,4 @@
 
 - name: change shell
   shell: chsh -s /bin/zsh {{ ansible_user_id }}
-  sudo: yes
+  become: yes

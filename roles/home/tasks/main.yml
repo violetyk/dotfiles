@@ -1,21 +1,21 @@
 ---
 - name: make home directories
   file: >
-    path={{ ansible_env.HOME }}/{{ item }}
+    path='{{ansible_env.HOME}}/{{item}}'
     state=directory
     recurse=yes
-  with_items: home_directories
+  with_items: '{{home_directories}}'
 
 - name: download profile files
   get_url: >
-    url={{ item }}
-    dest={{ ansible_env.HOME }}/etc/profile.d
-  with_items: home_download_profiles
+    url='{{item}}'
+    dest='{{ansible_env.HOME}}/etc/profile.d'
+  with_items: '{{home_download_profiles}}'
 
 - name: link dotfiles
   file: >
-    src={{ role_path }}/files/{{ item }}
-    dest={{ ansible_env.HOME }}/{{ item }}
+    src='{{role_path}}/files/{{item.name | default(item)}}'
+    dest='{{ansible_env.HOME}}/{{(item.hide | default(true) == true) | ternary('.','')}}{{item.name | default(item)}}'
     state=link
     force=yes
-  with_items: home_dotfiles
+  with_items: '{{home_dotfiles}}'
