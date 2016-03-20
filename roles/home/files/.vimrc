@@ -19,9 +19,9 @@ if !isdirectory(s:dein_dir)
   silent execute printf('!git clone %s %s', 'https://github.com/Shougo/dein.vim', s:dein_dir)
 endif
 
-call dein#begin(s:plugin_dir)
+if dein#load_state(s:plugin_dir)
+  call dein#begin(s:plugin_dir)
 
-if dein#load_cache()
   " base
   call dein#add('Shougo/dein.vim')
   call dein#add('Shougo/vimproc.vim', {
@@ -224,10 +224,10 @@ if dein#load_cache()
         \   '*.vim'
         \ ])
 
-  call dein#save_cache()
+  call dein#end()
+  call dein#save_state()
 endif
 
-call dein#end()
 filetype plugin indent on
 " }}}
 
