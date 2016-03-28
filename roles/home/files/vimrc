@@ -4,6 +4,7 @@ set nocompatible
 
 " Plugins {{{
 let g:dein#install_max_processes = 48
+let g:dein#types#git#default_protocol = 'ssh'
 augroup PluginInstall
   autocmd!
   autocmd VimEnter * if dein#check_install() | call dein#install() | endif
@@ -177,9 +178,10 @@ if dein#load_state(s:plugin_dir)
   call dein#add('cocopon/iceberg.vim')
 
   " syntax
-  call dein#add('Shougo/context_filetype.vim')
+  call dein#add('Shougo/context_filetype.vim', {'lazy': 1})
   call dein#add('osyo-manga/vim-precious', {
-        \ 'depends' : ['Shougo/context_filetype.vim', 'kana/vim-textobj-user']
+        \ 'depends' : ['Shougo/context_filetype.vim', 'kana/vim-textobj-user'],
+        \ 'lazy': 1
         \ })
   " call dein#add('jelera/vim-javascript-syntax')
   call dein#add('othree/javascript-libraries-syntax.vim')
@@ -361,7 +363,7 @@ set clipboard+=unnamedplus,unnamed
 " 対応する括弧の色を控えめにしておく
 " hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
-  silent! colorscheme jellybeans
+  silent! colorscheme mrkn256
 " }}}
 
 " ハイライトの設定 {{{
