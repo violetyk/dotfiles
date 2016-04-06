@@ -14,3 +14,4 @@ kagaya/
 __pycache__
 .*.un~
 .agignore
+composer.phar

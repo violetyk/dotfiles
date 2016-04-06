@@ -27,6 +27,11 @@ export GOPATH=$HOME
 # export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
+# pyenv
+export PYENV_ROOT=/usr/local/var/pyenv
+if which pyenv > /dev/null; then
+  eval "$(pyenv init -)";
+fi
 
 export GEM_EDITOR=vi
 export VISUAL=vi

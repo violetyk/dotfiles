@@ -73,6 +73,7 @@ if dein#load_state(s:plugin_dir)
   call dein#add('kana/vim-smartchr', {'lazy' : 1})
   call dein#add('kana/vim-smartinput', {'lazy' : 1})
   call dein#add('osyo-manga/vim-over')
+  call dein#add('itchyny/vim-cursorword')
 
   " text objects
   call dein#add('akiyan/vim-textobj-php')

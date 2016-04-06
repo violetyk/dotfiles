@@ -29,6 +29,7 @@ homebrew_packages:
   - ghq
   - direnv
   - peco
+  - pyenv
 
 home_directories:
   - bin
