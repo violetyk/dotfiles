@@ -12,9 +12,9 @@
     state=latest
     update_homebrew=yes
   with_items:
-    - php55
-    - php55-mcrypt
-    - php55-intl
+    - php70
+    # - php55-mcrypt
+    # - php55-intl
     - composer
     - phpctags
 

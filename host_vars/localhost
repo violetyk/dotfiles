@@ -30,6 +30,7 @@ homebrew_packages:
   - direnv
   - peco
   - pyenv
+  - pyenv-virtualenv
 
 home_directories:
   - bin

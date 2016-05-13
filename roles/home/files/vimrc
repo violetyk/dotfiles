@@ -9,6 +9,7 @@ augroup PluginInstall
   autocmd!
   autocmd VimEnter * if dein#check_install() | call dein#install() | endif
 augroup END
+
 command! -nargs=0 PluginUpdate call dein#update()
 
 let s:plugin_dir = expand('~/.vim/bundle/')
@@ -26,11 +27,7 @@ if dein#load_state(s:plugin_dir)
   " base
   call dein#add('Shougo/dein.vim')
   call dein#add('Shougo/vimproc.vim', {
-        \ 'build': {
-        \     'mac': 'make -f make_mac.mak',
-        \     'linux': 'make',
-        \     'unix': 'gmake',
-        \    },
+        \ 'build': 'make -f make_mac.mak',
         \ })
   call dein#add('vim-jp/vimdoc-ja')
   call dein#add('Shougo/neocomplete.vim', {
@@ -148,14 +145,14 @@ if dein#load_state(s:plugin_dir)
   call dein#add('pangloss/vim-javascript', {'on_ft' : 'javascript'})
 
   " coffee
-  call dein#add('kchmck/vim-coffee-script', {'on_ft' : 'coffee'})
+  " call dein#add('kchmck/vim-coffee-script', {'on_ft' : 'coffee'})
 
   " typescript
   call dein#add('leafgarland/typescript-vim', {'on_ft' : 'typescript'})
   call dein#add('clausreinke/typescript-tools', {'on_ft' : 'typescript'})
 
   " python
-  call dein#add('davidhalter/jedi-vim', {'lazy' : 1, 'on_ft' : 'python'})
+  " call dein#add('davidhalter/jedi-vim', {'lazy' : 1, 'on_ft' : 'python'})
   call dein#add('sophacles/vim-bundle-mako', {'on_ft' : 'mako'})
   call dein#add('hynek/vim-python-pep8-indent', {'on_ft' : 'python'})
 
@@ -230,6 +227,7 @@ if dein#load_state(s:plugin_dir)
   call dein#end()
   call dein#save_state()
 endif
+call map(dein#check_clean(), "delete(v:val, 'rf')")
 
 filetype plugin indent on
 " }}}
