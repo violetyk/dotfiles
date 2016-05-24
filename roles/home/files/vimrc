@@ -1491,6 +1491,9 @@ if dein#is_sourced('jedi.vim') " {{{
   let g:jedi#completions_enabled = 0
   let g:jedi#auto_vim_configuration = 0
 endif " }}}
+if dein#is_sourced('previm') " {{{
+  let g:previm_show_header = 0
+endif " }}}
 
 let g:rspec_command = "Dispatch spring rspec {spec}"
 let g:rspec_runner = "os_x_iterm"
