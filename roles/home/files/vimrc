@@ -3,7 +3,8 @@
 set nocompatible
 
 " Plugins {{{
-let g:dein#install_max_processes = 48
+" let g:dein#install_max_processes = 48
+let g:dein#install_max_processes = 2
 let g:dein#types#git#default_protocol = 'ssh'
 augroup PluginInstall
   autocmd!
@@ -26,9 +27,18 @@ if dein#load_state(s:plugin_dir)
 
   " base
   call dein#add('Shougo/dein.vim')
-  call dein#add('Shougo/vimproc.vim', {
-        \ 'build': 'make -f make_mac.mak',
-        \ })
+  if has('mac')
+    call dein#add('Shougo/vimproc.vim', {
+          \ 'build': 'make -f make_mac.mak',
+          \ })
+  else
+    call dein#add('Shougo/vimproc.vim', {
+          \ 'build': 'make',
+          \ })
+  endif
+  " call dein#add('Shougo/vimproc.vim', {
+        " \ 'build': 'make -f make_mac.mak',
+        " \ })
   call dein#add('vim-jp/vimdoc-ja')
   call dein#add('Shougo/neocomplete.vim', {
         \ 'if' : has('lua')
@@ -1401,8 +1411,6 @@ if dein#is_sourced('vim-gitgutter') " {{{
   nnoremap <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
 endif " }}}
 if dein#is_sourced('tagbar') " {{{
-  let g:tagbar_ctags_bin = $HOME . '/bin/ctags'
-
   let g:tagbar_type_markdown = {
       \ 'ctagstype': 'markdown',
       \ 'ctagsbin' : $HOME . '/.vim/bundle/repos/github.com/markdown2ctags/markdown2ctags.py',

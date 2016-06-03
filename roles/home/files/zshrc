@@ -38,7 +38,7 @@ done;
 unset file;
 
 # git completion
-if which brew > /dev/null; then
+if which brew > /dev/null 2>&1; then
   fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 fi
 
@@ -56,7 +56,7 @@ zstyle ':chpwd:*' recent-dirs-file "${XDG_CACHE_HOME:-$HOME/.cache}/chpwd-recent
 zstyle ':chpwd:*' recent-dirs-pushd true
 
 # peco
-if which peco > /dev/null; then
+if which peco > /dev/null 2>&1; then
   for f ($HOME/.zsh/peco-sources/*) source "${f}"
 
   # keybind
@@ -70,7 +70,7 @@ fi
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 
 ## direnv
-if which direnv > /dev/null; then
+if which direnv > /dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
 
