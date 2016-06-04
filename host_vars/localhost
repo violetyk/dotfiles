@@ -4,6 +4,7 @@ homebrew_repositories:
 
 homebrew_packages:
   - git
+  - git-lfs
   - gibo
   - hg
   - zsh
