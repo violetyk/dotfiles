@@ -94,7 +94,7 @@
 
 [push]
   # default = matching
-  # default = simple
+  default = simple
 
 [rebase]
   autostash = true
