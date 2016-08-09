@@ -1,14 +1,113 @@
 ---
 - hosts: localhost
   roles:
-    - home
-    - homebrew
-    - vim
-    - zsh
-    - dircolors
-    - php
-    - ruby
-    - golang
-    - vagrant
-    - packer
-    - workspace
+    - role: home
+      home_directories:
+        - bin
+        - tmp
+        - etc/profile.d
+        - swap
+        - undo
+        - backup
+        - tags
+        - src
+        - .trash
+        - .tmux
+      home_download_profiles:
+        - https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh
+      home_dotfiles:
+        - gitignore
+        - agignore
+        - gitconfig
+        - path
+        - exports
+        - aliases
+        - functions
+        - commonrc
+        - bashrc
+        - profile
+        - zsh
+        - zlogin
+        - zlogout
+        - zpreztorc
+        - zprofile
+        - zshenv
+        - zshrc
+        - zsh
+        - ctags
+        - my.cnf
+        - pryrc
+        - tigrc
+        - tmux.conf
+        - rspec
+        - vim
+        - vimrc
+        - gvimrc
+        - { name: Guardfile, hide: False }
+        - source-highlight
+    - role: homebrew
+      homebrew_repositories:
+        - sanemat/font
+      homebrew_packages:
+        - git
+        - git-lfs
+        - gibo
+        - hg
+        - zsh
+        - wget
+        - w3m
+        - tig
+        - ag
+        - tmux
+        - libevent
+        - fontforge
+        - bash-completion
+        - openssl
+        - coreutils
+        - source-highlight
+        - nodejs
+        - memcached
+        - redis
+        - mysql
+        - ctags
+        - automake
+        - pkg-config
+        - { name: ricty, install_options: 'powerline,vim-powerline' }
+        - jq
+        - ghq
+        - direnv
+        - peco
+        - pyenv
+        - pyenv-virtualenv
+    # - role: vim
+    - role: zsh
+    - role: dircolors
+    - role: php
+    - role: ruby
+      ruby_version: 2.3.0
+    - role: golang
+      golang_get_repostories:
+        - golang.org/x/tools/cmd/goimports
+        - golang.org/x/tools/cmd/godoc
+        - golang.org/x/tools/cmd/vet
+        - golang.org/x/tools/cmd/cover
+        - github.com/nsf/gocode
+        - github.com/golang/lint
+        - github.com/rogpeppe/godef
+        - github.com/jstemmer/gotags
+        - github.com/mattn/gom
+    - role: vagrant
+    - role: packer
+    - role: workspace
+      workspace_repositories:
+        - violetyk/cake.vim
+        - violetyk/cake3.vim
+        - violetyk/scratch-utility
+        - violetyk/w.vim
+        - violetyk/neosnippet-cakephp2
+        - violetyk/neosnippet-rails
+        - violetyk/neosnippet-aws-cloud-formation
+        - violetyk/neocomplete-php.vim
+        - violetyk/iikanji-markdown.vim
+        - violetyk/lab
+        - violetyk/graid

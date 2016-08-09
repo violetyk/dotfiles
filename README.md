@@ -9,7 +9,6 @@ dotfiles
 - mac.ymlに記述した `role` らをローカルのMacに構成します
 - 各 `role` の構成ファイルは `roles/` の各ディレクトリに対応します
 - 例えば `vim` のセットアップのタスクは `roles/vim/tasks/main.yml` です
-- `homebrew` でインストールするパッケージなどは `host_vars/localhost` にまとめて設定しています
 
 ## 使い方
 
