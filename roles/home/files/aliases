@@ -1,3 +1,7 @@
+# date
+alias ymd="date +'%Y%m%d'"
+alias ymdhis="date +'%Y%m%d%H%I%S'"
+
 # global aliases
 alias -g B='`git branch | peco | sed -e "s/^\*[ ]*//g"`'
 
@@ -18,7 +22,15 @@ alias h="history"
 alias j="jobs"
 alias rm='rm -i'
 alias cp='cp -i'
-alias vi='vim'
+case "$(uname)" in
+  Darwin)
+    if [[ -d /Applications/MacVim.app ]]; then
+      alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
+      alias vi=vim
+    fi
+    ;;
+  *) ;;
+esac
 alias wget='wget --no-check-certificate'
 alias grep='grep --color'
 alias vmstat='vmstat -S M'

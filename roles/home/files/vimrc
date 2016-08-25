@@ -197,6 +197,7 @@ if dein#load_state(s:plugin_dir)
   call dein#add('hail2u/vim-css3-syntax')
   call dein#add('elzr/vim-json')
   call dein#add('vim-scripts/nginx.vim')
+  call dein#add('Glench/Vim-Jinja2-Syntax')
 
   " gist
   call dein#add('mattn/gist-vim')
@@ -1427,7 +1428,8 @@ if dein#is_sourced('tagbar') " {{{
   \ }
 endif " }}}
 if dein#is_sourced('tagbar-phpctags.vim') " {{{
-  let g:tagbar_phpctags_bin = $HOME . '/bin/phpctags'
+  " let g:tagbar_phpctags_bin = $HOME . '/bin/phpctags'
+  let g:tagbar_phpctags_bin = 'phpctags'
   let g:tagbar_phpctags_memory_limit = '512M'
 endif " }}}
 if dein#is_sourced('vim-json') " {{{

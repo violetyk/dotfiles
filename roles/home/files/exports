@@ -15,11 +15,6 @@ if which brew > /dev/null 2>&1; then
   export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
 fi
 
-# MacVim.app
-if [ -e /Applications/MacVim.app/Contents/MacOS ]; then
-  export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
-fi
-
 # golang
 if [ -e $HOME/local/go ]; then
   export GOROOT=$HOME/local/go
