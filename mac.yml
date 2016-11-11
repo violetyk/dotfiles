@@ -51,6 +51,7 @@
       homebrew_packages:
         - git
         - git-lfs
+        - hub
         - gibo
         - hg
         - zsh
@@ -79,6 +80,7 @@
         - peco
         - pyenv
         - pyenv-virtualenv
+        - awscli
     # - role: vim
     - role: zsh
     - role: dircolors

@@ -15,3 +15,5 @@ __pycache__
 .*.un~
 .agignore
 composer.phar
+
+core.local.php

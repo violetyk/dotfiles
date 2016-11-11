@@ -3,8 +3,8 @@
 set nocompatible
 
 " Plugins {{{
-" let g:dein#install_max_processes = 48
-let g:dein#install_max_processes = 2
+let g:dein#install_max_processes = 48
+" let g:dein#install_max_processes = 2
 let g:dein#types#git#default_protocol = 'ssh'
 augroup PluginInstall
   autocmd!
@@ -77,7 +77,7 @@ if dein#load_state(s:plugin_dir)
   call dein#add('tpope/vim-endwise')
   call dein#add('vim-scripts/Modeliner')
   call dein#add('editorconfig/editorconfig-vim')
-  call dein#add('kana/vim-smartchr', {'lazy' : 1})
+  call dein#add('cohama/lexima.vim')
   call dein#add('kana/vim-smartinput', {'lazy' : 1})
   call dein#add('osyo-manga/vim-over')
   call dein#add('itchyny/vim-cursorword')
@@ -1414,7 +1414,7 @@ endif " }}}
 if dein#is_sourced('tagbar') " {{{
   let g:tagbar_type_markdown = {
       \ 'ctagstype': 'markdown',
-      \ 'ctagsbin' : $HOME . '/.vim/bundle/repos/github.com/markdown2ctags/markdown2ctags.py',
+      \ 'ctagsbin' : $HOME . '/.vim/bundle/repos/github.com/jszakmeister/markdown2ctags/markdown2ctags.py',
       \ 'ctagsargs' : '-f - --sort=yes',
       \ 'kinds' : [
           \ 's:sections',
@@ -1428,8 +1428,7 @@ if dein#is_sourced('tagbar') " {{{
   \ }
 endif " }}}
 if dein#is_sourced('tagbar-phpctags.vim') " {{{
-  " let g:tagbar_phpctags_bin = $HOME . '/bin/phpctags'
-  let g:tagbar_phpctags_bin = 'phpctags'
+  let g:tagbar_phpctags_bin = $HOME . '/src/github.com/techlivezheng/phpctags/build/phpctags.phar'
   let g:tagbar_phpctags_memory_limit = '512M'
 endif " }}}
 if dein#is_sourced('vim-json') " {{{
@@ -1504,6 +1503,29 @@ endif " }}}
 if dein#is_sourced('previm') " {{{
   let g:previm_show_header = 0
 endif " }}}
+if dein#is_sourced('vdebug') " {{{
+  let g:vdebug_keymap = {
+  \    "run" : "<F5>",
+  \    "run_to_cursor" : "<F9>",
+  \    "step_over" : "<F2>",
+  \    "step_into" : "<F3>",
+  \    "step_out" : "<F4>",
+  \    "close" : "<F6>",
+  \    "detach" : "<F7>",
+  \    "set_breakpoint" : "<F10>",
+  \    "get_context" : "<F11>",
+  \    "eval_under_cursor" : "<F12>",
+  \    "eval_visual" : "<Leader>e",
+  \}
+
+  " let g:vdebug_options = {
+        " \   'path_maps': {
+        " \       "/path/to/vagrant": "/path/to/local",
+        " \   },
+        " \}
+endif
+
+
 
 let g:rspec_command = "Dispatch spring rspec {spec}"
 let g:rspec_runner = "os_x_iterm"
