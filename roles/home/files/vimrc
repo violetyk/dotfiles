@@ -1437,8 +1437,7 @@ endif " }}}
 if dein#is_sourced('syntastic') " {{{
   let g:syntastic_mode_map = {
         \ 'map' : 'active',
-        \ 'active_filetypes' : ['javascript'],
-        \ 'passive_filetypes' : ['php'],
+        \ 'active_filetypes' : ['javascript', 'php'],
         \ }
 
   nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
