@@ -1,5 +1,7 @@
 Host *
   ForwardAgent yes
+  UseKeychain yes
+  AddKeysToAgent yes
   TCPKeepAlive yes
   ServerAliveInterval 60
   AddressFamily inet
