@@ -1,19 +1,27 @@
-*\.swp
-.gitconfig.local
+# vim
+.*.un~
+*~
+*.swp
 .init.vimrc
 .local.vimrc
-.vim/bundle/*
-.vim/manual/*
-tags
-setting.local.php
-[Kk]agaya*.php
-kagaya/
-.cake
 .netrwhist
-.vim/bundle/neobundle.vim
-__pycache__
-.*.un~
-.agignore
-composer.phar
+vim/bundle/*
+vim/manual/*
 
+# git
+.gitconfig.local
+
+# php
+.cake
+composer.phar
+setting.local.php
 core.local.php
+
+# debug
+kagaya/
+[Kk]agaya*.php
+
+# other
+__pycache__
+tags
+.agignore
