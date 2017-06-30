@@ -1,10 +1,7 @@
 " vim:set ts=4 sts=2 sw=2 tw=0 ft=vim fdm=marker:
 
-set nocompatible
-
 " Plugins {{{
 let g:dein#install_max_processes = 48
-" let g:dein#install_max_processes = 2
 let g:dein#types#git#default_protocol = 'ssh'
 augroup PluginInstall
   autocmd!
@@ -12,6 +9,7 @@ augroup PluginInstall
 augroup END
 
 command! -nargs=0 PluginUpdate call dein#update()
+command! -nargs=0 PluginClean call map(dein#check_clean(), "delete(v:val, 'rf')")
 
 let s:plugin_dir = expand('~/.vim/bundle/')
 let s:dein_dir = s:plugin_dir . 'repos/github.com/Shougo/dein.vim'
@@ -27,22 +25,9 @@ if dein#load_state(s:plugin_dir)
 
   " base
   call dein#add('Shougo/dein.vim')
-  if has('mac')
-    call dein#add('Shougo/vimproc.vim', {
-          \ 'build': 'make -f make_mac.mak',
-          \ })
-  else
-    call dein#add('Shougo/vimproc.vim', {
-          \ 'build': 'make',
-          \ })
-  endif
-  " call dein#add('Shougo/vimproc.vim', {
-        " \ 'build': 'make -f make_mac.mak',
-        " \ })
+  call dein#add('Shougo/vimproc.vim', {'build': 'make'})
   call dein#add('vim-jp/vimdoc-ja')
-  call dein#add('Shougo/neocomplete.vim', {
-        \ 'if' : has('lua')
-        \ })
+  call dein#add('Shougo/neocomplete.vim', {'if' : has('lua')})
   call dein#add('Shougo/neosnippet')
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('Shougo/neossh.vim')
@@ -78,7 +63,6 @@ if dein#load_state(s:plugin_dir)
   call dein#add('vim-scripts/Modeliner')
   call dein#add('editorconfig/editorconfig-vim')
   call dein#add('cohama/lexima.vim')
-  call dein#add('kana/vim-smartinput', {'lazy' : 1})
   call dein#add('osyo-manga/vim-over')
   call dein#add('itchyny/vim-cursorword')
 
@@ -89,7 +73,6 @@ if dein#load_state(s:plugin_dir)
 
   " filer
   call dein#add('scrooloose/nerdtree')
-  call dein#add('Shougo/vimfiler', {'lazy' : 1})
 
   " outliner
   call dein#add('majutsushi/tagbar')
@@ -113,8 +96,6 @@ if dein#load_state(s:plugin_dir)
 
   " git
   call dein#add('tpope/vim-fugitive')
-  call dein#add('jaxbot/github-issues.vim', {'lazy' : 1})
-  call dein#add('moznion/github-commit-comment.vim', {'lazy' : 1})
   call dein#add('rhysd/github-complete.vim')
   call dein#add('tyru/open-browser-github.vim')
   call dein#add('tyru/open-browser.vim')
@@ -162,7 +143,7 @@ if dein#load_state(s:plugin_dir)
   call dein#add('clausreinke/typescript-tools', {'on_ft' : 'typescript'})
 
   " python
-  " call dein#add('davidhalter/jedi-vim', {'lazy' : 1, 'on_ft' : 'python'})
+   call dein#add('davidhalter/jedi-vim', {'lazy' : 1, 'on_ft' : 'python'})
   call dein#add('sophacles/vim-bundle-mako', {'on_ft' : 'mako'})
   call dein#add('hynek/vim-python-pep8-indent', {'on_ft' : 'python'})
 
@@ -184,6 +165,7 @@ if dein#load_state(s:plugin_dir)
   call dein#add('jpo/vim-railscasts-theme')
   call dein#add('vim-scripts/pyte')
   call dein#add('cocopon/iceberg.vim')
+  call dein#add('ayu-theme/ayu-vim')
 
   " syntax
   call dein#add('Shougo/context_filetype.vim', {'lazy': 1})
@@ -238,12 +220,10 @@ if dein#load_state(s:plugin_dir)
   call dein#end()
   call dein#save_state()
 endif
-call map(dein#check_clean(), "delete(v:val, 'rf')")
 
-filetype plugin indent on
 " }}}
 
-" 基本的な設定: {{{
+" Basics: {{{
 
 " ビープ音を鳴らさない
 set vb t_vb=
@@ -269,7 +249,7 @@ set hidden
 set shortmess+=I
 
 "スクロール時の余白
-set scrolloff=5
+set scrolloff=3
 
 " splitしたときに下に出す。
 set splitbelow
@@ -285,13 +265,14 @@ set completeopt-=menu,preview
 
 " pasteモードの切り替えマッピング
 set pastetoggle=<C-p>
+
 " }}}
 
-" マウスの設定: {{{
+" Mouse: {{{
 set mouse=
 " }}}
 
-" 文字コードの設定 {{{
+" Encoding {{{
 
 " Vim内部で使われる文字エンコーディング
 set encoding=utf-8
@@ -310,11 +291,31 @@ set fileformats=unix,dos,mac
 
 " □とか○の文字があってもカーソル位置がずれないようにする
 set ambiwidth=double
-" set ambiwidth=single
 
 " }}}
 
-" バックアップ・スワップの設定 {{{
+" Indent & Tab (Base) {{{
+
+" オートインデントを無効にする
+"set noautoindent
+
+" タブが対応する空白の数
+set tabstop=2
+
+" タブやバックスペースの使用等の編集操作をするときに、タブが対応する空白の数
+set softtabstop=2
+
+" インデントの各段階に使われる空白の数
+set shiftwidth=2
+
+" タブはハードタブとして入力する
+" set noexpandtab
+" タブは空白として入力する（実際にTABを入力したい場合は<C-V><TAB>）
+set expandtab
+
+" }}}
+
+" Backup & Swap {{{
 
 " バックアップをとらない
 set nobackup
@@ -353,57 +354,20 @@ set updatecount=500
 
 " }}}
 
-" アンドゥ/リドゥの設定 {{{
-" set undofile
+" Undo & Redo {{{
+set noundofile
 " set undodir=$HOME/undo
 " }}}
 
-" クリップボードの設定 {{{
+" Clipboard {{{
 " クリップボードの共有
 set clipboard+=unnamedplus,unnamed
 " }}}
 
-" colorscheme {{{
-
-" 補完の色を変更
-" hi Pmenu ctermfg=Black ctermbg=Grey
-" hi PmenuSel ctermbg=Blue
-" hi PmenuSbar ctermbg=Cyan
-
-" 対応する括弧の色を控えめにしておく
-" hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
-
-  silent! colorscheme mrkn256
-" }}}
-
-" ハイライトの設定 {{{
-
-" 色のチェック方法
-" :so $VIMRUNTIME/syntax/colortest.vim
-
-
-" 全角スペースのハイライト
-function! s:highlight_zenkaku_space()
-  " エラーと同じ色
-  highlight link ZenkakuSpace Error
-  "highlight ZenkakuSpace cterm=underline ctermfg=red guibg=red
-
-  "全角スペースを明示的に表示する。
-  silent! match ZenkakuSpace /　/
-endfunction
-if has('syntax')
-  augroup ZenkakuSpace
-    autocmd!
-    autocmd VimEnter,BufEnter,WinEnter * nested call <SID>highlight_zenkaku_space()
-  augroup END
-endif
-
-" }}}
-
-" 検索・補完の設定 {{{
+" Search & Completion {{{
 
 " コマンド、検索パターンをn個まで履歴に残す
-set history=500
+set history=1000
 
 " 検索の時に大文字小文字を区別しない
 set ignorecase
@@ -430,12 +394,12 @@ set wildchar=<Tab>
 set showfulltag
 " }}}
 
-" 画面表示の設定 {{{
+" Window {{{
 
 " タイトルをウインドウ枠に表示する
 set title
 
-" 行番号を表示
+" 行番号
 set number
 
 " ルーラーを表示
@@ -485,7 +449,7 @@ set ttyfast
 
 " }}}
 
-" ステータスラインの設定 {{{
+" Status Line {{{
 
 " 入力中のコマンドをステータスに表示する
 set showcmd
@@ -501,28 +465,188 @@ set cmdheight=2
 
 " }}}
 
-" 共通のインデントの設定(ファイルタイプ別はafter/ftplugin/xxx.vimにて設定) {{{
+" Coloring {{{
 
-" オートインデントを無効にする
-"set noautoindent
+" 色のチェック方法
+" :so $VIMRUNTIME/syntax/colortest.vim
 
-" タブが対応する空白の数
-set tabstop=2
+" カラースキーマの指定
+set termguicolors
+" let ayucolor="light"
+" let ayucolor="mirage"
+let ayucolor="dark"
+silent! colorscheme ayu
 
-" タブやバックスペースの使用等の編集操作をするときに、タブが対応する空白の数
-set softtabstop=2
+" 補完の色を変更
+" hi Pmenu ctermfg=Black ctermbg=Grey
+" hi PmenuSel ctermbg=Blue
+" hi PmenuSbar ctermbg=Cyan
 
-" インデントの各段階に使われる空白の数
-set shiftwidth=2
+" 対応する括弧の色を控えめにしておく
+" hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
 
-" タブはハードタブとして入力する
-" set noexpandtab
-" タブは空白として入力する（実際にTABを入力したい場合は<C-V><TAB>）
-set expandtab
+" 全角スペースのハイライト
+function! s:highlight_zenkaku_space()
+  " エラーと同じ色
+  highlight link ZenkakuSpace Error
+  "highlight ZenkakuSpace cterm=underline ctermfg=red guibg=red
+
+  "全角スペースを明示的に表示する。
+  silent! match ZenkakuSpace /　/
+endfunction
+if has('syntax')
+  augroup ZenkakuSpace
+    autocmd!
+    autocmd VimEnter,BufEnter,WinEnter * nested call <SID>highlight_zenkaku_space()
+  augroup END
+endif
+
+highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=22
+highlight DiffDelete cterm=bold ctermfg=10 ctermbg=52
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=17
+highlight DiffText   cterm=bold ctermfg=10 ctermbg=21
+" }}}
+
+" Keybind {{{
+
+"
+"   調べる方法
+"   :map
+"
+"   それぞれのモードだけ表示
+"   :nmap
+"   :imap
+"   :vmap
+"
+"   ショートカットキーの定義元ファイル情報も表示
+"   :verbose nmap
+"
+" |-----------------|--------|--------|---------|--------|
+" | mode / no remap | normal | insert | command | visual |
+" |-----------------|--------|--------|---------|--------|
+" | map  / noremap  | o      | -      | -       | o      |
+" | nmap / nnoremap | o      | -      | -       | -      |
+" | imap / inoremap | -      | o      | -       | -      |
+" | cmap / cnoremap | -      | -      | o       | -      |
+" | vmap / vnoremap | -      | -      | -       | o      |
+" | map! / noremap! | -      | o      | o       | -      |
+" |-----------------|--------|--------|---------|--------|
+
+
+" 移動操作 {{{
+nnoremap <silent>bf :bf<CR>
+nnoremap <silent>bp :bprevious<CR>
+nnoremap <silent>bn :bnext<CR>
+nnoremap <silent>bl :bl<CR>
+nnoremap <silent>bb :b#<CR>
+nnoremap <silent>bm :bm<CR>
+nnoremap <silent>bd :bdelete<CR>
+nnoremap <silent>bs :split #<CR>
+nnoremap <silent>bv :vsplit #<CR>
+nnoremap <silent>bt :tabedit #<CR>
+
+" 分割幅を広く
+noremap <PageUp> 3<C-w>+
+" 分割幅を狭く
+noremap <PageDown> 3<C-w>-
+
+noremap <C-j> :<C-u>cnext<CR>
+noremap <C-k> :<C-u>cprevious<CR>
+
+" タブ移動
+nnoremap gl gt
+nnoremap gh gT
+
+" 縦分割版gf
+nnoremap gs :vertical wincmd f<CR>
+
+" タグジャンプで複数ある時は一覧表示
+nnoremap <C-]> g<C-]><Space>
+
+" 移動量の調節
+nnoremap <C-e> 10<C-e>
+nnoremap <C-y> 10<C-y>
+" }}}
+
+" 検索操作 {{{
+
+" ハイライトを消す。
+noremap <silent> <Esc><Esc> :<C-u>set nohlsearch<Return>
+
+" 新しく別の単語を検索するときだけハイライトして、nやNでの移動はハイライトしたくない
+nnoremap / :<C-u>set hlsearch<Return>/
+nnoremap ? :<C-u>set hlsearch<Return>?
+nnoremap * :<C-u>set hlsearch<Return>*
+nnoremap # :<C-u>set hlsearch<Return>#
+
+" ビジュアルモードで選択した範囲を検索
+vnoremap / <ESC>/\%V
+vnoremap ? <ESC>?\%V
+
+" 検索時に/をエスケープ
+cnoremap <expr>/ getcmdtype() == '/' ? '\/' : '/'
 
 " }}}
 
-" 共通オートコマンド {{{
+" 編集操作 {{{
+
+" ～まで、を少し便利にする。
+onoremap ) t)
+onoremap ( t(
+onoremap ; t;
+onoremap , t,
+vnoremap ) t)
+vnoremap ( t(
+vnoremap ; t;
+vnoremap , t,
+
+" 貼り付けの後「=」でフォーマッティングは面倒なので、いつでもカレント行のインデントにあわせた貼り付けをする。
+nnoremap p ]p
+nnoremap P ]P
+
+" カーソル位置の単語を置換 s* と打鍵してから置き換え文字を打って /g エンターで発動。
+nnoremap <expr> s* ':%substitute/\<' . expand('<cword>') . '\>/'
+
+" レジスタやマークを確認しやすくする。
+nnoremap <Space>m :<C-u>marks<Space>
+nnoremap <Space>r :<C-u>registers<Space>
+
+" 行末に;を追加する。
+inoremap <expr>;; <SID>is_endof_line(";") ? "<C-O>$" : "<C-O>$;"
+nnoremap <expr>;; <SID>is_endof_line(";") ? "$" : "$a;<Esc>"
+
+" 行末に,を追加する。
+inoremap <expr>,, <SID>is_endof_line(";") ? "<C-O>$" : "<C-O>$,"
+nnoremap <expr>,, <SID>is_endof_line(";") ? "$" : "$a,<Esc>"
+
+
+" 最後に編集したテキストを選択。
+nnoremap gc `[v`]
+vnoremap gc :<C-u>normal gc<CR>
+onoremap gc :<C-u>normal gc<CR>
+
+" 行末までヤンク
+nnoremap Y y$
+
+" w!! でsudoしつつ保存
+cnoremap w!! w !sudo tee > /dev/null %
+" }}}
+
+" その他の操作 {{{
+
+" ヘルプを引きやすくする
+nnoremap <C-h> :<C-u>help<Space>
+nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
+
+" ev / eg ですぐに.vimrcを開けるようにする。rv / rg で反映させる。
+nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
+
+" }}}
+
+"}}}
+
+" Auto Commands {{{
 
 augroup MyAutoCommands
   autocmd!
@@ -547,7 +671,7 @@ augroup END
 
 " }}}
 
-" コマンド {{{
+" Commands {{{
 
 " 戦闘力を計測
 function! s:scouter(file, ...) " {{{
@@ -618,184 +742,19 @@ endfunction " }}}
 command! -range Copy :call s:Copy()
 
 " アプリケーションでファイルを開く
-function! s:open_file_in(app, file)
+function! s:open_file_in(app, file) " {{{
   let f = len(a:file) > 0 ? fnamemodify(a:file, ':p') : expand('%:p')
   if has("win32") || has("win64")
     silent exec "!start cmd /c call " . a:app . " " . shellescape(f)
   else
     silent exec "!" . a:app . " " . shellescape(f) " &"
   endif
-endfunction
+endfunction "}}}
 command! -nargs=? -complete=file OpenAtom call s:open_file_in('atom', <q-args>)
 
 " }}}
 
-" keybindの設定 {{{
-
-"   ユーザ設定
-"   map
-"
-"   デフォルト設定
-"   map!
-"
-"   調べる方法。
-"   :map
-"
-"   それぞれのモードだけ表示。
-"   :nmap
-"   :imap
-"   :vmap
-"
-"   ショートカットキーの定義元ファイル情報も表示。
-"   :verbose nmap
-"
-" |------------------|----------|----------|-----------|----------|
-" | mode             | normal   | insert   | command   | visual   |
-" |------------------|----------|----------|-----------|----------|
-" | map / noremap    | yes      | no       | no        | yes      |
-" | nmap / nnoremap  | yes      | no       | no        | no       |
-" | imap / inoremap  | no       | yes      | no        | no       |
-" | cmap / cnoremap  | no       | no       | yes       | no       |
-" | vmap / vnoremap  | no       | no       | no        | yes      |
-" | map! / noremap!  | no       | yes      | yes       | no       |
-" |------------------|----------|----------|-----------|----------|
-
-
-" 移動操作 {{{
-nnoremap <silent>bf :bf<CR>
-nnoremap <silent>bp :bprevious<CR>
-nnoremap <silent>bn :bnext<CR>
-nnoremap <silent>bl :bl<CR>
-nnoremap <silent>bb :b#<CR>
-nnoremap <silent>bm :bm<CR>
-nnoremap <silent>bd :bdelete<CR>
-nnoremap <silent>bs :split #<CR>
-nnoremap <silent>bv :vsplit #<CR>
-nnoremap <silent>bt :tabedit #<CR>
-
-" 分割幅を広く
-map <PageUp> 3<C-w>+
-" 分割幅を狭く
-map <PageDown> 3<C-w>-
-
-" 分割ウィンドウに移動して大きくする
-" noremap <C-j> <C-w>j<C-w>_
-" noremap <C-k> <C-w>k<C-w>_
-
-noremap <C-j> :<C-u>cnext<CR>
-noremap <C-k> :<C-u>cprevious<CR>
-
-" Ctrl+Nで次のバッファを表示
-" map <silent> <C-N> :bnext<CR>
-" Ctrl+Pで前のバッファを表示
-" map <silent> <C-P> :bprevious<CR>
-
-" タブ移動
-nnoremap gl gt
-nnoremap gh gT
-
-" 行の先頭、末尾移動
-noremap <Space>h ^
-noremap <Space>l $
-
-" 縦分割版gf
-nnoremap gs :vertical wincmd f<CR>
-
-" タグジャンプで複数ある時は一覧表示
-nnoremap <C-]> g<C-]><Space>
-
-
-" 移動量の調節
-nnoremap <C-e> 10<C-e>
-nnoremap <C-y> 10<C-y>
-" }}}
-
-" 検索操作 {{{
-
-" ハイライトを消す。
-noremap <silent> <Esc><Esc> :<C-u>set nohlsearch<Return>
-
-" 新しく別の単語を検索するときだけハイライトして、nやNでの移動はハイライトしたくない
-nnoremap / :<C-u>set hlsearch<Return>/
-nnoremap ? :<C-u>set hlsearch<Return>?
-nnoremap * :<C-u>set hlsearch<Return>*
-nnoremap # :<C-u>set hlsearch<Return>#
-
-" ビジュアルモードで選択した範囲を検索
-vnoremap z/ <ESC>/\%V
-vnoremap z? <ESC>?\%V
-
-" 検索時に/をエスケープ
-cnoremap <expr>/ getcmdtype() == '/' ? '\/' : '/'
-
-" }}}
-
-" 編集操作 {{{
-
-" ～まで、を少し便利にする。
-onoremap ) t)
-onoremap ( t(
-onoremap ; t;
-onoremap , t,
-vnoremap ) t)
-vnoremap ( t(
-vnoremap ; t;
-vnoremap , t,
-
-" 貼り付けの後「=」でフォーマッティングは面倒なので、いつでもカレント行のインデントにあわせた貼り付けをする。
-nnoremap p ]p
-nnoremap P ]P
-
-" カーソル位置の単語を置換 s* と打鍵してから置き換え文字を打って /g エンターで発動。
-if dein#is_sourced('vim-over')
-  nnoremap <expr> s* ':<C-u>OverCommandLine %s/\<' . expand('<cword>') . '\>/<CR>'
-  vnoremap <expr> s ":<C-u>OverCommandLine '<,'>s/<CR>"
-else
-  nnoremap <expr> s* ':%substitute/\<' . expand('<cword>') . '\>/'
-endif
-
-" レジスタやマークを確認しやすくする。
-nnoremap <Space>m :<C-u>marks<Space>
-nnoremap <Space>r :<C-u>registers<Space>
-
-" 行末に;を追加する。
-inoremap <expr>;; <SID>is_endof_line(";") ? "<C-O>$" : "<C-O>$;"
-nnoremap <expr>;; <SID>is_endof_line(";") ? "$" : "$a;<Esc>"
-
-" 行末に,を追加する。
-inoremap <expr>,, <SID>is_endof_line(";") ? "<C-O>$" : "<C-O>$,"
-nnoremap <expr>,, <SID>is_endof_line(";") ? "$" : "$a,<Esc>"
-
-
-" 最後に編集したテキストを選択。
-nnoremap gc `[v`]
-vnoremap gc :<C-u>normal gc<CR>
-onoremap gc :<C-u>normal gc<CR>
-
-" 行末までヤンク
-nnoremap Y y$
-
-" w!! でsudoしつつ保存
-cmap w!! w !sudo tee > /dev/null %
-
-
-" }}}
-
-" その他 {{{
-
-" ヘルプを引きやすくする
-nnoremap <C-h> :<C-u>help<Space>
-nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
-
-" ev / eg ですぐに.vimrcを開けるようにする。rv / rg で反映させる。
-nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
-
-" }}}
-
-"}}}
-
-" プラグインの設定 {{{
+" Plugin Settings {{{
 
 if dein#is_sourced('nerdcommenter') " {{{
   "未対応ファイルタイプのエラーメッセージを表示しない
@@ -1530,4 +1489,12 @@ let g:rspec_command = "Dispatch spring rspec {spec}"
 let g:rspec_runner = "os_x_iterm"
 nnoremap <silent><leader>s :<C-u>call Run
 nnoremap <silent><leader>t :<C-u>call RunNearestSpec()<CR>
+" }}}
+if dein#is_sourced('vim-over') "{{{
+  nnoremap <expr> s* ':<C-u>OverCommandLine %s/\<' . expand('<cword>') . '\>/<CR>'
+  vnoremap <expr> s ":<C-u>OverCommandLine '<,'>s/<CR>"
+endif
+" }}}
+
+filetype plugin indent on
 " }}}
