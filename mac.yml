@@ -60,6 +60,7 @@
         - tig
         - ag
         - tmux
+        - reattach-to-user-namespace
         - libevent
         - fontforge
         - bash-completion
