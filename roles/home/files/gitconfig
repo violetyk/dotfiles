@@ -40,7 +40,7 @@
   ba = branch -a           # originも含めた全てのbranchを表示
   bm = branch --merged     # merge済みのbranchを表示
   bn = branch --no-merged  # mergeしてないbranchを表示
-  delete-merged-branches = "!$SHELL -c 'git branch --merged | grep -vE \"^\\*|master$|develop$\" | xargs -I % git branch -d %'"
+  delete-merged-branches = "!$SHELL -c 'git branch --merged | grep -vE \"^\\*|master$|develop|development$\" | xargs -I % git branch -d %'"
 
 
   # remote show origin
@@ -89,10 +89,10 @@
   excludesfile = ~/.gitignore
 
 [diff]
-  tool = vimdiff
+  tool = /Applications/MacVim.app/Contents/MacOS/vimdiff
 
 [merge]
-  tool = vimdiff
+  tool = /Applications/MacVim.app/Contents/MacOS/vimdiff
 
 [include]
   path = .gitconfig.sh

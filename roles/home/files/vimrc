@@ -65,6 +65,7 @@ if dein#load_state(s:plugin_dir)
   call dein#add('cohama/lexima.vim')
   call dein#add('osyo-manga/vim-over')
   call dein#add('itchyny/vim-cursorword')
+  call dein#add('AndrewRadev/switch.vim')
 
   " text objects
   call dein#add('akiyan/vim-textobj-php')
@@ -106,6 +107,7 @@ if dein#load_state(s:plugin_dir)
 
   " php
   call dein#add('joonty/vdebug', {'lazy' : 1, 'on_ft' : 'php'})
+  call dein#add('Rican7/php-doc-modded')
 
   " ruby
   call dein#add('vim-ruby/vim-ruby', {'on_ft' : 'ruby'})
@@ -476,6 +478,7 @@ set termguicolors
 " let ayucolor="mirage"
 let ayucolor="dark"
 silent! colorscheme ayu
+" silent! colorscheme mrkn256
 
 " 補完の色を変更
 " hi Pmenu ctermfg=Black ctermbg=Grey
@@ -1494,6 +1497,21 @@ if dein#is_sourced('vim-over') "{{{
   nnoremap <expr> s* ':<C-u>OverCommandLine %s/\<' . expand('<cword>') . '\>/<CR>'
   vnoremap <expr> s ":<C-u>OverCommandLine '<,'>s/<CR>"
 endif
+" }}}
+if dein#is_sourced('switch.vim') "{{{
+  let g:switch_mapping = "-"
+endif
+" }}}
+
+" php-doc-modded
+nnoremap <Leader>d :<C-u>call PhpDocSingle()<CR>a 
+let g:pdv_cfg_autoEndClass = 0
+let g:pdv_cfg_autoEndFunction = 0
+let g:pdv_cfg_annotation_Package = 0
+let g:pdv_cfg_annotation_Version = 0
+let g:pdv_cfg_annotation_Author = 0
+let g:pdv_cfg_annotation_Copyright = 0
+let g:pdv_cfg_annotation_License = 0
 " }}}
 
 filetype plugin indent on
