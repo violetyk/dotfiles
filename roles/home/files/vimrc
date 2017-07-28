@@ -36,7 +36,6 @@ if dein#load_state(s:plugin_dir)
   call dein#add('kana/vim-metarw')
   call dein#add('mattn/webapi-vim')
   call dein#add('vim-jp/vital.vim')
-  call dein#add('thinca/vim-ref')
   call dein#add('thinca/vim-quickrun')
   call dein#add('thinca/vim-localrc')
 

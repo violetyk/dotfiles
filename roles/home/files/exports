@@ -32,6 +32,12 @@ if which pyenv-virtualenv-init > /dev/null 2>&1; then
   eval "$(pyenv virtualenv-init -)";
 fi
 
+# aws
+export AWS_DEFAULT_REGION=ap-northeast-1
+export AWS_DEFAULT_OUTPUT=json # json or table or text
+export AWS_DEFAULT_PROFILE=dev
+export AWS_CONFIG_FILE=~/.aws/config
+export AWS_CREDENTIAL_FILE=~/.aws/credentials
 
 export GEM_EDITOR=vi
 export VISUAL=vi
