@@ -64,6 +64,7 @@ if which peco > /dev/null 2>&1; then
   bindkey '^s' peco-ghq-look
   bindkey '^b' peco-git-branches
   bindkey '^j' peco-cdr
+  # bindkey '^h' peco-ssh
 fi
 
 # tmuxinator

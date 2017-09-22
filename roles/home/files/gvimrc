@@ -4,7 +4,10 @@
 " let g:solarized_contrast="row"
 " silent! colorscheme solarized
 
-silent! colorscheme hybrid
+" silent! colorscheme hybrid
+" let ayucolor="dark"
+" silent! colorscheme ayu
+silent! colorscheme jellybeans
 
 " マウスを使う。
 " set mouse=a
@@ -19,6 +22,8 @@ set guioptions=ceg
 " ヤンクの内容や、選択した内容をクリップボードに格納する。
 set clipboard=unnamed,autoselect
 
+" 勝手にIMEのON/OFFがされないようにする
+set imdisable
 
 if has('win32') || has('win64')
   " Windows の gvim でフォントを設定するには guifont オプションと guifontwide オプションを使う。
@@ -36,13 +41,11 @@ if has('win32') || has('win64')
   " 起動したときに最大化
   au GUIEnter * simalt ~x
 
-
 elseif has('mac')
-
   set guifont=Ricty\ Regular\ for\ Powerline:h13
-
+  set fuoptions=maxvert,maxhorz
+  " au GUIEnter * set fullscreen
 elseif has('gui_gtk2')
   set guifont=Terminus-ja\ 11
   " set guifont=Migu\ 1M\ 11
-
 endif
