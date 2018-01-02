@@ -23,3 +23,4 @@
       if which brew > /dev/null 2>&1; then
         export PATH="$(brew --prefix homebrew/php/php71)/bin:$PATH"
       fi
+      export PATH=$HOME/.composer/vendor/bin:$PATH
