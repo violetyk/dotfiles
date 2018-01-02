@@ -88,6 +88,7 @@
       tags: awscli
     - role: zsh
     - role: dircolors
+      tags: dircolors
     - role: php
       tags: php
     - role: ruby

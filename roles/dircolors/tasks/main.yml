@@ -16,3 +16,16 @@
     dest={{ ansible_env.HOME }}/.dircolors
     state=link
     force=yes
+
+- name: place a profile file
+  copy:
+    dest: '{{ ansible_env.HOME }}/etc/profile.d/dircolors'
+    content: |
+      if [ -f ~/.dircolors ]; then
+        if type dircolors > /dev/null 2>&1; then
+          eval $(dircolors ~/.dircolors)
+        elif type gdircolors > /dev/null 2>&1; then
+          eval $(gdircolors ~/.dircolors)
+        fi
+      fi
+
