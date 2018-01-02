@@ -75,6 +75,7 @@ if [[ ! -d "$TMPPREFIX" ]]; then
   mkdir -p "$TMPPREFIX"
 fi
 
-
-
-export PATH="$HOME/.cargo/bin:$PATH"
+# 各シェル共通
+commonprofile=$HOME/.commonprofile
+[ -r "$commonprofile" ] && [ -f "$commonprofile" ] && source "$commonprofile";
+unset commonprofile;

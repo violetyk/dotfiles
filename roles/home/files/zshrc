@@ -31,11 +31,6 @@ GIT_PS1_SHOWCOLORHINTS=true
 export PROMPT='[%n@%m %1~%F{green}$(__git_ps1 " (%s)")%f]%(#.#.$) '
 
 # Customize to your needs...
-#
-# 各シェル共通
-commonrc=$HOME/.commonrc
-[ -r "$commonrc" ] && [ -f "$commonrc" ] && source "$commonrc";
-unset commonrc;
 
 # git completion
 if which brew > /dev/null 2>&1; then

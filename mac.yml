@@ -24,7 +24,7 @@
         - exports
         - aliases
         - functions
-        - commonrc
+        - commonprofile
         - bashrc
         - profile
         - zsh

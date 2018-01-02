@@ -21,8 +21,3 @@ fi
 
 ## direnv
 eval "$(direnv hook bash)"
-
-# 各シェル共通
-commonrc=$HOME/.commonrc
-[ -r "$commonrc" ] && [ -f "$commonrc" ] && source "$commonrc";
-unset commonrc;
