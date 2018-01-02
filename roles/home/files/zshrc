@@ -67,8 +67,6 @@ if which peco > /dev/null 2>&1; then
   # bindkey '^h' peco-ssh
 fi
 
-# tmuxinator
-[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 
 ## direnv
 if which direnv > /dev/null 2>&1; then
@@ -105,7 +103,7 @@ function _composer {
 };
 compdef _composer composer;
 
-# awscli
+# awscli(via pip install)
 [[ -s /usr/local/bin/aws_zsh_completer.sh ]] && source /usr/local/bin/aws_zsh_completer.sh
 
 PATH="/Users/violetyk/perl5/bin${PATH:+:${PATH}}"; export PATH;

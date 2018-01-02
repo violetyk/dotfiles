@@ -6,7 +6,7 @@
 
 - name: place a exports file
   copy:
-    dest: '{{ ansible_env.HOME }}/etc/exports.d/awscli'
+    dest: '{{ ansible_env.HOME }}/etc/profile.d/awscli'
     content: |
       export AWS_DEFAULT_REGION=ap-northeast-1
       export AWS_DEFAULT_OUTPUT=json # json or table or text
