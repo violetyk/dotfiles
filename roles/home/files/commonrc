@@ -26,5 +26,8 @@ done;
 unset d;
 
 
+export EDITOR=vi
+export VISUAL=vi # less中にvで開くエディタ
+export TERM=xterm-256color
 
 # vim: set et fenc=utf-8 ff=unix ft=sh sts=2 sw=2 ts=2 : 
