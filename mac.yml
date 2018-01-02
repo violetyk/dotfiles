@@ -7,7 +7,6 @@
         - bin
         - tmp
         - etc/profile.d
-        - etc/exports.d
         - swap
         - undo
         - backup
@@ -90,6 +89,7 @@
     - role: zsh
     - role: dircolors
     - role: php
+      tags: php
     - role: ruby
       ruby_version: 2.3.0
     - role: golang

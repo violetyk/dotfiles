@@ -8,7 +8,12 @@ if [ -f ~/.dircolors ]; then
   fi
 fi
 
-for d in $HOME/etc/{profile.d,exports.d}; do
+for file in $HOME/.{path,exports,aliases,functions}; do
+  [ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
+
+for d in $HOME/etc/{profile.d}; do
   if [ -d "$d" ]; then
     for i in $d/*; do
       if [ -r "$i" ]; then
@@ -24,7 +29,6 @@ for d in $HOME/etc/{profile.d,exports.d}; do
   fi
 done;
 unset d;
-
 
 export EDITOR=vi
 export VISUAL=vi # less中にvで開くエディタ

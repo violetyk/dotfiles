@@ -4,9 +4,9 @@
     name=source-highlight
     state=latest
 
-- name: place a exports file
+- name: place a profile file
   copy:
-    dest: '{{ ansible_env.HOME }}/etc/exports.d/source-highlight'
+    dest: '{{ ansible_env.HOME }}/etc/profile.d/source-highlight'
     content: |
       if which source-highlight > /dev/null 2>&1; then
         export LESS='-iMR'
