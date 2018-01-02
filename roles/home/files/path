@@ -1,2 +1,0 @@
-PATH=$HOME/.composer/vendor/bin:$HOME/bin:$HOME/local/bin:$HOME/.local/bin:$HOME/local/go/bin:$PATH:/bin:/sbin
-# vim: set et fenc=utf-8 ff=unix ft=sh sts=2 sw=2 ts=2 : 
