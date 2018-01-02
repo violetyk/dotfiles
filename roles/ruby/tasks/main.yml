@@ -3,7 +3,6 @@
   homebrew: >
     name={{ item }}
     state=latest
-    update_homebrew=yes
   with_items:
     - rbenv
     - ruby-build
@@ -31,3 +30,12 @@
 
 - name: rbenv rehash
   command: rbenv rehash
+
+- name: place a profile file
+  copy:
+    dest: '{{ ansible_env.HOME }}/etc/profile.d/ruby'
+    content: |
+      export GEM_EDITOR=vi
+      if which rbenv > /dev/null 2>&1; then eval "$(rbenv init -)"; fi
+      # tmuxinator
+      [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator

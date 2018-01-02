@@ -91,7 +91,8 @@
     - role: php
       tags: php
     - role: ruby
-      ruby_version: 2.3.0
+      tags: ruby
+      ruby_version: 2.5.0
     - role: golang
       tags: golang
       golang_get_repositories:
@@ -119,3 +120,9 @@
         - violetyk/iikanji-markdown.vim
         - violetyk/lab
         - violetyk/graid
+  post_tasks:
+    - name: reload shell profile
+      shell: exec $SHELL -l
+      tags:
+        # 常に実行する特殊タグ（--skip-tags alwaysでスキップ）
+        - always
