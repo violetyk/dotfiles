@@ -13,22 +13,19 @@ for file in $HOME/.{path,exports,aliases,functions}; do
 done;
 unset file;
 
-for d in $HOME/etc/{profile.d}; do
-  if [ -d "$d" ]; then
-    for i in $d/*; do
-      if [ -r "$i" ]; then
-        # シェルスクリプトの時は$PS1がsetされないことを利用して判定
-        if [ "$PS1" ]; then
-          . "$i"
-        else
-          . "$i" >/dev/null 2>&1
-        fi
+if [ -d $HOME/etc/profile.d ]; then
+  for i in $HOME/etc/profile.d/*; do
+    if [ -r "$i" ]; then
+      # シェルスクリプトの時は$PS1がsetされないことを利用して判定
+      if [ "$PS1" ]; then
+        . "$i"
+      else
+        . "$i" >/dev/null 2>&1
       fi
-    done
-    unset i
-  fi
-done;
-unset d;
+    fi
+  done
+  unset i
+fi
 
 export EDITOR=vi
 export VISUAL=vi # less中にvで開くエディタ
