@@ -55,7 +55,6 @@
         - hub
         - gibo
         - hg
-        - zsh
         - wget
         - w3m
         - tig
