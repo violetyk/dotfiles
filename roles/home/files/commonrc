@@ -8,20 +8,23 @@ if [ -f ~/.dircolors ]; then
   fi
 fi
 
-if [ -d ~/etc/profile.d ]; then
-  for i in ~/etc/profile.d/*; do
-    if [ -r "$i" ]; then
-      # シェルスクリプトの時は$PS1がsetされないことを利用して判定
-      if [ "$PS1" ]; then
-        . "$i"
-      else
-        . "$i" >/dev/null 2>&1
+for d in $HOME/etc/{profile.d,exports.d}; do
+  if [ -d "$d" ]; then
+    for i in $d/*; do
+      if [ -r "$i" ]; then
+        # シェルスクリプトの時は$PS1がsetされないことを利用して判定
+        if [ "$PS1" ]; then
+          . "$i"
+        else
+          . "$i" >/dev/null 2>&1
+        fi
       fi
-    fi
-  done
+    done
+    unset i
+  fi
+done;
+unset d;
 
-  unset i
-fi
 
 
 # vim: set et fenc=utf-8 ff=unix ft=sh sts=2 sw=2 ts=2 : 

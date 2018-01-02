@@ -1,0 +1,14 @@
+---
+- name: brew install source-highlight
+  homebrew: >
+    name=source-highlight
+    state=latest
+
+- name: place a exports file
+  copy:
+    dest: '{{ ansible_env.HOME }}/etc/exports.d/source-highlight'
+    content: |
+      if which source-highlight > /dev/null 2>&1; then
+        export LESS='-iMR'
+        export LESSOPEN='| {{ role_path }}/files/src-hilite-lesspipe.sh %s'
+      fi

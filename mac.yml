@@ -2,10 +2,12 @@
 - hosts: localhost
   roles:
     - role: home
+      tags: home
       home_directories:
         - bin
         - tmp
         - etc/profile.d
+        - etc/exports.d
         - swap
         - undo
         - backup
@@ -44,8 +46,8 @@
         - vimrc
         - gvimrc
         - { name: Guardfile, hide: False }
-        - source-highlight
     - role: homebrew
+      tags: homebrew
       homebrew_repositories:
         - sanemat/font
       homebrew_packages:
@@ -66,7 +68,6 @@
         - bash-completion
         - openssl
         - coreutils
-        - source-highlight
         - nodejs
         - memcached
         - redis
@@ -83,6 +84,8 @@
         - pyenv-virtualenv
         - awscli
     # - role: vim
+    - role: source-highlight
+      tags: source-highlight
     - role: zsh
     - role: dircolors
     - role: php
