@@ -82,10 +82,11 @@
         - peco
         - pyenv
         - pyenv-virtualenv
-        - awscli
     # - role: vim
     - role: source-highlight
       tags: source-highlight
+    - role: awscli
+      tags: awscli
     - role: zsh
     - role: dircolors
     - role: php
