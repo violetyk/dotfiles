@@ -1,11 +1,3 @@
-# golang
-if [ -e $HOME/local/go ]; then
-  export GOROOT=$HOME/local/go
-fi
-export GOPATH=$HOME
-# export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-
 # pyenv, pyenv-virtual-env
 export PYENV_ROOT=/usr/local/var/pyenv
 if which pyenv > /dev/null 2>&1; then

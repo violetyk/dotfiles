@@ -1,4 +1,9 @@
 ---
+- name: set fact for golang
+  set_fact:
+    golang:
+      gopath: "{{ lookup('env', 'HOME') }}"
+
 - name: brew install go
   homebrew: >
     name={{ item }}
@@ -8,7 +13,16 @@
     - go
 
 - name: go get
-  command: go get {{ item }}
-  with_items: golang_get_repositories
+  # -uで常に最新
+  shell: go get -u {{ item }}
+  with_items: '{{ golang_get_repositories }}'
   environment:
-    GOPATH: "{{ lookup('env', 'HOME') }}"
+    GOPATH: '{{ golang.gopath }}'
+
+- name: place a profile file
+  copy:
+    dest: '{{ ansible_env.HOME }}/etc/profile.d/golang'
+    content: |
+      export GOPATH={{ golang.gopath }}
+      export PATH=$PATH:$GOPATH/bin
+
