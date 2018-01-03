@@ -85,7 +85,10 @@
       tags: source-highlight
     - role: awscli
       tags: awscli
-    - role: zsh
+    - role: fish
+      tags: fish
+    # - role: zsh
+      # tags: zsh
     - role: dircolors
       tags: dircolors
     - role: php

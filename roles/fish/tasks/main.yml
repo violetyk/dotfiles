@@ -1,0 +1,15 @@
+---
+- name: brew install fish
+  homebrew: >
+    name=fish
+    state=latest
+
+- name: add /usr/local/bin/fish to /etc/shells
+  lineinfile:
+    dest: /etc/shells
+    line: /usr/local/bin/fish
+  become: yes
+
+- name: switch default shell
+  shell: chsh -s /usr/local/bin/fish {{ ansible_user_id }}
+  become: yes
