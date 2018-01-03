@@ -13,3 +13,18 @@
 - name: switch default shell
   shell: chsh -s /usr/local/bin/fish {{ ansible_user_id }}
   become: yes
+
+- name: install plugin manager
+  shell: curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
+
+- name: install plugins
+  shell: fisher install {{ item  }}
+  args:
+    executable: /usr/local/bin/fish
+  with_items:
+    - z
+
+- name: update fisherman
+  shell: fisher update
+  args:
+    executable: /usr/local/bin/fish
