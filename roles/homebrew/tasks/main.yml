@@ -1,7 +1,9 @@
 ---
 - name: brew tap
-  homebrew_tap: tap={{ item }} state=present
-  with_items: homebrew_repositories
+  homebrew_tap: >
+    tap='{{item}}'
+    state=present
+  with_items: '{{homebrew_repositories}}'
 
 - name: brew update
   homebrew: update_homebrew=yes
@@ -14,7 +16,7 @@
     name={{ item.name | default(item) }}
     state={{ item.state | default('latest') }}
     install_options={{ item.install_options | default('') }}
-  with_items: homebrew_packages
+  with_items: '{{homebrew_packages}}'
 
 - name: retrieve the list of generated ricty fonts
   shell: "brew info ricty | grep -e '^  /usr/local/Cellar/ricty/.*\\.ttf$' | xargs -I echo"
@@ -22,7 +24,7 @@
 
 - name: install ricty fonts
   command: cp -f "{{ item }}" $HOME/Library/Fonts/
-  with_items: reg_font_files.stdout_lines
+  with_items: '{{reg_font_files.stdout_lines}}'
 
 - name: build font information caches
   command: fc-cache -vf

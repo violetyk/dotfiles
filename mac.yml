@@ -20,8 +20,6 @@
         - gitignore
         - agignore
         - gitconfig
-        - path
-        - exports
         - aliases
         - functions
         - commonprofile
@@ -78,6 +76,7 @@
         - ghq
         - direnv
         - peco
+        - fd
         - pyenv
         - pyenv-virtualenv
     # - role: vim
