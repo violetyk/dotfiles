@@ -14,6 +14,20 @@
   shell: chsh -s /usr/local/bin/fish {{ ansible_user_id }}
   become: yes
 
+- name: link config files
+  file: >
+    src='{{role_path}}/files/{{item}}'
+    dest='{{ansible_env.HOME}}/.config/fish/{{item}}'
+    state=link
+    force=yes
+  with_items:
+    - config.fish
+    - functions/peco_select_history.fish
+    - functions/peco_select_ghq_look.fish
+    - functions/peco_select_git_checkout.fish
+    - functions/git_branch_mru.fish
+    - functions/peco_select_spotlight.fish
+
 - name: install plugin manager
   shell: curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
 
@@ -22,9 +36,16 @@
   args:
     executable: /usr/local/bin/fish
   with_items:
+    - rafaelrinaldi/pure
     - z
+    - 0rax/fish-bd
 
 - name: update fisherman
   shell: fisher update
+  args:
+    executable: /usr/local/bin/fish
+
+- name: update completions
+  shell: fish_update_completions
   args:
     executable: /usr/local/bin/fish
