@@ -26,3 +26,10 @@
       export GOPATH={{ golang.gopath }}
       export PATH=$PATH:$GOPATH/bin
 
+- name: place a fish config
+  copy:
+    dest: '{{ ansible_env.HOME }}/.config/fish/conf.d/golang.fish'
+    content: |
+      set -x GOPATH {{ golang.gopath }}
+      set -x PATH $GOPATH/bin $PATH
+
