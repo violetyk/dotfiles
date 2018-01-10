@@ -26,7 +26,8 @@
     - functions/peco_select_ghq_look.fish
     - functions/peco_select_git_checkout.fish
     - functions/git_branch_mru.fish
-    - functions/peco_select_spotlight.fish
+    - functions/peco_select_fd_edit.fish
+    - functions/peco_select_fd_cd.fish
 
 - name: install plugin manager
   shell: curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
