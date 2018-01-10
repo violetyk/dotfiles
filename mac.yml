@@ -14,6 +14,7 @@
         - src
         - .trash
         - .tmux
+        - .config/fish/conf.d
       home_download_profiles:
         - https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh
       home_dotfiles:
