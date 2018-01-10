@@ -122,6 +122,7 @@
         - violetyk/iikanji-markdown.vim
         - violetyk/lab
         - violetyk/graid
+        - mbadolato/iTerm2-Color-Schemes 
   post_tasks:
     - name: reload shell profile
       shell: exec $SHELL -l
