@@ -15,6 +15,7 @@
     - php71-mcrypt
     - composer
     - phpctags
+    - psysh
 
 - name: place a profile file
   copy:
