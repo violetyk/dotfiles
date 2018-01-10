@@ -8,3 +8,21 @@ function fish_user_key_bindings
   bind \cr peco_select_history
   bind \cb peco_select_git_checkout
 end
+
+if status --is-interactive
+  set -g fish_user_abbreviations
+  abbr --add 'rm' 'rm -i'
+  abbr --add 'cp' 'cp -i'
+  abbr --add 'lll' 'ls -alh'
+  abbr --add 'h' 'history'
+  abbr --add 'j' 'jobs'
+  abbr --add 'ag' 'ag -S --stats'
+  abbr --add 'agh' 'ag --hidden'
+  abbr --add 'wget' 'wget --no-check-certificate'
+  abbr --add 'grep' 'grep --color'
+end
+
+if test -d /Applications/MacVim.app
+  alias 'vim' '/Applications/MacVim.app/Contents/MacOS/Vim'
+  alias 'vi' 'vim'
+end
