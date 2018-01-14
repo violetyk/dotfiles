@@ -1,227 +1,189 @@
 " vim:set ts=4 sts=2 sw=2 tw=0 ft=vim fdm=marker:
 
 " Plugins {{{
-let g:dein#install_max_processes = 48
-let g:dein#types#git#default_protocol = 'ssh'
-augroup PluginInstall
-  autocmd!
-  autocmd VimEnter * if dein#check_install() | call dein#install() | endif
-augroup END
+let s:plugin_dir = expand('~/.vim/plugged/')
 
-command! -nargs=0 PluginUpdate call dein#update()
-command! -nargs=0 PluginClean call map(dein#check_clean(), "delete(v:val, 'rf')")
-
-let s:plugin_dir = expand('~/.vim/bundle/')
-let s:dein_dir = s:plugin_dir . 'repos/github.com/Shougo/dein.vim'
-execute 'set runtimepath+=' . s:dein_dir
-
-if !isdirectory(s:dein_dir)
-  call mkdir(s:dein_dir, 'p')
-  silent execute printf('!git clone %s %s', 'https://github.com/Shougo/dein.vim', s:dein_dir)
+if !filereadable(expand('~/.vim/autoload/plug.vim'))
+  call system('curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+  if v:shell_error
+    echoerr 'could not install vim-plug.'
+    exit
+  end
 endif
 
-if dein#load_state(s:plugin_dir)
-  call dein#begin(s:plugin_dir)
-
-  " base
-  call dein#add('Shougo/dein.vim')
-  call dein#add('Shougo/vimproc.vim', {'build': 'make'})
-  call dein#add('vim-jp/vimdoc-ja')
-  call dein#add('Shougo/neocomplete.vim', {'if' : has('lua')})
-  call dein#add('Shougo/neosnippet')
-  call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('Shougo/neossh.vim')
-  call dein#add('kana/vim-gf-user')
-  call dein#add('kana/vim-textobj-user')
-  call dein#add('kana/vim-metarw')
-  call dein#add('mattn/webapi-vim')
-  call dein#add('vim-jp/vital.vim')
-  call dein#add('thinca/vim-quickrun')
-  call dein#add('thinca/vim-localrc')
-
-  " unite
-  call dein#add('Shougo/unite.vim')
-  call dein#add('ujihisa/unite-colorscheme', {'depends' : 'Shougo/unite.vim'})
-  call dein#add('ujihisa/unite-locate', {'depends' : 'Shougo/unite.vim'})
-  call dein#add('tacroe/unite-mark', {'depends' : 'Shougo/unite.vim'})
-  call dein#add('zhaocai/unite-scriptnames', {'depends' : 'Shougo/unite.vim'})
-  call dein#add('thinca/vim-editvar', {'depends' : 'Shougo/unite.vim'})
-  call dein#add('thinca/vim-unite-history', {'depends' : 'Shougo/unite.vim'})
-  call dein#add('ujihisa/unite-launch', {'depends' : 'Shougo/unite.vim'})
-  call dein#add('Shougo/neomru.vim', {'depends' : 'Shougo/unite.vim'})
-  call dein#add('tsukkee/unite-tag', {'depends' : 'Shougo/unite.vim'})
-  call dein#add('sorah/unite-ghq', {'depends' : 'Shougo/unite.vim'})
-
-  " editing
-  call dein#add('vim-scripts/matchit.zip')
-  call dein#add('vim-scripts/Align')
-  call dein#add('scrooloose/nerdcommenter')
-  call dein#add('mattn/emmet-vim')
-  call dein#add('tpope/vim-surround')
-  call dein#add('tpope/vim-endwise')
-  call dein#add('vim-scripts/Modeliner')
-  call dein#add('editorconfig/editorconfig-vim')
-  call dein#add('cohama/lexima.vim')
-  call dein#add('osyo-manga/vim-over')
-  call dein#add('itchyny/vim-cursorword')
-  call dein#add('AndrewRadev/switch.vim')
-
-  " text objects
-  call dein#add('akiyan/vim-textobj-php')
-  call dein#add('akiyan/vim-textobj-xml-attribute')
-  call dein#add('rhysd/vim-textobj-ruby')
-
-  " filer
-  call dein#add('scrooloose/nerdtree')
-
-  " outliner
-  call dein#add('majutsushi/tagbar')
-  call dein#add('vim-php/tagbar-phpctags.vim')
-
-  " database
-  call dein#add('vim-scripts/dbext.vim')
-  call dein#add('vim-scripts/SQLUtilities')
-
-  " navigation
-  call dein#add('sgur/vim-gf-autoload')
-  call dein#add('t9md/vim-choosewin')
-
-  " sign
-  call dein#add('nathanaelkane/vim-indent-guides', {'lazy' : 1})
-  call dein#add('airblade/vim-gitgutter', {'lazy' : 1})
-
-  " search
-  call dein#add('osyo-manga/vim-anzu')
-  call dein#add('rking/ag.vim')
-
-  " git
-  call dein#add('tpope/vim-fugitive')
-  call dein#add('rhysd/github-complete.vim')
-  call dein#add('tyru/open-browser-github.vim')
-  call dein#add('tyru/open-browser.vim')
-  call dein#add('takahirojin/gbr.vim')
-
-  " Vim script
-  call dein#add('thinca/vim-prettyprint', {'on_ft' : 'vim'})
-
-  " php
-  call dein#add('joonty/vdebug',  {'on_ft' : 'php'})
-  call dein#add('Rican7/php-doc-modded')
-
-  " ruby
-  call dein#add('vim-ruby/vim-ruby', {'on_ft' : 'ruby'})
-  call dein#add('tpope/vim-rails', {'on_ft' : 'ruby'})
-  call dein#add('tpope/vim-bundler', {'on_ft' : 'ruby'})
-  call dein#add('tpope/vim-rake', {'on_ft' : 'ruby'})
-  call dein#add('slim-template/vim-slim.git', {'on_ft' : 'slim'})
-  call dein#add('tpope/vim-dispatch', {'on_ft' : 'ruby'})
-  call dein#add('thoughtbot/vim-rspec', {'on_ft' : 'ruby'})
-
-  " golang
-  call dein#add('vim-jp/vim-go-extra', {'on_ft' : 'go'})
-  call dein#add('dgryski/vim-godef', {
-        \ 'on_ft' : 'go',
-        \ 'rtp' : $GOPATH . '/src/github.com/nsf/gocode/vim'
-        \ })
-
-  " toml
-  call dein#add('cespare/vim-toml',  {'on_ft' : 'toml'})
-
-  " markdown
-  call dein#add('godlygeek/tabular', {'on_ft' : ['markdown', 'md']})
-  call dein#add('kannokanno/previm', {'on_ft' : ['markdown', 'md']})
-  call dein#add('jszakmeister/markdown2ctags', {'rtp': ''})
-
-  " javascript
-  call dein#add('marijnh/tern_for_vim', {'on_ft' : 'javascript'})
-  call dein#add('pangloss/vim-javascript', {'on_ft' : 'javascript'})
-
-  " coffee
-  " call dein#add('kchmck/vim-coffee-script', {'on_ft' : 'coffee'})
-
-  " typescript
-  call dein#add('leafgarland/typescript-vim', {'on_ft' : 'typescript'})
-  call dein#add('clausreinke/typescript-tools', {'on_ft' : 'typescript'})
-
-  " python
-   call dein#add('davidhalter/jedi-vim', {'lazy' : 1, 'on_ft' : 'python'})
-  call dein#add('sophacles/vim-bundle-mako', {'on_ft' : 'mako'})
-  call dein#add('hynek/vim-python-pep8-indent', {'on_ft' : 'python'})
-
-  " syntax checking
-  call dein#add('scrooloose/syntastic')
-
-  " statusline
-  call dein#add('itchyny/lightline.vim')
-
-  " colorscheme
-  call dein#add('mrkn/mrkn256.vim')
-  call dein#add('w0ng/vim-hybrid')
-  call dein#add('tomasr/molokai')
-  call dein#add('altercation/vim-colors-solarized')
-  call dein#add('nanotech/jellybeans.vim')
-  call dein#add('chriskempson/tomorrow-theme', {
-        \ 'rtp': s:plugin_dir . 'repos/github.com/chriskempson/tomorrow-theme/vim/',
-        \ })
-  call dein#add('jpo/vim-railscasts-theme')
-  call dein#add('vim-scripts/pyte')
-  call dein#add('cocopon/iceberg.vim')
-  call dein#add('ayu-theme/ayu-vim')
-
-  " syntax
-  call dein#add('Shougo/context_filetype.vim', {'lazy': 1})
-  call dein#add('osyo-manga/vim-precious', {
-        \ 'depends' : ['Shougo/context_filetype.vim', 'kana/vim-textobj-user'],
-        \ 'lazy': 1
-        \ })
-  " call dein#add('jelera/vim-javascript-syntax')
-  " call dein#add('othree/javascript-libraries-syntax.vim')
-  call dein#add('othree/html5.vim')
-  call dein#add('hail2u/vim-css3-syntax')
-  call dein#add('elzr/vim-json')
-  call dein#add('vim-scripts/nginx.vim')
-  call dein#add('Glench/Vim-Jinja2-Syntax')
-  call dein#add('dag/vim-fish')
-
-  " gist
-  call dein#add('mattn/gist-vim')
-  call dein#add('lambdalisue/vim-gista')
-
-  " system
-  call dein#add('mopp/autodirmake.vim')
-
-  " local
-  call dein#local('~/src/github.com/violetyk',
-        \ {
-        \   'frozen' : 1,
-        \   'depends' : [
-        \     'kana/vim-gf-user',
-        \     'Shougo/neosnippet.vim',
-        \     'vim-jp/vital.vim'
-        \   ]
-        \ },
-        \ [
-        \   '*.vim',
-        \   'neosnippet-*',
-        \   'neocomplete-*',
-        \   'scratch-utility'
-        \ ])
-  call dein#local('~/src/github.com/violetyk/lab',
-        \ {
-        \   'frozen' : 1,
-        \   'depends' : [
-        \     'kana/vim-gf-user',
-        \     'Shougo/neosnippet.vim',
-        \     'vim-jp/vital.vim'
-        \   ]
-        \ },
-        \ [
-        \   '*.vim'
-        \ ])
-
-  call dein#end()
-  call dein#save_state()
+if !isdirectory(s:plugin_dir)
+  call mkdir(s:plugin_dir, 'p')
 endif
+
+call plug#begin(s:plugin_dir)
+
+" base
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'vim-jp/vimdoc-ja'
+if has('lua') | Plug 'Shougo/neocomplete.vim' | endif
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neossh.vim'
+Plug 'kana/vim-gf-user'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-metarw'
+Plug 'mattn/webapi-vim'
+Plug 'vim-jp/vital.vim'
+Plug 'thinca/vim-quickrun'
+Plug 'thinca/vim-localrc'
+
+" unite
+Plug 'Shougo/unite.vim'
+Plug 'ujihisa/unite-colorscheme'
+Plug 'ujihisa/unite-locate'
+Plug 'tacroe/unite-mark'
+Plug 'zhaocai/unite-scriptnames'
+Plug 'thinca/vim-unite-history'
+Plug 'ujihisa/unite-launch'
+Plug 'Shougo/neomru.vim'
+Plug 'tsukkee/unite-tag'
+Plug 'sorah/unite-ghq'
+
+" editing
+Plug 'vim-scripts/matchit.zip'
+Plug 'vim-scripts/Align'
+Plug 'scrooloose/nerdcommenter'
+Plug 'mattn/emmet-vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise', { 'for' : 'ruby' }
+Plug 'vim-scripts/Modeliner'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'cohama/lexima.vim'
+Plug 'osyo-manga/vim-over'
+Plug 'AndrewRadev/switch.vim'
+
+" text objects
+Plug 'akiyan/vim-textobj-php', { 'for' : ['php', 'ctp', 'html'] }
+Plug 'akiyan/vim-textobj-xml-attribute'
+Plug 'rhysd/vim-textobj-ruby', { 'for' : ['ruby', 'rtb', 'slim', 'haml'] }
+
+" filer
+Plug 'scrooloose/nerdtree'
+
+" outliner
+Plug 'majutsushi/tagbar'
+Plug 'vim-php/tagbar-phpctags.vim'
+
+" database
+Plug 'vim-scripts/dbext.vim'
+Plug 'vim-scripts/SQLUtilities'
+
+" navigation
+Plug 'sgur/vim-gf-autoload'
+Plug 't9md/vim-choosewin'
+
+" sign
+Plug 'airblade/vim-gitgutter'
+
+" search
+Plug 'osyo-manga/vim-anzu'
+Plug 'rking/ag.vim'
+
+" git
+Plug 'tpope/vim-fugitive'
+Plug 'rhysd/github-complete.vim'
+Plug 'tyru/open-browser-github.vim'
+Plug 'tyru/open-browser.vim'
+Plug 'takahirojin/gbr.vim'
+
+" Vim script
+Plug 'thinca/vim-prettyprint', { 'for' : 'vim' }
+
+" php
+Plug 'joonty/vdebug', {'for' : 'php'}
+Plug 'Rican7/php-doc-modded', {'for' : 'php'}
+
+" ruby
+Plug 'vim-ruby/vim-ruby', {'for' : 'ruby'}
+Plug 'tpope/vim-rails', {'for' : 'ruby'}
+Plug 'tpope/vim-bundler', {'for' : 'ruby'}
+Plug 'tpope/vim-rake', {'for' : 'ruby'}
+Plug 'slim-template/vim-slim', {'for' : 'slim'}
+Plug 'tpope/vim-dispatch', {'for' : 'ruby'}
+Plug 'thoughtbot/vim-rspec', {'for' : 'ruby'}
+
+" golang
+Plug 'vim-jp/vim-go-extra', {'for' : 'go'}
+Plug 'dgryski/vim-godef', {'for' : 'go', 'rtp' : $GOPATH . '/src/github.com/nsf/gocode/vim'}
+
+" toml
+Plug 'cespare/vim-toml',  {'for' : 'toml'}
+
+" markdown
+Plug 'godlygeek/tabular', {'for' : ['markdown', 'md']}
+Plug 'kannokanno/previm', {'for' : ['markdown', 'md']}
+Plug 'jszakmeister/markdown2ctags', {'rtp': ''}
+
+" javascript
+Plug 'marijnh/tern_for_vim', {'for' : 'javascript'}
+Plug 'pangloss/vim-javascript', {'for' : 'javascript'}
+Plug 'jelera/vim-javascript-syntax', {'for' : 'javascript'}
+Plug 'othree/javascript-libraries-syntax.vim', {'for' : 'javascript'}
+Plug 'elzr/vim-json', {'for' : 'javascript'}
+
+" coffee
+Plug 'kchmck/vim-coffee-script', {'for' : 'coffee'}
+
+" typescript
+Plug 'leafgarland/typescript-vim', {'for' : 'typescript'}
+Plug 'clausreinke/typescript-tools', {'for' : 'typescript'}
+
+" python
+Plug 'davidhalter/jedi-vim', {'for' : 'python'}
+Plug 'sophacles/vim-bundle-mako', {'for' : 'mako'}
+Plug 'hynek/vim-python-pep8-indent', {'for' : 'python'}
+
+" syntax checking
+Plug 'scrooloose/syntastic'
+
+" statusline
+Plug 'itchyny/lightline.vim'
+
+" colorscheme
+"Plug 'mrkn/mrkn256.vim'
+"Plug 'w0ng/vim-hybrid'
+"Plug 'tomasr/molokai'
+"Plug 'altercation/vim-colors-solarized'
+Plug 'nanotech/jellybeans.vim'
+"Plug 'ayu-theme/ayu-vim'
+
+" html
+Plug 'othree/html5.vim'
+
+" css
+Plug 'hail2u/vim-css3-syntax'
+
+" nginx
+Plug 'chr4/nginx.vim', {'for' : 'nginx'}
+
+" jinja2
+Plug 'Glench/Vim-Jinja2-Syntax'
+
+" fish
+Plug 'dag/vim-fish', {'for' : 'fish'}
+
+" gist
+Plug 'mattn/gist-vim'
+Plug 'lambdalisue/vim-gista'
+
+" system
+Plug 'mopp/autodirmake.vim'
+
+" local
+Plug '~/src/github.com//violetyk/cake.vim'
+Plug '~/src/github.com//violetyk/iikanji-markdown.vim'
+Plug '~/src/github.com//violetyk/neocomplete-php.vim'
+Plug '~/src/github.com//violetyk/neosnippet-aws-cloud-formation'
+Plug '~/src/github.com//violetyk/neosnippet-cakephp2'
+Plug '~/src/github.com//violetyk/neosnippet-rails'
+Plug '~/src/github.com//violetyk/scratch-utility'
+
+call plug#end()
 
 " }}}
 
@@ -759,14 +721,21 @@ command! -nargs=? -complete=file OpenAtom call s:open_file_in('atom', <q-args>)
 " }}}
 
 " Plugin Settings {{{
+function s:is_plugged(name)
+  if exists('g:plugs') && has_key(g:plugs, a:name) && isdirectory(g:plugs[a:name].dir)
+    return 1
+  else
+    return 0
+  endif
+endfunction
 
-if dein#is_sourced('nerdcommenter') " {{{
+if s:is_plugged('nerdcommenter') " {{{
   "未対応ファイルタイプのエラーメッセージを表示しない
   let NERDShutUp=1
   " /**/をスペース空けて/* */
   let NERDSpaceDelims = 1
 endif " }}}
-if dein#is_sourced('nerdtree') " {{{
+if s:is_plugged('nerdtree') " {{{
   " カラー表示するか
   let NERDChristmasTree = 1
   " 起動時に隠しファイルを表示するか（あとで切り替えられる）
@@ -784,12 +753,7 @@ if dein#is_sourced('nerdtree') " {{{
   let NERDTreeHijackNetrw = 0
   let NERDTreeAutoCenter = 0
 endif " }}}
-if dein#is_sourced('vimfiler') " {{{
-  let g:vimfiler_as_default_explorer=1
-  nnoremap <silent> <Leader>e :<C-u>VimFiler -split -toggle -simple -winwidth=30 -no-quit -project -create<CR>
-  nnoremap <silent> <Leader>f :<C-u>VimFilerBuffer -split -toggle -simple -winwidth=30 -no-quit -project -create<CR>
-endif " }}}
-if dein#is_sourced('taglist.vim') " {{{
+if s:is_plugged('taglist.vim') " {{{
   let Tlist_Ctags_Cmd = "ctags"
 
   let Tlist_Inc_Winwidth = 1
@@ -854,7 +818,7 @@ if dein#is_sourced('taglist.vim') " {{{
     set tags=./tags,tags
   endif
 endif " }}}
-if dein#is_sourced('neocomplete.vim') " {{{
+if s:is_plugged('neocomplete.vim') " {{{
   " Disable AutoComplPop.
   let g:acp_enableAtStartup = 0
   " Use neocomplete.
@@ -947,7 +911,7 @@ if dein#is_sourced('neocomplete.vim') " {{{
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    if dein#is_sourced('jedi.vim')
+    if s:is_plugged('jedi.vim')
       autocmd FileType python setlocal omnifunc=jedi#completions
     else
       autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
@@ -972,8 +936,7 @@ if dein#is_sourced('neocomplete.vim') " {{{
 
   let g:neocomplete#force_overwrite_completefunc = 1
 endif " }}}
-
-if dein#is_sourced('neosnippet') " {{{
+if s:is_plugged('neosnippet') " {{{
 
   function! s:setup_neosnippets()
     if exists('b:rails_root')
@@ -1015,7 +978,7 @@ if dein#is_sourced('neosnippet') " {{{
     " set conceallevel=2 concealcursor=i
   " endif
 endif " }}}
-if dein#is_sourced('unite.vim') " {{{
+if s:is_plugged('unite.vim') " {{{
   " To track long mru history.
   let g:unite_source_file_mru_long_limit = 3000
   let g:unite_source_directory_mru_long_limit = 3000
@@ -1125,7 +1088,7 @@ if dein#is_sourced('unite.vim') " {{{
   nnoremap [unite]y   :<C-u>Unite history/yank -start-insert<CR>
 
 endif " }}}
-if dein#is_sourced('scratch-utility') " {{{
+if s:is_plugged('scratch-utility') " {{{
   nmap <silent> <Leader>b <Plug>ShowScratchBuffer
 
   " スクラッチバッファを開くマッピングを定義しない
@@ -1140,7 +1103,7 @@ if dein#is_sourced('scratch-utility') " {{{
         \   'take_over_filetype' : 1
         \ }
 endif "}}}
-if dein#is_sourced('emmet.vim') " {{{
+if s:is_plugged('emmet.vim') " {{{
   " デフォルトは<C-Y>
   " let g:user_emmet_leader_key = '<C-Space>'
 
@@ -1171,7 +1134,7 @@ if dein#is_sourced('emmet.vim') " {{{
         \  },
         \}
 endif "}}}
-if dein#is_sourced('cake.vim') " {{{
+if s:is_plugged('cake.vim') " {{{
   let g:cakephp_gf_fallback_n = "normal \<Plug>(gf-user-gf)"
   let g:cakephp_gf_fallback_s = "normal \<Plug>(gf-user-\<C-w>f)"
   let g:cakephp_gf_fallback_t = "normal \<Plug>(gf-user-\<C-w>gf)"
@@ -1215,13 +1178,13 @@ if dein#is_sourced('cake.vim') " {{{
   endfunction " }}}
 
 endif "}}}
-if dein#is_sourced('vim-surround') " {{{
+if s:is_plugged('vim-surround') " {{{
   let g:surround_{char2nr("p")} = "<?php \r ?>"
 endif " }}}
-if dein#is_sourced('Modeliner') " {{{
+if s:is_plugged('Modeliner') " {{{
   let g:Modeliner_format='ft= et ff= fenc= sts= sw= ts='
 endif " }}}
-if dein#is_sourced('vim-fugitive') " {{{
+if s:is_plugged('vim-fugitive') " {{{
   " nnoremap <Space>gd :<C-u>Gdiff<Enter>
   " nnoremap <Space>gs :<C-u>Gstatus<Enter>
   " nnoremap <Space>gl :<C-u>Glog<Enter>
@@ -1230,7 +1193,7 @@ if dein#is_sourced('vim-fugitive') " {{{
   " nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
   " nnoremap <Space>gb :<C-u>Gblame<Enter>
 endif " }}}
-if dein#is_sourced('dbext.vim') " {{{
+if s:is_plugged('dbext.vim') " {{{
   " let g:dbext_default_profile_xxxx      = 'type=MYSQL:user=mysql:passwd=mysql:dbname=hoge:host=localhost:port=3306:buffer_lines=50'
   " let g:dbext_default_window_use_horiz = 0  " Use vertical split
   let g:dbext_default_window_use_horiz = 1  " Use horizontal split
@@ -1256,18 +1219,12 @@ if dein#is_sourced('dbext.vim') " {{{
     echo "Connect Database : " . a:profile
   endfunction
 endif " }}}
-if dein#is_sourced('vim-localrc') " {{{
+if s:is_plugged('vim-localrc') " {{{
   " ディレクトリごとにvimの設定を用意するファイル名
   let g:localrc_filename = '.local.vimrc'
   silent! call localrc#load('.init.vimrc', $HOME)
 endif " }}}
-if dein#is_sourced('vim-indent-guides') " {{{
-  let g:indent_guides_enable_on_vim_startup = 0
-  let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar']
-  let g:indent_guides_start_level = 2
-  let g:indent_guides_guide_size = 1
-endif " }}}
-if dein#is_sourced('vim-anzu') " {{{
+if s:is_plugged('vim-anzu') " {{{
   nmap n <Plug>(anzu-n)zv
   nmap N <Plug>(anzu-N)zv
   nmap * <Plug>(anzu-star)zv
@@ -1277,7 +1234,7 @@ if dein#is_sourced('vim-anzu') " {{{
     autocmd CursorHold,CursorHoldI,WinLeave,TabLeave * call anzu#clear_search_status()
   augroup END
 endif " }}}
-if dein#is_sourced('vim-precious') " {{{
+if s:is_plugged('vim-precious') " {{{
   let g:precious_enable_switchers = {
         \ "*" : {
         \   "setfiletype" : 0
@@ -1287,7 +1244,7 @@ if dein#is_sourced('vim-precious') " {{{
         \ },
         \}
 endif " }}}
-if dein#is_sourced('lightline.vim') " {{{
+if s:is_plugged('lightline.vim') " {{{
   let g:lightline = {
         \ 'colorscheme': 'jellybeans',
         \ 'mode_map': {'c': 'NORMAL'},
@@ -1364,10 +1321,10 @@ if dein#is_sourced('lightline.vim') " {{{
   endfunction
 
 endif " }}}
-if dein#is_sourced('tern_for_vim') " {{{
+if s:is_plugged('tern_for_vim') " {{{
   " let g:tern_show_argument_hints = 'on_hold'
 endif " }}}
-if dein#is_sourced('vim-gitgutter') " {{{
+if s:is_plugged('vim-gitgutter') " {{{
   let g:gitgutter_enabled = 1
   let g:gitgutter_realtime = 0
   nmap gj <Plug>GitGutterNextHunk
@@ -1375,10 +1332,10 @@ if dein#is_sourced('vim-gitgutter') " {{{
   nnoremap <Leader>gg :<C-u>GitGutterToggle<CR>
   nnoremap <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
 endif " }}}
-if dein#is_sourced('tagbar') " {{{
+if s:is_plugged('tagbar') " {{{
   let g:tagbar_type_markdown = {
       \ 'ctagstype': 'markdown',
-      \ 'ctagsbin' : $HOME . '/.vim/bundle/repos/github.com/jszakmeister/markdown2ctags/markdown2ctags.py',
+      \ 'ctagsbin' : $HOME . '/.vim/plugged/markdown2ctags/markdown2ctags.py',
       \ 'ctagsargs' : '-f - --sort=yes',
       \ 'kinds' : [
           \ 's:sections',
@@ -1391,14 +1348,14 @@ if dein#is_sourced('tagbar') " {{{
       \ 'sort': 0,
   \ }
 endif " }}}
-if dein#is_sourced('tagbar-phpctags.vim') " {{{
+if s:is_plugged('tagbar-phpctags.vim') " {{{
   let g:tagbar_phpctags_bin = $HOME . '/src/github.com/techlivezheng/phpctags/build/phpctags.phar'
   let g:tagbar_phpctags_memory_limit = '512M'
 endif " }}}
-if dein#is_sourced('vim-json') " {{{
+if s:is_plugged('vim-json') " {{{
   let g:vim_json_syntax_conceal = 0
 endif " }}}
-if dein#is_sourced('syntastic') " {{{
+if s:is_plugged('syntastic') " {{{
   let g:syntastic_mode_map = {
         \ 'map' : 'active',
         \ 'active_filetypes' : ['javascript', 'php'],
@@ -1407,7 +1364,7 @@ if dein#is_sourced('syntastic') " {{{
   nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
   cabbrev <silent> bd lclose\|bdelete
 endif " }}}
-if dein#is_sourced('vim-quickrun') " {{{
+if s:is_plugged('vim-quickrun') " {{{
   let g:quickrun_config = {
         \   "coffee" : {
         \     'command': 'coffee',
@@ -1416,7 +1373,7 @@ if dein#is_sourced('vim-quickrun') " {{{
         \ }
   nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 endif " }}}
-if dein#is_sourced('vim-choosewin') " {{{
+if s:is_plugged('vim-choosewin') " {{{
   nmap  <C-w><CR>  <Plug>(choosewin)
 
   " オーバーレイを使う
@@ -1429,14 +1386,14 @@ if dein#is_sourced('vim-choosewin') " {{{
   let g:choosewin_statusline_replace = 0 " どうかステータスラインリプレイスしないで下さい!
   let g:choosewin_tabline_replace    = 0 " どうかタブラインもリプレイスしないでいただきたい！
 endif " }}}
-if dein#is_sourced('neocomplete-php.vim') " {{{
+if s:is_plugged('neocomplete-php.vim') " {{{
   let g:neocomplete_php_locale = 'ja'
 endif " }}}
-" if dein#is_sourced('github-issues.vim') " {{{
+" if s:is_plugged('github-issues.vim') " {{{
   " let g:github_upstream_issues = 1
   " let g:gissues_default_remote = 'github'
 " endif " }}}
-if dein#is_sourced('github-complete.vim') " {{{
+if s:is_plugged('github-complete.vim') " {{{
   let g:github_complete_enable_neocomplete = 1
   let g:github_complete_enable_emoji_completion = 1
   let g:github_complete_enable_issue_completion = 1
@@ -1445,28 +1402,24 @@ if dein#is_sourced('github-complete.vim') " {{{
   let g:github_complete_emoji_japanese_workaround = 1
 
 endif " }}}
-if dein#is_sourced('w.vim') " {{{
-  let g:w_note_dir     = $HOME . '/Dropbox/w.vim/notes/'
-  let g:w_database_dir = $HOME . '/Dropbox/w.vim/'
-endif " }}}
-if dein#is_sourced('gist-vim') " {{{
+if s:is_plugged('gist-vim') " {{{
   let g:gist_privates = 1
   let g:gist_detect_filetype = 1
   let g:gist_show_privates = 1
   let g:gist_put_url_to_clipboard_after_post = 1
 endif " }}}
-if dein#is_sourced('vim-gista') " {{{
+if s:is_plugged('vim-gista') " {{{
   let g:gista#github_user = 'violetyk'
   let g:gista#close_list_after_open = 1
 endif " }}}
-if dein#is_sourced('jedi.vim') " {{{
+if s:is_plugged('jedi.vim') " {{{
   let g:jedi#completions_enabled = 0
   let g:jedi#auto_vim_configuration = 0
 endif " }}}
-if dein#is_sourced('previm') " {{{
+if s:is_plugged('previm') " {{{
   let g:previm_show_header = 0
 endif " }}}
-if dein#is_sourced('vdebug') " {{{
+if s:is_plugged('vdebug') " {{{
   let g:vdebug_keymap = {
   \    "run" : "<F5>",
   \    "run_to_cursor" : "<F9>",
@@ -1495,12 +1448,12 @@ let g:rspec_runner = "os_x_iterm"
 nnoremap <silent><leader>s :<C-u>call Run
 nnoremap <silent><leader>t :<C-u>call RunNearestSpec()<CR>
 " }}}
-if dein#is_sourced('vim-over') "{{{
+if s:is_plugged('vim-over') "{{{
   nnoremap <expr> s* ':<C-u>OverCommandLine %s/\<' . expand('<cword>') . '\>/<CR>'
   vnoremap <expr> s ":<C-u>OverCommandLine '<,'>s/<CR>"
 endif
 " }}}
-if dein#is_sourced('switch.vim') "{{{
+if s:is_plugged('switch.vim') "{{{
   let g:switch_mapping = "-"
 endif
 " }}}
