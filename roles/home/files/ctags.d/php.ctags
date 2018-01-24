@@ -1,0 +1,5 @@
+--append=yes
+--recurse=yes
+--tag-relative=no
+--langmap=php:.php
+--php-kinds=cdfint

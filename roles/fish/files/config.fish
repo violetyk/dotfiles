@@ -8,7 +8,7 @@ function fish_user_key_bindings
   bind \cr peco_select_history
   bind \cb peco_select_git_checkout
   bind \cj peco_select_fd_edit
-  bind \cf peco_select_fd_cd
+  bind \cg peco_select_fd_cd
 end
 
 if status --is-interactive

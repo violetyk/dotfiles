@@ -34,7 +34,7 @@
         - zshenv
         - zshrc
         - zsh
-        - ctags
+        - ctags.d
         - my.cnf
         - pryrc
         - tigrc
@@ -70,6 +70,7 @@
         - redis
         - mysql
         - ctags
+        - { name: universal-ctags/universal-ctags/universal-ctags, state: head }
         - automake
         - pkg-config
         - { name: ricty, install_options: 'powerline,vim-powerline' }

@@ -67,7 +67,10 @@ Plug 'scrooloose/nerdtree'
 
 " outliner
 Plug 'majutsushi/tagbar'
+
+" ctags support
 Plug 'vim-php/tagbar-phpctags.vim'
+Plug 'jszakmeister/markdown2ctags', {'rtp': ''}
 
 " database
 Plug 'vim-scripts/dbext.vim'
@@ -117,7 +120,6 @@ Plug 'cespare/vim-toml',  {'for' : 'toml'}
 " markdown
 Plug 'godlygeek/tabular', {'for' : ['markdown', 'md']}
 Plug 'kannokanno/previm', {'for' : ['markdown', 'md']}
-Plug 'jszakmeister/markdown2ctags', {'rtp': ''}
 
 " javascript
 Plug 'marijnh/tern_for_vim', {'for' : 'javascript'}
@@ -180,7 +182,7 @@ Plug '~/src/github.com//violetyk/iikanji-markdown.vim'
 Plug '~/src/github.com//violetyk/neocomplete-php.vim'
 Plug '~/src/github.com//violetyk/neosnippet-aws-cloud-formation'
 Plug '~/src/github.com//violetyk/neosnippet-cakephp2'
-Plug '~/src/github.com//violetyk/neosnippet-rails'
+Plug '~/src/github.com//violetyk/neosnippet-rails', { 'for' : ['ruby', 'rtb', 'slim', 'haml'] }
 Plug '~/src/github.com//violetyk/scratch-utility'
 
 call plug#end()
@@ -526,8 +528,8 @@ nnoremap gh gT
 " 縦分割版gf
 nnoremap gs :vertical wincmd f<CR>
 
-" タグジャンプで複数ある時は一覧表示
-nnoremap <C-]> g<C-]><Space>
+" タグジャンプで複数ある時は一覧表示 -> unite.vimへ移管
+" nnoremap <C-]> g<C-]><Space>
 
 " 移動量の調節
 nnoremap <C-e> 10<C-e>
@@ -721,7 +723,7 @@ command! -nargs=? -complete=file OpenAtom call s:open_file_in('atom', <q-args>)
 " }}}
 
 " Plugin Settings {{{
-function s:is_plugged(name)
+function! s:is_plugged(name)
   if exists('g:plugs') && has_key(g:plugs, a:name) && isdirectory(g:plugs[a:name].dir)
     return 1
   else
@@ -752,71 +754,6 @@ if s:is_plugged('nerdtree') " {{{
 
   let NERDTreeHijackNetrw = 0
   let NERDTreeAutoCenter = 0
-endif " }}}
-if s:is_plugged('taglist.vim') " {{{
-  let Tlist_Ctags_Cmd = "ctags"
-
-  let Tlist_Inc_Winwidth = 1
-  "taglistのウィンドウが最後のウィンドーならばVimを閉じる
-  let Tlist_Exit_OnlyWindow = 1
-  " Do not close tags for other files
-  let Tlist_File_Fold_Auto_Close = 1
-  let Tlist_Process_File_Always = 1
-  " Do not show folding tree
-  let Tlist_Enable_Fold_Column = 0
-  " 現在編集中のソースのタグしか表示しない
-  let Tlist_Show_One_File = 1
-  " 左右分割ではなく上下分割を使う。
-  let Tlist_Use_Horiz_Window = 0
-  let Tlist_WinHeight = 10
-  " 左右分割の時に右側にだす
-  let Tlist_Use_Right_Window = 1
-  let Tlist_WinWidth = 40
-
-  " Sort by the order
-  let Tlist_Sort_Type = "order"
-  " Do not display the help info
-  let Tlist_Compact_Format = 1
-
-  let g:Tlist_php_settings = 'php;c:class;f:function'
-
-  " nnoremap <silent> <Leader>t :TlistOpen<CR>
-
-  " ~/.ctags に設定を書くことにした。
-  " --langmapは次のように調べられる。
-  " $ ctags --list-maps
-  " PHP      *.php *.php3 *.phtml
-
-  " --php-typesは次のように調べられる。
-  " $ ctags --list-kinds=php
-  " c  classes
-  " i  interfaces
-  " d  constant definitions
-  " f  functions
-  " v  variables
-  " j  javascript functions
-
-  nmap <silent> <F12> :!ctags -R -f %:p:h/tags ./<CR>
-  if has('path_extra')
-
-    " 現ディレクトリ含む親ディレクトリをさかのぼってtagsファイルを指定
-    " set tags=tags;
-
-    " 上だとルートまでさかのぼっちゃうので;以降に特定のディレクトリを指定して、さかのぼり上限を設定。
-    " set tags+=tags;$HOME
-    set tags=tags;$HOME,$HOME/tags/*.tags
-
-    " 現在のディレクトリからした全てのtagsを読み込む。
-    " set tags=./**/tags;
-
-    " **は30階層が上限なので、上記だと処理が重くなる可能性がある。階層の深さの上限を指定するやりかた。
-    " set " tags=./**3/tags;
-
-    " 現在のディレクトリから上はルート、下は全部さかのぼってtagsファイルを読み込む。
-    " set " tags=**;
-  else
-    set tags=./tags,tags
-  endif
 endif " }}}
 if s:is_plugged('neocomplete.vim') " {{{
   " Disable AutoComplPop.
@@ -1457,16 +1394,18 @@ if s:is_plugged('switch.vim') "{{{
   let g:switch_mapping = "-"
 endif
 " }}}
+if s:is_plugged('php-doc-modded') "{{{
+  nnoremap <Leader>d :<C-u>call PhpDocSingle()<CR>a 
+  let g:pdv_cfg_autoEndClass = 0
+  let g:pdv_cfg_autoEndFunction = 0
+  let g:pdv_cfg_annotation_Package = 0
+  let g:pdv_cfg_annotation_Version = 0
+  let g:pdv_cfg_annotation_Author = 0
+  let g:pdv_cfg_annotation_Copyright = 0
+  let g:pdv_cfg_annotation_License = 0
+endif
+" }}}
 
-" php-doc-modded
-nnoremap <Leader>d :<C-u>call PhpDocSingle()<CR>a 
-let g:pdv_cfg_autoEndClass = 0
-let g:pdv_cfg_autoEndFunction = 0
-let g:pdv_cfg_annotation_Package = 0
-let g:pdv_cfg_annotation_Version = 0
-let g:pdv_cfg_annotation_Author = 0
-let g:pdv_cfg_annotation_Copyright = 0
-let g:pdv_cfg_annotation_License = 0
 " }}}
 
 filetype plugin indent on

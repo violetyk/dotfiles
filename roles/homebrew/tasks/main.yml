@@ -29,5 +29,5 @@
 - name: build font information caches
   command: fc-cache -vf
 
-- name: brew cleanup
-  command: brew cleanup
+# - name: brew cleanup
+  # command: brew cleanup
