@@ -1,0 +1,59 @@
+window:
+  dimensions:
+    columns: 250
+    lines: 100
+
+font:
+  normal:
+    family: Ricty for Powerline
+    style: Regular
+  bold:
+    family: Ricty for Powerline
+  italic:
+    family: Ricty for Powerline
+  size: 13.0
+  offset:
+    x: 1
+    y: 0
+  glyph_offset:
+    x: 0
+    y: 0
+
+colors:
+  primary:
+    background: '0x111921'
+    foreground: '0xebe6d7'
+  cursor:
+    text: '0xebe6d7'
+    cursor: '0xf6a71c'
+  normal:
+    black:   '0x000000'
+    red:     '0xff4c41'
+    green:   '0xc4d264'
+    yellow:  '0xeccd58'
+    blue:    '0x40b2e0'
+    magenta: '0xf5878a'
+    cyan:    '0xa3e9d4'
+    white:   '0xfeffff'
+  bright:
+    black:   '0x414141'
+    red:     '0xff7c77'
+    green:   '0xedfb95'
+    yellow:  '0xfff68b'
+    blue:    '0x77dcff'
+    magenta: '0xffb4b8'
+    cyan:    '0xd0fefd'
+    white:   '0xfeffff'
+  dim:
+    black:   '0x333333'
+    red:     '0xf2777a'
+    green:   '0x99cc99'
+    yellow:  '0xffcc66'
+    blue:    '0x6699cc'
+    magenta: '0xcc99cc'
+    cyan:    '0x66cccc'
+    white:   '0xdddddd'
+
+mouse:
+  hide_when_typing: true
+
