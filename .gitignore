@@ -1,2 +1,5 @@
 *.retry
 .DS_Store
+
+roles/home/files/vim/autoload/ 
+roles/home/files/vim/ftplugin/
