@@ -87,6 +87,7 @@
 [core]
   editor = /Applications/MacVim.app/Contents/MacOS/Vim -c \"set fenc=utf-8\"
   excludesfile = ~/.gitignore
+	autoCRLF = false
 
 [diff]
   tool = /Applications/MacVim.app/Contents/MacOS/vimdiff
@@ -110,3 +111,4 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	required = true
+	process = git-lfs filter-process

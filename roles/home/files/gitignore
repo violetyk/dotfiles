@@ -20,6 +20,8 @@ core.local.php
 # debug
 kagaya/
 [Kk]agaya*.php
+[Kk]agaya*.yml
+[Kk]agaya*.html
 
 # other
 __pycache__
