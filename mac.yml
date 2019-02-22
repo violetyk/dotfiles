@@ -3,84 +3,87 @@
   roles:
     - role: home
       tags: home
-      home_directories:
-        - bin
-        - tmp
-        - etc/profile.d
-        - swap
-        - undo
-        - backup
-        - tags
-        - src
-        - .trash
-        - .tmux
-        - .config/fish/conf.d
-      home_download_profiles:
-        - https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh
-      home_dotfiles:
-        - gitignore
-        - agignore
-        - gitconfig
-        - aliases
-        - functions
-        - commonprofile
-        - bashrc
-        - profile
-        - zsh
-        - zlogin
-        - zlogout
-        - zpreztorc
-        - zprofile
-        - zshenv
-        - zshrc
-        - zsh
-        - ctags.d
-        - my.cnf
-        - pryrc
-        - tigrc
-        - tmux.conf
-        - rspec
-        - vim
-        - vimrc
-        - gvimrc
-        - { name: Guardfile, hide: False }
-    - role: homebrew
-      tags: homebrew
-      homebrew_repositories:
-        - sanemat/font
-      homebrew_packages:
-        - git
-        - git-lfs
-        - hub
-        - gibo
-        - hg
-        - wget
-        - w3m
-        - tig
-        - ag
-        - tmux
-        - reattach-to-user-namespace
-        - libevent
-        - fontforge
-        - bash-completion
-        - openssl
-        - coreutils
-        - nodejs
-        - memcached
-        - redis
-        - mysql
-        - ctags
-        - { name: universal-ctags/universal-ctags/universal-ctags, state: head }
-        - automake
-        - pkg-config
-        - { name: ricty, install_options: 'powerline,vim-powerline' }
-        - jq
-        - ghq
-        - direnv
-        - peco
-        - fd
-        - pyenv
-        - pyenv-virtualenv
+      home:
+        directories:
+          - bin
+          - tmp
+          - etc/profile.d
+          - swap
+          - undo
+          - backup
+          - tags
+          - src
+          - .trash
+          - .tmux
+          - .config/fish/conf.d
+        download_profiles:
+          - https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh
+        dotfiles:
+          - gitignore
+          - agignore
+          - gitconfig
+          - aliases
+          - functions
+          - commonprofile
+          - bashrc
+          - profile
+          - zsh
+          - zlogin
+          - zlogout
+          - zpreztorc
+          - zprofile
+          - zshenv
+          - zshrc
+          - zsh
+          - ctags.d
+          - my.cnf
+          - pryrc
+          - tigrc
+          - tmux.conf
+          - rspec
+          - vim
+          - vimrc
+          - gvimrc
+          - { name: Guardfile, hide: False }
+          - alacritty.yml
+    - role: brew
+      tags: brew
+      brew:
+        repositories:
+          - sanemat/font
+        formulae:
+          - git
+          - git-lfs
+          - hub
+          - gibo
+          - hg
+          - wget
+          - w3m
+          - tig
+          - ag
+          - tmux
+          - reattach-to-user-namespace
+          - libevent
+          - fontforge
+          - bash-completion
+          - openssl
+          - coreutils
+          - nodejs
+          - memcached
+          - redis
+          - mysql
+          - ctags
+          - { name: universal-ctags/universal-ctags/universal-ctags, state: head }
+          - automake
+          - pkg-config
+          - { name: ricty, install_options: 'powerline,vim-powerline' }
+          - jq
+          - ghq
+          - direnv
+          - peco
+          - fd
+          - pyenv
+          - pyenv-virtualenv
     # - role: vim
     - role: source-highlight
       tags: source-highlight
@@ -88,8 +91,8 @@
       tags: awscli
     - role: fish
       tags: fish
-    # - role: zsh
-      # tags: zsh
+    - role: zsh
+      tags: zsh
     - role: dircolors
       tags: dircolors
     - role: php
@@ -100,12 +103,15 @@
     - role: golang
       tags: golang
       golang_get_repositories:
-        - golang.org/x/tools/cmd/goimports
-        - golang.org/x/tools/cmd/godoc
-        # - golang.org/x/tools/cmd/vet
-        - golang.org/x/tools/cmd/cover
-        - github.com/nsf/gocode
+        # - golang.org/x/tools/cmd/goimports
+        # - golang.org/x/tools/cmd/cover
+        # - golang.org/x/tools/cmd/godoc
+        - golang.org/x/tools/cmd/...
+        - github.com/golang/lint/golint
         - github.com/golang/lint
+        - github.com/motemen/gore
+        - github.com/nsf/gocode
+        - github.com/k0kubun/pp
         - github.com/rogpeppe/godef
         - github.com/jstemmer/gotags
         - github.com/mattn/gom

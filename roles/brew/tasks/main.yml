@@ -3,7 +3,7 @@
   homebrew_tap: >
     tap='{{item}}'
     state=present
-  with_items: '{{homebrew_repositories}}'
+  with_items: '{{brew.repositories}}'
 
 - name: brew update
   homebrew: update_homebrew=yes
@@ -16,7 +16,7 @@
     name={{ item.name | default(item) }}
     state={{ item.state | default('latest') }}
     install_options={{ item.install_options | default('') }}
-  with_items: '{{homebrew_packages}}'
+  with_items: '{{brew.formulae}}'
 
 - name: retrieve the list of generated ricty fonts
   shell: "brew info ricty | grep -e '^  /usr/local/Cellar/ricty/.*\\.ttf$' | xargs -I echo"
