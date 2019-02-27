@@ -22,6 +22,7 @@
     force=yes
   with_items:
     - config.fish
+    - functions/ls.fish
     - functions/peco_select_history.fish
     - functions/peco_select_ghq_look.fish
     - functions/peco_select_git_checkout.fish

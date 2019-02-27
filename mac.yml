@@ -27,14 +27,14 @@
           - commonprofile
           - bashrc
           - profile
-          - zsh
-          - zlogin
-          - zlogout
-          - zpreztorc
-          - zprofile
-          - zshenv
-          - zshrc
-          - zsh
+          # - zsh
+          # - zlogin
+          # - zlogout
+          # - zpreztorc
+          # - zprofile
+          # - zshenv
+          # - zshrc
+          # - zsh
           - ctags.d
           - my.cnf
           - pryrc
@@ -91,8 +91,8 @@
       tags: awscli
     - role: fish
       tags: fish
-    - role: zsh
-      tags: zsh
+    # - role: zsh
+      # tags: zsh
     - role: dircolors
       tags: dircolors
     - role: php
