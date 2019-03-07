@@ -3,7 +3,6 @@ set -x EDITOR vim
 set -x VISUAL vim
 set -x XDG_CONFIG_HOME ~/.config
 
-set -U fish_user_paths /usr/local/bin $fish_user_paths
 # add local for local setting to ~/.config/fish/conf.d/local.fish
 
 function fish_user_key_bindings

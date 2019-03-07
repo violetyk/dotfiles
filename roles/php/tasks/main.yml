@@ -1,36 +1,26 @@
 ---
-- name: brew tap
-  homebrew_tap: tap={{ item }} state=present
-  with_items:
-    - homebrew/dupes
-    - homebrew/versions
-    - homebrew/php
-
 - name: brew install php
   homebrew: >
     name={{ item }}
     state=latest
   with_items:
-    - php71
-    - php71-mcrypt
+    - php@7.1
     - composer
-    - phpctags
-    - psysh
 
 - name: place a profile file
   copy:
     dest: '{{ ansible_env.HOME }}/etc/profile.d/php'
     content: |
       if which brew > /dev/null 2>&1; then
-        export PATH="$(brew --prefix homebrew/php/php71)/bin:$PATH"
+        export PATH="$(brew --prefix php@7.1)/bin:$PATH"
       fi
-      export PATH=$HOME/.composer/vendor/bin:$PATH
+      export PATH=$HOME/.config/composer/vendor/bin:$PATH
 
 - name: place a fish config
   copy:
     dest: '{{ ansible_env.HOME }}/.config/fish/conf.d/php.fish'
     content: |
       if type -q brew
-        set -x PATH (brew --prefix homebrew/php/php71)/bin $PATH
+        set -x PATH (brew --prefix php@7.l)/bin $PATH
       end
-      set -x PATH $HOME/.composer/vendor/bin $PATH
+      set -x PATH $HOME/.config/composer/vendor/bin $PATH
