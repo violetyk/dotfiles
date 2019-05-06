@@ -20,7 +20,7 @@ call plug#begin(s:plugin_dir)
 " base
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'vim-jp/vimdoc-ja'
-if has('lua') | Plug 'Shougo/neocomplete.vim' | endif
+" if has('lua') | Plug 'Shougo/neocomplete.vim' | endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neossh.vim'
@@ -53,7 +53,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise', { 'for' : 'ruby' }
 Plug 'vim-scripts/Modeliner'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'cohama/lexima.vim'
+" Plug 'cohama/lexima.vim'
 Plug 'osyo-manga/vim-over'
 Plug 'AndrewRadev/switch.vim'
 
@@ -62,11 +62,32 @@ Plug 'akiyan/vim-textobj-php', { 'for' : ['php', 'ctp', 'html'] }
 Plug 'akiyan/vim-textobj-xml-attribute'
 Plug 'rhysd/vim-textobj-ruby', { 'for' : ['ruby', 'rtb', 'slim', 'haml'] }
 
+" completion
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+
+" lsp
+Plug 'junegunn/fzf'
+Plug 'autozimu/LanguageClient-neovim', {
+\ 'branch': 'next',
+\ 'do': 'bash install.sh',
+\ }
+
+" (Completion plugin option 1)
+" Plug 'roxma/nvim-completion-manager'
+" (Completion plugin option 2)
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+
+
+
+
 " filer
 Plug 'scrooloose/nerdtree'
 
 " outliner
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
 
 " ctags support
 Plug 'vim-php/tagbar-phpctags.vim'
@@ -81,7 +102,7 @@ Plug 'sgur/vim-gf-autoload'
 Plug 't9md/vim-choosewin'
 
 " sign
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 
 " search
 Plug 'osyo-manga/vim-anzu'
@@ -94,12 +115,18 @@ Plug 'tyru/open-browser-github.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'takahirojin/gbr.vim'
 
+" reference
+Plug 'rizzatti/dash.vim'
+
 " Vim script
 Plug 'thinca/vim-prettyprint', { 'for' : 'vim' }
 
 " php
 Plug 'joonty/vdebug', {'for' : 'php'}
 Plug 'Rican7/php-doc-modded', {'for' : 'php'}
+
+" twig
+Plug 'lumiliet/vim-twig', {'for' : 'html.twig'}
 
 " ruby
 Plug 'vim-ruby/vim-ruby', {'for' : 'ruby'}
@@ -111,7 +138,9 @@ Plug 'tpope/vim-dispatch', {'for' : 'ruby'}
 Plug 'thoughtbot/vim-rspec', {'for' : 'ruby'}
 
 " golang
+Plug 'fatih/vim-go', {'for' : 'go'}
 Plug 'vim-jp/vim-go-extra', {'for' : 'go'}
+Plug 'nsf/gocode', {'for' : 'go', 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'dgryski/vim-godef', {'for' : 'go', 'rtp' : $GOPATH . '/src/github.com/nsf/gocode/vim'}
 
 " toml
@@ -133,7 +162,8 @@ Plug 'kchmck/vim-coffee-script', {'for' : 'coffee'}
 
 " typescript
 Plug 'leafgarland/typescript-vim', {'for' : 'typescript'}
-Plug 'clausreinke/typescript-tools', {'for' : 'typescript'}
+" Plug 'clausreinke/typescript-tools', {'for' : 'typescript'}
+Plug 'clausreinke/typescript-tools.vim', { 'do': 'npm install' }
 
 " python
 Plug 'davidhalter/jedi-vim', {'for' : 'python'}
@@ -141,7 +171,7 @@ Plug 'sophacles/vim-bundle-mako', {'for' : 'mako'}
 Plug 'hynek/vim-python-pep8-indent', {'for' : 'python'}
 
 " syntax checking
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 
 " statusline
 Plug 'itchyny/lightline.vim'
@@ -160,11 +190,17 @@ Plug 'othree/html5.vim'
 " css
 Plug 'hail2u/vim-css3-syntax'
 
+" pug
+Plug 'digitaltoad/vim-pug', {'for' : 'pug'}
+
 " nginx
 Plug 'chr4/nginx.vim', {'for' : 'nginx'}
 
 " jinja2
 Plug 'Glench/Vim-Jinja2-Syntax'
+
+" vue
+Plug 'posva/vim-vue'
 
 " fish
 Plug 'dag/vim-fish', {'for' : 'fish'}
@@ -193,6 +229,7 @@ call plug#end()
 
 " ビープ音を鳴らさない
 set vb t_vb=
+
 " バックスペースキーで削除できるものを指定
 " indent  : 行頭の空白
 " eol     : 改行
@@ -201,9 +238,6 @@ set backspace=indent,eol,start
 
 "<Leader>の設定
 let mapleader = ","
-
-" 日本語ヘルプフリーズ問題対策。
-set notagbsearch
 
 " ヘルプファイルの検索順
 set helplang=ja,en
@@ -226,16 +260,9 @@ set splitright
 " 補完時、現在選択中の候補の付加情報を表示しない。
 set completeopt-=menu,preview
 
-" 正規表現エンジンの設定
-" set regexpengine=0
-
 " pasteモードの切り替えマッピング
-set pastetoggle=<C-p>
+set pastetoggle=<Leader>p
 
-" }}}
-
-" Mouse: {{{
-set mouse=
 " }}}
 
 " Encoding {{{
@@ -258,6 +285,10 @@ set fileformats=unix,dos,mac
 " □とか○の文字があってもカーソル位置がずれないようにする
 set ambiwidth=double
 
+" }}}
+
+" Mouse: {{{
+set mouse=
 " }}}
 
 " Indent & Tab (Base) {{{
@@ -300,21 +331,14 @@ augroup Backup
 augroup END
 
 " バックアップファイルを作るディレクトリ
-if has('win32') || has('win64')
-  set backupdir=$VIM/backup
-else
-  set backupdir=$HOME/backup
-endif
+set backupdir=$HOME/backup
 
 " スワップファイルをつくる
 set swapfile
 
 " スワップファイルを作るディレクトリ
-if has('win32') || has('win64')
-  set directory=$VIM/swap
-else
-  set directory=$HOME/swap
-endif
+set directory=$HOME/swap
+
 " スワップファイルの更新間隔文字数
 set updatecount=500
 
@@ -345,7 +369,6 @@ set smartcase
 set wrapscan
 
 " インクリメンタルサーチの使用
-"set noincsearch
 set incsearch
 
 " コマンドライン補完を拡張モードにする
@@ -362,14 +385,8 @@ set showfulltag
 
 " Window {{{
 
-" タイトルをウインドウ枠に表示する
-set title
-
 " 行番号
 set number
-
-" ルーラーを表示
-"set ruler
 
 " タブ文字を CTRL-I（デフォルト） で表示し、行末に $ で表示する
 set list
@@ -389,9 +406,6 @@ set showmatch
 " 対応する括弧の表示時間を2にする
 set matchtime=2
 
-" シンタックスハイライトを有効にする
-syntax on
-
 " 検索結果文字列のハイライトを有効にする
 set hlsearch
 
@@ -401,11 +415,6 @@ set textwidth=0
 
 " ウィンドウの幅より長い行でも折り返さない
 set nowrap
-
-" カーソルラインを表示させる
-" set cursorline
-" カーソル列を表示させる
-" set cursorcolumn
 
 " マクロ/レジスタの内容/キーボードから打ち込まれないコマンド を実行する管は再描画しない
 set lazyredraw
@@ -431,10 +440,9 @@ set cmdheight=2
 
 " }}}
 
-" Coloring {{{
+" Syntax highlighting {{{
 
-" 色のチェック方法
-" :so $VIMRUNTIME/syntax/colortest.vim
+syntax enable
 
 " カラースキーマの指定
 set termguicolors
@@ -445,34 +453,6 @@ set termguicolors
 silent! colorscheme jellybeans
 " silent! colorscheme mrkn256
 
-" 補完の色を変更
-" hi Pmenu ctermfg=Black ctermbg=Grey
-" hi PmenuSel ctermbg=Blue
-" hi PmenuSbar ctermbg=Cyan
-
-" 対応する括弧の色を控えめにしておく
-" hi MatchParen term=standout ctermbg=LightGrey ctermfg=Black guibg=LightGrey guifg=Black
-
-" 全角スペースのハイライト
-function! s:highlight_zenkaku_space()
-  " エラーと同じ色
-  highlight link ZenkakuSpace Error
-  "highlight ZenkakuSpace cterm=underline ctermfg=red guibg=red
-
-  "全角スペースを明示的に表示する。
-  silent! match ZenkakuSpace /　/
-endfunction
-if has('syntax')
-  augroup ZenkakuSpace
-    autocmd!
-    autocmd VimEnter,BufEnter,WinEnter * nested call <SID>highlight_zenkaku_space()
-  augroup END
-endif
-
-highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=22
-highlight DiffDelete cterm=bold ctermfg=10 ctermbg=52
-highlight DiffChange cterm=bold ctermfg=10 ctermbg=17
-highlight DiffText   cterm=bold ctermfg=10 ctermbg=21
 " }}}
 
 " Keybind {{{
@@ -569,8 +549,8 @@ vnoremap ; t;
 vnoremap , t,
 
 " 貼り付けの後「=」でフォーマッティングは面倒なので、いつでもカレント行のインデントにあわせた貼り付けをする。
-nnoremap p ]p
-nnoremap P ]P
+nnoremap p ""]p
+nnoremap P ""]P
 
 " カーソル位置の単語を置換 s* と打鍵してから置き換え文字を打って /g エンターで発動。
 nnoremap <expr> s* ':%substitute/\<' . expand('<cword>') . '\>/'
@@ -580,6 +560,9 @@ nnoremap <Space>m :<C-u>marks<Space>
 nnoremap <Space>r :<C-u>registers<Space>
 
 " 行末に;を追加する。
+function! s:is_endof_line(char) " {{{
+  return getline(".")[col("$")-2] == a:char
+endfunction " }}}
 inoremap <expr>;; <SID>is_endof_line(";") ? "<C-O>$" : "<C-O>$;"
 nnoremap <expr>;; <SID>is_endof_line(";") ? "$" : "$a;<Esc>"
 
@@ -616,7 +599,68 @@ nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
 
 " Auto Commands {{{
 
-augroup MyAutoCommands
+" 色のチェック方法
+" :source $VIMRUNTIME/syntax/colortest.vim
+
+augroup vimrc-highlight
+  autocmd!
+  autocmd ColorScheme * :call s:define_my_highlights()
+  autocmd VimEnter,BufEnter,WinEnter * nested call <SID>highlight_zenkaku_space()
+
+  function! s:define_my_highlights() abort
+    highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=22
+    highlight DiffDelete cterm=bold ctermfg=10 ctermbg=52
+    highlight DiffChange cterm=bold ctermfg=10 ctermbg=17
+    highlight DiffText   cterm=bold ctermfg=10 ctermbg=21
+  endfunction
+
+  function! s:highlight_zenkaku_space() abort
+    if has('syntax')
+      " エラーと同じ色
+      highlight link ZenkakuSpace Error
+      "highlight ZenkakuSpace cterm=underline ctermfg=red guibg=red
+
+      "全角スペースを明示的に表示する。
+      silent! match ZenkakuSpace /　/
+    endif
+  endfunction
+augroup END
+
+" https://thinca.hatenablog.com/entry/20090530/1243615055
+augroup vimrc-auto-cursorline
+  autocmd!
+  autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
+  autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
+  autocmd WinEnter * call s:auto_cursorline('WinEnter')
+  autocmd WinLeave * call s:auto_cursorline('WinLeave')
+
+  let s:cursorline_lock = 0
+  function! s:auto_cursorline(event) abort
+    if get(b:, 'cursorline_disable', 0)
+      return
+    endif
+    if a:event ==# 'WinEnter'
+      setlocal cursorline
+      let s:cursorline_lock = 2
+    elseif a:event ==# 'WinLeave'
+      setlocal nocursorline
+    elseif a:event ==# 'CursorMoved'
+      if s:cursorline_lock
+        if 1 < s:cursorline_lock
+          let s:cursorline_lock = 1
+        else
+          setlocal nocursorline
+          let s:cursorline_lock = 0
+        endif
+      endif
+    elseif a:event ==# 'CursorHold'
+      setlocal cursorline
+      let s:cursorline_lock = 1
+    endif
+  endfunction
+augroup END
+
+augroup vimrc-misc
   autocmd!
 
   " カーソル位置を記憶する
@@ -625,71 +669,22 @@ augroup MyAutoCommands
      \   exe "normal g`\"" |
      \ endif
 
-  " javascript って打つのがめんどくさいので js にする
   autocmd FileType js setlocal ft=javascript
+  autocmd FileType md setlocal ft=markdown
 
-  " :vimgrep や :makeしたときに自動的にQuickFixを開く
-  " autocmd QuickfixCmdPost make,grep,grepadd,vimgrep copen
-
-  " ウィンドウを移動する度に外部で変更のあったファイルを自動的に読み直す
-  " 関連：autoread
-  autocmd WinEnter * checktime
+  " autoreadに加え、外部で変更のあったファイルを自動的に読み直す
+  autocmd WinEnter,FocusGained * checktime
 
 augroup END
+
 
 " }}}
 
 " Commands {{{
 
-" 戦闘力を計測
-function! s:scouter(file, ...) " {{{
-  let pat = '^\s*$\|^\s*"'
-  let lines = readfile(a:file)
-  if !a:0 || !a:1
-    let lines = split(substitute(join(lines, "\n"), '\n\s*\\', '', 'g'), "\n")
-  endif
-  return len(filter(lines,'v:val !~ pat'))
-endfunction " }}}
-command! -bar -bang -nargs=? -complete=file Scouter echo <SID>scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
+command! -nargs=0 Yankfilename let @" = expand("%:t") | echo printf('yank: %s', @")
+command! -nargs=0 Yankfilepath let @" = expand("%:p") | echo printf('yank: %s', @")
 
-" cdpathからcdする
-function! CompleteCD(arglead, cmdline, cursorpos) " {{{
-  let pattern = join(split(a:cmdline, '\s', !0)[1:], '') . '*/'
-  return split(globpath(&cdpath, pattern), "\n")
-endfunction " }}}
-command! -complete=customlist,CompleteCD -nargs=? CD cd <args>
-
-" コマンドラインの時だけcdをCDとして略語展開
-cnoreabbrev <expr> cd
-      \ (getcmdtype() == ':' && getcmdline() ==# 'cd') ? 'CD' : 'cd'
-
-
-" ファイル名やパスなどのヤンク
-function! s:yank_file_name() "{{{
-  let @" = expand("%:t")
-endfunction "}}}
-command! -nargs=0 Yankfilename call s:yank_file_name() | echo printf('yank: %s', @")
-function! s:yank_file_path() "{{{
-  let @" = expand("%:p")
-endfunction "}}}
-command! -nargs=0 Yankfilepath call s:yank_file_path() | echo printf('yank: %s', @")
-
-" 行末の文字が引数の1文字かどうか
-function! s:is_endof_line(char) " {{{
-  return getline(".")[col("$")-2] == a:char
-endfunction " }}}
-
-" historyを読み込む
-function! s:BashHistory(...) " {{{
-  if a:0 == 1
-    let limit = a:1
-  else
-    let limit = ''
-  endif
-  let cmd = 'echo ''history ' . limit . ''' | bash -i 2>/dev/null | sed -e ''s/.*\x07//g'' | awk ''{ $1=""; print $0}'''
-  silent exec ':r !' . cmd
-endfunction " }}}
-command! -nargs=? BashHistory :call s:BashHistory(<f-args>)
 
 function! s:Copy() range " {{{
   let l:tmp = @@
@@ -745,7 +740,7 @@ if s:is_plugged('nerdtree') " {{{
   " カーソル行を強調する場合1
   let NERDTreeHighlightCursorline = 1
   " NERDTreeウィンドウのサイズ
-  let NERDTreeWinSize = 30
+  let NERDTreeWinSize = 50
   " NERDTreeウィンドウを横に表示するか上に表示するか
   let NERDTreeWinPos = "left"
 
@@ -755,6 +750,47 @@ if s:is_plugged('nerdtree') " {{{
   let NERDTreeHijackNetrw = 0
   let NERDTreeAutoCenter = 0
 endif " }}}
+if s:is_plugged('LanguageClient-neovim') " {{{
+  " Required for operations modifying multiple buffers like rename.
+  set hidden
+  set formatexpr=LanguageClient_textDocument_rangeFormatting()
+
+  let g:LanguageClient_serverCommands = {
+        \ 'php': ['php', $XDG_CONFIG_HOME . '/composer/vendor/felixfbecker/language-server/bin/php-language-server.php'],
+        \ }
+
+  let g:LanguageClient_changeThrottle = 0.1
+  " let g:LanguageClient_selectionUI = 'fzf'
+  " let g:LanguageClient_selectionUI = 'location-list'
+
+  " Disable diagnostics
+  let g:LanguageClient_diagnosticsEnable = 0
+  let g:LanguageClient_autoStart = 1
+
+  let g:LanguageClient_rootMarkers = ['.git', '.github', '.circleci', 'circle.yml', '.editorconfig', 'Gemfile', 'composer.json']
+
+  nnoremap <silent> K :<c-u>call LanguageClient_textDocument_hover()<CR>
+  nnoremap <silent> gd :<c-u>call LanguageClient_textDocument_definition()<CR>
+  " nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+  " let g:LanguageClient_windowLogMessageLevel = 'INFO'
+  " let g:LanguageClient_loggingLevel = 'INFO'
+
+
+
+  if s:is_plugged('deoplete.nvim')
+    let g:deoplete#enable_at_startup = 1
+
+    augroup PluginDeoplete
+      autocmd!
+      autocmd FileType php setlocal omnifunc=LanguageClient#complete | setlocal completefunc=LanguageClient#complete
+    augroup END
+  endif
+
+endif " }}}
+
+
+
 if s:is_plugged('neocomplete.vim') " {{{
   " Disable AutoComplPop.
   let g:acp_enableAtStartup = 0
@@ -1250,7 +1286,7 @@ if s:is_plugged('lightline.vim') " {{{
   endfunction
 
   function! MyCurrentTag()
-    return tagbar#currenttag('%s', '')
+    " return tagbar#currenttag('%s', '')
   endfunction
 
   function! MyCakephp()
@@ -1297,6 +1333,13 @@ if s:is_plugged('syntastic') " {{{
         \ 'map' : 'active',
         \ 'active_filetypes' : ['javascript', 'php'],
         \ }
+  let g:syntastic_html_tidy_ignore_errors=[ 
+        \ 'proprietary attribute "v-',
+        \ 'is not recognized',
+        \ 'discarding unexpected',
+        \ 'missing <li>',
+        \ 'trimming empty <ol>'
+        \] 
 
   nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
   cabbrev <silent> bd lclose\|bdelete
