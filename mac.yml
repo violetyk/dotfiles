@@ -101,7 +101,9 @@
       tags: ruby
       ruby_version: 2.5.0
     - role: golang
-      tags: golang
+      tags:
+        - golang
+        - go
       golang_get_repositories:
         # - golang.org/x/tools/cmd/goimports
         # - golang.org/x/tools/cmd/cover
@@ -115,6 +117,7 @@
         - github.com/rogpeppe/godef
         - github.com/jstemmer/gotags
         - github.com/mattn/gom
+        - github.com/b4b4r07/gist
     - role: vagrant
     - role: packer
     - role: workspace

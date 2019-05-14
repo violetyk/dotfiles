@@ -205,10 +205,6 @@ Plug 'posva/vim-vue'
 " fish
 Plug 'dag/vim-fish', {'for' : 'fish'}
 
-" gist
-Plug 'mattn/gist-vim'
-Plug 'lambdalisue/vim-gista'
-
 " system
 Plug 'mopp/autodirmake.vim'
 
@@ -325,7 +321,7 @@ set nobackup
 " set backupskip = escape(expand('$HOME'), '\') . '/tmp/*'
 
 " バックアップ名の最後に文字列を追加
-augroup Backup
+augroup vimrc-backup
   autocmd!
   autocmd BufWritePre * let &backupext = '-' . strftime("%Y%m%d_%H%M")
 augroup END
@@ -1381,16 +1377,6 @@ if s:is_plugged('github-complete.vim') " {{{
   let g:github_complete_enable_repo_completion = 1
   let g:github_complete_emoji_japanese_workaround = 1
 
-endif " }}}
-if s:is_plugged('gist-vim') " {{{
-  let g:gist_privates = 1
-  let g:gist_detect_filetype = 1
-  let g:gist_show_privates = 1
-  let g:gist_put_url_to_clipboard_after_post = 1
-endif " }}}
-if s:is_plugged('vim-gista') " {{{
-  let g:gista#github_user = 'violetyk'
-  let g:gista#close_list_after_open = 1
 endif " }}}
 if s:is_plugged('jedi.vim') " {{{
   let g:jedi#completions_enabled = 0
