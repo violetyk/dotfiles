@@ -1,6 +1,9 @@
 # A sample Gemfile
 source "https://rubygems.org"
 
+gem 'ec2ssh'
+gem 'git-pr-release', '0.6.0'
+
 # termial
 gem "tmuxinator"
 

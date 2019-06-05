@@ -18,6 +18,9 @@
 - name: set version
   command: rbenv global {{ ruby_version }}
 
+- name: clean gems
+  command: gem uninstall -I -a -x --user-install --force
+
 - name: install bundler
   gem: >
     name=bundler
