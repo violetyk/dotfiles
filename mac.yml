@@ -99,7 +99,7 @@
       tags: php
     - role: ruby
       tags: ruby
-      ruby_version: 2.5.0
+      ruby_version: 2.6.2
     - role: golang
       tags:
         - golang

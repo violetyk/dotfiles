@@ -27,3 +27,4 @@ kagaya/
 __pycache__
 tags
 .agignore
+.vscode

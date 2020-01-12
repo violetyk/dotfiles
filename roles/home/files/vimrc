@@ -102,7 +102,7 @@ Plug 'sgur/vim-gf-autoload'
 Plug 't9md/vim-choosewin'
 
 " sign
-" Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 
 " search
 Plug 'osyo-manga/vim-anzu'
@@ -1214,29 +1214,29 @@ if s:is_plugged('vim-precious') " {{{
         \}
 endif " }}}
 if s:is_plugged('lightline.vim') " {{{
-  let g:lightline = {
-        \ 'colorscheme': 'jellybeans',
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
-        \   'left': [ ['mode', 'paste'], ['fugitive', 'filename', 'cakephp', 'currenttag', 'anzu'] ]
-        \ },
-        \ 'component': {
-        \   'lineinfo': '⭡ %3l:%-2v',
-        \ },
-        \ 'component_function': {
-        \   'modified': 'MyModified',
-        \   'readonly': 'MyReadonly',
-        \   'fugitive': 'MyFugitive',
-        \   'filename': 'MyFilename',
-        \   'fileformat': 'MyFileformat',
-        \   'filetype': 'MyFiletype',
-        \   'fileencoding': 'MyFileencoding',
-        \   'mode': 'MyMode',
-        \   'anzu': 'anzu#search_status',
-        \   'currenttag': 'MyCurrentTag',
-        \   'cakephp': 'MyCakephp',
-        \ }
-        \ }
+  " let g:lightline = {
+        " \ 'colorscheme': 'jellybeans',
+        " \ 'mode_map': {'c': 'NORMAL'},
+        " \ 'active': {
+        " \   'left': [ ['mode', 'paste'], ['fugitive', 'filename', 'cakephp', 'currenttag', 'anzu'] ]
+        " \ },
+        " \ 'component': {
+        " \   'lineinfo': '⭡ %3l:%-2v',
+        " \ },
+        " \ 'component_function': {
+        " \   'modified': 'MyModified',
+        " \   'readonly': 'MyReadonly',
+        " \   'fugitive': 'MyFugitive',
+        " \   'filename': 'MyFilename',
+        " \   'fileformat': 'MyFileformat',
+        " \   'filetype': 'MyFiletype',
+        " \   'fileencoding': 'MyFileencoding',
+        " \   'mode': 'MyMode',
+        " \   'anzu': 'anzu#search_status',
+        " \   'currenttag': 'MyCurrentTag',
+        " \   'cakephp': 'MyCakephp',
+        " \ }
+        " \ }
 
   function! MyModified()
     return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
